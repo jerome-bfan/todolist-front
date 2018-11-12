@@ -7,7 +7,8 @@ import Footer from "components/Footer/Footer";
 import Sidebar from "components/Sidebar/Sidebar";
 
 import { style } from "variables/Variables.jsx";
-
+import awsmobile from '../../aws-exports';
+import Amplify,{API} from 'aws-amplify';
 import dashboardRoutes from "routes/dashboard.jsx";
 
 class Dashboard extends Component {
@@ -18,6 +19,16 @@ class Dashboard extends Component {
     this.state = {
       _notificationSystem: null
     };
+    Amplify.configure(awsmobile);
+
+    API.get('todolist','/user')
+    .then(resp => {
+        this.setState({
+            data: resp
+        });
+        console.log("response is : ", resp);
+    })
+    .catch (err => console.log(err))
   }
   handleNotificationClick(position) {
     var color = Math.floor(Math.random() * 4 + 1);
