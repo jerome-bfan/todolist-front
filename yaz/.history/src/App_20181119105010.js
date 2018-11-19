@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
+import {CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails} from 'amazon-cognito-identity-js';
 import AWS from 'aws-sdk';
 
 var poolData = {
     UserPoolId: 'eu-west-1_HSNdVjAHO', // Your user pool id here
     ClientId: '3k4d9j6bqdh7e36dbk7bnc0qte', // Your client id here
-    region: 'eu-west-1'
+    region : 'eu-west-1'
+
+
 };
 
 class App extends Component {
@@ -19,37 +21,37 @@ class App extends Component {
     }
 
     render() {
-        const { items } = this.state;
+        const {items} = this.state;
 
         return (
             <div className="App">
                 <div className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
+                    <img src={logo} className="App-logo" alt="logo"/>
                     <h2>Welcome to AWS Twitch</h2>
                 </div>
                 <p className="App-intro">
-                    To get sta0b818d58-232c-4a8b-9a31-6692853f5688rted, edit
+                        To get sta0b818d58-232c-4a8b-9a31-6692853f5688rted, edit
                     <code>src/App.js</code>
                     and save to reload.
                 </p>
                 <input type="text" placeholder="email" ref={(input) => {
                     this.email = input
-                }} />
+                }}/>
                 <input type="text" placeholder="username" ref={(input) => {
                     this.username = input
-                }} />
+                }}/>
                 <input type="text" placeholder="phone" ref={(input) => {
                     this.phone = input
-                }} />
+                }}/>
                 <input type="password" placeholder="password" ref={(input) => {
                     this.password = input
-                }} />
+                }}/>
                 <button onClick={(e) => this.doRegister(e)}>Register</button>
                 <button onClick={(e) => this.doLogin(e)}>Login</button>
-                <br />
+                <br/>
                 <input type="text" placeholder="code" ref={(input) => {
                     this.code = input
-                }} />
+                }}/>
                 <button onClick={(e) => this.doConfirm(e)}>Confirm</button>
 
                 {items.map(item => <p>{item.id}</p>)}
@@ -71,12 +73,24 @@ class App extends Component {
         };
         var cognitoUser = new CognitoUser(userData);
         cognitoUser.authenticateUser(authenticationDetails, {
-            onSuccess: function (result) {
+            onSuccess: function(result) {
                 console.log(result);
                 console.log('access token + ' + result.getAccessToken().getJwtToken());
+
+                // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                //     IdentityPoolId : '...', // your identity pool id here
+                //     Logins : {
+                //         // Change the key below according to the specific region your user pool is in.
+                //         'cognito-idp.<region>.amazonaws.com/<YOUR_USER_POOL_ID>' : result.getIdToken().getJwtToken()
+                //     }
+                // });
+
+                // Instantiate aws sdk service objects now that the credentials have been updated.
+                // example: var s3 = new AWS.S3();
+
             },
 
-            onFailure: function (err) {
+            onFailure: function(err) {
                 console.error(err);
             }
         });
@@ -91,7 +105,7 @@ class App extends Component {
 
         var cognitoUser = new CognitoUser(userData);
 
-        cognitoUser.confirmRegistration(this.code.value, true, function (err, result) {
+        cognitoUser.confirmRegistration(this.code.value, true, function(err, result) {
             if (err) {
                 alert(err);
                 return;
@@ -140,7 +154,7 @@ class App extends Component {
         attributeList.push(attributeName)
 
         console.log(`Register User ${username} ${phone} ${email}`);
-        userPool.signUp(username, password, attributeList, null, function (err, result) {
+        userPool.signUp(username, password, attributeList, null, function(err, result) {
             if (err) {
                 console.error(err);
             } else {
@@ -158,7 +172,7 @@ class App extends Component {
         var cognitoUser = userPool.getCurrentUser();
 
         if (cognitoUser != null) {
-            cognitoUser.getSession(function (err, session) {
+            cognitoUser.getSession(function(err, session) {
                 if (err) {
                     alert(err);
                     return;
@@ -172,58 +186,58 @@ class App extends Component {
                         // Change the key below according to the specific region your user pool is in.
                         'cognito-idp.us-east-1.amazonaws.com/us-east-1_Mr98zHlUu': session.getIdToken().getJwtToken()
                     }
-                }, {
-                        region: "us-east-1"
-                    });
+                },{
+                  region: "us-east-1"
+                });
 
-                creds.refresh(function (err, data) {
-                    if (err) console.log(err);
+                creds.refresh(function(err,data){
+                    if(err) console.log(err);
                     else {
-                        console.log(creds);
-                        console.log(creds.accessKeyId);
-                        console.log(creds.secretAccessKey);
-                        console.log(creds.sessionToken);
+                      console.log(creds);
+                      console.log(creds.accessKeyId);
+                      console.log(creds.secretAccessKey);
+                      console.log(creds.sessionToken);
 
-                        var apigClient = window.apigClientFactory.newClient({
-                            accessKey: creds.accessKeyId,
-                            secretKey: creds.secretAccessKey,
-                            sessionToken: creds.sessionToken
-                        });
-                        var params = {};
-                        var body = {};
-                        var additionalParams = {};
+                      var apigClient = window.apigClientFactory.newClient({
+                        accessKey: creds.accessKeyId,
+                        secretKey: creds.secretAccessKey,
+                        sessionToken: creds.sessionToken
+                      });
+                      var params = {};
+                      var body = {};
+                      var additionalParams = {};
 
-                        apigClient.featureditemsGet(params, body, additionalParams)
-                            .then(function (result) {
-                                console.log("success");
-                                console.log(result.data);
-                                that.setState(result.data);
-                            }).catch(function (error) {
-                                console.log("error");
-                                console.error(error);
-                            });
+                      apigClient.featureditemsGet(params, body, additionalParams)
+                           .then(function(result) {
+                              console.log("success");
+                              console.log(result.data);
+                              that.setState(result.data);
+                          }).catch(function(error) {
+                            console.log("error");
+                            console.error(error);
+                          });
 
-                        // var lambda = new AWS.Lambda({
-                        //   credentials: creds,
-                        //   region: "us-east-1"
-                        // });
-                        //
-                        // var params = {
-                        //   FunctionName: 'listFeaturedItems',
-                        //   InvocationType: 'RequestResponse',
-                        //   Payload: ''
-                        // };
-                        //
-                        // lambda.invoke(params, function(err, result) {
-                        //   if (err) console.log(err, err.stack); // an error occurred
-                        //   else {
-                        //
-                        //     var payload = JSON.parse(result.Payload)
-                        //     var body = JSON.parse(payload.body)
-                        //     console.log(body);           // successful response
-                        //     that.setState(body);
-                        //     }
-                        // });
+                      // var lambda = new AWS.Lambda({
+                      //   credentials: creds,
+                      //   region: "us-east-1"
+                      // });
+                      //
+                      // var params = {
+                      //   FunctionName: 'listFeaturedItems',
+                      //   InvocationType: 'RequestResponse',
+                      //   Payload: ''
+                      // };
+                      //
+                      // lambda.invoke(params, function(err, result) {
+                      //   if (err) console.log(err, err.stack); // an error occurred
+                      //   else {
+                      //
+                      //     var payload = JSON.parse(result.Payload)
+                      //     var body = JSON.parse(payload.body)
+                      //     console.log(body);           // successful response
+                      //     that.setState(body);
+                      //     }
+                      // });
 
                     }
                 });

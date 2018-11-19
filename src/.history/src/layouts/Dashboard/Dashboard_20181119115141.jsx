@@ -22,6 +22,7 @@ class Dashboard extends Component {
     this.state = {
       _notificationSystem: null,
     };
+    authentification();
   }
 
 

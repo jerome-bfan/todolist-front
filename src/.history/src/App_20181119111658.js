@@ -48,7 +48,36 @@ render() {
             Learn React by Jay
       lsls
           </a>
-          
+          <div className="App-header">
+                    <img src={logo} className="App-logo" alt="logo" />
+                    <h2>Welcome to AWS Twitch</h2>
+                </div>
+                <p className="App-intro">
+                    To get sta0b818d58-232c-4a8b-9a31-6692853f5688rted, edit
+                    <code>src/App.js</code>
+                    and save to reload.
+                </p>
+                <input type="text" placeholder="email" ref={(input) => {
+                    this.email = input
+                }} />
+                <input type="text" placeholder="username" ref={(input) => {
+                    this.username = input
+                }} />
+                <input type="text" placeholder="phone" ref={(input) => {
+                    this.phone = input
+                }} />
+                <input type="password" placeholder="password" ref={(input) => {
+                    this.password = input
+                }} />
+                <button onClick={(e) => this.doRegister(e)}>Register</button>
+                <button onClick={(e) => this.doLogin(e)}>Login</button>
+                <br />
+                <input type="text" placeholder="code" ref={(input) => {
+                    this.code = input
+                }} />
+                <button onClick={(e) => this.doConfirm(e)}>Confirm</button>
+
+                {items.map(item => <p>{item.id}</p>)}
         </header>
       </div>
     );

@@ -12,18 +12,48 @@ import Amplify,{API} from 'aws-amplify';
 import dashboardRoutes from "routes/dashboard.jsx";
 import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import AWS from 'aws-sdk';
-import { authentification } from "../../Provider/AuthProvider";
-
 class Dashboard extends Component {
   constructor(props) {
     super(props);
+
+    var poolData = {
+      UserPoolId: 'eu-west-1_HSNdVjAHO', // Your user pool id here
+      ClientId: '3k4d9j6bqdh7e36dbk7bnc0qte', // Your client id here
+      region: 'eu-west-1'
+  };
+  
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleNotificationClick = this.handleNotificationClick.bind(this);
     this.state = {
       _notificationSystem: null,
+      items: []
     };
-  }
 
+  }
+  doLogin() {
+    var authenticationData = {
+        Username: this.username.value,
+        Password: this.password.value
+    };
+    var authenticationDetails = new AuthenticationDetails(authenticationData);
+
+    var userPool = new CognitoUserPool(poolData);
+    var userData = {
+        Username: this.username.value,
+        Pool: userPool
+    };
+    var cognitoUser = new CognitoUser(userData);
+    cognitoUser.authenticateUser(authenticationDetails, {
+        onSuccess: function (result) {
+            console.log(result);
+            console.log('access token + ' + result.getAccessToken().getJwtToken());
+        },
+
+        onFailure: function (err) {
+            console.error(err);
+        }
+    });
+}
 
   handleNotificationClick(position) {
     var color = Math.floor(Math.random() * 4 + 1);

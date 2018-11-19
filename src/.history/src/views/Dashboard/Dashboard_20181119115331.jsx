@@ -141,17 +141,17 @@ class Dashboard extends Component {
                 <input type="text" placeholder="email" ref={(input) => {
                     this.email = input
                 }} />
-                <input type="text" placeholder="username"  defaultValue="jay"ref={(input) => {
+                <input type="text" placeholder="username" ref={(input) => {
                     this.username = input
                 }} />
                 <input type="text" placeholder="phone" ref={(input) => {
                     this.phone = input
                 }} />
-                <input type="password"  defaultValue="Mind72018" placeholder="password" ref={(input) => {
+                <input type="password" placeholder="password" ref={(input) => {
                     this.password = input
                 }} />
                 <button onClick={(e) => this.doRegister(e)}>Register</button>
-                <button onClick={(e) => authentification(this)}>Login</button>
+                <button onClick={(e) => authentification(e)}>Login</button>
                 <br />
      
 

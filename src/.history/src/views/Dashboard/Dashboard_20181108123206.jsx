@@ -17,15 +17,8 @@ import {
   responsiveBar,
   legendBar
 } from "variables/Variables.jsx";
-import { authentification } from "../../Provider/AuthProvider";
 
 class Dashboard extends Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-        items: []
-    }
-}
   createLegend(json) {
     var legend = [];
     for (var i = 0; i < json["names"].length; i++) {
@@ -37,8 +30,6 @@ class Dashboard extends Component {
     return legend;
   }
   render() {
-    const { items } = this.state;
-
     return (
       <div className="content">
         <Grid fluid>
@@ -134,28 +125,12 @@ class Dashboard extends Component {
                 statsIcon="fa fa-check"
                 content={
                   <div className="ct-chart">
-                      <div className="App-header">
-                    <h2>Welcome to AWS Twitch</h2>
-                </div>
-          
-                <input type="text" placeholder="email" ref={(input) => {
-                    this.email = input
-                }} />
-                <input type="text" placeholder="username"  defaultValue="jay"ref={(input) => {
-                    this.username = input
-                }} />
-                <input type="text" placeholder="phone" ref={(input) => {
-                    this.phone = input
-                }} />
-                <input type="password"  defaultValue="Mind72018" placeholder="password" ref={(input) => {
-                    this.password = input
-                }} />
-                <button onClick={(e) => this.doRegister(e)}>Register</button>
-                <button onClick={(e) => authentification(this)}>Login</button>
-                <br />
-     
-
-                {items.map(item => <p>{item.id}</p>)}
+                    <ChartistGraph
+                      data={dataBar}
+                      type="Bar"
+                      options={optionsBar}
+                      responsiveOptions={responsiveBar}
+                    />
                   </div>
                 }
                 legend={

@@ -14,6 +14,7 @@ features:
           sdk-generation-stage-name: Prod
         paths:
           /: !com.amazonaws.mobilehub.v0.Function {}
+          /retrievethis: !com.amazonaws.mobilehub.v0.Function {}
           /test: !com.amazonaws.mobilehub.v0.Function {}
           /user: !com.amazonaws.mobilehub.v0.Function {}
   content-delivery: !com.amazonaws.mobilehub.v0.ContentDelivery 

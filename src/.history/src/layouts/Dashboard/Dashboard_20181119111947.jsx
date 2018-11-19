@@ -10,9 +10,6 @@ import { style } from "variables/Variables.jsx";
 import awsmobile from '../../aws-exports';
 import Amplify,{API} from 'aws-amplify';
 import dashboardRoutes from "routes/dashboard.jsx";
-import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
-import AWS from 'aws-sdk';
-import { authentification } from "../../Provider/AuthProvider";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -21,10 +18,10 @@ class Dashboard extends Component {
     this.handleNotificationClick = this.handleNotificationClick.bind(this);
     this.state = {
       _notificationSystem: null,
+      items: []
     };
+
   }
-
-
   handleNotificationClick(position) {
     var color = Math.floor(Math.random() * 4 + 1);
     var level;
