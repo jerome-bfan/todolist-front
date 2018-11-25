@@ -1,9 +1,8 @@
 import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
-import awsmobile from '../aws-exports';
 
 const poolData = {
-    UserPoolId: awsmobile.aws_user_pools_id, // Your user pool id here
-    ClientId: awsmobile.aws_user_pools_web_client_id, // Your client id here
+    UserPoolId: 'eu-west-1_HSNdVjAHO', // Your user pool id here
+    ClientId: '3k4d9j6bqdh7e36dbk7bnc0qte', // Your client id here
     region: 'eu-west-1'
   };
 
@@ -25,7 +24,7 @@ export function authentification (form) {
     cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
             console.log(result);
-            console.log('access token + ' + result);
+            console.log('access token + ' + result.getAccessToken().getJwtToken());
         },
 
         onFailure: function (err) {
@@ -36,8 +35,8 @@ export function authentification (form) {
 export function register(event) {
 
     var userPool = new CognitoUserPool(poolData);
-    var email = "jouanny.jerome@gmail.com";
-    var username = "jaydde";
+    var email = "bob@gmail.com";
+    var username = "jaye";
     var phone = "+3362507104";
     var password = "Mind72018";
     var preferedusername = 'yaz666'

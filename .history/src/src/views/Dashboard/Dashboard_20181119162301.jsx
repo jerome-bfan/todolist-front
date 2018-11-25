@@ -17,12 +17,14 @@ import {
   responsiveBar,
   legendBar
 } from "variables/Variables.jsx";
-import { authentification, register } from "../../Provider/AuthProvider";
+import { authentification } from "../../Provider/AuthProvider";
 
 class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
-   
+    this.state = {
+        items: []
+    }
 }
   createLegend(json) {
     var legend = [];
@@ -35,6 +37,7 @@ class Dashboard extends Component {
     return legend;
   }
   render() {
+    const { items } = this.state;
 
     return (
       <div className="content">
@@ -135,6 +138,7 @@ class Dashboard extends Component {
                     <h2>Login</h2>
                 </div>
           
+              
                 <input type="text" placeholder="username"  defaultValue="jay"ref={(input) => {
                     this.username = input
                 }} />
@@ -157,7 +161,7 @@ class Dashboard extends Component {
                 statsIcon="fa fa-history"
                 content={
                   <div className="table-full-width">
-                <button onClick={(e) => register(this)}>Register</button>
+                <button onClick={(e) => authentification(this)}>Login</button>
                   </div>
                 }
               />
