@@ -86,6 +86,7 @@ export function register(form) {
     var email =  form.registerEmail.value;
     var username = form.registerUserName.value;
     var phone = form.registerPhone.value;
+    console.log(phone);
     var password = form.registerPassword.value;
     var preferedusername = 'yaz666'
     var name = 'youyou'

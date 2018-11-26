@@ -164,7 +164,7 @@ class Dashboard extends Component {
                  <input type="text" placeholder="username" ref={(input) => {
                     this.registerUserName = input
                 }} />
-                <input type="number" placeholder="username" ref={(input) => {
+                <input type="text" placeholder="text" ref={(input) => {
                     this.registerPhone = input
                 }} />
 
