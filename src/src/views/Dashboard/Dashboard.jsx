@@ -135,7 +135,7 @@ class Dashboard extends Component {
                     <h2>Login</h2>
                 </div>
           
-                <input type="text" placeholder="username"  defaultValue="jay"ref={(input) => {
+                <input type="text" placeholder="username"  defaultValue="jaydde"ref={(input) => {
                     this.username = input
                 }} />
   
@@ -157,6 +157,20 @@ class Dashboard extends Component {
                 statsIcon="fa fa-history"
                 content={
                   <div className="table-full-width">
+                    <input type="email" placeholder="email" ref={(input) => {
+                    this.registerEmail = input
+                }} />
+
+                 <input type="text" placeholder="username" ref={(input) => {
+                    this.registerUserName = input
+                }} />
+                <input type="number" placeholder="username" ref={(input) => {
+                    this.registerPhone = input
+                }} />
+
+                <input type="password"  defaultValue="Mind72018" placeholder="password" ref={(input) => {
+                    this.registerPassword = input
+                }} />
                 <button onClick={(e) => register(this)}>Register</button>
                   </div>
                 }

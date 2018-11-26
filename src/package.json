@@ -3,7 +3,10 @@
   "version": "1.2.0",
   "private": true,
   "dependencies": {
+    "amazon-cognito-identity-js": "^3.0.3",
     "aws-amplify": "^1.1.9",
+    "aws-api-gateway-client": "^0.2.16",
+    "aws-sdk": "^2.362.0",
     "bootstrap": "3.3.7",
     "chartist": "0.10.1",
     "node-sass": "4.6.1",
@@ -26,5 +29,9 @@
     "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "json-loader": "^0.5.7",
+    "webpack": "^4.26.1"
   }
 }
