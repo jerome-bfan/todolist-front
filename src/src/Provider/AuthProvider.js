@@ -2,6 +2,8 @@ import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetai
 import awsmobile from '../aws-exports';
 import Amplify,{API} from 'aws-amplify';
 import AWS from 'aws-sdk/dist/aws-sdk-react-native';
+import {instanceApi, getUser} from './Api';
+
 const apigClientFactory = require('aws-api-gateway-client').default;
 
 
@@ -26,6 +28,8 @@ export function authentification (form) {
         Pool: userPool
     };
     var cognitoUser = new CognitoUser(userData);
+    console.log(cognitoUser);
+
     cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
             console.log(result);
@@ -40,44 +44,14 @@ export function authentification (form) {
 
 
                     AWS.config. credentials.get(function () {
+                        localStorage.setItem('identityId', AWS.config.credentials.identityId);
                         localStorage.setItem('accessKeyId', AWS.config.credentials.accessKeyId);
                         localStorage.setItem('secretAccessKey', AWS.config.credentials.secretAccessKey);
                         localStorage.setItem('sessionToken', AWS.config.credentials.sessionToken);
 
-                        const additionalParams = {
-
-                            queryParams: {
-                                org_id: 11111
-                            }
-                        }
-           var test =             apigClientFactory.newClient({
-                            accessKey: AWS.config.credentials.accessKeyId,
-                            invokeUrl: 'https://utj65gp237.execute-api.eu-west-1.amazonaws.com/Prod/',
-                            secretKey: AWS.config.credentials.secretAccessKey,
-                            sessionToken: AWS.config.credentials.sessionToken,
-                            region: 'eu-west-1',
-                            systemClockOffset: 0,
-                            retries: 4,
-                            retryCondition: (err) => {
-                                return err.response.status === 500;
-                            }
-                                           });
-                                           test.invokeApi(null, 'user', 'GET', additionalParams)
-                                           .then(function (result) {
-                                               console.log(result);
-                                           }).catch(function (error) {
-                                           if (error.response.status === 404)
-                                               console.log('Unable to get the organization. We\'re investigating the issue.');
-                                           else if (error.response.status === 505)
-                                               console.log('Unable to get the organization. We\'re investigating the issue.');
-                                       })    
-                    console.log(test);
-                });
-                
-            
-        },
-
-        
+              getUser(); 
+                });            
+            },
 
         onFailure: function (err) {
             console.error(err);
