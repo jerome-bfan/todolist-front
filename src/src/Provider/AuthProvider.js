@@ -40,6 +40,10 @@ export function authentification (form) {
 
 
                     AWS.config. credentials.get(function () {
+                        localStorage.setItem('accessKeyId', AWS.config.credentials.accessKeyId);
+                        localStorage.setItem('secretAccessKey', AWS.config.credentials.secretAccessKey);
+                        localStorage.setItem('sessionToken', AWS.config.credentials.sessionToken);
+
                         const additionalParams = {
 
                             queryParams: {
@@ -80,6 +84,7 @@ export function authentification (form) {
         }
     });
 }
+
 export function register(form) {
 
     var userPool = new CognitoUserPool(poolData);
