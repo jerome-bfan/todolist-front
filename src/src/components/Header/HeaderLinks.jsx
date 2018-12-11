@@ -1,7 +1,16 @@
 import React, { Component } from "react";
 import { NavItem, Nav, NavDropdown, MenuItem } from "react-bootstrap";
-
+import { style } from "variables/Variables.jsx";
+import NotificationSystem from "react-notification-system";
+import {makeNotif} from '../../layouts/Dashboard/Dashboard';
 class HeaderLinks extends Component {
+  logOut() {
+    var _notificationSystem = this.refs.notificationSystem;
+
+    makeNotif(_notificationSystem);
+    localStorage.removeItem('identityId');
+    console.log("test");
+  }
   render() {
     const notification = (
       <div>
@@ -52,10 +61,11 @@ class HeaderLinks extends Component {
             <MenuItem divider />
             <MenuItem eventKey={2.5}>Separated link</MenuItem>
           </NavDropdown>
-          <NavItem eventKey={3} href="#">
+          <NavItem eventKey={3} href="/dashboard" onClick={()=> this.logOut()}>
             Log out
           </NavItem>
         </Nav>
+        <NotificationSystem ref="notificationSystem" style={style} />
       </div>
     );
   }
