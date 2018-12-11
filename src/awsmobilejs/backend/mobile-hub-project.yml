@@ -1,5 +1,6 @@
 --- !com.amazonaws.mobilehub.v0.Project 
 apps:
+  react-native: !com.amazonaws.mobilehub.v0.AppDO {}
   web: !com.amazonaws.mobilehub.v0.AppDO {}
 features:
   cloudlogic: !com.amazonaws.mobilehub.v0.CloudLogic 
