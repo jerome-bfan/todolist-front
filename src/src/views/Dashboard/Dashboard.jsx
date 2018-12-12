@@ -18,6 +18,7 @@ import {
   legendBar
 } from "variables/Variables.jsx";
 import { authentification, register } from "../../Provider/AuthProvider";
+import { isConnected } from '../../functions/p2peFunction';
 
 class Dashboard extends Component {
 
@@ -38,6 +39,8 @@ class Dashboard extends Component {
   _renderConnection() {
     var value = localStorage.getItem("identityId");
     console.log(value); 
+
+    if(!isConnected()) {
     return      <Col md={6}>
 <Card
   id="chartActivity"
@@ -77,8 +80,17 @@ class Dashboard extends Component {
 
 </Col>
   }
-  _renderInscription() {
-    return          <Col md={6}>
+}
+
+_renderConnected() {
+  return <div>
+  Vous êtes connecté
+  </div>
+}
+_renderInscription() {
+  console.log(isConnected())
+    if(!isConnected()) {
+  return          <Col md={6}>
     <Card
       title="Connexion"
       category="Backend development"
@@ -98,7 +110,7 @@ class Dashboard extends Component {
       }} />
       </Row>
       <Row>
-       <input type="text" placeholder="text" ref={(input) => {
+       <input type="text" placeholder="téléphone" ref={(input) => {
             this.registerPhone = input
         }} />
       </Row>
@@ -114,6 +126,7 @@ class Dashboard extends Component {
       }
     />
   </Col>
+    }
   }
  
   render() {
@@ -124,6 +137,8 @@ class Dashboard extends Component {
           <Row>
           {this._renderConnection()}
           {this._renderInscription()}
+          {this._renderConnected()}
+
           </Row>
         </Grid>
       </div>

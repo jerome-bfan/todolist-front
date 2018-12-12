@@ -13,22 +13,23 @@ import dashboardRoutes from "routes/dashboard.jsx";
 import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import AWS from 'aws-sdk';
 import { authentification } from "../../Provider/AuthProvider";
+import { isConnected } from '../../functions/p2peFunction';
 
 
-export function makeNotif (ref) {
+export function makeNotif (ref, type, message) {
   var color = Math.floor(Math.random() * 4 + 1);
   var level;
-  switch (color) {
-    case 1:
+  switch (type) {
+    case "success":
       level = "success";
       break;
-    case 2:
+    case "warning":
       level = "warning";
       break;
-    case 3:
+    case "error":
       level = "error";
       break;
-    case 4:
+    case "info":
       level = "info";
       break;
     default:
@@ -36,13 +37,8 @@ export function makeNotif (ref) {
   }
   ref.addNotification({
     title: <span data-notify="icon" className="pe-7s-gift" />,
-    message: (
-      <div>
-        Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for
-        every web developer.
-      </div>
-    ),
-    level: level,
+    message: message,
+    level: type,
     position: "tr",
     autoDismiss: 15
   });
@@ -93,7 +89,13 @@ class Dashboard extends Component {
   componentDidMount() {
     //this.setState({ _notificationSystem: this.refs.notificationSystem });
     var _notificationSystem = this.refs.notificationSystem;
-    makeNotif(_notificationSystem);
+    if(isConnected())
+      makeNotif(_notificationSystem,"info","Vous etes connectés")
+      else if(!isConnected())
+      {
+        makeNotif(_notificationSystem,"warning","Vous etes déconnectées")
+
+      }
   }
   componentDidUpdate(e) {
     if (

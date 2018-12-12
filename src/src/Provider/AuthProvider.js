@@ -50,6 +50,7 @@ export function authentification (form) {
                         localStorage.setItem('sessionToken', AWS.config.credentials.sessionToken);
 
               getUser(); 
+              window.location.reload();
                 });            
             },
 
