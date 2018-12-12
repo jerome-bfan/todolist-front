@@ -7,9 +7,7 @@ class HeaderLinks extends Component {
   logOut() {
     var _notificationSystem = this.refs.notificationSystem;
 
-    makeNotif(_notificationSystem);
     localStorage.removeItem('identityId');
-    console.log("test");
   }
   render() {
     const notification = (
