@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ChartistGraph from "react-chartist";
 import { Grid, Row, Col } from "react-bootstrap";
+import Button from "components/CustomButton/CustomButton.jsx";
 
 import { Card } from "components/Card/Card.jsx";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
@@ -44,15 +45,15 @@ class Dashboard extends Component {
     return      <Col md={6}>
 <Card
   id="chartActivity"
-  title="2014 Sales"
-  category="All products including Taxes"
+  title="Vous avez déjà un compte"
+  category="Loggez vous ci-dessous"
   stats="Data information certified"
   statsIcon="fa fa-check"
   content={
     <div style={{flexDirection: "column"}}>
     <div className="ct-chart">
         <div className="App-header">
-      <h2>Login</h2>
+      <h2>Connectez vous</h2>
   </div>
   <Row>
   <Col md={8}>
@@ -68,7 +69,7 @@ class Dashboard extends Component {
   }} />
   </Row>
   <Row>
-    <button onClick={(e) => authentification(this)}>Login</button>
+    <button onClick={(e) => {console.log(); authentification(this)}}>Login</button>
   </Row>
   </Col>
   </Row>  
@@ -83,44 +84,49 @@ class Dashboard extends Component {
 }
 
 _renderConnected() {
+  if(isConnected()) {
   return <div>
   Vous êtes connecté
   </div>
+  }
+}
+
+_registerError() {
+   register(this);
 }
 _renderInscription() {
   console.log(isConnected())
     if(!isConnected()) {
   return          <Col md={6}>
     <Card
-      title="Connexion"
-      category="Backend development"
+      title="Inscrivez-vous"
+      category="Remplir les informations ci dessous"
       stats="Updated 3 minutes ago"
       statsIcon="fa fa-history"
       content={
         <div className="table-full-width">
         <Row>
-        <input type="email" placeholder="email" ref={(input) => {
+        <input type="email" placeholder="Email" ref={(input) => {
           this.registerEmail = input
       }} />
       </Row>
-
     <Row>
-       <input type="text" placeholder="telephone" ref={(input) => {
+       <input type="text" placeholder="Nom d'utilisateur" ref={(input) => {
           this.registerUserName = input
       }} />
       </Row>
       <Row>
-       <input type="text" placeholder="téléphone" ref={(input) => {
+       <input type="text" placeholder="Téléphone" ref={(input) => {
             this.registerPhone = input
         }} />
       </Row>
       <Row>
-      <input type="password" placeholder="password" ref={(input) => {
+      <input type="password" placeholder="mot de passe" ref={(input) => {
           this.registerPassword = input
       }} />
       </Row>
       <Row>
-            <button onClick={(e) => register(this)}>Register</button>
+            <button onClick={(e) => this._registerError()}>Register</button>
       </Row>
         </div>
       }

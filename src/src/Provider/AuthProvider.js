@@ -101,12 +101,16 @@ export function register(form) {
     attributeList.push(attributeName)
 
     console.log(`Register User ${username} ${phone} ${email}`);
-    userPool.signUp(username, password, attributeList, null, function (err, result) {
+       userPool.signUp(username, password, attributeList, null, function (err, result) {
         if (err) {
-            console.error(err);
+            return "easy"
         } else {
             var cognitoUser = result.user;
             console.log('user registered as ' + cognitoUser.getUsername());
+            return "true";
         }
+        return "true";
+
     });
+    return "ddd"
 }

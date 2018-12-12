@@ -10,7 +10,7 @@ import Upgrade from "views/Upgrade/Upgrade";
 const dashboardRoutes = [
   {
     path: "/dashboard",
-    name: "Dashboard",
+    name: "Accueil",
     icon: "pe-7s-graph",
     component: Dashboard
   },
@@ -39,13 +39,6 @@ const dashboardRoutes = [
     name: "Notifications",
     icon: "pe-7s-bell",
     component: Notifications
-  },
-  {
-    upgrade: true,
-    path: "/upgrade",
-    name: "Upgrade to PRO",
-    icon: "pe-7s-rocket",
-    component: Upgrade
   },
   { redirect: true, path: "/", to: "/dashboard", name: "Dashboard" }
 ];

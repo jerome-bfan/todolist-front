@@ -87,13 +87,13 @@ class Dashboard extends Component {
     });
   }
   componentDidMount() {
-    //this.setState({ _notificationSystem: this.refs.notificationSystem });
+    this.setState({ _notificationSystem: this.refs.notificationSystem });
     var _notificationSystem = this.refs.notificationSystem;
     if(isConnected())
-      makeNotif(_notificationSystem,"info","Vous etes connectés")
+      makeNotif(_notificationSystem,"info","Vous etes connectés");
       else if(!isConnected())
       {
-        makeNotif(_notificationSystem,"warning","Vous etes déconnectées")
+        makeNotif(_notificationSystem,"warning","Vous etes déconnectées");
 
       }
   }
@@ -120,7 +120,7 @@ class Dashboard extends Component {
           <Header {...this.props} />
           <Switch>
             {dashboardRoutes.map((prop, key) => {
-              if (prop.name === "Notifications")
+              if (prop.name === "Accueil")
                 return (
                   <Route
                     path={prop.path}
