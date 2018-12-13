@@ -9,6 +9,7 @@ class HeaderLinks extends Component {
     localStorage.removeItem('identityId');
     localStorage.removeItem('roleUser');
     localStorage.removeItem('roleAdmin');
+    localStorage.removeItem('email');
   }
 
   _renderRole() {

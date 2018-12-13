@@ -20,7 +20,8 @@
     "react-google-maps": "9.4.5",
     "react-notification-system": "0.2.17",
     "react-router-dom": "4.2.2",
-    "react-scripts": "1.1.1"
+    "react-scripts": "1.1.1",
+    "webpack": "^3.11.0"
   },
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
@@ -32,7 +33,6 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "json-loader": "^0.5.7",
-    "webpack": "^4.26.1"
+    "json-loader": "^0.5.7"
   }
 }

@@ -15,9 +15,12 @@ features:
           sdk-generation-stage-name: Prod
         paths:
           /: !com.amazonaws.mobilehub.v0.Function {}
+          /getNotes: !com.amazonaws.mobilehub.v0.Function {}
+          '/getNotes/{identityid}': !com.amazonaws.mobilehub.v0.Function {}
           /retrievethis: !com.amazonaws.mobilehub.v0.Function {}
           /test: !com.amazonaws.mobilehub.v0.Function {}
           /user: !com.amazonaws.mobilehub.v0.Function {}
+          '/user/{identityid}': !com.amazonaws.mobilehub.v0.Function {}
   content-delivery: !com.amazonaws.mobilehub.v0.ContentDelivery 
     attributes:
       enabled: true

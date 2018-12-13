@@ -2,7 +2,7 @@ import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetai
 import awsmobile from '../aws-exports';
 import Amplify,{API} from 'aws-amplify';
 import AWS from 'aws-sdk/dist/aws-sdk-react-native';
-import {instanceApi, getUser} from './Api';
+import {getNotes, getUser} from './Api';
 var jwtDecode = require('jwt-decode');
 
 const apigClientFactory = require('aws-api-gateway-client').default;
@@ -30,7 +30,6 @@ export function authentification (form) {
     };
     var cognitoUser = new CognitoUser(userData);
     console.log(cognitoUser);
-
     cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
             console.log(result);
@@ -70,8 +69,8 @@ export function authentification (form) {
                         localStorage.setItem('secretAccessKey', AWS.config.credentials.secretAccessKey);
                         localStorage.setItem('sessionToken', AWS.config.credentials.sessionToken);
 
-              getUser(); 
-             // window.location.reload();
+                //getNotes(); 
+                window.location.reload();
                 });            
             },
 
@@ -130,8 +129,6 @@ export function register(form) {
             console.log('user registered as ' + cognitoUser.getUsername());
             return "true";
         }
-        return "true";
 
     });
-    return "ddd"
 }

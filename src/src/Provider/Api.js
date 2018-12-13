@@ -9,7 +9,9 @@ export function instanceApi () {
         region: 'eu-west-1',
         systemClockOffset: 0,
         retries: 4,
-       
+        retryCondition: (err) => {
+            return err.response.status === 500;
+        }
                        });
                      
 }
@@ -27,3 +29,49 @@ export function getUser () {
                               console.log('Unable to get the organization. We\'re investigating the issue.');
                       })    
    }
+   export function getNotes () {
+    const additionalParams = {
+        queryParams: {
+            identityid: "eu-west-1:c72978e3-2d1a-4e61-a913-ba1f5e13ea08"
+        }
+    }
+
+    return instanceApi().invokeApi(null, 'user', 'GET',additionalParams)
+    .then(function (result) {
+        return result;
+    }).catch(function (error) {
+        return error
+  
+})    
+}
+
+export function postNotes (note) {
+    var additionalParams = {
+        //If there are query parameters or headers that need to be sent with the request you can add them here
+        headers: {
+            param0: '',
+            param1: ''
+        },
+        queryParams: {
+            param0: '',
+            param1: ''
+        }
+    };
+    var body = {
+        note :note,
+        identityid: "eu-west-1:c72978e3-2d1a-4e61-a913-ba1f5e13ea08"
+        //This is where you define the body of the request
+    };
+    const params = {
+            note: "react"
+        }
+    
+
+    return instanceApi().invokeApi(undefined,'getNotes/add', 'POST',undefined,body)
+    .then(function (result) {
+        return result;
+    }).catch(function (error) {
+        return error
+  
+})    
+}
