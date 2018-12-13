@@ -46,6 +46,10 @@ export function authentification (form) {
                 console.log(result.getIdToken());
                 var sessionIdInfo = jwtDecode(result.getIdToken().jwtToken);
                  var groups = sessionIdInfo['cognito:groups'];
+                 var email = sessionIdInfo['email'];
+                if(email != null) {
+                    localStorage.setItem('email', email);
+                }
                  groups.map((answer, i) => {if(answer == "user")
                 {
                     localStorage.setItem('roleUser', true);
@@ -64,7 +68,7 @@ export function authentification (form) {
                         localStorage.setItem('sessionToken', AWS.config.credentials.sessionToken);
 
               getUser(); 
-              window.location.reload();
+             // window.location.reload();
                 });            
             },
 
