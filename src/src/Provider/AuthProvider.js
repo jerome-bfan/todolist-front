@@ -3,6 +3,7 @@ import awsmobile from '../aws-exports';
 import Amplify,{API} from 'aws-amplify';
 import AWS from 'aws-sdk/dist/aws-sdk-react-native';
 import {instanceApi, getUser} from './Api';
+var jwtDecode = require('jwt-decode');
 
 const apigClientFactory = require('aws-api-gateway-client').default;
 
@@ -42,8 +43,21 @@ export function authentification (form) {
                 }
             });
 
+                console.log(result.getIdToken());
+                var sessionIdInfo = jwtDecode(result.getIdToken().jwtToken);
+                 var groups = sessionIdInfo['cognito:groups'];
+                 groups.map((answer, i) => {if(answer == "user")
+                {
+                    localStorage.setItem('roleUser', true);
+
+                } else if (answer == "admin")
+            {
+                localStorage.setItem('roleAdmin', true);
+
+            }})
 
                     AWS.config. credentials.get(function () {
+                        console.log(AWS.config.credentials);
                         localStorage.setItem('identityId', AWS.config.credentials.identityId);
                         localStorage.setItem('accessKeyId', AWS.config.credentials.accessKeyId);
                         localStorage.setItem('secretAccessKey', AWS.config.credentials.secretAccessKey);

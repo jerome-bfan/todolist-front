@@ -6,8 +6,19 @@ import {makeNotif} from '../../layouts/Dashboard/Dashboard';
 class HeaderLinks extends Component {
   logOut() {
     var _notificationSystem = this.refs.notificationSystem;
-
     localStorage.removeItem('identityId');
+    localStorage.removeItem('roleUser');
+    localStorage.removeItem('roleAdmin');
+  }
+
+  _renderRole() {
+    if(localStorage.getItem("roleAdmin")) {
+      return 'Vous êtes connecté en tant qu Admin';
+    }
+
+    if(localStorage.getItem("roleUser")) {
+      return 'Vous êtes connecté en tant que User';
+    }
   }
   render() {
     const notification = (
@@ -44,7 +55,7 @@ class HeaderLinks extends Component {
         </Nav>
         <Nav pullRight>
           <NavItem eventKey={1} href="#">
-            Account
+          {this._renderRole()}
           </NavItem>
           <NavDropdown
             eventKey={2}
