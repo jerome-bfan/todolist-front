@@ -22,7 +22,7 @@ const dashboardRoutes = [
   },
   {
     path: "/table",
-    name: "Table List",
+    name: "Note",
     icon: "pe-7s-note2",
     component: TableList
   },
