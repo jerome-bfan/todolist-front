@@ -74,7 +74,7 @@ export function doRegister(event) {
     console.log(`Register User ${username} ${phone} ${email}`);
     userPool.signUp(username, password, attributeList, null, function (err, result) {
         if (err) {
-            console.error(err);
+            console.log(err);
         } else {
             var cognitoUser = result.user;
             console.log('user registered as ' + cognitoUser.getUsername());

@@ -46,6 +46,7 @@ export function authentification (form) {
                 console.log(result.getIdToken());
                 var sessionIdInfo = jwtDecode(result.getIdToken().jwtToken);
                  var groups = sessionIdInfo['cognito:groups'];
+                 if(groups) {
                  var email = sessionIdInfo['email'];
                 if(email != null) {
                     localStorage.setItem('email', email);
@@ -58,7 +59,9 @@ export function authentification (form) {
             {
                 localStorage.setItem('roleAdmin', true);
 
-            }})
+            }
+        
+        })}
 
                     AWS.config. credentials.get(function () {
                         console.log(AWS.config.credentials);

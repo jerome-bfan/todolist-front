@@ -9,9 +9,7 @@ export function instanceApi () {
         region: 'eu-west-1',
         systemClockOffset: 0,
         retries: 4,
-        retryCondition: (err) => {
-            return err.response.status === 500;
-        }
+       
                        });
                      
 }
