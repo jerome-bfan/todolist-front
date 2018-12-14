@@ -26,20 +26,19 @@ class Typography extends Component {
         <Grid fluid>
           <Row>
             <Col md={12}>
-              <Card
-                title="Light Bootstrap Table Heading"
-                category="Created using Roboto Font Family"
+            { ( this.state.notes != undefined &&this.state.notes.length) > 0 && this.state.notes.map((note) => {
+    console.log(note);
+    return <div key={note.id_note}>  <Card
+                title={note.id_note}
+                category={note.identity_id}
                 content={
                   <div>
-                  easy
-                  { ( this.state.notes != undefined &&this.state.notes.length) > 0 && this.state.notes.map((note) => {
-    console.log(note);
-    return <div key={note.id_note}> {note.id_note} {note.note} {localStorage.getItem("email")} </div>
-    })}
-
+                {note.note}          
                   </div>
                 }
-              />
+              /> </div>
+    })}
+              
             </Col>
           </Row>
         </Grid>

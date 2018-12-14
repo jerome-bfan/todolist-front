@@ -42,7 +42,15 @@ class TableList extends Component {
         <Grid fluid>
         { ( this.state.notes != undefined &&this.state.notes.length) > 0 && this.state.notes.map((note) => {
     console.log(note);
-    return <div key={note.id_note}> {note.id_note} {note.note} {localStorage.getItem("email")} </div>
+    return <div key={note.id_note}>  <Card
+                title={note.id_note}
+                category={note.identity_id}
+                content={
+                  <div>
+                {note.note}          
+                  </div>
+                }
+              /> </div>
     })}
         </Grid>
         <h2>Ajouter une note</h2>
