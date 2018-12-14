@@ -29,8 +29,13 @@ class HeaderLinks extends Component {
   }
 
   render() {
+    let color = 'rgba(255, 255, 255)';
+    if(localStorage.getItem("roleAdmin")) {
+      color = 'rgba(0, 213, 243)';
+    }
+  
     const notification = (
-      <div>
+      <div >
         <i className="fa fa-globe" />
         <b className="caret" />
         <span className="notification">5</span>
@@ -39,7 +44,7 @@ class HeaderLinks extends Component {
     );
     return (
       <div>
-        <Nav>
+        <Nav style = {{backgroundColor:color}}>
           <NavItem eventKey={1} href="#">
             <i className="fa fa-dashboard" />
             <p className="hidden-lg hidden-md">Dashboard</p>
