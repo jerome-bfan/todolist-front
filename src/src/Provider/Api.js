@@ -61,26 +61,13 @@ export function getAllNotes () {
 }
 
 export function postNotes (note) {
-    var additionalParams = {
-        //If there are query parameters or headers that need to be sent with the request you can add them here
-        headers: {
-            param0: '',
-            param1: ''
-        },
-        queryParams: {
-            param0: '',
-            param1: ''
-        }
-    };
+
     var body = {
         note :note,
         identityid: localStorage.getItem("identityId")
         //This is where you define the body of the request
     };
-    const params = {
-            note: "react"
-        }
-    
+
 
     return instanceApi().invokeApi(undefined,'getNotes/add', 'POST',undefined,body)
     .then(function (result) {
@@ -91,18 +78,21 @@ export function postNotes (note) {
 })    
 }
 
-export function deleteNotes (noteid) {
-    var additionalParams = {
-        //If there are query parameters or headers that need to be sent with the request you can add them here
-        headers: {
-            param0: '',
-            param1: ''
-        },
-        queryParams: {
-            param0: '',
-            param1: ''
-        }
+export function postNotesAdmin (note) {
+    var body = {
+        note :note,
+        //This is where you define the body of the request
     };
+    return instanceApi().invokeApi(undefined,'admin/add', 'POST',undefined,body)
+    .then(function (result) {
+        return result;
+    }).catch(function (error) {
+        return error
+  
+})    
+}
+
+export function deleteNotes (noteid) {
     var body = {
         id_note :noteid,
         //This is where you define the body of the request
@@ -110,6 +100,22 @@ export function deleteNotes (noteid) {
    
 
     return instanceApi().invokeApi(undefined,'getNotes/delete', 'DELETE',undefined,body)
+    .then(function (result) {
+        return result;
+    }).catch(function (error) {
+        return error
+  
+})    
+}
+
+export function deleteNoteAdmin (noteid) {
+    var body = {
+        id_note :noteid,
+        //This is where you define the body of the request
+    };
+   
+
+    return instanceApi().invokeApi(undefined,'admin/delete', 'DELETE',undefined,body)
     .then(function (result) {
         return result;
     }).catch(function (error) {

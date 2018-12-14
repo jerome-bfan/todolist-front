@@ -15,12 +15,6 @@ const dashboardRoutes = [
     component: Dashboard
   },
   {
-    path: "/user",
-    name: "User Profile",
-    icon: "pe-7s-user",
-    component: UserProfile
-  },
-  {
     path: "/table",
     name: "Note",
     icon: "pe-7s-note2",
@@ -28,18 +22,17 @@ const dashboardRoutes = [
   },
   {
     path: "/typography",
-    name: "Typography",
+    name: "All note",
     icon: "pe-7s-news-paper",
     component: Typography
   },
-  { path: "/icons", name: "Icons", icon: "pe-7s-science", component: Icons },
-  { path: "/maps", name: "Maps", icon: "pe-7s-map-marker", component: Maps },
   {
-    path: "/notifications",
-    name: "Notifications",
-    icon: "pe-7s-bell",
-    component: Notifications
+    path: "/user",
+    name: "User Profile",
+    icon: "pe-7s-user",
+    component: UserProfile
   },
+  
   { redirect: true, path: "/", to: "/dashboard", name: "Dashboard" }
 ];
 

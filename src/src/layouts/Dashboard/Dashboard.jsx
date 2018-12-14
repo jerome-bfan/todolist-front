@@ -111,6 +111,7 @@ class Dashboard extends Component {
       this.refs.mainPanel.scrollTop = 0;
     }
   }
+  
   render() {
     return (
       <div className="wrapper">
