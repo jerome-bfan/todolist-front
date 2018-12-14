@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 import {getNotes, getAllNotes, deleteNotes,postNotesAdmin,deleteNoteAdmin} from '../../Provider/Api';
+import Button from "components/CustomButton/CustomButton";
 
 import Card from "components/Card/Card.jsx";
 
@@ -45,7 +46,7 @@ class Typography extends Component {
                   </Row>
                 
                   <Row>
-                    <button  style={{marginTop:10, marginLeft:10}}onClick={(e) => {this.addNote()}}>ajouter</button>
+                    <Button  style={{marginTop:10, marginLeft:10}}onClick={(e) => {this.addNote()}}>ajouter</Button>
                   </Row>
                   </div>
                 }
@@ -62,10 +63,11 @@ class Typography extends Component {
                   </Row>
                 
                   <Row>
-                    <button style={{marginTop:10, marginLeft:10}} onClick={(e) => {this.deleteNote()}}>Supprimer</button>
+                    <Button style={{marginTop:10, marginLeft:10}} onClick={(e) => {this.deleteNote()}}>Supprimer</Button>
                   </Row></div>
                 }
               /> 
+              <h1>Les notes de tout les utilisateurs</h1>
 
         <Grid fluid>
           <Row>

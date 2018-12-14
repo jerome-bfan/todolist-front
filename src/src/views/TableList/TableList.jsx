@@ -4,6 +4,7 @@ import {getNotes, postNotes, deleteNotes} from '../../Provider/Api';
 
 import Card from "components/Card/Card.jsx";
 import { thArray, tdArray } from "variables/Variables.jsx";
+import Button from "components/CustomButton/CustomButton";
 
 class TableList extends Component {
   constructor(props) {
@@ -39,6 +40,41 @@ class TableList extends Component {
 
     return (
       <div className="content">
+         <Card
+                title={"Ajouter une note"}
+                category={"remplir la note"}
+                content={
+                  <div>
+            <Row>
+                <textarea style={{width:300,marginLeft:10}} type="text" placeholder="note" ref={(input) => {
+                      this.note = input
+                  }} />
+                  </Row>
+                
+                  <Row>
+                    <Button  style={{marginTop:10, marginLeft:10}}onClick={(e) => {this.addNote()}}>ajouter</Button>
+                  </Row>
+                  </div>
+                }
+              /> 
+              <h1>Toutes mes notes</h1>
+
+<Card
+                title={"Supprimez sa propre note"}
+                category={"Ajouter l'id de la note"}
+                content={
+                  <div> 
+                        <Row>
+                  <input style={{marginLeft:10}}type="text" placeholder="id de la note" ref={(input) => {
+                      this.id_note = input
+                  }} />
+                  </Row>
+                
+                  <Row>
+                    <button style={{marginTop:10, marginLeft:10}} onClick={(e) => {this.deleteNote()}}>Supprimer</button>
+                  </Row></div>
+                }
+              /> 
         <Grid fluid>
         { ( this.state.notes != undefined &&this.state.notes.length) > 0 && this.state.notes.map((note) => {
     console.log(note);
@@ -53,33 +89,8 @@ class TableList extends Component {
               /> </div>
     })}
         </Grid>
-        <h2>Ajouter une note</h2>
 
-        <div style={{marginTop:50}}>
-                  
-  <Row>
-  Note : <input type="text" placeholder="note" ref={(input) => {
-      this.note = input
-  }} />
-  </Row>
-
-  <Row>
-    <button onClick={(e) => {this.addNote()}}>ajouter</button>
-  </Row>
-        </div>
-        
-        <div style={{marginTop:50}}> 
-        <h2>Supprimez une note</h2>
-        <Row>
-  Note ID : <input type="text" placeholder="id de la note" ref={(input) => {
-      this.id_note = input
-  }} />
-  </Row>
-
-  <Row>
-    <button onClick={(e) => {this.deleteNote()}}>Supprimer</button>
-  </Row></div>
-      </div>
+  </div>
     );
   }
 }
