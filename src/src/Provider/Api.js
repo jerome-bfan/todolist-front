@@ -18,7 +18,6 @@ export function instanceApi () {
 
 
 export function getUser () {
-
                           instanceApi().invokeApi(null, 'user', 'GET')
                           .then(function (result) {
                               console.log(result);
@@ -30,18 +29,34 @@ export function getUser () {
                       })    
    }
    export function getNotes () {
+
+    var body = {
+        identityid: localStorage.getItem("identityId")
+        //This is where you define the body of the request
+    };
+    return instanceApi().invokeApi(null, 'user', 'POST',undefined,body)
+    .then(function (result) {
+        return result;
+    }).catch(function (error) {
+        return error
+})    
+}
+
+
+export function getAllNotes () {
     const additionalParams = {
         queryParams: {
             identityid: "eu-west-1:c72978e3-2d1a-4e61-a913-ba1f5e13ea08"
         }
     }
 
-    return instanceApi().invokeApi(null, 'user', 'GET',additionalParams)
+    return instanceApi().invokeApi(null,'all', 'GET')
     .then(function (result) {
+        console.log(result)
         return result;
     }).catch(function (error) {
-        return error
-  
+        console.log(error);
+        return error;
 })    
 }
 
@@ -59,7 +74,7 @@ export function postNotes (note) {
     };
     var body = {
         note :note,
-        identityid: "eu-west-1:c72978e3-2d1a-4e61-a913-ba1f5e13ea08"
+        identityid: localStorage.getItem("identityId")
         //This is where you define the body of the request
     };
     const params = {
@@ -68,6 +83,33 @@ export function postNotes (note) {
     
 
     return instanceApi().invokeApi(undefined,'getNotes/add', 'POST',undefined,body)
+    .then(function (result) {
+        return result;
+    }).catch(function (error) {
+        return error
+  
+})    
+}
+
+export function deleteNotes (noteid) {
+    var additionalParams = {
+        //If there are query parameters or headers that need to be sent with the request you can add them here
+        headers: {
+            param0: '',
+            param1: ''
+        },
+        queryParams: {
+            param0: '',
+            param1: ''
+        }
+    };
+    var body = {
+        id_note :noteid,
+        //This is where you define the body of the request
+    };
+   
+
+    return instanceApi().invokeApi(undefined,'getNotes/delete', 'DELETE',undefined,body)
     .then(function (result) {
         return result;
     }).catch(function (error) {

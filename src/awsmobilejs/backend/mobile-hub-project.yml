@@ -16,6 +16,9 @@ features:
         paths:
           /: !com.amazonaws.mobilehub.v0.Function {}
           /getNotes: !com.amazonaws.mobilehub.v0.Function {}
+          /getNotes/add: !com.amazonaws.mobilehub.v0.Function {}
+          /getNotes/all: !com.amazonaws.mobilehub.v0.Function {}
+          /getNotes/delete: !com.amazonaws.mobilehub.v0.Function {}
           '/getNotes/{identityid}': !com.amazonaws.mobilehub.v0.Function {}
           /retrievethis: !com.amazonaws.mobilehub.v0.Function {}
           /test: !com.amazonaws.mobilehub.v0.Function {}

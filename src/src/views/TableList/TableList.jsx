@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Grid, Row, Col, Table } from "react-bootstrap";
-import {getNotes, postNotes} from '../../Provider/Api';
+import {getNotes, postNotes, deleteNotes} from '../../Provider/Api';
 
 import Card from "components/Card/Card.jsx";
 import { thArray, tdArray } from "variables/Variables.jsx";
@@ -18,7 +18,12 @@ class TableList extends Component {
     window.location.reload();
 
   }
+  deleteNote () {
+    deleteNotes(this.id_note.value).then();
+    window.location.reload();
+  }
   componentWillMount() {
+    //deleteNotes(2).then();
     getNotes().then(api =>
       { 
         console.log("state")
@@ -35,12 +40,14 @@ class TableList extends Component {
     return (
       <div className="content">
         <Grid fluid>
-        { this.state.notes.length > 0 && this.state.notes.map((note) => {
+        { ( this.state.notes != undefined &&this.state.notes.length) > 0 && this.state.notes.map((note) => {
     console.log(note);
     return <div key={note.id_note}> {note.id_note} {note.note} {localStorage.getItem("email")} </div>
     })}
         </Grid>
-        <div style={{marginTop:0}}>
+        <h2>Ajouter une note</h2>
+
+        <div style={{marginTop:50}}>
                   
   <Row>
   Note : <input type="text" placeholder="note" ref={(input) => {
@@ -52,6 +59,18 @@ class TableList extends Component {
     <button onClick={(e) => {this.addNote()}}>ajouter</button>
   </Row>
         </div>
+        
+        <div style={{marginTop:50}}> 
+        <h2>Supprimez une note</h2>
+        <Row>
+  Note ID : <input type="text" placeholder="id de la note" ref={(input) => {
+      this.id_note = input
+  }} />
+  </Row>
+
+  <Row>
+    <button onClick={(e) => {this.deleteNote()}}>Supprimer</button>
+  </Row></div>
       </div>
     );
   }
