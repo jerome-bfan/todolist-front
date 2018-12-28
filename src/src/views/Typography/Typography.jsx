@@ -89,12 +89,12 @@ return <div key={note.id_note}>  <Card
 }
 return <div>Cette page est dédiée aux administrateurs</div>}
   componentWillMount () {
-    getAllNotes().then((api) => {
-      console.log(api);
-      this.setState({
-        notes: api.data
-      })
-    });
+    // getAllNotes().then((api) => {
+    //   console.log(api);
+    //   this.setState({
+    //     notes: api.data
+    //   })
+    // });
   }
   render() {
     return this._renderPage();

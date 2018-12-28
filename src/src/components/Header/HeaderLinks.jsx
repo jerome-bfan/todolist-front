@@ -7,15 +7,18 @@ class HeaderLinks extends Component {
   logOut() {
     var _notificationSystem = this.refs.notificationSystem;
     localStorage.removeItem('identityId');
+    localStorage.removeItem('accessKeyId');
+    localStorage.removeItem('secretAccessKey');
+    localStorage.removeItem('sessionToken');
     localStorage.removeItem('roleUser');
     localStorage.removeItem('roleAdmin');
     localStorage.removeItem('email');
   }
 
   _renderRole() {
-    if(localStorage.getItem("roleAdmin")) {
-      return 'Vous êtes connecté en tant qu Admin';
-    }
+      if (localStorage.getItem("roleAdmin")) {
+        return 'Vous êtes connecté en tant qu Admin';
+      }
 
     if(localStorage.getItem("roleUser")) {
       return 'Vous êtes connecté en tant que User';
@@ -42,33 +45,31 @@ class HeaderLinks extends Component {
         <p className="hidden-lg hidden-md">Notification</p>
       </div>
     );
-    return (
-      <div>
-        <Nav style = {{backgroundColor:color}}>
-          <NavItem eventKey={1} href="#">
-            <i className="fa fa-dashboard" />
-            <p className="hidden-lg hidden-md">Dashboard</p>
-          </NavItem>
-         
-          <NavItem eventKey={1} href="#">
+    return <div>
+      <Nav style={{ backgroundColor: color }}>
+        <NavItem eventKey={1} href="#">
+          <i className="fa fa-dashboard" />
+          <p className="hidden-lg hidden-md">Dashboard</p>
+        </NavItem>
+
+        <NavItem eventKey={1} href="#">
           {this._renderEmail()}
-          </NavItem>
-          <NavItem eventKey={3} href="#">
-            <i className="fa fa-search" />
-            <p className="hidden-lg hidden-md">Search</p>
-          </NavItem>
-        </Nav>
-        <Nav pullRight>
-          <NavItem eventKey={1} href="#">
+        </NavItem>
+        <NavItem eventKey={3} href="#">
+          <i className="fa fa-search" />
+          <p className="hidden-lg hidden-md">Search</p>
+        </NavItem>
+      </Nav>
+      <Nav pullRight>
+        <NavItem eventKey={1} href="#">
           {this._renderRole()}
+        </NavItem>
+        <NavItem eventKey={3} href="/dashboard" onClick={() => this.logOut()}>
+          Log out
           </NavItem>
-          <NavItem eventKey={3} href="/dashboard" onClick={()=> this.logOut()}>
-            Log out
-          </NavItem>
-        </Nav>
-        <NotificationSystem ref="notificationSystem" style={style} />
-      </div>
-    );
+      </Nav>
+      <NotificationSystem ref="notificationSystem" style={style} />
+      </div>;
   }
 }
 

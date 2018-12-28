@@ -2,7 +2,7 @@ import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetai
 import awsmobile from '../aws-exports';
 import Amplify,{API} from 'aws-amplify';
 import AWS from 'aws-sdk/dist/aws-sdk-react-native';
-import {getNotes, getUser} from './Api';
+import {getNotes, getUser, getAllNotes} from './Api';
 var jwtDecode = require('jwt-decode');
 
 const apigClientFactory = require('aws-api-gateway-client').default;
@@ -15,7 +15,7 @@ const poolData = {
   };
 
 export function authentification (form) {
-    console.log(form.password.value);
+    console.log(form);
     var username = form.username.value;
     var authenticationData = {
         Username: username,
@@ -29,10 +29,17 @@ export function authentification (form) {
         Pool: userPool
     };
     var cognitoUser = new CognitoUser(userData);
-    console.log(cognitoUser);
+    localStorage.removeItem('identityId');
+    localStorage.removeItem('accessKeyId');
+    localStorage.removeItem('secretAccessKey');
+    localStorage.removeItem('sessionToken');
+    localStorage.removeItem('roleUser');
+    localStorage.removeItem('roleAdmin');
+    localStorage.removeItem('email');
+    localStorage.clear();
+
     cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
-            console.log(result);
             AWS.config.update({region: "eu-west-1"});
 
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -42,7 +49,8 @@ export function authentification (form) {
                 }
             });
 
-                console.log(result.getIdToken());
+                localStorage.setItem('jwtToken', result.getIdToken().getJwtToken());
+
                 var sessionIdInfo = jwtDecode(result.getIdToken().jwtToken);
                  var groups = sessionIdInfo['cognito:groups'];
                  if(groups) {
@@ -63,14 +71,13 @@ export function authentification (form) {
         })}
 
                     AWS.config. credentials.get(function () {
-                        console.log(AWS.config.credentials);
                         localStorage.setItem('identityId', AWS.config.credentials.identityId);
                         localStorage.setItem('accessKeyId', AWS.config.credentials.accessKeyId);
                         localStorage.setItem('secretAccessKey', AWS.config.credentials.secretAccessKey);
                         localStorage.setItem('sessionToken', AWS.config.credentials.sessionToken);
-
-                //getNotes(); 
-                window.location.reload();
+                getAllNotes().then(test => {
+                    console.log(test) }); 
+               // window.location.reload();
                 });            
             },
 
