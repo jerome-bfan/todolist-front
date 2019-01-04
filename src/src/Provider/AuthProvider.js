@@ -16,10 +16,10 @@ const poolData = {
 
 export function authentification (form) {
     console.log(form);
-    var username = form.username.value;
+    var username = form.username;
     var authenticationData = {
         Username: username,
-        Password: form.password.value
+        Password: form.password 
     };
     var authenticationDetails = new AuthenticationDetails(authenticationData);
 
@@ -75,10 +75,11 @@ export function authentification (form) {
                         localStorage.setItem('accessKeyId', AWS.config.credentials.accessKeyId);
                         localStorage.setItem('secretAccessKey', AWS.config.credentials.secretAccessKey);
                         localStorage.setItem('sessionToken', AWS.config.credentials.sessionToken);
-                getAllNotes().then(test => {
+                getNotes().then(test => {
                     console.log(test) }); 
-               // window.location.reload();
                 });            
+                           window.location.reload();
+
             },
 
         onFailure: function (err) {
