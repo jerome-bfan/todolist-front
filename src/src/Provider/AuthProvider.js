@@ -81,7 +81,7 @@ export  async function  authentification (form) {
                 // getNotes().then(test => {
                 //     console.log(test) }); 
             //window.location.reload();
-            resolve("tesdt")
+            resolve(true)
             return "test";
                 });            
                 return "test";

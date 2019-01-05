@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ChartistGraph from "react-chartist";
 import { Grid, Row, Col } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
+import { FormGroup, ControlLabel, FormControl } from "react-bootstrap";
 
 import { Card } from "components/Card/Card.jsx";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
@@ -25,21 +26,42 @@ import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
+    this.state = {
+      username: 'jaydde',
+      password: "Mind72018",
+      registerUserName: "",
+      registerEmail: "",
+      registerPhone: "",
+      registerPassword: "",
+      errorMessage: "",
+    };
+    if(isConnected())
+    {
+      this.state = {
+        connected:true
+    }
+  }
+    else 
+    {
+      this.state = {
+        connected:false
+    }
+    }
     this._renderConnection = this._renderConnection.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this._renderInscription = this._renderInscription.bind(this);
 
-    this.state = {
-      username: "jayddef",
-      password: "Mind72018",
-      registerUserName: "dd",
-      registerEmail: "dd",
-      registerPhone: "dd",
-      registerPassword: "dd"
-    };
+    
  
   }
 
+  componentWillMount() {
+    this.setState({ 
+      username :'jaydde',
+      password :'Mind72018',
+   });
+
+  }
   createLegend(json) {
     var legend = [];
     for (var i = 0; i < json["names"].length; i++) {
@@ -52,18 +74,17 @@ class Dashboard extends Component {
   }
 
   handleChange (event)  {
-    console.log(event.target)
 
-    this.setState({
-      [event.target.id]: event.target.value
-    });
+    this.setState({ [event.target.id] : event.target.value });
+    console.log(this.state);
+
   };
 
   _renderConnection() {
     var value = localStorage.getItem("identityId");
     console.log(value);
 
-    if (!isConnected()) {
+    if ( !this.state.connected) {
       return (
         <Col md={6}>
           <Card
@@ -85,10 +106,12 @@ class Dashboard extends Component {
                         proprieties={[
                           {
                             label: "Username",
+                            id:'username',
                             type: "text",
                             bsClass: "form-control",
                             placeholder: "Username",
-                            onChange: this.handleChange
+                            onChange: this.handleChange,
+                            value: this.state.username,
                           }
                         ]}
                   
@@ -99,18 +122,25 @@ class Dashboard extends Component {
                           {
                             label: "password",
                             type: "password",
+                            id:'password',
                             bsClass: "form-control",
-                            placeholder: "Username",
+                            placeholder: "Password",
                             onChange: this.handleChange,
-                            value: this.state.username,
+                            value: this.state.password,
 
                           }
                         ]}
                       />
+           
                       <Button
                         onClick={e => {
                           //authentification(this.state).then(e => {})
-                          authentification(this.state).then(e => console.log(e)).catch(e => console.log(e));
+                          authentification(this.state).then(e => {
+
+                            this.setState({ connected : e });
+
+                          console.log(e);}
+                          ).catch(e => console.log(e));
                         }}
                       >
                         Connectez-vous
@@ -128,7 +158,7 @@ class Dashboard extends Component {
   }
 
   _renderConnected() {
-    if (isConnected()) {
+    if (this.state.connected) {
       return <div>Vous êtes connecté</div>;
     }
   }
@@ -137,9 +167,8 @@ class Dashboard extends Component {
     register(this);
   }
   _renderInscription() {
-    const test = "lala";
-    console.log(isConnected());
-    if (!isConnected()) {
+
+    if (!this.state.connected) {
       return (
         <Col md={6}>
           <Card
@@ -163,7 +192,8 @@ class Dashboard extends Component {
                             type: "text",
                             bsClass: "form-control",
                             placeholder: "Username",
-                            defaultValue: this.state.registerUserName,
+                            id:'registerUserName',
+                            value: this.state.registerUserName,
                             onChange: this.handleChange
                           }
                         ]}
@@ -177,7 +207,8 @@ class Dashboard extends Component {
                             type: "password",
                             bsClass: "form-control",
                             placeholder: "Username",
-                            defaultValue: this.state.registerPassword,
+                            id:'registerPassword',
+                            value: this.state.registerPassword,
                             onChange: this.handleChange
                           }
                         ]}
@@ -189,8 +220,9 @@ class Dashboard extends Component {
                             label: "Mail",
                             type: "text",
                             bsClass: "form-control",
-                            placeholder: "Username",
-                            defaultValue: this.state.registerEmail,
+                            placeholder: "Email",
+                            id:'registerEmail',
+                            value: this.state.registerEmail,
                             onChange: this.handleChange
                           }
                         ]}
@@ -202,8 +234,9 @@ class Dashboard extends Component {
                             label: "Téléphone",
                             type: "text",
                             bsClass: "form-control",
-                            placeholder: "Username",
-                            defaultValue: this.state.registerPhone,
+                            placeholder: "Téléphone",
+                            id:'registerPhone',
+                            value: this.state.registerPhone,
                             onChange: this.handleChange
                           }
                         ]}

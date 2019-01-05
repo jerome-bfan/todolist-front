@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FormGroup, ControlLabel, FormControl, Row } from "react-bootstrap";
+  import { FormGroup, ControlLabel, FormControl, Row } from "react-bootstrap";
 
 export class FieldGroup extends Component  {
   render () {
