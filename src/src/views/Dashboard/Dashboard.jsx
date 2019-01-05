@@ -18,17 +18,26 @@ import {
   responsiveBar,
   legendBar
 } from "variables/Variables.jsx";
-import { authentification, register } from "../../Provider/AuthProvider";
+import  {authentification,  register }  from "../../Provider/AuthProvider";
 import { isConnected } from "../../functions/p2peFunction";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 
 class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
+    this._renderConnection = this._renderConnection.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this._renderInscription = this._renderInscription.bind(this);
+
     this.state = {
-      username: "jaydde",
-      password: "Mind72018"
+      username: "jayddef",
+      password: "Mind72018",
+      registerUserName: "dd",
+      registerEmail: "dd",
+      registerPhone: "dd",
+      registerPassword: "dd"
     };
+ 
   }
 
   createLegend(json) {
@@ -42,7 +51,9 @@ class Dashboard extends Component {
     return legend;
   }
 
-  handleChange = event => {
+  handleChange (event)  {
+    console.log(event.target)
+
     this.setState({
       [event.target.id]: event.target.value
     });
@@ -77,13 +88,10 @@ class Dashboard extends Component {
                             type: "text",
                             bsClass: "form-control",
                             placeholder: "Username",
-                            value : this.state.username,
-                            onChange:this.handleChange
+                            onChange: this.handleChange
                           }
                         ]}
-                        ref={input => {
-                          this.username = input;
-                        }}
+                  
                       />
                       <FormInputs
                         ncols={["col-md-12"]}
@@ -93,18 +101,20 @@ class Dashboard extends Component {
                             type: "password",
                             bsClass: "form-control",
                             placeholder: "Username",
-                            value : this.state.password,
-                            onChange:this.handleChange                          }
+                            onChange: this.handleChange,
+                            value: this.state.username,
+
+                          }
                         ]}
                       />
-                        <Button
-                          onClick={e => {
-                            console.log();
-                            authentification(this.state);
-                          }}
-                        >
-                          Connectez-vous
-                        </Button>
+                      <Button
+                        onClick={e => {
+                          //authentification(this.state).then(e => {})
+                          authentification(this.state).then(e => console.log(e)).catch(e => console.log(e));
+                        }}
+                      >
+                        Connectez-vous
+                      </Button>
                     </Col>
                   </Row>
                   <br />
@@ -127,6 +137,7 @@ class Dashboard extends Component {
     register(this);
   }
   _renderInscription() {
+    const test = "lala";
     console.log(isConnected());
     if (!isConnected()) {
       return (
@@ -137,46 +148,78 @@ class Dashboard extends Component {
             stats="Updated 3 minutes ago"
             statsIcon="fa fa-history"
             content={
-              <div className="table-full-width">
-                <Row>
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    ref={input => {
-                      this.registerEmail = input;
-                    }}
-                  />
-                </Row>
-                <Row>
-                  <input
-                    type="text"
-                    placeholder="Nom d'utilisateur"
-                    ref={input => {
-                      this.registerUserName = input;
-                    }}
-                  />
-                </Row>
-                <Row>
-                  <input
-                    type="text"
-                    placeholder="Téléphone"
-                    ref={input => {
-                      this.registerPhone = input;
-                    }}
-                  />
-                </Row>
-                <Row>
-                  <input
-                    type="password"
-                    placeholder="mot de passe"
-                    ref={input => {
-                      this.registerPassword = input;
-                    }}
-                  />
-                </Row>
-                <Row>
-                  <button onClick={e => this._registerError()}>Register</button>
-                </Row>
+              <div style={{ flexDirection: "column" }}>
+                <div className="">
+                  <div className="App-header">
+                    <h2>Inscrivez-vous</h2>
+                  </div>
+                  <Row>
+                    <Col md={8}>
+                      <FormInputs
+                        ncols={["col-md-12"]}
+                        proprieties={[
+                          {
+                            label: "Username",
+                            type: "text",
+                            bsClass: "form-control",
+                            placeholder: "Username",
+                            defaultValue: this.state.registerUserName,
+                            onChange: this.handleChange
+                          }
+                        ]}
+                      />
+
+                      <FormInputs
+                        ncols={["col-md-12"]}
+                        proprieties={[
+                          {
+                            label: "password",
+                            type: "password",
+                            bsClass: "form-control",
+                            placeholder: "Username",
+                            defaultValue: this.state.registerPassword,
+                            onChange: this.handleChange
+                          }
+                        ]}
+                      />
+                      <FormInputs
+                        ncols={["col-md-12"]}
+                        proprieties={[
+                          {
+                            label: "Mail",
+                            type: "text",
+                            bsClass: "form-control",
+                            placeholder: "Username",
+                            defaultValue: this.state.registerEmail,
+                            onChange: this.handleChange
+                          }
+                        ]}
+                      />
+                           <FormInputs
+                        ncols={["col-md-12"]}
+                        proprieties={[
+                          {
+                            label: "Téléphone",
+                            type: "text",
+                            bsClass: "form-control",
+                            placeholder: "Username",
+                            defaultValue: this.state.registerPhone,
+                            onChange: this.handleChange
+                          }
+                        ]}
+                      />
+                      <Button
+                        onClick={e => {
+                          console.log();
+                          register(this.state);
+                        }}
+                      >
+                        Inscrivez-vous
+                      </Button>
+                    </Col>
+                  </Row>
+                  <br />
+                </div>
               </div>
             }
           />

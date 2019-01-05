@@ -14,7 +14,7 @@ const poolData = {
     region: 'eu-west-1'
   };
 
-export function authentification (form) {
+export  async function  authentification (form) {
     console.log(form);
     var username = form.username;
     var authenticationData = {
@@ -38,8 +38,11 @@ export function authentification (form) {
     localStorage.removeItem('email');
     localStorage.clear();
 
-    cognitoUser.authenticateUser(authenticationDetails, {
+    return new Promise((resolve,reject) => {
+        cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
+            //console.log(result);
+
             AWS.config.update({region: "eu-west-1"});
 
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -75,27 +78,35 @@ export function authentification (form) {
                         localStorage.setItem('accessKeyId', AWS.config.credentials.accessKeyId);
                         localStorage.setItem('secretAccessKey', AWS.config.credentials.secretAccessKey);
                         localStorage.setItem('sessionToken', AWS.config.credentials.sessionToken);
-                getNotes().then(test => {
-                    console.log(test) }); 
+                // getNotes().then(test => {
+                //     console.log(test) }); 
+            //window.location.reload();
+            resolve("tesdt")
+            return "test";
                 });            
-                           window.location.reload();
-
+                return "test";
             },
 
         onFailure: function (err) {
-            console.error(err);
-        }
+          // console.error(err);
+          reject(err);
+            return err
+        } 
+        
+
+
     });
+});
 }
 
 export function register(form) {
 
     var userPool = new CognitoUserPool(poolData);
-    var email =  form.registerEmail.value;
-    var username = form.registerUserName.value;
-    var phone = form.registerPhone.value;
+    var email =  form.registerEmail;
+    var username = form.registerUserName;
+    var phone = form.registerPhone;
     console.log(phone);
-    var password = form.registerPassword.value;
+    var password = form.registerPassword;
     var preferedusername = 'yaz666'
     var name = 'youyou'
 
