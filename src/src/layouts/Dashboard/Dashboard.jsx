@@ -13,7 +13,7 @@ import dashboardRoutes from "routes/dashboard.jsx";
 import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import AWS from 'aws-sdk';
 import { authentification } from "../../Provider/AuthProvider";
-import { isConnected } from '../../functions/p2peFunction';
+import { isConnected, colorRole } from '../../functions/p2peFunction';
 
 
 export function makeNotif (ref, type, message) {
@@ -116,7 +116,7 @@ class Dashboard extends Component {
     return (
       <div className="wrapper">
         <NotificationSystem ref="notificationSystem" style={style} />
-        <Sidebar {...this.props} />
+        <Sidebar {...this.props}/>
         <div id="main-panel" className="main-panel" ref="mainPanel">
           <Header {...this.props} />
           <Switch>

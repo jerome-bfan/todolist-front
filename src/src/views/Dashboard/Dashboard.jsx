@@ -19,7 +19,7 @@ import {
   responsiveBar,
   legendBar
 } from "variables/Variables.jsx";
-import  {authentification,  register }  from "../../Provider/AuthProvider";
+import { authentification, register } from "../../Provider/AuthProvider";
 import { isConnected } from "../../functions/p2peFunction";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 
@@ -27,40 +27,35 @@ class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      username: 'jaydde',
+      username: "jaydde",
       password: "Mind72018",
       registerUserName: "",
       registerEmail: "",
       registerPhone: "",
       registerPassword: "",
       errorMessage: "",
+      errorConnect: "",
+      errorRegister: ""
     };
-    if(isConnected())
-    {
+    if (isConnected()) {
       this.state = {
-        connected:true
-    }
-  }
-    else 
-    {
+        connected: true
+      };
+    } else {
       this.state = {
-        connected:false
-    }
+        connected: false
+      };
     }
     this._renderConnection = this._renderConnection.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this._renderInscription = this._renderInscription.bind(this);
-
-    
- 
   }
 
   componentWillMount() {
-    this.setState({ 
-      username :'jaydde',
-      password :'Mind72018',
-   });
-
+    this.setState({
+      username: "jaydde",
+      password: "Mind72018"
+    });
   }
   createLegend(json) {
     var legend = [];
@@ -73,18 +68,16 @@ class Dashboard extends Component {
     return legend;
   }
 
-  handleChange (event)  {
-
-    this.setState({ [event.target.id] : event.target.value });
+  handleChange(event) {
+    this.setState({ [event.target.id]: event.target.value });
     console.log(this.state);
-
-  };
+  }
 
   _renderConnection() {
     var value = localStorage.getItem("identityId");
     console.log(value);
 
-    if ( !this.state.connected) {
+    if (!this.state.connected) {
       return (
         <Col md={6}>
           <Card
@@ -106,15 +99,14 @@ class Dashboard extends Component {
                         proprieties={[
                           {
                             label: "Username",
-                            id:'username',
+                            id: "username",
                             type: "text",
                             bsClass: "form-control",
                             placeholder: "Username",
                             onChange: this.handleChange,
-                            value: this.state.username,
+                            value: this.state.username
                           }
                         ]}
-                  
                       />
                       <FormInputs
                         ncols={["col-md-12"]}
@@ -122,29 +114,34 @@ class Dashboard extends Component {
                           {
                             label: "password",
                             type: "password",
-                            id:'password',
+                            id: "password",
                             bsClass: "form-control",
                             placeholder: "Password",
                             onChange: this.handleChange,
-                            value: this.state.password,
-
+                            value: this.state.password
                           }
                         ]}
                       />
-           
+
                       <Button
+
                         onClick={e => {
                           //authentification(this.state).then(e => {})
-                          authentification(this.state).then(e => {
+                          authentification(this.state)
+                            .then(e => {
+                              this.setState({ connected: e });
 
-                            this.setState({ connected : e });
-
-                          console.log(e);}
-                          ).catch(e => console.log(e));
+                              console.log(e);
+                            })
+                            .catch(e => {
+                              console.log(e);
+                              this.setState({ errorConnect: e.message });
+                            });
                         }}
                       >
                         Connectez-vous
                       </Button>
+                      <text>{this.state.errorConnect}</text>
                     </Col>
                   </Row>
                   <br />
@@ -167,7 +164,6 @@ class Dashboard extends Component {
     register(this);
   }
   _renderInscription() {
-
     if (!this.state.connected) {
       return (
         <Col md={6}>
@@ -192,7 +188,7 @@ class Dashboard extends Component {
                             type: "text",
                             bsClass: "form-control",
                             placeholder: "Username",
-                            id:'registerUserName',
+                            id: "registerUserName",
                             value: this.state.registerUserName,
                             onChange: this.handleChange
                           }
@@ -207,7 +203,7 @@ class Dashboard extends Component {
                             type: "password",
                             bsClass: "form-control",
                             placeholder: "Username",
-                            id:'registerPassword',
+                            id: "registerPassword",
                             value: this.state.registerPassword,
                             onChange: this.handleChange
                           }
@@ -221,13 +217,13 @@ class Dashboard extends Component {
                             type: "text",
                             bsClass: "form-control",
                             placeholder: "Email",
-                            id:'registerEmail',
+                            id: "registerEmail",
                             value: this.state.registerEmail,
                             onChange: this.handleChange
                           }
                         ]}
                       />
-                           <FormInputs
+                      <FormInputs
                         ncols={["col-md-12"]}
                         proprieties={[
                           {
@@ -235,7 +231,7 @@ class Dashboard extends Component {
                             type: "text",
                             bsClass: "form-control",
                             placeholder: "Téléphone",
-                            id:'registerPhone',
+                            id: "registerPhone",
                             value: this.state.registerPhone,
                             onChange: this.handleChange
                           }
@@ -244,11 +240,20 @@ class Dashboard extends Component {
                       <Button
                         onClick={e => {
                           console.log();
-                          register(this.state);
+                          register(this.state)
+                            .then(e => {
+                              this.setState({ errorRegister: e.message });
+
+                              console.log(e);
+                            })
+                            .catch(e => {
+                              console.log(e);
+                            });
                         }}
                       >
                         Inscrivez-vous
                       </Button>
+                      <div>{this.state.errorRegister}</div>
                     </Col>
                   </Row>
                   <br />

@@ -7,6 +7,7 @@ import imagine from "assets/img/sidebar-3.jpg";
 import logo from "assets/img/reactlogo.png";
 
 import dashboardRoutes from "routes/dashboard.jsx";
+import { colorRole } from "../../functions/p2peFunction.js";
 
 class Sidebar extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class Sidebar extends Component {
       <div
         id="sidebar"
         className="sidebar"
-        data-color="black"
+        data-color={colorRole(("black"))}
         data-image={imagine}
       >
         <div className="sidebar-background" style={sidebarBackground} />
