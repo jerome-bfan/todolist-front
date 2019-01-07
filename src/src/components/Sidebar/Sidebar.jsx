@@ -51,7 +51,7 @@ class Sidebar extends Component {
             href="https://www.creative-tim.com"
             className="simple-text logo-normal"
           >
-            Cloud
+            P2PEE
           </a>
         </div>
         <div className="sidebar-wrapper">
