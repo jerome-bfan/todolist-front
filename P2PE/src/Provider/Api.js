@@ -34,7 +34,7 @@ export function getNotes() {
         identityid: localStorage.getItem("identityId")
         //This is where you define the body of the request
     };
-    return instanceApi().invokeApi(null, 'user', 'POST', undefined, body)
+    return instanceApi().invokeApi(null, 'all', 'GET')
         .then(function (result) {
             return result;
         }).catch(function (error) {
