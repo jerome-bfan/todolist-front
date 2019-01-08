@@ -1,7 +1,7 @@
 import Dashboard from "views/Dashboard/Dashboard";
 import UserProfile from "views/UserProfile/UserProfile";
 import TableList from "views/TableList/TableList";
-import Typography from "views/Typography/Typography";
+import Help from "views/Help/Help";
 import Icons from "views/Icons/Icons";
 import Maps from "views/Maps/Maps";
 import Notifications from "views/Notifications/Notifications";
@@ -21,10 +21,10 @@ const dashboardRoutes = [
     component: TableList
   },
   {
-    path: "/typography",
-    name: "All note",
+    path: "/help",
+    name: "Page help",
     icon: "pe-7s-news-paper",
-    component: Typography
+    component: Help
   },
   {
     path: "/user",
