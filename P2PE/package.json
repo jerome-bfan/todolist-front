@@ -23,6 +23,7 @@
     "react-scripts": "1.1.1",
     "webpack": "^3.11.0"
   },
+
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
