@@ -11,6 +11,15 @@ import Button from "components/CustomButton/CustomButton";
 
 import Card from "components/Card/Card.jsx";
 
+const myContainer = {
+  padding: '0 0 40px 40px'
+}
+
+const style = {
+button : {color : "blue"},
+  color: 'blue',
+};
+
 class Typography extends Component {
   constructor(props) {
     super(props);
@@ -24,23 +33,31 @@ class Typography extends Component {
     window.location.reload();
   }
 
+  _renderContent() {
+return <div>
+  <h2 style={style.button}>Need help ?</h2>
+<div style={{color:"red"}}>Pour toi guillaume</div> </div>;
+  }
+
+
+
   deleteNote() {
     deleteNoteAdmin(this.id_note.value).then();
     window.location.reload();
   }
   _renderPage() {
-    return <div>Pour toi guillaume</div>;
+    return (
+        <div style={myContainer}>
+          {this._renderContent()}
+                </div>
+
+    );
   }
   componentWillMount() {
-    // getAllNotes().then((api) => {
-    //   console.log(api);
-    //   this.setState({
-    //     notes: api.data
-    //   })
-    // });
+
   }
   render() {
-    return this._renderPage();
+    return this._renderContent();
   }
 }
 
