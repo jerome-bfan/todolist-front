@@ -11,13 +11,13 @@ import Button from "components/CustomButton/CustomButton";
 
 import Card from "components/Card/Card.jsx";
 
-const myContainer = {
-  padding: '0 0 40px 40px'
-}
-
 const style = {
-button : {color : "blue"},
-  color: 'blue',
+  title : {
+    "text-align": "center"
+  },
+  myContainer : {
+    padding: '0 0 40px 40px',
+  },
 };
 
 class Typography extends Component {
@@ -34,12 +34,13 @@ class Typography extends Component {
   }
 
   _renderContent() {
-return <div>
-  <h2 style={style.button}>Need help ?</h2>
-<div style={{color:"red"}}>Pour toi guillaume</div> </div>;
+    return (
+        <div style={style.myContainer}>
+          <h2 style={style.title}>Need help ?</h2>
+          <div style={{color:"red"}}>Pour toi guillaume</div>
+        </div>
+    );
   }
-
-
 
   deleteNote() {
     deleteNoteAdmin(this.id_note.value).then();
@@ -47,9 +48,9 @@ return <div>
   }
   _renderPage() {
     return (
-        <div style={myContainer}>
+        <div>
           {this._renderContent()}
-                </div>
+        </div>
 
     );
   }
