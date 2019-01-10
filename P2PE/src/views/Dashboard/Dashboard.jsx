@@ -22,6 +22,7 @@ import {
 import { authentification, register } from "../../Provider/AuthProvider";
 import { isConnected } from "../../functions/p2peFunction";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
+import { getNotes } from "../../Provider/Api";
 
 class Dashboard extends Component {
   constructor(props, context) {
@@ -41,6 +42,9 @@ class Dashboard extends Component {
       this.state = {
         connected: true
       };
+      getNotes().then(test => {
+        console.log("llala")
+        console.log(test) });
     } else {
       this.state = {
         connected: false
