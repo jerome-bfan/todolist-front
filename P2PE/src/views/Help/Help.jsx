@@ -16,6 +16,10 @@ const style = {
     textAlign: 'center',
     margin: '0 0 30px'
   },
+  question: {
+    width: '100%',
+    textAlign: 'center',
+  }
 };
 
 class Typography extends Component {
@@ -52,13 +56,13 @@ class Typography extends Component {
                 >
                   <Panel eventKey="1">
                     <Panel.Heading>
-                      <Panel.Title toggle>Panel heading 1</Panel.Title>
+                      <Panel.Title toggle style={style.question}>Panel heading 1</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>Panel content 1</Panel.Body>
                   </Panel>
                   <Panel eventKey="2">
                     <Panel.Heading>
-                      <Panel.Title toggle>Panel heading 2</Panel.Title>
+                      <Panel.Title toggle style={style.question}>Panel heading 2</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>Panel content 2</Panel.Body>
                   </Panel>
@@ -91,13 +95,52 @@ class Typography extends Component {
                 >
                   <Panel eventKey="1">
                     <Panel.Heading>
-                      <Panel.Title toggle>Panel heading 1</Panel.Title>
+                      <Panel.Title toggle style={style.question}>Panel heading 1</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>Panel content 1</Panel.Body>
                   </Panel>
                   <Panel eventKey="2">
                     <Panel.Heading>
-                      <Panel.Title toggle>Panel heading 2</Panel.Title>
+                      <Panel.Title toggle style={style.question}>Panel heading 2</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>Panel content 2</Panel.Body>
+                  </Panel>
+                </PanelGroup>
+              </div>
+            </div>
+          }
+        />
+      </Col>
+    );
+  }
+
+  _renderGoogleCard() {
+    return (
+      <Col md={12}>
+        <Card
+          //title="Inscrivez-vous"
+          //category="Remplir les informations ci dessous"
+          content={
+            <div style={{ flexDirection: "column" }}>
+              <div>
+                <div className="App-header">
+                  <h2 style={style.title}>Questions courantes</h2>
+                </div>
+                <PanelGroup
+                  accordion
+                  id="accordion_questions"
+                  activeKey={this.state.activeKey}
+                  onSelect={this.handleSelect}
+                >
+                  <Panel eventKey="1">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>Panel heading 1</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>Panel content 1</Panel.Body>
+                  </Panel>
+                  <Panel eventKey="2">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>Panel heading 2</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>Panel content 2</Panel.Body>
                   </Panel>
@@ -123,6 +166,10 @@ class Typography extends Component {
             <h2 style={style.title}>Page d'aide</h2>
             {this._renderProblems()}
             {this._renderQuestions()}
+          </Row>
+          <Row>
+            <h2 style={style.title}>Page contact</h2>
+            {this._renderGoogleCard()}
           </Row>
         </Grid>
       </div>
