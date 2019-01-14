@@ -25,6 +25,11 @@ features:
           /getNotes/add: !com.amazonaws.mobilehub.v0.Function {}
           /getNotes/delete: !com.amazonaws.mobilehub.v0.Function {}
           '/getNotes/{identityid}': !com.amazonaws.mobilehub.v0.Function {}
+          /pro: !com.amazonaws.mobilehub.v0.Function {}
+          '/pro/{id_pro}': !com.amazonaws.mobilehub.v0.Function {}
+          '/pro/{id_pro}/services': !com.amazonaws.mobilehub.v0.Function {}
+          /pro2: !com.amazonaws.mobilehub.v0.Function {}
+          '/pro2/{id_pro}': !com.amazonaws.mobilehub.v0.Function {}
           /retrievethis: !com.amazonaws.mobilehub.v0.Function {}
           /test: !com.amazonaws.mobilehub.v0.Function {}
           /user: !com.amazonaws.mobilehub.v0.Function {}

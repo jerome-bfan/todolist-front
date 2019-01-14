@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Row, Col } from "react-bootstrap";
+import { Grid, Row, Col, Collapse, Well, Panel, PanelGroup } from "react-bootstrap";
 import {
   getNotes,
   getAllNotes,
@@ -13,10 +13,8 @@ import Card from "components/Card/Card.jsx";
 
 const style = {
   title : {
-    "text-align": "center"
-  },
-  myContainer : {
-    padding: '0 0 40px 40px',
+    textAlign: 'center',
+    margin: '0 0 30px'
   },
 };
 
@@ -32,13 +30,83 @@ class Typography extends Component {
     postNotesAdmin(this.note.value).then();
     window.location.reload();
   }
+// https://help.instagram.com/
 
-  _renderContent() {
+  _renderProblems() {
     return (
-        <div style={style.myContainer}>
-          <h2 style={style.title}>Need help ?</h2>
-          <div style={{color:"red"}}>Pour toi guillaume</div>
-        </div>
+      <Col md={6}>
+        <Card
+          //title="Inscrivez-vous"
+          //category="Remplir les informations ci dessous"
+          content={
+            <div style={{ flexDirection: "column" }}>
+              <div className="">
+                <div className="App-header">
+                  <h2 style={style.title}>Problèmes courants</h2>
+                </div>
+                <PanelGroup
+                  accordion
+                  id="accordion_problems"
+                  activeKey={this.state.activeKey}
+                  onSelect={this.handleSelect}
+                >
+                  <Panel eventKey="1">
+                    <Panel.Heading>
+                      <Panel.Title toggle>Panel heading 1</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>Panel content 1</Panel.Body>
+                  </Panel>
+                  <Panel eventKey="2">
+                    <Panel.Heading>
+                      <Panel.Title toggle>Panel heading 2</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>Panel content 2</Panel.Body>
+                  </Panel>
+                </PanelGroup>
+              </div>
+            </div>
+          }
+        />
+      </Col>
+    );
+  }
+
+  _renderQuestions() {
+    return (
+      <Col md={6}>
+        <Card
+          //title="Inscrivez-vous"
+          //category="Remplir les informations ci dessous"
+          content={
+            <div style={{ flexDirection: "column" }}>
+              <div>
+                <div className="App-header">
+                  <h2 style={style.title}>Questions courantes</h2>
+                </div>
+                <PanelGroup
+                  accordion
+                  id="accordion_questions"
+                  activeKey={this.state.activeKey}
+                  onSelect={this.handleSelect}
+                >
+                  <Panel eventKey="1">
+                    <Panel.Heading>
+                      <Panel.Title toggle>Panel heading 1</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>Panel content 1</Panel.Body>
+                  </Panel>
+                  <Panel eventKey="2">
+                    <Panel.Heading>
+                      <Panel.Title toggle>Panel heading 2</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>Panel content 2</Panel.Body>
+                  </Panel>
+                </PanelGroup>
+              </div>
+            </div>
+          }
+        />
+      </Col>
     );
   }
 
@@ -46,19 +114,19 @@ class Typography extends Component {
     deleteNoteAdmin(this.id_note.value).then();
     window.location.reload();
   }
-  _renderPage() {
-    return (
-        <div>
-          {this._renderContent()}
-        </div>
 
-    );
-  }
-  componentWillMount() {
-
-  }
   render() {
-    return this._renderContent();
+    return (
+      <div className="content">
+        <Grid fluid>
+          <Row>
+            <h2 style={style.title}>Page d'aide</h2>
+            {this._renderProblems()}
+            {this._renderQuestions()}
+          </Row>
+        </Grid>
+      </div>
+    );
   }
 }
 
