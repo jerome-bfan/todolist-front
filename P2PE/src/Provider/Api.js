@@ -29,12 +29,15 @@ export function getUser() {
         })
 }
 export function getNotes() {
-
+    const additionalParams = {
+        headers: { "Access-Control-Allow-Origin": "*",
+     }
+    }
     var body = {
         identityid: localStorage.getItem("identityId")
         //This is where you define the body of the request
     };
-    return instanceApi().invokeApi(null, 'all', 'GET')
+    return instanceApi().invokeApi(additionalParams, 'all', 'GET')
         .then(function (result) {
             return result;
         }).catch(function (error) {
@@ -45,12 +48,11 @@ export function getNotes() {
 
 export function getAllNotes() {
     const additionalParams = {
-        queryParams: {
-            identityid: "eu-west-1:c72978e3-2d1a-4e61-a913-ba1f5e13ea08"
-        }
+        headers: { "Access-Control-Allow-Origin": "*" }
+
     }
 
-    return instanceApi().invokeApi(null, 'all', 'GET')
+    return instanceApi().invokeApi(additionalParams, 'all', 'GET')
         .then(function (result) {
             console.log(result)
             return result;
