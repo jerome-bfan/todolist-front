@@ -78,6 +78,7 @@ export async function authentification(form) {
         }
 
         AWS.config.credentials.get(function() {
+          console.log(AWS.config.credentials.identityId);
           localStorage.setItem("identityId", AWS.config.credentials.identityId);
           localStorage.setItem(
             "accessKeyId",

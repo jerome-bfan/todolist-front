@@ -9,65 +9,28 @@ class TableList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      notes: []
+      services: []
     };
-  }
-  addNote() {
-    postNotes(this.note.value).then();
-    window.location.reload();
   }
 
   _renderPage() {
     return (
       <div className="content">
-        <Card
-          title={"Ajoute une service"}
-          category={"remplir la note"}
-          content={
-            <div>
-              <Row>
-                <textarea
-                  style={{ width: 300, marginLeft: 10 }}
-                  type="text"
-                  placeholder="note"
-                  ref={input => {
-                    this.note = input;
-                  }}
-                />
-              </Row>
-
-              <Row>
-                <Button
-                  style={{
-                    marginTop: 10,
-                    marginLeft: 10,
-                    borderColor: colorRole("#888888"),
-                    color: colorRole("#888888")
-                  }}
-                  onClick={e => {
-                    this.addNote();
-                  }}
-                >
-                  ajouter
-                </Button>
-              </Row>
-            </div>
-          }
-        />
-        <h1>Toutes mes notes</h1>
+    
+        <h1>Tous mes services</h1>
 
         <Card
-          title={"Supprimez servoce"}
-          category={"Ajouter l'id du servic "}
+          title={"Supprimez un service"}
+          category={"Ajouter l'id du service "}
           content={
             <div>
               <Row>
                 <input
                   style={{ marginLeft: 10 }}
                   type="text"
-                  placeholder="id de la note"
+                  placeholder="id du service"
                   ref={input => {
-                    this.id_note = input;
+                    this.id = input;
                   }}
                 />
               </Row>
@@ -81,7 +44,7 @@ class TableList extends Component {
                     color: colorRole("#888888")
                   }}
                   onClick={e => {
-                    this.deleteNote();
+                    this.addService();
                   }}
                 >
                   Supprimer
@@ -91,16 +54,16 @@ class TableList extends Component {
           }
         />
         <Grid fluid>
-          {(this.state.notes != undefined && this.state.notes.length) > 0 &&
-            this.state.notes.map(note => {
-              console.log(note);
+          {(this.state.services != undefined && this.state.services.length) > 0 &&
+            this.state.services.map(service => {
+              console.log(service);
               return (
-                <div key={note.id_note}>
+                <div key={service.id_note}>
                   {" "}
                   <Card
-                    title={note.id_note}
-                    category={note.identity_id}
-                    content={<div>{note.note}</div>}
+                    title={service.title}
+                    category={service.category}
+                    content={<div>{service.description}</div>}
                   />{" "}
                 </div>
               );
@@ -110,22 +73,23 @@ class TableList extends Component {
     );
   }
 
-  deleteNote() {
-    deleteNotes(this.id_note.value).then();
-    window.location.reload();
+  addService () {
+    
   }
 
   componentWillMount() {
     //deleteNotes(2).then();
     getNotes().then(api => {
       console.log("state");
+      console.log(api);
+
       this.setState({
-        notes: api.data
+        services: api.data
       });
     });
   }
   render() {
-    console.log(this.state.notes);
+    console.log(this.state.services);
 
     return this._renderPage();
   }

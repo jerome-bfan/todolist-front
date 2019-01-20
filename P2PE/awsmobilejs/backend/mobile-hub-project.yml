@@ -31,6 +31,9 @@ features:
           /pro2: !com.amazonaws.mobilehub.v0.Function {}
           '/pro2/{id_pro}': !com.amazonaws.mobilehub.v0.Function {}
           /retrievethis: !com.amazonaws.mobilehub.v0.Function {}
+          /service-user: !com.amazonaws.mobilehub.v0.Function {}
+          /service-user/payd: !com.amazonaws.mobilehub.v0.Function {}
+          /service-user/validated: !com.amazonaws.mobilehub.v0.Function {}
           /stipe2: !com.amazonaws.mobilehub.v0.Function {}
           /stripe: !com.amazonaws.mobilehub.v0.Function {}
           /test: !com.amazonaws.mobilehub.v0.Function {}
