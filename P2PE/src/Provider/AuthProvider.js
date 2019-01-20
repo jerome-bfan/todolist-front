@@ -45,8 +45,7 @@ export async function authentification(form) {
   return new Promise((resolve, reject) => {
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: function(result) {
-        //console.log(result);
-
+        console.log(result);
         AWS.config.update({ region: "eu-west-1" });
 
         AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -72,10 +71,9 @@ export async function authentification(form) {
               localStorage.setItem("roleUser", true);
             } else if (answer == "admin") {
               localStorage.setItem("roleAdmin", true);
+            } else if (answer == "pro") {
+              localStorage.setItem("rolePro", true);
             }
-            else if (answer == "pro") {
-                localStorage.setItem("rolePro", true);
-              }
           });
         }
 
@@ -96,6 +94,8 @@ export async function authentification(form) {
           // getNotes().then(test => {
           //     console.log(test) });
           //window.location.reload();
+          AWS.config.admin;
+    
           resolve(true);
           return "test";
         });
@@ -116,13 +116,25 @@ export async function register(form) {
   var email = form.registerEmail;
   var username = form.registerUserName;
   var phone = form.registerPhone;
-  console.log(phone);
   var password = form.registerPassword;
   var preferedusername = "yaz666";
   var name = "youyou";
 
   var attributeList = [];
+  var params = {
+    GroupName: "pro" /* required */,
+    UserPoolId: awsmobile.aws_user_pools_id /* required */,
+    Username: "jaydde" /* required */
+  };
+  var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 
+  cognitoidentityserviceprovider.adminAddUserToGroup(params, function(
+    err,
+    data
+  ) {
+    if (err) console.log(err, err.stack);
+    else console.log(data);
+  });
   var dataEmail = {
     Name: "email",
     Value: email

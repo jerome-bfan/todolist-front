@@ -31,9 +31,12 @@ features:
           /pro2: !com.amazonaws.mobilehub.v0.Function {}
           '/pro2/{id_pro}': !com.amazonaws.mobilehub.v0.Function {}
           /retrievethis: !com.amazonaws.mobilehub.v0.Function {}
+          /stipe2: !com.amazonaws.mobilehub.v0.Function {}
+          /stripe: !com.amazonaws.mobilehub.v0.Function {}
           /test: !com.amazonaws.mobilehub.v0.Function {}
           /user: !com.amazonaws.mobilehub.v0.Function {}
-          '/user/{identityid}': !com.amazonaws.mobilehub.v0.Function {}
+          '/user/{id_user}': !com.amazonaws.mobilehub.v0.Function {}
+          '/user/{id_user}/requested-service': !com.amazonaws.mobilehub.v0.Function {}
   content-delivery: !com.amazonaws.mobilehub.v0.ContentDelivery 
     attributes:
       enabled: true
