@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Row, Col, Collapse, Well, Panel, PanelGroup,
-          ListGroup, ListGroupItem,
-
-          Form, FormGroup, Label, FormControl, textarea
+import { Grid, Row, Col, Collapse, Well, Panel, PanelGroup
         } from "react-bootstrap";
 import {
   getNotes,
