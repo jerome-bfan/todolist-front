@@ -81,15 +81,44 @@ class Typography extends Component {
                 >
                   <Panel eventKey="1">
                     <Panel.Heading>
-                      <Panel.Title toggle style={style.question}>Panel heading 1</Panel.Title>
+                      <Panel.Title toggle style={style.question}>Mot de passe oublié</Panel.Title>
                     </Panel.Heading>
-                    <Panel.Body collapsible>Panel content 1</Panel.Body>
+                    <Panel.Body collapsible>
+                      Si vous avez oublié votre mot de passe, un lien sera disponible
+                      pour vous permettre d'avoir un lien de réinitialisation.
+                      Il sera envoyé par mail.
+                      <br/>
+                      <br/>Ce lien sera valable pendant un certain temps.
+                    </Panel.Body>
                   </Panel>
                   <Panel eventKey="2">
                     <Panel.Heading>
-                      <Panel.Title toggle style={style.question}>Panel heading 2</Panel.Title>
+                      <Panel.Title toggle style={style.question}>
+                        Mon lien de réinitialisation de mot de passe ne fonctionne pas
+                      </Panel.Title>
                     </Panel.Heading>
-                    <Panel.Body collapsible>Panel content 2</Panel.Body>
+                    <Panel.Body collapsible>
+                      Au moment où vous oubliez votre mot de passe, vous pourrez
+                      nous demander un lien de réinitialisation. Ce dernier vous
+                      sera envoyé par mail.
+                      <br/>
+                      <br/>Ce lien expire au bout d'un certain temps. Il faudra
+                      l'utiliser dès sa réception.
+                      <br/>
+                      <br/>Si ce lien ne fonctionne pas dès sa réception,
+                      contactez-nous via le formulaire ci-dessous.
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="3">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+                        Commander un service
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+                      Vous pouvez visionner la liste des services disponibles
+                      afin de choisir celui qui vous convient.
+                    </Panel.Body>
                   </Panel>
                 </PanelGroup>
               </div>
@@ -139,109 +168,6 @@ class Typography extends Component {
     );
   }
 
-  /* Google Map */
-  _renderCard() {
-    return (
-      <Col md={6}>
-        <div style={{ flexDirection: "column" }}>
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2627.2302815922812!2d2.360619315774665!3d48.81566751166777!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e6717ff972ae09%3A0x692326b123aa4d9b!2sEpitech+Paris!5e0!3m2!1sfr!2sfr!4v1547464720773"
-                  width="100%"
-                  height="450"
-                  frameBorder="0"
-                  style={style.map}
-                  allowFullScreen></iframe>
-        </div>
-      </Col>
-    );
-  }
-
-  _renderContactInfo() {
-    return (
-      <Col md={6}>
-        <Card
-          content={
-            <div style={{ flexDirection: "column" }}>
-              <div>
-                <div className="App-header">
-                  <h2 style={style.title}>Comment nous contacter ?</h2>
-                </div>
-                <ListGroup>
-                  <ListGroupItem><strong>Adresse :</strong> 24, rue pasteur, 94270 Le Kremlin-Bicêtre</ListGroupItem>
-                  <ListGroupItem><strong>Numéro de téléphone :</strong> 06 66 66 66 66</ListGroupItem>
-                  <ListGroupItem><strong>Adresse email :</strong> contact@p2pe.com</ListGroupItem>
-                </ListGroup>
-              </div>
-            </div>
-          }
-        />
-      </Col>
-    );
-  }
-
-  _renderContactForm() {
-    return (
-      <Form className="form">
-        <Col md={6} style={style.input_style}>
-          <FormGroup>
-            <Label>Nom</Label>
-            <FormControl
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Votre nom"
-            />
-          </FormGroup>
-        </Col>
-        <Col md={6}>
-          <FormGroup>
-            <Label htmlFor="examplePassword">Email</Label>
-            <FormControl
-              type="email"
-              name="email"
-              id="customerEmail"
-              placeholder="Votre email"
-            />
-          </FormGroup>
-        </Col>
-        <Col md={12}>
-          <FormGroup controlId="formControlsTextarea">
-            <Label htmlFor="message">Message</Label>
-            <FormControl componentClass="textarea" placeholder="Votre message" />
-          </FormGroup>
-        </Col>
-        <Button style={style.submitBtn}>Envoyer</Button>
-      </Form>
-    );
-  }
-
-  _renderContact() {
-    return (
-      <Col md={12}>
-        <Card
-          content={
-            <Grid fluid>
-              <Row>
-                <div className="App-header">
-                  <h2 style={style.title}>Nous contacter</h2>
-                </div>
-                {this._renderCard()}
-                {this._renderContactInfo()}
-              </Row>
-              <div style={style.line}></div>
-              <Row>
-                <div className="App-header">
-                  <h2 style={style.title}>Nous contacter</h2>
-                </div>
-                {this._renderContactForm()}
-              </Row>
-            </Grid>
-          }
-        />
-      </Col>
-    );
-  }
-  /**/
-
   deleteNote() {
     deleteNoteAdmin(this.id_note.value).then();
     window.location.reload();
@@ -255,10 +181,6 @@ class Typography extends Component {
             <h2 style={style.title}>Page d'aide</h2>
             {this._renderProblems()}
             {this._renderQuestions()}
-          </Row>
-          <Row>
-            <h2 style={style.title}>Page contact</h2>
-            {this._renderContact()}
           </Row>
         </Grid>
       </div>
