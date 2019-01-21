@@ -109,17 +109,6 @@ class Typography extends Component {
                       contactez-nous via le formulaire ci-dessous.
                     </Panel.Body>
                   </Panel>
-                  <Panel eventKey="3">
-                    <Panel.Heading>
-                      <Panel.Title toggle style={style.question}>
-                        Commander un service
-                      </Panel.Title>
-                    </Panel.Heading>
-                    <Panel.Body collapsible>
-                      Vous pouvez visionner la liste des services disponibles
-                      afin de choisir celui qui vous convient.
-                    </Panel.Body>
-                  </Panel>
                 </PanelGroup>
               </div>
             </div>
@@ -149,15 +138,31 @@ class Typography extends Component {
                 >
                   <Panel eventKey="1">
                     <Panel.Heading>
-                      <Panel.Title toggle style={style.question}>Panel heading 1</Panel.Title>
+                      <Panel.Title toggle style={style.question}>
+                        Comment commander un service ?
+                      </Panel.Title>
                     </Panel.Heading>
-                    <Panel.Body collapsible>Panel content 1</Panel.Body>
+                    <Panel.Body collapsible>
+                      Vous pouvez visionner la liste des services disponibles
+                      afin de choisir celui qui vous convient.
+                      <br/>
+                      <br/>En cliquant sur un service, une popup apparait avec
+                      le détail du service et la possibilité de réserver une date
+                      pour le service et de le payer.
+                    </Panel.Body>
                   </Panel>
                   <Panel eventKey="2">
                     <Panel.Heading>
-                      <Panel.Title toggle style={style.question}>Panel heading 2</Panel.Title>
+                      <Panel.Title toggle style={style.question}>Comment créer un compte ?</Panel.Title>
                     </Panel.Heading>
-                    <Panel.Body collapsible>Panel content 2</Panel.Body>
+                    <Panel.Body collapsible>
+                      Il vous faut utiliser un username, un mot de passe, un mail
+                      et un numéro de téléphone.
+                      <br/> Un formulaire vous demandra ces informations. Suite
+                      à l'utilisation du bouton "Inscrivez-vous", un mail de
+                      confirmation vous sera envoyé. Vous pourrez ensuite Vous
+                      connecter.
+                    </Panel.Body>
                   </Panel>
                 </PanelGroup>
               </div>
