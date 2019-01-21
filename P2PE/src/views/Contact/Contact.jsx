@@ -143,9 +143,6 @@ class Contact extends Component {
           content={
             <Grid fluid>
               <Row>
-                <div className="App-header">
-                  <h2 style={style.title}>Nous contacter</h2>
-                </div>
                 {this._renderCard()}
                 {this._renderContactInfo()}
               </Row>
