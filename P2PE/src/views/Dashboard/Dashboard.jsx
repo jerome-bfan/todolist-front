@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ChartistGraph from "react-chartist";
-import { Grid, Row, Col } from "react-bootstrap";
+import { Grid, Row, Col, Panel, PanelGroup, } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import { FormGroup, ControlLabel, FormControl } from "react-bootstrap";
 
@@ -22,6 +22,38 @@ import {
 import { authentification, register } from "../../Provider/AuthProvider";
 import { isConnected } from "../../functions/p2peFunction";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
+
+const style = {
+  title : {
+    textAlign: 'center',
+    margin: '20px 0 30px'
+  },
+  question: {
+    width: '100%',
+    textAlign: 'center',
+  },
+  map: {
+    border: '0'
+  },
+  input_style: {
+    paddingLeft: '6px'
+  },
+  submitBtn: {
+    padding: '8px 70px',
+    margin: 'auto',
+    display: 'block',
+    color: '#000000',
+    fontSize: '17px',
+  },
+  line: {
+    display: 'block',
+    height: '1px',
+    border: '0',
+    borderTop: '1px solid #c2c2c2',
+    margin: '2em 0',
+    padding: '0',
+  }
+};
 
 class Dashboard extends Component {
   constructor(props, context) {
@@ -154,9 +186,75 @@ class Dashboard extends Component {
     }
   }
 
+  _rendrePresentation() {
+    return (
+      <Col md={4}>
+        <Card
+          //title="Inscrivez-vous"
+          //category="Remplir les informations ci dessous"
+          content={
+            <div style={{ flexDirection: "column" }}>
+              <div className="">
+                <div className="App-header">
+                  <h2 style={style.title}>Présentation de l'entreprise</h2>
+                </div>
+                <PanelGroup
+                  accordion
+                  id="accordion_problems"
+                  activeKey={this.state.activeKey}
+                  onSelect={this.handleSelect}
+                >
+                  <Panel eventKey="1">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>Mot de passe oublié</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+                      Si vous avez oublié votre mot de passe, un lien sera disponible
+                      pour vous permettre d'avoir un lien de réinitialisation.
+                      Il sera envoyé par mail.
+                      <br/>
+                      <br/>Ce lien sera valable pendant un certain temps.
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="2">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+                        Mon lien de réinitialisation de mot de passe ne fonctionne pas
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+                      Au moment où vous oubliez votre mot de passe, vous pourrez
+                      nous demander un lien de réinitialisation. Ce dernier vous
+                      sera envoyé par mail.
+                      <br/>
+                      <br/>Ce lien expire au bout d'un certain temps. Il faudra
+                      l'utiliser dès sa réception.
+                      <br/>
+                      <br/>Si ce lien ne fonctionne pas dès sa réception,
+                      contactez-nous via le formulaire ci-dessous.
+                    </Panel.Body>
+                  </Panel>
+                </PanelGroup>
+              </div>
+            </div>
+          }
+        />
+      </Col>
+    );
+  }
+
   _renderConnected() {
     if (this.state.connected) {
-      return <div>Vous êtes connecté</div>;
+      return (
+        <div className="content">
+          <Grid fluid>
+            <Row>
+              <h2 style={style.title}>Bienvenue sur la page d'accueil</h2>
+              {this._rendrePresentation()}
+            </Row>
+          </Grid>
+        </div>
+      );
     }
   }
 

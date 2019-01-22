@@ -150,6 +150,18 @@ class Typography extends Component {
                   </Panel>
                   <Panel eventKey="2">
                     <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+                        Est-ce possible d'annuler un service ?
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+                      En effet, il est possible. De plus, le remboursement est
+                      possible si le service est annulé au moins 24h avant le
+                      début du service?
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="3">
+                    <Panel.Heading>
                       <Panel.Title toggle style={style.question}>Comment créer un compte ?</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
@@ -159,6 +171,93 @@ class Typography extends Component {
                       à l'utilisation du bouton "Inscrivez-vous", un mail de
                       confirmation vous sera envoyé. Vous pourrez ensuite Vous
                       connecter.
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="4">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+                        Quel est la confidentialité des données ?
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+                      Les données ne sont diffusés à aucune entreprise. Les
+                      seules données accessibles par les autres utilisateurs sont
+                      votre adresse email et votre numéro de téléphone si vous
+                      êtes professionnel. Seul votre nom et prénom sont
+                      disponibles si vous êtes simple utilisateur.
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="5">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+                        Comment modifier mes informations ?
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+                      Une page est accessible dès que vous êtes connecté.
+                      <br/>
+                      <br/>Vous pourrez donc modifier votre nom, prénom, email,
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="6">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+                        Un historique des services commandés est-il disponible ?
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+                      Il existe bien un historique à partir de l'onglet "historique".
+                      Les détails de ce service est aussi disponible en cliquant
+                      sur celui que vous souhaitez.
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="7">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+                        Modifier les informations personnelles après avoir
+                        réserver un service
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+                      Cela est possible. Cependant, il faudra vous assurer que
+                      le professionnel assurant votre service soit au courant de
+                      ce changement.
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="8">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="9">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="10">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
                     </Panel.Body>
                   </Panel>
                 </PanelGroup>

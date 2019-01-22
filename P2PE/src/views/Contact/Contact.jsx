@@ -12,8 +12,8 @@ import {
   deleteNoteAdmin
 } from "../../Provider/Api";
 import Button from "components/CustomButton/CustomButton";
-
 import Card from "components/Card/Card.jsx";
+import axios from 'axios';
 
 const style = {
   title : {
@@ -50,9 +50,6 @@ const style = {
 class Contact extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      notes: []
-    };
   }
 
   addNote() {
@@ -102,14 +99,14 @@ class Contact extends Component {
 
   _renderContactForm() {
     return (
-      <Form className="form">
+      <Form className="form" onSubmit={this.handleSubmit}>
         <Col md={6} style={style.input_style}>
           <FormGroup>
             <Label>Nom</Label>
             <FormControl
               type="text"
               name="name"
-              id="name"
+              id="customerName"
               placeholder="Votre nom"
             />
           </FormGroup>
@@ -128,7 +125,12 @@ class Contact extends Component {
         <Col md={12}>
           <FormGroup controlId="formControlsTextarea">
             <Label htmlFor="message">Message</Label>
-            <FormControl componentClass="textarea" placeholder="Votre message" />
+            <FormControl
+              componentClass="textarea"
+              name="message"
+              id="customerMessage"
+              placeholder="Votre message"
+            />
           </FormGroup>
         </Col>
         <Button style={style.submitBtn}>Envoyer</Button>
