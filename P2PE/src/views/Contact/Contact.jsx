@@ -97,9 +97,21 @@ class Contact extends Component {
     );
   }
 
+  handleSubmit() {
+    let contact = {
+      name: document.forms["contact"].elements[0].value,
+      email: document.forms["contact"].elements[1].value,
+      message: document.forms["contact"].elements[2].value,
+    }
+
+    console.log(contact.name);
+    console.log(contact.email);
+    console.log(contact.message);
+  }
+
   _renderContactForm() {
     return (
-      <Form className="form" onSubmit={this.handleSubmit}>
+      <Form name="contact" className="form" onSubmit={this.handleSubmit}>
         <Col md={6} style={style.input_style}>
           <FormGroup>
             <Label>Nom</Label>
@@ -123,7 +135,7 @@ class Contact extends Component {
           </FormGroup>
         </Col>
         <Col md={12}>
-          <FormGroup controlId="formControlsTextarea">
+          <FormGroup>
             <Label htmlFor="message">Message</Label>
             <FormControl
               componentClass="textarea"
@@ -133,7 +145,7 @@ class Contact extends Component {
             />
           </FormGroup>
         </Col>
-        <Button style={style.submitBtn}>Envoyer</Button>
+        <Button style={style.submitBtn} /*type="submit"*/ onClick={this.handleSubmit}>Envoyer</Button>
       </Form>
     );
   }
@@ -145,15 +157,15 @@ class Contact extends Component {
           content={
             <Grid fluid>
               <Row>
-                {this._renderCard()}
-                {this._renderContactInfo()}
-              </Row>
-              <div style={style.line}></div>
-              <Row>
                 <div className="App-header">
                   <h2 style={style.title}>Nous contacter</h2>
                 </div>
                 {this._renderContactForm()}
+              </Row>
+              <div style={style.line}></div>
+              <Row>
+                {this._renderCard()}
+                {this._renderContactInfo()}
               </Row>
             </Grid>
           }
