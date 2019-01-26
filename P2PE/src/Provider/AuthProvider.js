@@ -12,7 +12,7 @@ var jwtDecode = require("jwt-decode");
 
 const apigClientFactory = require("aws-api-gateway-client").default;
 
-const poolData = {
+export const poolData = {
   UserPoolId: awsmobile.aws_user_pools_id, // Your user pool id here
   ClientId: awsmobile.aws_user_pools_web_client_id, // Your client id here
   region: "eu-west-1"
@@ -95,7 +95,6 @@ export async function authentification(form) {
           // getNotes().then(test => {
           //     console.log(test) });
           //window.location.reload();
-          AWS.config.admin;
     
           resolve(true);
           return "test";
@@ -122,20 +121,11 @@ export async function register(form) {
   var name = "youyou";
 
   var attributeList = [];
-  var params = {
-    GroupName: "pro" /* required */,
-    UserPoolId: awsmobile.aws_user_pools_id /* required */,
-    Username: "jaydde" /* required */
-  };
+  
+
   var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 
-  cognitoidentityserviceprovider.adminAddUserToGroup(params, function(
-    err,
-    data
-  ) {
-    if (err) console.log(err, err.stack);
-    else console.log(data);
-  });
+
   var dataEmail = {
     Name: "email",
     Value: email
@@ -170,11 +160,14 @@ export async function register(form) {
       result
     ) {
       if (err) {
-        resolve(err);
+        reject(err);
       } else {
+    
         var cognitoUser = result.user;
         console.log("user registered as " + cognitoUser.getUsername());
         resolve(cognitoUser);
+
+       
       }
     });
   });

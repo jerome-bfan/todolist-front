@@ -1,25 +1,23 @@
+import {
+  CognitoUserPool,
+  CognitoUserAttribute,
+  CognitoUser,
+  AuthenticationDetails
+} from "amazon-cognito-identity-js";
 import React, { Component } from "react";
 import ChartistGraph from "react-chartist";
 import { Grid, Row, Col } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
-import { FormGroup, ControlLabel, FormControl } from "react-bootstrap";
+import awsmobile from "../../aws-exports";
+import AWS from "aws-sdk/dist/aws-sdk-react-native";
 
 import { Card } from "components/Card/Card.jsx";
-import { StatsCard } from "components/StatsCard/StatsCard.jsx";
-import { Tasks } from "components/Tasks/Tasks.jsx";
+
 import {
-  dataPie,
-  legendPie,
-  dataSales,
-  optionsSales,
-  responsiveSales,
-  legendSales,
-  dataBar,
-  optionsBar,
-  responsiveBar,
-  legendBar
-} from "variables/Variables.jsx";
-import { authentification, register } from "../../Provider/AuthProvider";
+  authentification,
+  register,
+  poolData
+} from "../../Provider/AuthProvider";
 import { isConnected } from "../../functions/p2peFunction";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { getNotes } from "../../Provider/Api";
@@ -43,8 +41,9 @@ class Dashboard extends Component {
         connected: true
       };
       getNotes().then(test => {
-        console.log("llala")
-        console.log(test) });
+        console.log("llala");
+        console.log(test);
+      });
     } else {
       this.state = {
         connected: false
@@ -128,7 +127,6 @@ class Dashboard extends Component {
                       />
 
                       <Button
-
                         onClick={e => {
                           //authentification(this.state).then(e => {})
                           authentification(this.state)
@@ -247,11 +245,73 @@ class Dashboard extends Component {
                           register(this.state)
                             .then(e => {
                               this.setState({ errorRegister: e.message });
+                              var userPool = new CognitoUserPool(poolData);
+                              var userData = {
+                                Username: "jaydde3",
+                                Pool: userPool
+                              };
+                              var cognitoUser = new CognitoUser(userData);
+                              var authenticationData = {
+                                Username: "jaydde3",
+                                Password: "Mind72018"
+                              };
+                              var authenticationDetails = new AuthenticationDetails(
+                                authenticationData
+                              );
+                              cognitoUser.authenticateUser(
+                                authenticationDetails,
+                                {
+                                  onSuccess: function(result) {
+                                    console.log(result);
+                                    AWS.config.update({ region: "eu-west-1" });
+
+                                    AWS.config.credentials = new AWS.CognitoIdentityCredentials(
+                                      {
+                                        IdentityPoolId:
+                                          awsmobile.aws_cognito_identity_pool_id,
+                                        Logins: {
+                                          "cognito-idp.eu-west-1.amazonaws.com/eu-west-1_T6YnwqOUq": result
+                                            .getIdToken()
+                                            .getJwtToken()
+                                        }
+                                      }
+                                    );
+
+                                    localStorage.setItem(
+                                      "jwtToken",
+                                      result.getIdToken().getJwtToken()
+                                    );
+                                    var params = {
+                                      GroupName: "pro" /* required */,
+                                      UserPoolId:
+                                        awsmobile.aws_user_pools_id /* required */,
+                                      Username: "butters" /* required */
+                                    };
+
+                                    AWS.config.update({ region: "eu-west-1" });
+
+                                    var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
+
+                                    cognitoidentityserviceprovider.adminAddUserToGroup(
+                                      params,
+                                      function(err, data) {
+                                        if (err) console.log(err, err.stack);
+                                        else console.log(data);
+                                      }
+                                    );
+                                  },
+
+                                  onFailure: function(err) {
+                                    return err;
+                                  }
+                                }
+                              );
 
                               console.log(e);
                             })
                             .catch(e => {
                               console.log(e);
+                              this.setState({ errorRegister: e.message });
                             });
                         }}
                       >
