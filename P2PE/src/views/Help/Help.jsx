@@ -44,6 +44,14 @@ const style = {
   }
 };
 
+const problems = {
+
+}
+
+const help = {
+
+}
+
 class Typography extends Component {
   constructor(props) {
     super(props);
@@ -104,6 +112,202 @@ class Typography extends Component {
                       <br/>
                       <br/>Si ce lien ne fonctionne pas dès sa réception,
                       contactez-nous via le formulaire ci-dessous.
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="3">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="3">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="3">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="3">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="3">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="3">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="3">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="3">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="3">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="3">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="3">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="3">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="3">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="3">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+
                     </Panel.Body>
                   </Panel>
                 </PanelGroup>
@@ -227,16 +431,48 @@ class Typography extends Component {
                   <Panel eventKey="8">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
-
-
+                        Mises à jour sur les commandes et plus
                       </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
-
-
+                      Restez informé de vos réservations et ne ratez aucune offre.
                     </Panel.Body>
                   </Panel>
                   <Panel eventKey="9">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+                      Comparateur de services
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+                      Surveillez les comparaisons de services pouvant vous faire
+                      gagner du temps et économiser de l'argent.
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="10">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+                        Raccourcis
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+                      Gagnez du temps. L'Assistant vous propose des raccourcis
+                      vers des annonces de services populaires.
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="11">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+                        Notifications des offres suivies
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+                      Soyez informé lorsque des offres que vous suivez sont mises
+                      en ligne grâce à des notifications sur le bureau.
+                      (navigateurs Chrome, Firefox 53.0+ et Opera uniquement)
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="12">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
 
@@ -248,7 +484,91 @@ class Typography extends Component {
 
                     </Panel.Body>
                   </Panel>
-                  <Panel eventKey="10">
+                  <Panel eventKey="13">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="14">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="15">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="16">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="17">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="18">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="19">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
+
+
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+
+
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="20">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
 
