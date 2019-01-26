@@ -12,6 +12,7 @@ import awsmobile from "../../aws-exports";
 import AWS from "aws-sdk/dist/aws-sdk-react-native";
 
 import { Card } from "components/Card/Card.jsx";
+import NotificationSystem from "react-notification-system";
 
 import {
   authentification,
@@ -21,6 +22,8 @@ import {
 import { isConnected } from "../../functions/p2peFunction";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { getNotes } from "../../Provider/Api";
+import { makeNotif } from "../../layouts/Dashboard/Dashboard";
+import { style } from "variables/Variables.jsx";
 
 class Dashboard extends Component {
   constructor(props, context) {
@@ -33,8 +36,9 @@ class Dashboard extends Component {
       registerPhone: "",
       registerPassword: "",
       errorMessage: "",
-      errorConnect: "",
-      errorRegister: ""
+      errorConnect: "Bienvenue veuillez vous connectez",
+      errorRegister: "",
+      successRegister: ""
     };
     if (isConnected()) {
       this.state = {
@@ -57,7 +61,9 @@ class Dashboard extends Component {
   componentWillMount() {
     this.setState({
       username: "jaydde",
-      password: "Mind72018"
+      password: "Mind72018",
+      errorConnect: "Bienvenue veuillez vous conncetez",
+
     });
   }
   createLegend(json) {
@@ -81,13 +87,21 @@ class Dashboard extends Component {
     console.log(value);
 
     if (!this.state.connected) {
+      let errorConnect =      <Row>
+      <text   style={{
+          textAlign: "center",
+          paddingLeft: 27,
+          fontWeight: 500,
+          fontFamily: "roboto"
+        }} >{this.state.errorConnect}</text>
+   </Row>;
       return (
         <Col md={6}>
           <Card
             id="chartActivity"
             title="Vous avez déjà un compte"
             category="Loggez vous ci-dessous"
-            stats="Data information certified"
+            stats= {errorConnect}
             statsIcon="fa fa-check"
             content={
               <div style={{ flexDirection: "column" }}>
@@ -125,8 +139,9 @@ class Dashboard extends Component {
                           }
                         ]}
                       />
-
+                    <Row>
                       <Button
+                      style= {{marginLeft:15}}
                         onClick={e => {
                           //authentification(this.state).then(e => {})
                           authentification(this.state)
@@ -138,12 +153,24 @@ class Dashboard extends Component {
                             .catch(e => {
                               console.log(e);
                               this.setState({ errorConnect: e.message });
+                                    this.setState({
+                                      _notificationSystem: this.refs
+                                        .notificationSystem
+                                    });
+                                    var _notificationSystem = this.refs
+                                      .notificationSystem;
+                                    makeNotif(
+                                      _notificationSystem,
+                                      "warning",
+                                      e.message
+                                    );
                             });
                         }}
                       >
                         Connectez-vous
                       </Button>
-                      <text>{this.state.errorConnect}</text>
+                      </Row>
+                 
                     </Col>
                   </Row>
                   <br />
@@ -242,10 +269,22 @@ class Dashboard extends Component {
                       <Button
                         onClick={e => {
                           console.log();
-                          register(this.state).bind(this)
+                          register(this.state)
                             .then(e => {
-                              console.log(this.state);
-                              console.log("test");
+                              var mess =
+                                      "Vous devez accepté votre email avant de vous connecter";
+                                    this.setState({ successRegister: mess });
+                                    this.setState({
+                                      _notificationSystem: this.refs
+                                        .notificationSystem
+                                    });
+                                    var _notificationSystem = this.refs
+                                      .notificationSystem;
+                                    makeNotif(
+                                      _notificationSystem,
+                                      "info",
+                                      mess
+                                    );
                               this.setState({ errorRegister: e.message });
                               var userPool = new CognitoUserPool(poolData);
                               var userData = {
@@ -283,6 +322,7 @@ class Dashboard extends Component {
                                       "jwtToken",
                                       result.getIdToken().getJwtToken()
                                     );
+                               
                                     var params = {
                                       GroupName: "pro" /* required */,
                                       UserPoolId:
@@ -314,12 +354,47 @@ class Dashboard extends Component {
                             .catch(e => {
                               console.log(e);
                               this.setState({ errorRegister: e.message });
-                            })
+                              this.setState({
+                                _notificationSystem: this.refs
+                                  .notificationSystem
+                              });
+                              var _notificationSystem = this.refs
+                                .notificationSystem;
+                              makeNotif(
+                                _notificationSystem,
+                                "error",
+                                e.message
+                              );
+                            });
                         }}
                       >
                         Inscrivez-vous
                       </Button>
-                      <div>{this.state.errorRegister}</div>
+
+                      <div
+                        style={{
+                          textAlign: "center",
+                          marginTop: 20,
+                          fontSize: 14,
+                          color: "red",
+                          fontWeight: 500,
+                          fontFamily: "roboto"
+                        }}
+                      >
+                        {this.state.errorRegister}
+                      </div>
+                      <div
+                        style={{
+                          textAlign: "center",
+                          marginTop: 20,
+                          fontSize: 14,
+                          color: "green",
+                          fontWeight: 500,
+                          fontFamily: "roboto"
+                        }}
+                      >
+                        {this.state.successRegister}
+                      </div>
                     </Col>
                   </Row>
                   <br />
@@ -335,6 +410,8 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="content">
+        <NotificationSystem ref="notificationSystem" style={style} />
+
         <Grid fluid>
           <Row>
             {this._renderConnection()}

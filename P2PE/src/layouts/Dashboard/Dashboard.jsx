@@ -36,7 +36,7 @@ export function makeNotif (ref, type, message) {
       break;
   }
   ref.addNotification({
-    title: <span data-notify="icon" className="pe-7s-gift" />,
+    title: <span data-notify="icon" className="pe-7s-user" />,
     message: message,
     level: type,
     position: "tr",
