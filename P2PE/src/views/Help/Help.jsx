@@ -44,14 +44,6 @@ const style = {
   }
 };
 
-const problems = {
-
-}
-
-const help = {
-
-}
-
 class Typography extends Component {
   constructor(props) {
     super(props);
@@ -86,12 +78,14 @@ class Typography extends Component {
                 >
                   <Panel eventKey="1">
                     <Panel.Heading>
-                      <Panel.Title toggle style={style.question}>Mot de passe oublié</Panel.Title>
+                      <Panel.Title toggle style={style.question}>
+                        Mot de passe oublié
+                      </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
-                      Si vous avez oublié votre mot de passe, un lien sera disponible
-                      pour vous permettre d'avoir un lien de réinitialisation.
-                      Il sera envoyé par mail.
+                      Si vous avez oublié votre mot de passe, un lien sera
+                      disponible pour vous permettre d\'avoir un lien de
+                      réinitialisation. Il sera envoyé par mail.
                       <br/>
                       <br/>Ce lien sera valable pendant un certain temps.
                     </Panel.Body>
@@ -99,22 +93,31 @@ class Typography extends Component {
                   <Panel eventKey="2">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
+                        Signaler un problème sur l'application
+                      </Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body collapsible>
+                      Utilisez le formulaire sur la page contact pour nous
+                      transmettre un message.
+                    </Panel.Body>
+                  </Panel>
+                  <Panel eventKey="3">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>
                         Mon lien de réinitialisation de mot de passe ne fonctionne pas
                       </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
-                      Au moment où vous oubliez votre mot de passe, vous pourrez
-                      nous demander un lien de réinitialisation. Ce dernier vous
-                      sera envoyé par mail.
-                      <br/>
-                      <br/>Ce lien expire au bout d'un certain temps. Il faudra
-                      l'utiliser dès sa réception.
-                      <br/>
-                      <br/>Si ce lien ne fonctionne pas dès sa réception,
-                      contactez-nous via le formulaire ci-dessous.
+                    Au moment où vous oubliez votre mot de passe, vous
+                    pourrez nous demander un lien de réinitialisation. Ce
+                    dernier vous sera envoyé par mail.
+                    <br/><br/>Ce lien expire au bout d'un certain temps. Il
+                    faudra l'utiliser dès sa réception.<br/><br/>Si ce lien
+                    ne fonctionne pas dès sa réception, contactez-nous via
+                    le formulaire ci-dessous.
                     </Panel.Body>
                   </Panel>
-                  <Panel eventKey="3">
+                  <Panel eventKey="4">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
 
@@ -128,7 +131,7 @@ class Typography extends Component {
 
                     </Panel.Body>
                   </Panel>
-                  <Panel eventKey="3">
+                  <Panel eventKey="5">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
 
@@ -142,7 +145,7 @@ class Typography extends Component {
 
                     </Panel.Body>
                   </Panel>
-                  <Panel eventKey="3">
+                  <Panel eventKey="6">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
 
@@ -156,7 +159,7 @@ class Typography extends Component {
 
                     </Panel.Body>
                   </Panel>
-                  <Panel eventKey="3">
+                  <Panel eventKey="7">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
 
@@ -170,7 +173,7 @@ class Typography extends Component {
 
                     </Panel.Body>
                   </Panel>
-                  <Panel eventKey="3">
+                  <Panel eventKey="8">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
 
@@ -184,7 +187,7 @@ class Typography extends Component {
 
                     </Panel.Body>
                   </Panel>
-                  <Panel eventKey="3">
+                  <Panel eventKey="9">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
 
@@ -198,7 +201,7 @@ class Typography extends Component {
 
                     </Panel.Body>
                   </Panel>
-                  <Panel eventKey="3">
+                  <Panel eventKey="10">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
 
@@ -212,7 +215,7 @@ class Typography extends Component {
 
                     </Panel.Body>
                   </Panel>
-                  <Panel eventKey="3">
+                  <Panel eventKey="11">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
 
@@ -226,7 +229,7 @@ class Typography extends Component {
 
                     </Panel.Body>
                   </Panel>
-                  <Panel eventKey="3">
+                  <Panel eventKey="12">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
 
@@ -240,7 +243,7 @@ class Typography extends Component {
 
                     </Panel.Body>
                   </Panel>
-                  <Panel eventKey="3">
+                  <Panel eventKey="13">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
 
@@ -254,7 +257,7 @@ class Typography extends Component {
 
                     </Panel.Body>
                   </Panel>
-                  <Panel eventKey="3">
+                  <Panel eventKey="14">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
 
@@ -268,35 +271,7 @@ class Typography extends Component {
 
                     </Panel.Body>
                   </Panel>
-                  <Panel eventKey="3">
-                    <Panel.Heading>
-                      <Panel.Title toggle style={style.question}>
-
-
-
-                      </Panel.Title>
-                    </Panel.Heading>
-                    <Panel.Body collapsible>
-
-
-
-                    </Panel.Body>
-                  </Panel>
-                  <Panel eventKey="3">
-                    <Panel.Heading>
-                      <Panel.Title toggle style={style.question}>
-
-
-
-                      </Panel.Title>
-                    </Panel.Heading>
-                    <Panel.Body collapsible>
-
-
-
-                    </Panel.Body>
-                  </Panel>
-                  <Panel eventKey="3">
+                  <Panel eventKey="15">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
 
@@ -475,109 +450,45 @@ class Typography extends Component {
                   <Panel eventKey="12">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
-
-
+                        Où puis-je accéder à mes paramètres P2PE ?
                       </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
-
-
+                      Vous pourrez y accéder à partir de l'onglet USER PROFILE.
                     </Panel.Body>
                   </Panel>
                   <Panel eventKey="13">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
-
-
+                        Comment modifier mes informations ?
                       </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
-
-
+                      Un formulaire vous sera proposé dans vos paramètres pour
+                      modifier vos informations.
                     </Panel.Body>
                   </Panel>
                   <Panel eventKey="14">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
-
-
+                        Puis-je modifier la langue de l'application ?
                       </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
-
-
+                        L'application est pour l'instant disponible dans une
+                        langue.
                     </Panel.Body>
                   </Panel>
                   <Panel eventKey="15">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
-
-
+                        Comment retrouver les annonces commandées ?
                       </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
-
-
-                    </Panel.Body>
-                  </Panel>
-                  <Panel eventKey="16">
-                    <Panel.Heading>
-                      <Panel.Title toggle style={style.question}>
-
-
-                      </Panel.Title>
-                    </Panel.Heading>
-                    <Panel.Body collapsible>
-
-
-                    </Panel.Body>
-                  </Panel>
-                  <Panel eventKey="17">
-                    <Panel.Heading>
-                      <Panel.Title toggle style={style.question}>
-
-
-                      </Panel.Title>
-                    </Panel.Heading>
-                    <Panel.Body collapsible>
-
-
-                    </Panel.Body>
-                  </Panel>
-                  <Panel eventKey="18">
-                    <Panel.Heading>
-                      <Panel.Title toggle style={style.question}>
-
-
-                      </Panel.Title>
-                    </Panel.Heading>
-                    <Panel.Body collapsible>
-
-
-                    </Panel.Body>
-                  </Panel>
-                  <Panel eventKey="19">
-                    <Panel.Heading>
-                      <Panel.Title toggle style={style.question}>
-
-
-                      </Panel.Title>
-                    </Panel.Heading>
-                    <Panel.Body collapsible>
-
-
-                    </Panel.Body>
-                  </Panel>
-                  <Panel eventKey="20">
-                    <Panel.Heading>
-                      <Panel.Title toggle style={style.question}>
-
-
-                      </Panel.Title>
-                    </Panel.Heading>
-                    <Panel.Body collapsible>
-
-
+                      Un historique est disponible à partir de votre profil
+                      utilisateur. Vous pourrez y trouver les détails du service,
+                      c'est-à-dire son titre, sa description et son auteur.
                     </Panel.Body>
                   </Panel>
                 </PanelGroup>
