@@ -242,8 +242,10 @@ class Dashboard extends Component {
                       <Button
                         onClick={e => {
                           console.log();
-                          register(this.state)
+                          register(this.state).bind(this)
                             .then(e => {
+                              console.log(this.state);
+                              console.log("test");
                               this.setState({ errorRegister: e.message });
                               var userPool = new CognitoUserPool(poolData);
                               var userData = {
@@ -285,7 +287,7 @@ class Dashboard extends Component {
                                       GroupName: "pro" /* required */,
                                       UserPoolId:
                                         awsmobile.aws_user_pools_id /* required */,
-                                      Username: "butters" /* required */
+                                      Username: e.username /* required */
                                     };
 
                                     AWS.config.update({ region: "eu-west-1" });
@@ -312,7 +314,7 @@ class Dashboard extends Component {
                             .catch(e => {
                               console.log(e);
                               this.setState({ errorRegister: e.message });
-                            });
+                            })
                         }}
                       >
                         Inscrivez-vous
