@@ -126,6 +126,9 @@ class Typography extends Component {
                     <Panel.Body collapsible>
                       Le site est optimisé pour Google Chrome desktop et mobile.
                       Une application sortira bientôt.
+                      <br/>
+                      <br/>Il se peut qu'Adobe Flash Player doit être installer
+                      ou mis à jour pour le bon fonctionnement du site.
                     </Panel.Body>
                   </Panel>
                   <Panel eventKey="5">
@@ -174,113 +177,189 @@ class Typography extends Component {
                   <Panel eventKey="8">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
-
-
-
+                        Quels sont les problèmes techniques courants et que faire pour les résoudre ?
                       </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
-
-
-
+                      Si vous rencontrez des problèmes lors de l'utilisation de
+                      notre site internet, ou si notre site ne se comporte pas
+                      comme il le devrait, essayez ces solutions avant de
+                      contacter notre équipe :
+                      <ul>
+                        <li>
+                          Problèmes matériels : ordinateur de bureau, ordinateur
+                          portable, téléphone portable ou tablette
+                        </li>
+                        <li>
+                          Problèmes de navigateur
+                        </li>
+                        <li>
+                          Problèmes liés au cache, aux cookies ou à l'historique de navigation
+                        </li>
+                        <li>
+                          Problèmes liés à Adobe Flash Player
+                        </li>
+                      </ul>
                     </Panel.Body>
                   </Panel>
                   <Panel eventKey="9">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
-
-
-
+                        Problèmes liés au navigateur
                       </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
-
-
-
+                      /* https://rentalsupport.tripadvisor.com/faq/view/noc-Common-IT-issues-and-how-to-fix-them?l=fr */
+                      <ul>
+                        <li>
+                          Mettez à jour votre navigateur
+                        </li>
+                      </ul>
+                      Nous vous recommandons d'utiliser la version la plus
+                      récente de Google Chrome, Mozilla Firefox ou Internet
+                      Explorer. Attention : nous déconseillons l'utilisation de
+                      Safari, AOL et Internet Explorer version 9.0 ou inférieure.
+                      <br/>
+                      <br/>
+                      <ul>
+                        <li>
+                          Redémarrez votre navigateur
+                        </li>
+                      </ul>
+                      Il arrive que l'ordinateur stocke d'anciennes versions de
+                      pages internet pour pouvoir les charger plus vite (on
+                        appelle cela la mise en « cache »). Si vous avez modifié
+                        votre annonce, mais que vous ne voyez pas les changements
+                        en ligne, vous devez peut-être rafraîchir votre
+                        navigateur. Vous trouverez comment faire ici.
+                      <br/>
+                      <br/>
+                      <ul>
+                        <li>
+                          Videz votre cache et supprimez vos cookies et votre
+                          historique de navigation
+                        </li>
+                      </ul>
+                      Videz le cache de votre navigateur et supprimez vos
+                      cookies et votre historique de navigation. Pour obtenir
+                      des instructions plus précises sur ces opérations,
+                      consultez les pages suivantes :
+                      <ul>
+                        <li>
+                          <a href="https://support.google.com/chrome/?hl=fr">
+                            Centre d'aide Google Chrome
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://support.mozilla.org/fr/products/firefox">
+                            Aide Mozilla Firefox
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://support.microsoft.com/fr-fr">
+                            Support technique Microsoft
+                          </a>
+                        </li>
+                      </ul>
+                      <br/>
+                      <br/>
+                      <ul>
+                        <li>
+                          Mettez à jour Adobe Flash Player et Java
+                        </li>
+                      </ul>
+                      Nos sites web utilisent Adobe Flash Player et Java. Vérifiez que vos versions de Adobe Flash Player et Java sont à jour.
                     </Panel.Body>
                   </Panel>
                   <Panel eventKey="10">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
-
-
-
+                        Mon annonce ne se met pas à jour
                       </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
-
-
-
+                      Si vous avez modifié votre annonce, mais que vous ne voyez
+                      pas les changements en ligne, vous devez peut-être attendre
+                      encore un peu. En général, les mises à jour d'annonces
+                      prennent 24 heures pour apparaître sur le site P2PE.
+                      <br/>
+                      <br/>Si vous avez appliqué tous ces conseils dans les deux
+                      dernières rubriques et que le problème persiste,
+                      contactez-nous en nous communiquant le plus de détail
+                      possible. Pour cela, utilisez le formulaire de contact ou
+                      notre email.
                     </Panel.Body>
                   </Panel>
                   <Panel eventKey="11">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
-
-
-
+                        Mon annonce ne se met pas à jour / ne se supprime pas
                       </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
-
-
-
+                      Votre demande est généralement prise en compte en 24h (hors
+                      weekend et jours fériés).
                     </Panel.Body>
                   </Panel>
                   <Panel eventKey="12">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
-
-
-
+                        "Tentative de connexion en cours..."
                       </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
-
-
-
+                      Plusieurs raisons sont susceptibles d'être à l'origine du
+                      message d'erreur "Tentative de connexion en cours..."
+                      lorsque vous utilisez P2PE sur le Web. La cause la
+                      plus fréquente est une connexion Internet de mauvaise
+                      qualité.
+                      <br/>
+                      <br/>Utilisez le mode hors connexion pour continuer à
+                      travailler sur votre application même si la connexion Internet
+                      est de faible qualité ou indisponible.
                     </Panel.Body>
                   </Panel>
                   <Panel eventKey="13">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
-
-
-
+                        Erreur temporaire (502)
                       </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
-
-
-
+                      Vos documents sont provisoirement indisponibles. En
+                      général, ces erreurs sont corrigées automatiquement en
+                      quelques minutes. Patientez un peu avant d'essayer
+                      d'accéder de nouveau à vos fichiers.
+                      <br/>
+                      <br/>Si P2PE se lance, mais qu'une page blanche apparait,
+                      essayez de cliquer sur un des onglets, comme "Accueil" ou
+                      "User profile". Le message d'erreur devrait alors
+                      disparaître, et vos informations devraient être de nouveau
+                      visibles.
                     </Panel.Body>
                   </Panel>
                   <Panel eventKey="14">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
-
-
-
+                        "Impossible de traiter ce paiement."
                       </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
-
-
-
+                      Une erreur de connexion est tout à fait possible. Dans ce
+                      cas-là, attendez d'avoir une connexion internet pour nous
+                      contacter et expliquer votre problème.
                     </Panel.Body>
                   </Panel>
                   <Panel eventKey="15">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
-
-
-
+                        L'application ne s'installe pas sur mon téléphone
                       </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
-
-
-
+                      Vous n'avez peut-être pas la bonne version d'Android /IOS
+                      installé sur votre téléphone. Essayez de mettre à jour ce
+                      dernier.
                     </Panel.Body>
                   </Panel>
                 </PanelGroup>
