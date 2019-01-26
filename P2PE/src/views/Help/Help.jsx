@@ -104,7 +104,7 @@ class Typography extends Component {
                   <Panel eventKey="3">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
-                        Mon lien de réinitialisation de mot de passe ne fonctionne pas
+                        Mon lien de réinitialisation de mot de passe ne&nbsp;fonctionne&nbsp;pas
                       </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
@@ -120,57 +120,55 @@ class Typography extends Component {
                   <Panel eventKey="4">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
-
-
-
+                        L'application s'affiche mal sur mon périphérique
                       </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
-
-
-
+                      Le site est optimisé pour Google Chrome desktop et mobile.
+                      Une application sortira bientôt.
                     </Panel.Body>
                   </Panel>
                   <Panel eventKey="5">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
-
-
-
+                        Problèmes de paiement
                       </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
-
-
-
+                      Envoyez-nous un message via la page de contact pour nous
+                      préciser votre problème. Nous vous contacterons ensuite
+                      par mail, vous pourrez ainsi nous en dire plus.
+                      <br/>
+                      <br/>Vous pouvez directement nous contacter avec l'adresse
+                      mail précisée.
                     </Panel.Body>
                   </Panel>
                   <Panel eventKey="6">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
-
-
-
+                        Problèmes de connexion
                       </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
-
-
-
+                      Votre mot de passe est certainement incorrect, essayez de
+                      réinitialiser.
                     </Panel.Body>
                   </Panel>
                   <Panel eventKey="7">
                     <Panel.Heading>
                       <Panel.Title toggle style={style.question}>
-
-
-
+                        Récupérer son compte
                       </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body collapsible>
-
-
-
+                      Sur le formulaire de connexion, cliquez sur "Vous avez
+                      perdu vos identifiants ?". Vous serez redirigés vers un
+                      formulaire pour nous préciser votre adresse email.
+                      <br/>
+                      <br/>À ce moment-là, nous vous dirons si nous connaissons
+                      votre mail. Si tel est le cas, nous vous enverrons un email
+                      avec un lien à partir duquel vous pourrez réinitialiser
+                      votre mot de passe.
                     </Panel.Body>
                   </Panel>
                   <Panel eventKey="8">
