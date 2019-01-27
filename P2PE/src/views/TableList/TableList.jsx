@@ -5,6 +5,7 @@ import { deleteNotes, getNotes, postNotes } from "../../Provider/Api";
 import { Grid, Row, Col } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
+import { ServiceCard } from "../../components/Card/ServiceCard";
 
 class TableList extends Component {
   constructor(props) {
@@ -25,9 +26,34 @@ class TableList extends Component {
     this.setState({ [event.target.id]: event.target.value });
     console.log(this.state);
   }
+  _search = text => {
+    if (!!this.state.search) {
+      return text.title.indexOf(this.state.search) !== -1;
+    }
+    else
+      return this.state.services;
+  };
   _renderPage() {
     return (
       <div className="content">
+        <Row>
+          <Col md={8}>
+            <FormInputs
+              ncols={["col-md-12"]}
+              proprieties={[
+                {
+                  label: "Recherche",
+                  id: "search",
+                  type: "text",
+                  bsClass: "form-control",
+                  placeholder: "Recherche",
+                  onChange: this.handleChange,
+                  value: this.state.search
+                }
+              ]}
+            />
+          </Col>
+        </Row>
         <Card
           title={"Les différents services"}
           category={"Remplir le formulaire ci dessous pour remplir un service"}
@@ -36,19 +62,12 @@ class TableList extends Component {
               <Grid fluid>
                 {(this.state.services != undefined &&
                   this.state.services.length) > 0 &&
-                  this.state.services.filter(text => text.title.indexOf("title") !== -1).map(service => {
-                    console.log(service);
-                    return (
-                      <div key={service.id}>
-                        {" "}
-                        <Card
-                          title={service.title}
-                          category={service.category}
-                          content={<div>{service.description}</div>}
-                        />{" "}
-                      </div>
-                    );
-                  })}
+                  this.state.services
+                    .filter(text => this._search(text))
+                    .map(service => {
+                      console.log(service);
+                      return <ServiceCard {...service} />;
+                    })}
               </Grid>
               <div style={{ flexDirection: "column" }}>
                 <div className="ct-chart">
@@ -141,7 +160,7 @@ class TableList extends Component {
       name: this.state.addName,
       description: this.state.addDescription,
       category: this.state.addCategory,
-      title:  this.state.addTitle
+      title: this.state.addTitle
     };
     this.state.services.push(service);
     this.setState({

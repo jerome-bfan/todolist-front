@@ -267,7 +267,7 @@ class Dashboard extends Component {
                         ]}
                       />
                       <Button
-                        onClick={e => {
+                        onClick={testhist => {
                           console.log();
                           register(this.state)
                             .then(e => {
@@ -291,6 +291,9 @@ class Dashboard extends Component {
                                 Username: "jaydde3",
                                 Pool: userPool
                               };
+                              // je cherche une variable
+                              console.log("je cherche une variable");
+                              console.log(this.state);
                               var cognitoUser = new CognitoUser(userData);
                               var authenticationData = {
                                 Username: "jaydde3",
