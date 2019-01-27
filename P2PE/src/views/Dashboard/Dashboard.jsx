@@ -36,9 +36,7 @@ class Dashboard extends Component {
       registerPhone: "",
       registerNbEmploye: "",
       registerSiret: "",
-      hideFormPro: false,
       registerPassword: "",
-      typeAccount: "user",
       errorMessage: "",
       errorConnect: "Bienvenue veuillez vous connectez",
       errorRegister: "",
@@ -66,7 +64,8 @@ class Dashboard extends Component {
     this.setState({
       username: "jaydde",
       password: "Mind72018",
-      hideFormPro: true,
+      hideFormPro: false,
+      typeAccount: "user",
       errorConnect: "Bienvenue veuillez vous conncetez"
     });
   }

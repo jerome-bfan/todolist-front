@@ -95,7 +95,7 @@ export async function authentification(form) {
           // getNotes().then(test => {
           //     console.log(test) });
           //window.location.reload();
-    
+
           resolve(true);
           return "test";
         });
@@ -117,14 +117,14 @@ export async function register(form) {
   var username = form.registerUserName;
   var phone = form.registerPhone;
   var password = form.registerPassword;
+  var siret = form.registerSiret;
+  var nbEmploye = form.registerNbEmploye;
   var preferedusername = "yaz666";
   var name = "youyou";
 
   var attributeList = [];
-  
 
   var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
-
 
   var dataEmail = {
     Name: "email",
@@ -145,14 +145,20 @@ export async function register(form) {
   };
   var dataSiret = {
     Name: "custom:siret",
-    value: ""
+    value: siret
+  };
+  var dataNbEmploye = {
+    Name: "custom:nbEmploye",
+    value: nbEmploye
   };
   var attributeEmail = new CognitoUserAttribute(dataEmail);
   var attributePhoneNumber = new CognitoUserAttribute(dataPhoneNumber);
   var attributePreferedUsername = new CognitoUserAttribute(dataUserNamePref);
   var attributeName = new CognitoUserAttribute(dataName);
   var attributeSiret = new CognitoUserAttribute(dataSiret);
+  var attributenbEmploye = new CognitoUserAttribute(dataNbEmploye);
 
+  attributeList.push(attributenbEmploye);
   attributeList.push(attributeEmail);
   attributeList.push(attributeSiret);
   attributeList.push(attributePhoneNumber);
@@ -168,7 +174,6 @@ export async function register(form) {
       if (err) {
         reject(err);
       } else {
-    
         var cognitoUser = result.user;
         console.log("user registered as " + cognitoUser.getUsername());
         console.log(cognitoUser);
@@ -188,58 +193,46 @@ export async function register(form) {
         var authenticationDetails = new AuthenticationDetails(
           authenticationData
         );
-        cognitoUser.authenticateUser(
-          authenticationDetails,
-          {
-            onSuccess: function(result) {
-              console.log(result);
-              AWS.config.update({ region: "eu-west-1" });
+        cognitoUser.authenticateUser(authenticationDetails, {
+          onSuccess: function(result) {
+            console.log(result);
+            AWS.config.update({ region: "eu-west-1" });
 
-              AWS.config.credentials = new AWS.CognitoIdentityCredentials(
-                {
-                  IdentityPoolId:
-                    awsmobile.aws_cognito_identity_pool_id,
-                  Logins: {
-                    "cognito-idp.eu-west-1.amazonaws.com/eu-west-1_T6YnwqOUq": result
-                      .getIdToken()
-                      .getJwtToken()
-                  }
-                }
-              );
+            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+              IdentityPoolId: awsmobile.aws_cognito_identity_pool_id,
+              Logins: {
+                "cognito-idp.eu-west-1.amazonaws.com/eu-west-1_T6YnwqOUq": result
+                  .getIdToken()
+                  .getJwtToken()
+              }
+            });
 
-              localStorage.setItem(
-                "jwtToken",
-                result.getIdToken().getJwtToken()
-              );
-         
-              var params = {
-                GroupName: "pro" /* required */,
-                UserPoolId:
-                  awsmobile.aws_user_pools_id /* required */,
-                Username: username /* required */
-              };
+            localStorage.setItem("jwtToken", result.getIdToken().getJwtToken());
 
-              AWS.config.update({ region: "eu-west-1" });
+            var params = {
+              GroupName: form.typeAccount /* required */,
+              UserPoolId: awsmobile.aws_user_pools_id /* required */,
+              Username: username /* required */
+            };
 
-              var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
+            AWS.config.update({ region: "eu-west-1" });
 
-              cognitoidentityserviceprovider.adminAddUserToGroup(
-                params,
-                function(err, data) {
-                  if (err) console.log(err, err.stack);
-                  else console.log(data);
-                }
-              );
-            },
+            var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 
-            onFailure: function(err) {
-              return err;
-            }
+            cognitoidentityserviceprovider.adminAddUserToGroup(params, function(
+              err,
+              data
+            ) {
+              if (err) console.log(err, err.stack);
+              else console.log(data);
+            });
+          },
+
+          onFailure: function(err) {
+            return err;
           }
-        );
+        });
         resolve(cognitoUser);
-
-       
       }
     });
   });

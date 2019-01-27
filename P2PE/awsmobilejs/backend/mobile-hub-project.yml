@@ -26,6 +26,14 @@ features:
           /getNotes/delete: !com.amazonaws.mobilehub.v0.Function {}
           '/getNotes/{identityid}': !com.amazonaws.mobilehub.v0.Function {}
           /p2pe: !com.amazonaws.mobilehub.v0.Function {}
+          /p2pe/categories: !com.amazonaws.mobilehub.v0.Function {}
+          /p2pe/requested_services_client: !com.amazonaws.mobilehub.v0.Function {}
+          /p2pe/requested_services_client/requested_service: !com.amazonaws.mobilehub.v0.Function {}
+          '/p2pe/requested_services_client/requested_service/{id_requested_service}': !com.amazonaws.mobilehub.v0.Function {}
+          '/p2pe/requested_services_client/requested_service/{id_requested_service}/paid': !com.amazonaws.mobilehub.v0.Function {}
+          '/p2pe/requested_services_client/{id_client}': !com.amazonaws.mobilehub.v0.Function {}
+          /p2pe/users: !com.amazonaws.mobilehub.v0.Function {}
+          /p2pe/users/user: !com.amazonaws.mobilehub.v0.Function {}
           /pro: !com.amazonaws.mobilehub.v0.Function {}
           '/pro/{id_pro}': !com.amazonaws.mobilehub.v0.Function {}
           '/pro/{id_pro}/services': !com.amazonaws.mobilehub.v0.Function {}
