@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Card2 } from "components/Card/Card";
 import Button from "components/CustomButton/CustomButton.jsx";
+import { Panel } from "react-bootstrap";
 
 export class ServiceCard extends Component {
   _renderButtonValidate = () => {
@@ -23,12 +24,22 @@ export class ServiceCard extends Component {
           }
           bottomRight={<div>{this._renderButtonValidate()}</div>}
           topRight={
-            <div style={{ marginTop: 6 ,fontWeight: "bold", fontSize: 40 }}>
+            <div style={{ marginTop: 16, paddingLeft:10, fontWeight: "bold", fontSize: 40 }}>
               {this.props.prix}€
             </div>
           }
-          content={<div>{this.props.description}</div>}
-        />{" "}
+          content={
+            <div>
+              {" "}
+              <Panel eventKey="1" style={{ cornerRadius:30,marginRight:100,marginTop:30}}>
+                <Panel.Heading >
+                  <Panel.Title toggle  style={{ textAlign:'left'}}>Description</Panel.Title>
+                </Panel.Heading>
+                <Panel.Body collapsible>{this.props.description}</Panel.Body>
+              </Panel>
+            </div>
+          }
+        />
       </div>
     );
   }
