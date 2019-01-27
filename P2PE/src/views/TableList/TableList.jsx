@@ -36,7 +36,7 @@ class TableList extends Component {
               <Grid fluid>
                 {(this.state.services != undefined &&
                   this.state.services.length) > 0 &&
-                  this.state.services.map(service => {
+                  this.state.services.filter(text => text.title.indexOf("title") !== -1).map(service => {
                     console.log(service);
                     return (
                       <div key={service.id}>
