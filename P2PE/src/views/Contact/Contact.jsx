@@ -13,7 +13,6 @@ import {
 } from "../../Provider/Api";
 import Button from "components/CustomButton/CustomButton";
 import Card from "components/Card/Card.jsx";
-import axios from 'axios';
 
 const style = {
   title : {
@@ -107,11 +106,16 @@ class Contact extends Component {
     console.log(contact.name);
     console.log(contact.email);
     console.log(contact.message);
+
+    window.open('mailto:guillaume.rodier@epitech.eu' +
+                '?subject=\'Contact from P2PE\'&body=<ul><li><strong>' +
+                contact.name + '</strong> : ' + contact.email + '</li></ul>' +
+                '<br/><br/>' + contact.message);
   }
 
   _renderContactForm() {
     return (
-      <Form name="contact" className="form" onSubmit={this.handleSubmit}>
+      <Form name="contact" className="form">
         <Col md={6} style={style.input_style}>
           <FormGroup>
             <Label>Nom</Label>
@@ -145,7 +149,7 @@ class Contact extends Component {
             />
           </FormGroup>
         </Col>
-        <Button style={style.submitBtn} /*type="submit"*/ onClick={this.handleSubmit}>Envoyer</Button>
+        <Button style={style.submitBtn} onClick={this.handleSubmit}>Envoyer</Button>
       </Form>
     );
   }
@@ -157,15 +161,22 @@ class Contact extends Component {
           content={
             <Grid fluid>
               <Row>
-                <div className="App-header">
-                  <h2 style={style.title}>Nous contacter</h2>
-                </div>
-                {this._renderContactForm()}
+                {this._renderCard()}
+                {this._renderContactInfo()}
               </Row>
               <div style={style.line}></div>
               <Row>
-                {this._renderCard()}
-                {this._renderContactInfo()}
+                <div className="App-header">
+                  <h2 style={style.title}>Nous contacter</h2>
+                </div>
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSew0Pe626Z7pcUsrxdBFjOm2Sb4zjPaBo3Gdv6OM1Yh_j9Fcg/viewform?embedded=true"
+                        width="100%"
+                        height="753"
+                        frameborder="0"
+                        marginheight="0"
+                        marginwidth="0">
+                  Chargement en cours...
+                </iframe>
               </Row>
             </Grid>
           }
@@ -173,7 +184,6 @@ class Contact extends Component {
       </Col>
     );
   }
-  /**/
 
   deleteNote() {
     deleteNoteAdmin(this.id_note.value).then();
