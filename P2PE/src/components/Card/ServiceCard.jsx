@@ -8,7 +8,7 @@ export class ServiceCard extends Component {
         {" "}
         <Card2
           title={this.props.title}
-          category={this.props.categoryName}
+          category={<div>{this.props.categoryName}   ({this.props.location})</div>}
           bottomRight={this.props.categoryName}
           topRight={this.props.prix}
           content={<div>{this.props.description}</div>}

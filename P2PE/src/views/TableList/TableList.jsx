@@ -2,7 +2,7 @@ import Card from "components/Card/Card.jsx";
 import React, { Component } from "react";
 import { colorRole } from "../../functions/p2peFunction";
 import { deleteNotes, getNotes, postNotes } from "../../Provider/Api";
-import { Grid, Row, Col } from "react-bootstrap";
+import { Grid, Row, Col, FormControl } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { ServiceCard } from "../../components/Card/ServiceCard";
@@ -13,9 +13,11 @@ class TableList extends Component {
     this._renderPage = this._renderPage.bind(this);
     this.addService = this.addService.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleChangeSelect = this.handleChangeSelect.bind(this);
     this.state = {
       services: [],
       addTitle: "",
+      searchType: "title",
       addCategory: "",
       addDescription: "",
       addName: ""
@@ -24,19 +26,28 @@ class TableList extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.id]: event.target.value });
-    console.log(this.state);
+  }
+  handleChangeSelect(event) {
+    this.setState({ searchType: this.inputEl.value });
+    console.log(this.inputEl.value);
   }
   _search = text => {
     if (!!this.state.search) {
-      return text.title.indexOf(this.state.search) !== -1;
-    }
-    else
-      return this.state.services;
+      if (this.state.searchType == "description") {
+        return text.description.toLowerCase().indexOf(this.state.search) !== -1;
+      } else if (this.state.searchType == "title") {
+        return text.title.toLowerCase().indexOf(this.state.search) !== -1;
+      } else if (this.state.searchType == "category") {
+        return text.category.toLowerCase().indexOf(this.state.search) !== -1;
+      } else if (this.state.location == "location") {
+        return text.location.toLowerCase().indexOf(this.state.search) !== -1;
+      } else return this.state.services;
+    } else return this.state.services;
   };
   _renderPage() {
     return (
       <div className="content">
-        <Row>
+        <Row style={{ display: "flex", alignItems: " center",marginBottom : 20 }}>
           <Col md={8}>
             <FormInputs
               ncols={["col-md-12"]}
@@ -53,11 +64,34 @@ class TableList extends Component {
               ]}
             />
           </Col>
+          <Col md={4}>
+            <FormControl
+              style={{
+                marginBottom: 0,
+                paddingBottom: 0
+              }}
+              componentClass="select"
+              placeholder="select"
+              inputRef={el => (this.inputEl = el)}
+              onChange={this.handleChangeSelect}
+            >
+              <option id="searchType" value="title">
+                Par titre
+              </option>
+              <option id="searchType" value="category">
+                {" "}
+                Par catégorie
+              </option>
+              <option id="searchType" value="description">
+                Par Description
+              </option>
+              <option id="searchType" value="location">
+                Par location
+              </option>
+            </FormControl>
+          </Col>
         </Row>
-        <Card
-          title={"Les différents services"}
-          category={"Voici la liste de tout les services pro"}
-          content={
+   
             <div>
               <Grid fluid>
                 {(this.state.services != undefined &&
@@ -71,7 +105,7 @@ class TableList extends Component {
               </Grid>
               <div style={{ flexDirection: "column" }}>
                 <div className="ct-chart">
-                  <Row>
+                  <Row >
                     <Col md={8}>
                       <FormInputs
                         ncols={["col-md-12"]}
@@ -149,8 +183,7 @@ class TableList extends Component {
                 </div>
               </div>
             </div>
-          }
-        />
+       
       </div>
     );
   }
