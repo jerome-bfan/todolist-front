@@ -34,7 +34,11 @@ class Dashboard extends Component {
       registerUserName: "",
       registerEmail: "",
       registerPhone: "",
+      registerNbEmploye: "",
+      registerSiret: "",
+      hideFormPro: false,
       registerPassword: "",
+      typeAccount: "user",
       errorMessage: "",
       errorConnect: "Bienvenue veuillez vous connectez",
       errorRegister: "",
@@ -62,8 +66,8 @@ class Dashboard extends Component {
     this.setState({
       username: "jaydde",
       password: "Mind72018",
-      errorConnect: "Bienvenue veuillez vous conncetez",
-
+      hideFormPro: true,
+      errorConnect: "Bienvenue veuillez vous conncetez"
     });
   }
   createLegend(json) {
@@ -87,21 +91,27 @@ class Dashboard extends Component {
     console.log(value);
 
     if (!this.state.connected) {
-      let errorConnect =      <Row>
-      <text   style={{
-          textAlign: "center",
-          paddingLeft: 27,
-          fontWeight: 500,
-          fontFamily: "roboto"
-        }} >{this.state.errorConnect}</text>
-   </Row>;
+      let errorConnect = (
+        <Row>
+          <text
+            style={{
+              textAlign: "center",
+              paddingLeft: 27,
+              fontWeight: 500,
+              fontFamily: "roboto"
+            }}
+          >
+            {this.state.errorConnect}
+          </text>
+        </Row>
+      );
       return (
         <Col md={6}>
           <Card
             id="chartActivity"
             title="Vous avez déjà un compte"
             category="Loggez vous ci-dessous"
-            stats= {errorConnect}
+            stats={errorConnect}
             statsIcon="fa fa-check"
             content={
               <div style={{ flexDirection: "column" }}>
@@ -139,38 +149,37 @@ class Dashboard extends Component {
                           }
                         ]}
                       />
-                    <Row>
-                      <Button
-                      style= {{marginLeft:15}}
-                        onClick={e => {
-                          //authentification(this.state).then(e => {})
-                          authentification(this.state)
-                            .then(e => {
-                              this.setState({ connected: e });
+                      <Row>
+                        <Button
+                          style={{ marginLeft: 15 }}
+                          onClick={e => {
+                            //authentification(this.state).then(e => {})
+                            authentification(this.state)
+                              .then(e => {
+                                this.setState({ connected: e });
 
-                              console.log(e);
-                            })
-                            .catch(e => {
-                              console.log(e);
-                              this.setState({ errorConnect: e.message });
-                                    this.setState({
-                                      _notificationSystem: this.refs
-                                        .notificationSystem
-                                    });
-                                    var _notificationSystem = this.refs
-                                      .notificationSystem;
-                                    makeNotif(
-                                      _notificationSystem,
-                                      "error  ",
-                                      e.message
-                                    );
-                            });
-                        }}
-                      >
-                        Connectez-vous
-                      </Button>
+                                console.log(e);
+                              })
+                              .catch(e => {
+                                console.log(e);
+                                this.setState({ errorConnect: e.message });
+                                this.setState({
+                                  _notificationSystem: this.refs
+                                    .notificationSystem
+                                });
+                                var _notificationSystem = this.refs
+                                  .notificationSystem;
+                                makeNotif(
+                                  _notificationSystem,
+                                  "error  ",
+                                  e.message
+                                );
+                              });
+                          }}
+                        >
+                          Connectez-vous
+                        </Button>
                       </Row>
-                 
                     </Col>
                   </Row>
                   <br />
@@ -192,6 +201,43 @@ class Dashboard extends Component {
   _registerError() {
     register(this);
   }
+
+  _renderFormPro = () => {
+    if(this.state.hideFormPro) {
+      return (
+        <div>
+          <FormInputs
+            ncols={["col-md-12"]}
+            proprieties={[
+              {
+                label: "N° de siret",
+                type: "text",
+                bsClass: "form-control",
+                placeholder: "N° de siret",
+                id: "registerSiret",
+                value: this.state.registerSiret,
+                onChange: this.handleChange
+              }
+            ]}
+          />
+          <FormInputs
+            ncols={["col-md-12"]}
+            proprieties={[
+              {
+                label: "N° d'employés",
+                type: "number",
+                bsClass: "form-control",
+                placeholder: "N° d' employés",
+                id: "registerNbEmploye",
+                value: this.state.registerNbEmploye,
+                onChange: this.handleChange
+              }
+            ]}
+          />
+        </div>
+      );
+          }
+  };
   _renderInscription() {
     if (!this.state.connected) {
       return (
@@ -209,6 +255,30 @@ class Dashboard extends Component {
                   </div>
                   <Row>
                     <Col md={8}>
+                      <Row style={{ marginBottom: 20 }}>
+                        <h4>Vous êtes :</h4>
+
+                        <Button
+                          style={{ marginLeft: 15 }}
+                          onClick={e => {
+                            this.setState({ typeAccount: "user",
+                            hideFormPro: false });
+                          }}
+                        >
+                          Utilisateur
+                        </Button>
+                        <text style={{ marginLeft: 10 }}>OU</text>
+                        <Button
+                          style={{ marginLeft: 15 }}
+                          onClick={e => {
+                            this.setState({ typeAccount: "pro",
+                            hideFormPro: true });
+                          }}
+                        >
+                          Pro
+                        </Button>
+                      </Row>
+                      {this._renderFormPro()}
                       <FormInputs
                         ncols={["col-md-12"]}
                         proprieties={[
@@ -231,7 +301,7 @@ class Dashboard extends Component {
                             label: "password",
                             type: "password",
                             bsClass: "form-control",
-                            placeholder: "Username",
+                            placeholder: "Password",
                             id: "registerPassword",
                             value: this.state.registerPassword,
                             onChange: this.handleChange
@@ -270,23 +340,18 @@ class Dashboard extends Component {
                         onClick={testhist => {
                           console.log();
                           register(this.state)
-                            .then((e) => {
+                            .then(e => {
                               var mess =
-                                      "Vous devez accepté votre email avant de vous connecter";
-                                    this.setState({ successRegister: mess });
-                                    this.setState({
-                                      _notificationSystem: this.refs
-                                        .notificationSystem
-                                    });
-                                    var _notificationSystem = this.refs
-                                      .notificationSystem;
-                                    makeNotif(
-                                      _notificationSystem,
-                                      "info",
-                                      mess
-                                    );
+                                "Vous devez accepté votre email avant de vous connecter";
+                              this.setState({ successRegister: mess });
+                              this.setState({
+                                _notificationSystem: this.refs
+                                  .notificationSystem
+                              });
+                              var _notificationSystem = this.refs
+                                .notificationSystem;
+                              makeNotif(_notificationSystem, "info", mess);
                               this.setState({ errorRegister: e.message });
-                         
 
                               console.log(e);
                             })
