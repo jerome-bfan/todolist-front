@@ -270,7 +270,7 @@ class Dashboard extends Component {
                         onClick={testhist => {
                           console.log();
                           register(this.state)
-                            .then(e => {
+                            .then((e) => {
                               var mess =
                                       "Vous devez accepté votre email avant de vous connecter";
                                     this.setState({ successRegister: mess });
@@ -286,71 +286,7 @@ class Dashboard extends Component {
                                       mess
                                     );
                               this.setState({ errorRegister: e.message });
-                              var userPool = new CognitoUserPool(poolData);
-                              var userData = {
-                                Username: "jaydde3",
-                                Pool: userPool
-                              };
-                              // je cherche une variable
-                              console.log("je cherche une variable");
-                              console.log(this.state);
-                              var cognitoUser = new CognitoUser(userData);
-                              var authenticationData = {
-                                Username: "jaydde3",
-                                Password: "Mind72018"
-                              };
-                              var authenticationDetails = new AuthenticationDetails(
-                                authenticationData
-                              );
-                              cognitoUser.authenticateUser(
-                                authenticationDetails,
-                                {
-                                  onSuccess: function(result) {
-                                    console.log(result);
-                                    AWS.config.update({ region: "eu-west-1" });
-
-                                    AWS.config.credentials = new AWS.CognitoIdentityCredentials(
-                                      {
-                                        IdentityPoolId:
-                                          awsmobile.aws_cognito_identity_pool_id,
-                                        Logins: {
-                                          "cognito-idp.eu-west-1.amazonaws.com/eu-west-1_T6YnwqOUq": result
-                                            .getIdToken()
-                                            .getJwtToken()
-                                        }
-                                      }
-                                    );
-
-                                    localStorage.setItem(
-                                      "jwtToken",
-                                      result.getIdToken().getJwtToken()
-                                    );
-                               
-                                    var params = {
-                                      GroupName: "pro" /* required */,
-                                      UserPoolId:
-                                        awsmobile.aws_user_pools_id /* required */,
-                                      Username: e.username /* required */
-                                    };
-
-                                    AWS.config.update({ region: "eu-west-1" });
-
-                                    var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
-
-                                    cognitoidentityserviceprovider.adminAddUserToGroup(
-                                      params,
-                                      function(err, data) {
-                                        if (err) console.log(err, err.stack);
-                                        else console.log(data);
-                                      }
-                                    );
-                                  },
-
-                                  onFailure: function(err) {
-                                    return err;
-                                  }
-                                }
-                              );
+                         
 
                               console.log(e);
                             })
