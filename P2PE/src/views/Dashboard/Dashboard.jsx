@@ -188,7 +188,7 @@ class Dashboard extends Component {
 
   _rendrePresentation() {
     return (
-      <Col md={4}>
+      <Col md={12}>
         <Card
           //title="Inscrivez-vous"
           //category="Remplir les informations ci dessous"
@@ -206,32 +206,13 @@ class Dashboard extends Component {
                 >
                   <Panel eventKey="1">
                     <Panel.Heading>
-                      <Panel.Title toggle style={style.question}>Mot de passe oublié</Panel.Title>
+                      <Panel.Title toggle style={style.question}>Ce que nous faisons</Panel.Title>
                     </Panel.Heading>
-                    <Panel.Body collapsible>
-                      Si vous avez oublié votre mot de passe, un lien sera disponible
-                      pour vous permettre d'avoir un lien de réinitialisation.
-                      Il sera envoyé par mail.
-                      <br/>
-                      <br/>Ce lien sera valable pendant un certain temps.
-                    </Panel.Body>
-                  </Panel>
-                  <Panel eventKey="2">
-                    <Panel.Heading>
-                      <Panel.Title toggle style={style.question}>
-                        Mon lien de réinitialisation de mot de passe ne fonctionne pas
-                      </Panel.Title>
-                    </Panel.Heading>
-                    <Panel.Body collapsible>
-                      Au moment où vous oubliez votre mot de passe, vous pourrez
-                      nous demander un lien de réinitialisation. Ce dernier vous
-                      sera envoyé par mail.
-                      <br/>
-                      <br/>Ce lien expire au bout d'un certain temps. Il faudra
-                      l'utiliser dès sa réception.
-                      <br/>
-                      <br/>Si ce lien ne fonctionne pas dès sa réception,
-                      contactez-nous via le formulaire ci-dessous.
+                    <Panel.Body>
+                      Notre site vous propose de vous mettre en relation avec
+                      des pros. Ces derniers vous proposeront de multiples
+                      services, que ce soit pour des déménagements, du jardinage
+                      ou tout autre action du quotidien.
                     </Panel.Body>
                   </Panel>
                 </PanelGroup>
