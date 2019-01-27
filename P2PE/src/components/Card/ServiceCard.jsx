@@ -1,14 +1,16 @@
 import React, { Component } from "react";
-import { Card } from "components/Card/Card";
+import { Card2 } from "components/Card/Card";
 
 export class ServiceCard extends Component {
   _renderContent() {
     return (
       <div key={this.props.id}>
         {" "}
-        <Card
+        <Card2
           title={this.props.title}
           category={this.props.categoryName}
+          bottomRight={this.props.categoryName}
+          topRight={this.props.prix}
           content={<div>{this.props.description}</div>}
         />{" "}
       </div>
@@ -19,4 +21,4 @@ export class ServiceCard extends Component {
   }
 }
 
-export default Card;
+export default ServiceCard;

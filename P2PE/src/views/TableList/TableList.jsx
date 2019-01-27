@@ -56,7 +56,7 @@ class TableList extends Component {
         </Row>
         <Card
           title={"Les différents services"}
-          category={"Remplir le formulaire ci dessous pour remplir un service"}
+          category={"Voici la liste de tout les services pro"}
           content={
             <div>
               <Grid fluid>
