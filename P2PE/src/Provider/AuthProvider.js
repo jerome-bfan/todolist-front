@@ -143,12 +143,18 @@ export async function register(form) {
     Name: "name",
     value: name
   };
+  var dataSiret = {
+    Name: "custom:siret",
+    value: ""
+  };
   var attributeEmail = new CognitoUserAttribute(dataEmail);
   var attributePhoneNumber = new CognitoUserAttribute(dataPhoneNumber);
   var attributePreferedUsername = new CognitoUserAttribute(dataUserNamePref);
   var attributeName = new CognitoUserAttribute(dataName);
+  var attributeSiret = new CognitoUserAttribute(dataSiret);
 
   attributeList.push(attributeEmail);
+  attributeList.push(attributeSiret);
   attributeList.push(attributePhoneNumber);
   attributeList.push(attributePreferedUsername);
   attributeList.push(attributeName);
@@ -165,6 +171,7 @@ export async function register(form) {
     
         var cognitoUser = result.user;
         console.log("user registered as " + cognitoUser.getUsername());
+        console.log(cognitoUser);
         resolve(cognitoUser);
 
        
