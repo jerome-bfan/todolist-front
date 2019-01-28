@@ -38,9 +38,9 @@ class TableList extends Component {
       } else if (this.state.searchType == "title") {
         return text.title.toLowerCase().indexOf(this.state.search) !== -1;
       } else if (this.state.searchType == "category") {
-        return text.category.toLowerCase().indexOf(this.state.search) !== -1;
-      } else if (this.state.location == "location") {
-        return text.location.toLowerCase().indexOf(this.state.search) !== -1;
+        return text.categoryName.toLowerCase().indexOf(this.state.search) !== -1;
+      } else if (this.state.searchType == "location") {
+        return text.location.indexOf("92") !== -1;
       } else return this.state.services;
     } else return this.state.services;
   };

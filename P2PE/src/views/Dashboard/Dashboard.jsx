@@ -297,9 +297,7 @@ class Dashboard extends Component {
             content={
               <div style={{ flexDirection: "column" }}>
                 <div className="">
-                  <div className="App-header">
-                    <h2>Inscrivez-vous</h2>
-                  </div>
+                 
                   <Row>
                     <Col md={8}>
                       <Row style={{ marginBottom: 20 }}>
