@@ -1,131 +1,220 @@
 import Card from "components/Card/Card.jsx";
-import Button from "components/CustomButton/CustomButton";
 import React, { Component } from "react";
-import { Grid, Row } from "react-bootstrap";
 import { colorRole } from "../../functions/p2peFunction";
 import { deleteNotes, getNotes, postNotes } from "../../Provider/Api";
+import { Grid, Row, Col, FormControl } from "react-bootstrap";
+import Button from "components/CustomButton/CustomButton.jsx";
+import { FormInputs } from "components/FormInputs/FormInputs.jsx";
+import { ServiceCard } from "../../components/Card/ServiceCard";
 
 class TableList extends Component {
   constructor(props) {
     super(props);
+    this._renderPage = this._renderPage.bind(this);
+    this.addService = this.addService.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeSelect = this.handleChangeSelect.bind(this);
     this.state = {
-      notes: []
+      services: [],
+      addTitle: "",
+      searchType: "title",
+      addCategory: "",
+      addDescription: "",
+      addName: ""
     };
   }
-  addNote() {
-    postNotes(this.note.value).then();
-    window.location.reload();
-  }
 
+  handleChange(event) {
+    this.setState({ [event.target.id]: event.target.value });
+  }
+  handleChangeSelect(event) {
+    this.setState({ searchType: this.inputEl.value });
+    console.log(this.inputEl.value);
+  }
+  _search = text => {
+    if (!!this.state.search) {
+      if (this.state.searchType == "description") {
+        return text.description.toLowerCase().indexOf(this.state.search) !== -1;
+      } else if (this.state.searchType == "title") {
+        return text.title.toLowerCase().indexOf(this.state.search) !== -1;
+      } else if (this.state.searchType == "category") {
+        return text.category.toLowerCase().indexOf(this.state.search) !== -1;
+      } else if (this.state.location == "location") {
+        return text.location.toLowerCase().indexOf(this.state.search) !== -1;
+      } else return this.state.services;
+    } else return this.state.services;
+  };
   _renderPage() {
     return (
       <div className="content">
-        <Card
-          title={"Ajoute une service"}
-          category={"remplir la note"}
-          content={
+        <Row style={{ display: "flex", alignItems: " center",marginBottom : 20 }}>
+          <Col md={8}>
+            <FormInputs
+              ncols={["col-md-12"]}
+              proprieties={[
+                {
+                  label: "Recherche",
+                  id: "search",
+                  type: "text",
+                  bsClass: "form-control",
+                  placeholder: "Recherche",
+                  onChange: this.handleChange,
+                  value: this.state.search
+                }
+              ]}
+            />
+          </Col>
+          <Col md={4}>
+            <FormControl
+              style={{
+                marginBottom: 0,
+                paddingBottom: 0
+              }}
+              componentClass="select"
+              placeholder="select"
+              inputRef={el => (this.inputEl = el)}
+              onChange={this.handleChangeSelect}
+            >
+              <option id="searchType" value="title">
+                Par titre
+              </option>
+              <option id="searchType" value="category">
+                {" "}
+                Par catégorie
+              </option>
+              <option id="searchType" value="description">
+                Par Description
+              </option>
+              <option id="searchType" value="location">
+                Par location
+              </option>
+            </FormControl>
+          </Col>
+        </Row>
+   
             <div>
-              <Row>
-                <textarea
-                  style={{ width: 300, marginLeft: 10 }}
-                  type="text"
-                  placeholder="note"
-                  ref={input => {
-                    this.note = input;
-                  }}
-                />
-              </Row>
+              <Grid fluid>
+                {(this.state.services != undefined &&
+                  this.state.services.length) > 0 &&
+                  this.state.services
+                    .filter(text => this._search(text))
+                    .map(service => {
+                      console.log(service);
+                      return <ServiceCard {...service} />;
+                    })}
+              </Grid>
+              <div style={{ flexDirection: "column" }}>
+                <div className="ct-chart">
+                  <Row >
+                    <Col md={8}>
+                      <FormInputs
+                        ncols={["col-md-12"]}
+                        proprieties={[
+                          {
+                            label: "Titre du service ",
+                            id: "addTitle",
+                            type: "text",
+                            bsClass: "form-control",
+                            placeholder: "Titre du service",
+                            onChange: this.handleChange,
+                            value: this.state.addTitle
+                          }
+                        ]}
+                      />
+                      <FormInputs
+                        ncols={["col-md-12"]}
+                        proprieties={[
+                          {
+                            label: "Nom du service",
+                            type: "text",
+                            id: "addName",
+                            bsClass: "form-control",
+                            placeholder: "Nom du service",
+                            onChange: this.handleChange,
+                            value: this.state.addName
+                          }
+                        ]}
+                      />
 
-              <Row>
-                <Button
-                  style={{
-                    marginTop: 10,
-                    marginLeft: 10,
-                    borderColor: colorRole("#888888"),
-                    color: colorRole("#888888")
-                  }}
-                  onClick={e => {
-                    this.addNote();
-                  }}
-                >
-                  ajouter
-                </Button>
-              </Row>
-            </div>
-          }
-        />
-        <h1>Toutes mes notes</h1>
+                      <FormInputs
+                        ncols={["col-md-12"]}
+                        proprieties={[
+                          {
+                            label: "Catégorie du service",
+                            type: "text",
+                            id: "addCategory",
+                            bsClass: "form-control",
+                            placeholder: "Catégorie du service",
+                            onChange: this.handleChange,
+                            value: this.state.addCategory
+                          }
+                        ]}
+                      />
 
-        <Card
-          title={"Supprimez servoce"}
-          category={"Ajouter l'id du servic "}
-          content={
-            <div>
-              <Row>
-                <input
-                  style={{ marginLeft: 10 }}
-                  type="text"
-                  placeholder="id de la note"
-                  ref={input => {
-                    this.id_note = input;
-                  }}
-                />
-              </Row>
+                      <FormInputs
+                        ncols={["col-md-12"]}
+                        proprieties={[
+                          {
+                            label: "Description du service",
+                            type: "text",
+                            id: "addDescription",
+                            bsClass: "form-control",
+                            placeholder: "Description du service",
+                            onChange: this.handleChange,
+                            value: this.state.addDescription
+                          }
+                        ]}
+                      />
 
-              <Row>
-                <Button
-                  style={{
-                    marginTop: 10,
-                    marginLeft: 10,
-                    borderColor: colorRole("#888888"),
-                    color: colorRole("#888888")
-                  }}
-                  onClick={e => {
-                    this.deleteNote();
-                  }}
-                >
-                  Supprimer
-                </Button>
-              </Row>
-            </div>
-          }
-        />
-        <Grid fluid>
-          {(this.state.notes != undefined && this.state.notes.length) > 0 &&
-            this.state.notes.map(note => {
-              console.log(note);
-              return (
-                <div key={note.id_note}>
-                  {" "}
-                  <Card
-                    title={note.id_note}
-                    category={note.identity_id}
-                    content={<div>{note.note}</div>}
-                  />{" "}
+                      <Button
+                        style={{
+                          borderColor: colorRole("#888888"),
+                          color: colorRole("#888888")
+                        }}
+                        onClick={e => {
+                          this.addService();
+                        }}
+                      >
+                        Ajouter un service
+                      </Button>
+                    </Col>
+                  </Row>
+                  <br />
                 </div>
-              );
-            })}
-        </Grid>
+              </div>
+            </div>
+       
       </div>
     );
   }
 
-  deleteNote() {
-    deleteNotes(this.id_note.value).then();
-    window.location.reload();
+  addService() {
+    const service = {
+      name: this.state.addName,
+      description: this.state.addDescription,
+      category: this.state.addCategory,
+      title: this.state.addTitle
+    };
+    this.state.services.push(service);
+    this.setState({
+      serives: this.state.services
+    });
+    console.log(this.state.services);
   }
 
   componentWillMount() {
     //deleteNotes(2).then();
     getNotes().then(api => {
       console.log("state");
+      console.log(api);
+
       this.setState({
-        notes: api.data
+        services: api.data
       });
     });
   }
   render() {
-    console.log(this.state.notes);
+    console.log(this.state.services);
 
     return this._renderPage();
   }

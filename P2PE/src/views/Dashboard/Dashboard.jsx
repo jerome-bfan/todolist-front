@@ -1,27 +1,29 @@
+import {
+  CognitoUserPool,
+  CognitoUserAttribute,
+  CognitoUser,
+  AuthenticationDetails
+} from "amazon-cognito-identity-js";
 import React, { Component } from "react";
 import ChartistGraph from "react-chartist";
 import { Grid, Row, Col, Panel, PanelGroup, } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
-import { FormGroup, ControlLabel, FormControl } from "react-bootstrap";
+import awsmobile from "../../aws-exports";
+import AWS from "aws-sdk/dist/aws-sdk-react-native";
 
 import { Card } from "components/Card/Card.jsx";
-import { StatsCard } from "components/StatsCard/StatsCard.jsx";
-import { Tasks } from "components/Tasks/Tasks.jsx";
+import NotificationSystem from "react-notification-system";
+
 import {
-  dataPie,
-  legendPie,
-  dataSales,
-  optionsSales,
-  responsiveSales,
-  legendSales,
-  dataBar,
-  optionsBar,
-  responsiveBar,
-  legendBar
-} from "variables/Variables.jsx";
-import { authentification, register } from "../../Provider/AuthProvider";
+  authentification,
+  register,
+  poolData
+} from "../../Provider/AuthProvider";
 import { isConnected } from "../../functions/p2peFunction";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
+import { getNotes } from "../../Provider/Api";
+import { makeNotif } from "../../layouts/Dashboard/Dashboard";
+import { style } from "variables/Variables.jsx";
 
 const style = {
   title : {
@@ -64,15 +66,22 @@ class Dashboard extends Component {
       registerUserName: "",
       registerEmail: "",
       registerPhone: "",
+      registerNbEmploye: "",
+      registerSiret: "",
       registerPassword: "",
       errorMessage: "",
-      errorConnect: "",
-      errorRegister: ""
+      errorConnect: "Bienvenue veuillez vous connectez",
+      errorRegister: "",
+      successRegister: ""
     };
     if (isConnected()) {
       this.state = {
         connected: true
       };
+      getNotes().then(test => {
+        console.log("llala");
+        console.log(test);
+      });
     } else {
       this.state = {
         connected: false
@@ -86,7 +95,10 @@ class Dashboard extends Component {
   componentWillMount() {
     this.setState({
       username: "jaydde",
-      password: "Mind72018"
+      password: "Mind72018",
+      hideFormPro: false,
+      typeAccount: "user",
+      errorConnect: "Bienvenue veuillez vous conncetez"
     });
   }
   createLegend(json) {
@@ -110,13 +122,27 @@ class Dashboard extends Component {
     console.log(value);
 
     if (!this.state.connected) {
+      let errorConnect = (
+        <Row>
+          <text
+            style={{
+              textAlign: "center",
+              paddingLeft: 27,
+              fontWeight: 500,
+              fontFamily: "roboto"
+            }}
+          >
+            {this.state.errorConnect}
+          </text>
+        </Row>
+      );
       return (
         <Col md={6}>
           <Card
             id="chartActivity"
             title="Vous avez déjà un compte"
             category="Loggez vous ci-dessous"
-            stats="Data information certified"
+            stats={errorConnect}
             statsIcon="fa fa-check"
             content={
               <div style={{ flexDirection: "column" }}>
@@ -154,26 +180,37 @@ class Dashboard extends Component {
                           }
                         ]}
                       />
+                      <Row>
+                        <Button
+                          style={{ marginLeft: 15 }}
+                          onClick={e => {
+                            //authentification(this.state).then(e => {})
+                            authentification(this.state)
+                              .then(e => {
+                                this.setState({ connected: e });
 
-                      <Button
-
-                        onClick={e => {
-                          //authentification(this.state).then(e => {})
-                          authentification(this.state)
-                            .then(e => {
-                              this.setState({ connected: e });
-
-                              console.log(e);
-                            })
-                            .catch(e => {
-                              console.log(e);
-                              this.setState({ errorConnect: e.message });
-                            });
-                        }}
-                      >
-                        Connectez-vous
-                      </Button>
-                      <text>{this.state.errorConnect}</text>
+                                console.log(e);
+                              })
+                              .catch(e => {
+                                console.log(e);
+                                this.setState({ errorConnect: e.message });
+                                this.setState({
+                                  _notificationSystem: this.refs
+                                    .notificationSystem
+                                });
+                                var _notificationSystem = this.refs
+                                  .notificationSystem;
+                                makeNotif(
+                                  _notificationSystem,
+                                  "error  ",
+                                  e.message
+                                );
+                              });
+                          }}
+                        >
+                          Connectez-vous
+                        </Button>
+                      </Row>
                     </Col>
                   </Row>
                   <br />
@@ -242,6 +279,43 @@ class Dashboard extends Component {
   _registerError() {
     register(this);
   }
+
+  _renderFormPro = () => {
+    if(this.state.hideFormPro) {
+      return (
+        <div>
+          <FormInputs
+            ncols={["col-md-12"]}
+            proprieties={[
+              {
+                label: "N° de siret",
+                type: "text",
+                bsClass: "form-control",
+                placeholder: "N° de siret",
+                id: "registerSiret",
+                value: this.state.registerSiret,
+                onChange: this.handleChange
+              }
+            ]}
+          />
+          <FormInputs
+            ncols={["col-md-12"]}
+            proprieties={[
+              {
+                label: "N° d'employés",
+                type: "number",
+                bsClass: "form-control",
+                placeholder: "N° d' employés",
+                id: "registerNbEmploye",
+                value: this.state.registerNbEmploye,
+                onChange: this.handleChange
+              }
+            ]}
+          />
+        </div>
+      );
+          }
+  };
   _renderInscription() {
     if (!this.state.connected) {
       return (
@@ -259,6 +333,30 @@ class Dashboard extends Component {
                   </div>
                   <Row>
                     <Col md={8}>
+                      <Row style={{ marginBottom: 20 }}>
+                        <h4>Vous êtes :</h4>
+
+                        <Button
+                          style={{ marginLeft: 15 }}
+                          onClick={e => {
+                            this.setState({ typeAccount: "user",
+                            hideFormPro: false });
+                          }}
+                        >
+                          Utilisateur
+                        </Button>
+                        <text style={{ marginLeft: 10 }}>OU</text>
+                        <Button
+                          style={{ marginLeft: 15 }}
+                          onClick={e => {
+                            this.setState({ typeAccount: "pro",
+                            hideFormPro: true });
+                          }}
+                        >
+                          Pro
+                        </Button>
+                      </Row>
+                      {this._renderFormPro()}
                       <FormInputs
                         ncols={["col-md-12"]}
                         proprieties={[
@@ -281,7 +379,7 @@ class Dashboard extends Component {
                             label: "password",
                             type: "password",
                             bsClass: "form-control",
-                            placeholder: "Username",
+                            placeholder: "Password",
                             id: "registerPassword",
                             value: this.state.registerPassword,
                             onChange: this.handleChange
@@ -317,22 +415,68 @@ class Dashboard extends Component {
                         ]}
                       />
                       <Button
-                        onClick={e => {
+                        onClick={testhist => {
                           console.log();
                           register(this.state)
                             .then(e => {
+                              var mess =
+                                "Vous devez accepté votre email avant de vous connecter";
+                              this.setState({ successRegister: mess });
+                              this.setState({
+                                _notificationSystem: this.refs
+                                  .notificationSystem
+                              });
+                              var _notificationSystem = this.refs
+                                .notificationSystem;
+                              makeNotif(_notificationSystem, "info", mess);
                               this.setState({ errorRegister: e.message });
 
                               console.log(e);
                             })
                             .catch(e => {
                               console.log(e);
+                              this.setState({ errorRegister: e.message });
+                              this.setState({
+                                _notificationSystem: this.refs
+                                  .notificationSystem
+                              });
+                              var _notificationSystem = this.refs
+                                .notificationSystem;
+                              makeNotif(
+                                _notificationSystem,
+                                "error",
+                                e.message
+                              );
                             });
                         }}
                       >
                         Inscrivez-vous
                       </Button>
-                      <div>{this.state.errorRegister}</div>
+
+                      <div
+                        style={{
+                          textAlign: "center",
+                          marginTop: 20,
+                          fontSize: 14,
+                          color: "red",
+                          fontWeight: 500,
+                          fontFamily: "roboto"
+                        }}
+                      >
+                        {this.state.errorRegister}
+                      </div>
+                      <div
+                        style={{
+                          textAlign: "center",
+                          marginTop: 20,
+                          fontSize: 14,
+                          color: "green",
+                          fontWeight: 500,
+                          fontFamily: "roboto"
+                        }}
+                      >
+                        {this.state.successRegister}
+                      </div>
                     </Col>
                   </Row>
                   <br />
@@ -348,6 +492,8 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="content">
+        <NotificationSystem ref="notificationSystem" style={style} />
+
         <Grid fluid>
           <Row>
             {this._renderConnection()}
