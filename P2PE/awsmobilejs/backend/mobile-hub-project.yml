@@ -32,6 +32,20 @@ features:
           '/p2pe/requested_services_client/requested_service/{id_requested_service}': !com.amazonaws.mobilehub.v0.Function {}
           '/p2pe/requested_services_client/requested_service/{id_requested_service}/paid': !com.amazonaws.mobilehub.v0.Function {}
           '/p2pe/requested_services_client/{id_client}': !com.amazonaws.mobilehub.v0.Function {}
+          /p2pe/requested_services_for_pro: !com.amazonaws.mobilehub.v0.Function {}
+          /p2pe/requested_services_for_pro/requested-service: !com.amazonaws.mobilehub.v0.Function {}
+          '/p2pe/requested_services_for_pro/requested-service/{id_requested_service}': !com.amazonaws.mobilehub.v0.Function {}
+          '/p2pe/requested_services_for_pro/requested-service/{id_requested_service}/validated': !com.amazonaws.mobilehub.v0.Function {}
+          '/p2pe/requested_services_for_pro/{id_pro}': !com.amazonaws.mobilehub.v0.Function {}
+          /p2pe/services_pro: !com.amazonaws.mobilehub.v0.Function {}
+          /p2pe/services_pro/available: !com.amazonaws.mobilehub.v0.Function {}
+          /p2pe/services_pro/available/category: !com.amazonaws.mobilehub.v0.Function {}
+          '/p2pe/services_pro/available/category/{id_category}': !com.amazonaws.mobilehub.v0.Function {}
+          /p2pe/services_pro/proposed_services: !com.amazonaws.mobilehub.v0.Function {}
+          '/p2pe/services_pro/proposed_services/{id_pro}': !com.amazonaws.mobilehub.v0.Function {}
+          /p2pe/services_pro/service_pro: !com.amazonaws.mobilehub.v0.Function {}
+          '/p2pe/services_pro/service_pro/{id_service_pro}': !com.amazonaws.mobilehub.v0.Function {}
+          '/p2pe/services_pro/{id_pro}': !com.amazonaws.mobilehub.v0.Function {}
           /p2pe/users: !com.amazonaws.mobilehub.v0.Function {}
           /p2pe/users/user: !com.amazonaws.mobilehub.v0.Function {}
           /pro: !com.amazonaws.mobilehub.v0.Function {}

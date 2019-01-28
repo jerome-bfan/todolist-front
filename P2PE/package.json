@@ -21,6 +21,7 @@
     "react-notification-system": "0.2.17",
     "react-router-dom": "4.2.2",
     "react-scripts": "1.1.1",
+    "sendemail": "^3.4.0",
     "webpack": "^3.11.0"
   },
   "scripts": {

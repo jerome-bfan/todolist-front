@@ -6,7 +6,7 @@ import {
 } from "amazon-cognito-identity-js";
 import React, { Component } from "react";
 import ChartistGraph from "react-chartist";
-import { Grid, Row, Col } from "react-bootstrap";
+import { Grid, Row, Col, Panel, PanelGroup, } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import awsmobile from "../../aws-exports";
 import AWS from "aws-sdk/dist/aws-sdk-react-native";
@@ -24,6 +24,7 @@ import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { getNotes } from "../../Provider/Api";
 import { makeNotif } from "../../layouts/Dashboard/Dashboard";
 import { style } from "variables/Variables.jsx";
+
 
 class Dashboard extends Component {
   constructor(props, context) {
@@ -191,9 +192,56 @@ class Dashboard extends Component {
     }
   }
 
+  _rendrePresentation() {
+    return (
+      <Col md={12}>
+        <Card
+          //title="Inscrivez-vous"
+          //category="Remplir les informations ci dessous"
+          content={
+            <div style={{ flexDirection: "column" }}>
+              <div className="">
+                <div className="App-header">
+                  <h2 style={style.title}>Présentation de l'entreprise</h2>
+                </div>
+                <PanelGroup
+                  accordion
+                  id="accordion_problems"
+                  activeKey={this.state.activeKey}
+                  onSelect={this.handleSelect}
+                >
+                  <Panel eventKey="1">
+                    <Panel.Heading>
+                      <Panel.Title toggle style={style.question}>Ce que nous faisons</Panel.Title>
+                    </Panel.Heading>
+                    <Panel.Body>
+                      Notre site vous propose de vous mettre en relation avec
+                      des pros. Ces derniers vous proposeront de multiples
+                      services, que ce soit pour des déménagements, du jardinage
+                      ou tout autre action du quotidien.
+                    </Panel.Body>
+                  </Panel>
+                </PanelGroup>
+              </div>
+            </div>
+          }
+        />
+      </Col>
+    );
+  }
+
   _renderConnected() {
     if (this.state.connected) {
-      return <div>Vous êtes connecté</div>;
+      return (
+        <div className="content">
+          <Grid fluid>
+            <Row>
+              <h2 style={style.title}>Bienvenue sur la page d'accueil</h2>
+              {this._rendrePresentation()}
+            </Row>
+          </Grid>
+        </div>
+      );
     }
   }
 
