@@ -25,37 +25,6 @@ import { getNotes } from "../../Provider/Api";
 import { makeNotif } from "../../layouts/Dashboard/Dashboard";
 import { style } from "variables/Variables.jsx";
 
-const style = {
-  title : {
-    textAlign: 'center',
-    margin: '20px 0 30px'
-  },
-  question: {
-    width: '100%',
-    textAlign: 'center',
-  },
-  map: {
-    border: '0'
-  },
-  input_style: {
-    paddingLeft: '6px'
-  },
-  submitBtn: {
-    padding: '8px 70px',
-    margin: 'auto',
-    display: 'block',
-    color: '#000000',
-    fontSize: '17px',
-  },
-  line: {
-    display: 'block',
-    height: '1px',
-    border: '0',
-    borderTop: '1px solid #c2c2c2',
-    margin: '2em 0',
-    padding: '0',
-  }
-};
 
 class Dashboard extends Component {
   constructor(props, context) {
