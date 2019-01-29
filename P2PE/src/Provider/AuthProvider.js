@@ -7,7 +7,7 @@ import {
 import awsmobile from "../aws-exports";
 import Amplify, { API } from "aws-amplify";
 import AWS from "aws-sdk/dist/aws-sdk-react-native";
-import { getNotes, getUser, getAllNotes } from "./Api";
+import { getNotes, getUser, getAllNotes, postUser } from "./Api";
 var jwtDecode = require("jwt-decode");
 
 const apigClientFactory = require("aws-api-gateway-client").default;
@@ -121,7 +121,6 @@ export async function register(form) {
   var nbEmploye = form.registerNbEmploye;
   var preferedusername = "yaz666";
   var name = "youyou";
-
   var attributeList = [];
 
   var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
@@ -164,6 +163,7 @@ export async function register(form) {
   attributeList.push(attributePhoneNumber);
   attributeList.push(attributePreferedUsername);
   attributeList.push(attributeName);
+  postUser("ddd").then();
 
   console.log(`Register User ${username} ${phone} ${email}`);
   return new Promise((resolve, reject) => {
@@ -183,6 +183,8 @@ export async function register(form) {
           Username: "jaydde3",
           Pool: userPool
         };
+        postUser("ddd").then();
+
         // je cherche une variable
         console.log("je cherche une variable");
         var cognitoUser = new CognitoUser(userData);
@@ -227,7 +229,6 @@ export async function register(form) {
               else console.log(data);
             });
           },
-
           onFailure: function(err) {
             return err;
           }

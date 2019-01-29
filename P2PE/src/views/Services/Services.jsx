@@ -7,7 +7,7 @@ import Button from "components/CustomButton/CustomButton.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { ServiceCard } from "../../components/Card/ServiceCard";
 
-class TableList extends Component {
+class Services extends Component {
   constructor(props) {
     super(props);
     this._renderPage = this._renderPage.bind(this);
@@ -40,7 +40,7 @@ class TableList extends Component {
       } else if (this.state.searchType == "category") {
         return text.categoryName.toLowerCase().indexOf(this.state.search) !== -1;
       } else if (this.state.searchType == "location") {
-        return text.location.indexOf("92") !== -1;
+        return text.location.indexOf(this.state.search) !== -1;
       } else return this.state.services;
     } else return this.state.services;
   };
@@ -220,4 +220,4 @@ class TableList extends Component {
   }
 }
 
-export default TableList;
+export default Services;
