@@ -84,22 +84,26 @@ export function postNotes(note) {
     });
 }
 
-export function postUser(note) {
+export function postUser(id) {
   var body = {
+    id: id,
     age: "20",
-    profession: "livreur",
+    profession: "bois",
     birthday: "12/12/1994",
     gender: "homme",
     adress: "paris",
-    id: "2dddd"
+  
   };
 
   return instanceApi()
     .invokeApi(undefined, "p2pe/users/user", "POST", undefined, body)
     .then(function(result) {
+      console.log(result)
+
       return result;
     })
     .catch(function(error) {
+      console.log(error)
       return error;
     });
 }

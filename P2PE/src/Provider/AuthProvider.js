@@ -78,6 +78,8 @@ export async function authentification(form) {
         }
 
         AWS.config.credentials.get(function() {
+          postUser(AWS.config.credentials.identityId).then();
+
           console.log(AWS.config.credentials.identityId);
           localStorage.setItem("identityId", AWS.config.credentials.identityId);
           localStorage.setItem(
@@ -163,7 +165,6 @@ export async function register(form) {
   attributeList.push(attributePhoneNumber);
   attributeList.push(attributePreferedUsername);
   attributeList.push(attributeName);
-  postUser("ddd").then();
 
   console.log(`Register User ${username} ${phone} ${email}`);
   return new Promise((resolve, reject) => {
@@ -183,7 +184,6 @@ export async function register(form) {
           Username: "jaydde3",
           Pool: userPool
         };
-        postUser("ddd").then();
 
         // je cherche une variable
         console.log("je cherche une variable");
