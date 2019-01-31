@@ -7,7 +7,7 @@ import {
 import awsmobile from "../aws-exports";
 import Amplify, { API } from "aws-amplify";
 import AWS from "aws-sdk/dist/aws-sdk-react-native";
-import { getNotes, getUser, getAllNotes, postUser } from "./Api";
+import { getNotes, getUser, getAllNotes, postUser, postServiceUser } from "./Api";
 var jwtDecode = require("jwt-decode");
 
 const apigClientFactory = require("aws-api-gateway-client").default;

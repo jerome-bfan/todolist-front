@@ -32,6 +32,7 @@ export function getUser() {
         );
     });
 }
+
 export function getNotes() {
   const additionalParams = {
     headers: { "Access-Control-Allow-Origin": "*" }
@@ -84,6 +85,30 @@ export function postNotes(note) {
     });
 }
 
+export function postServiceUser(id_servicepro,address) {
+  var pathParams = {
+    //This is where path request params go.
+    id_client: localStorage.getItem("identityId")
+  };
+
+  var body = {
+    id_servicepro: id_servicepro,
+    address: "1234",
+  };
+
+  return instanceApi()
+    .invokeApi(pathParams, "p2pe/requested_services_client/eu-west-1:c72978e3-2d1a-4e61-a913-ba1f5e13ea08", "POST", undefined, body)
+    .then(function(result) {
+      console.log(result);
+
+      return result;
+    })
+    .catch(function(error) {
+      console.log(error);
+      return error;
+    });
+}
+
 export function postUser(id) {
   var body = {
     id: id,
@@ -91,19 +116,18 @@ export function postUser(id) {
     profession: "bois",
     birthday: "12/12/1994",
     gender: "homme",
-    adress: "paris",
-  
+    adress: "paris"
   };
 
   return instanceApi()
     .invokeApi(undefined, "p2pe/users/user", "POST", undefined, body)
     .then(function(result) {
-      console.log(result)
+      console.log(result);
 
       return result;
     })
     .catch(function(error) {
-      console.log(error)
+      console.log(error);
       return error;
     });
 }
