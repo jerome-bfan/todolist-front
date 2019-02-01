@@ -1,7 +1,7 @@
 import Card from "components/Card/Card.jsx";
 import React, { Component } from "react";
 import { colorRole } from "../../functions/p2peFunction";
-import { deleteNotes, getNotes, postNotes } from "../../Provider/Api";
+import { deleteNotes, getNotes, postNotes, postServicePro } from "../../Provider/Api";
 import { Grid, Row, Col, FormControl } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
@@ -195,6 +195,7 @@ class Services extends Component {
       category: this.state.addCategory,
       title: this.state.addTitle
     };
+    postServicePro(service);
     this.state.services.push(service);
     this.setState({
       serives: this.state.services

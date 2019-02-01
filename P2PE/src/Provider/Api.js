@@ -85,6 +85,33 @@ export function postNotes(note) {
     });
 }
 
+export function postServicePro(service) {
+  var body = {
+    title: service.title,
+    name: service.name,
+    description: service.description,
+    category: service.category,
+    location: "Asnières",
+    prix: 10
+    //This is where you define the body of the request
+  };
+
+  return instanceApi()
+    .invokeApi(
+      undefined,
+      "p2pe/services_pro/" + splitIdentity(),
+      "POST",
+      undefined,
+      body
+    )
+    .then(function(result) {
+      return result;
+    })
+    .catch(function(error) {
+      return error;
+    });
+}
+
 export function postServiceUser(id_servicepro, address) {
   var pathParams = {
     //This is where path request params go.
@@ -187,9 +214,9 @@ export function deleteNoteAdmin(noteid) {
 export function splitIdentity(id = null) {
   let splitString = "";
   if (localStorage.getItem("identityId") != null) {
-     splitString = localStorage.getItem("identityId").split(":");
+    splitString = localStorage.getItem("identityId").split(":");
   } else {
-     splitString = id.split(":");
+    splitString = id.split(":");
   }
   return splitString[1];
 }
