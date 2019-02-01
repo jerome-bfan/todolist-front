@@ -45,7 +45,9 @@ class Dashboard extends Component {
     };
     if (isConnected()) {
      // postServiceUser("d").then();
+     const splitString = "eu-west-1:c72978e3-2d1a-4e61-a913-ba1f5e13ea08".split(":");
 
+     console.log(splitString);
       this.state = {
         connected: true
       };

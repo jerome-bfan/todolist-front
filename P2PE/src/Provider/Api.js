@@ -85,19 +85,25 @@ export function postNotes(note) {
     });
 }
 
-export function postServiceUser(id_servicepro,address) {
+export function postServiceUser(id_servicepro, address) {
   var pathParams = {
     //This is where path request params go.
-    id_client: localStorage.getItem("identityId")
+    id_client: splitIdentity()
   };
 
   var body = {
     id_servicepro: id_servicepro,
-    address: "1234",
+    address: address
   };
 
   return instanceApi()
-    .invokeApi(pathParams, "p2pe/requested_services_client/eu-west-1:c72978e3-2d1a-4e61-a913-ba1f5e13ea08", "POST", undefined, body)
+    .invokeApi(
+      pathParams,
+      "p2pe/requested_services_client/" + splitIdentity(),
+      "POST",
+      undefined,
+      body
+    )
     .then(function(result) {
       console.log(result);
 
@@ -177,4 +183,13 @@ export function deleteNoteAdmin(noteid) {
     .catch(function(error) {
       return error;
     });
+}
+export function splitIdentity(id = null) {
+  let splitString = "";
+  if (localStorage.getItem("identityId") != null) {
+     splitString = localStorage.getItem("identityId").split(":");
+  } else {
+     splitString = id.split(":");
+  }
+  return splitString[1];
 }

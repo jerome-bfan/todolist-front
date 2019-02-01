@@ -7,7 +7,7 @@ import {
 import awsmobile from "../aws-exports";
 import Amplify, { API } from "aws-amplify";
 import AWS from "aws-sdk/dist/aws-sdk-react-native";
-import { getNotes, getUser, getAllNotes, postUser, postServiceUser } from "./Api";
+import { getNotes, getUser, getAllNotes, postUser, splitIdentity } from "./Api";
 var jwtDecode = require("jwt-decode");
 
 const apigClientFactory = require("aws-api-gateway-client").default;
@@ -78,7 +78,7 @@ export async function authentification(form) {
         }
 
         AWS.config.credentials.get(function() {
-          postUser(AWS.config.credentials.identityId).then();
+          postUser(splitIdentity(AWS.config.credentials.identityId)).then();
 
           console.log(AWS.config.credentials.identityId);
           localStorage.setItem("identityId", AWS.config.credentials.identityId);
