@@ -67,6 +67,22 @@ export function getAllNotes() {
       return error;
     });
 }
+export function getServiceUser() {
+  return instanceApi()
+    .invokeApi(
+      undefined,
+      "p2pe/requested_services_client/" + splitIdentity(),
+      "GET"
+    )
+    .then(function(result) {
+      console.log(result);
+      return result;
+    })
+    .catch(function(error) {
+      console.log(error);
+      return error;
+    });
+}
 
 export function postNotes(note) {
   var body = {
@@ -90,10 +106,14 @@ export function postServicePro(service) {
     title: service.title,
     name: service.name,
     description: service.description,
-    category: service.category,
+    category: 2,
     location: "Asnières",
     prix: 10
     //This is where you define the body of the request
+  };
+  var pathParams = {
+    //This is where path request params go.
+    id_pro: 2
   };
 
   return instanceApi()

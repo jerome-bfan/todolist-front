@@ -198,7 +198,7 @@ class Services extends Component {
     postServicePro(service);
     this.state.services.push(service);
     this.setState({
-      serives: this.state.services
+      services: this.state.services
     });
     console.log(this.state.services);
   }
