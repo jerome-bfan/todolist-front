@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getServicePro, putPayedService } from "../../Provider/Api";
+import { getServiceUser, putPayedService } from "../../Provider/Api";
 import Card from "components/Card/Card";
 import { colorRole } from "../../functions/p2peFunction";
 import { Grid, Row, Col, Panel, PanelGroup, Modal } from "react-bootstrap";
@@ -11,7 +11,7 @@ import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import NotificationSystem from "react-notification-system";
 import { makeNotif } from "../../layouts/Dashboard/Dashboard";
 
-class RequestServices extends Component {
+class RequestServicesPro extends Component {
   constructor(props) {
     super(props);
     this.renderContent = this.renderContent.bind(this);
@@ -26,7 +26,7 @@ class RequestServices extends Component {
     };
   }
   componentWillMount() {
-    getServicePro().then(services => {
+    getServiceUser().then(services => {
       console.log(services);
       this.setState({
         show: false,
@@ -230,4 +230,4 @@ class RequestServices extends Component {
   }
 }
 
-export default RequestServices;
+export default RequestServicesPro;

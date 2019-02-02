@@ -20,7 +20,16 @@ class MyServices extends Component {
           <RequestServices />
         </div>
       );
-    } else {
+    }
+    if (localStorage.getItem("rolePro")) {
+      return (
+        <div>
+          <RequestServices />
+        </div>
+      );
+    }
+
+    else {
       return (
         <div>
           <text>Vous devez etre connecter en tant qu'utilisateur pour voir vos service</text>

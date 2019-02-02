@@ -83,6 +83,23 @@ export function getServiceUser() {
       return error;
     });
 }
+export function getServicePro() {
+  return instanceApi()
+    .invokeApi(
+      undefined,
+      "p2pe/requested_services_for_pro/" + splitIdentity(),
+      "GET"
+    )
+    .then(function(result) {
+      console.log(result);
+      return result;
+    })
+    .catch(function(error) {
+      console.log(error);
+      return error;
+    });
+}
+
 
 export function postNotes(note) {
   var body = {
