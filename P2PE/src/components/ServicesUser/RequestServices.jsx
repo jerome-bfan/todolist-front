@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { getServiceUser } from "../../Provider/Api";
+import { getServiceUser,putPayedService } from "../../Provider/Api";
 import Card from "components/Card/Card";
 import { colorRole } from "../../functions/p2peFunction";
-import { Grid, Row, FormInputs,Col, Panel, PanelGroup,Modal } from "react-bootstrap";
+import { Grid, Row,Col, Panel, PanelGroup,Modal } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 
 import { iconsArray } from "variables/Variables.jsx";
@@ -34,11 +34,10 @@ class RequestServices extends Component {
     this.setState({ show: false });
   }
 
-  handleValidate() {
-    // console.log(this.props.id)
-    //  postServiceUser(this.props.id,this.state.address).then(()=> {
-    //   this.setState({ show: false });
-    //  });
+  handleValidate(service) {
+     putPayedService(service).then(()=> {
+      this.setState({ show: false });
+     });
     }
 
   handleShow() {
@@ -62,26 +61,13 @@ class RequestServices extends Component {
           <Modal.Header closeButton>
             <Modal.Title>Validez le service</Modal.Title>
           </Modal.Header>
-          <Modal.Body> <FormInputs
-                        ncols={["col-md-12"]}
-                        proprieties={[
-                          {
-                            label: "Veuillez rentrer votre adresse",
-                            type: "text",
-                            id: "address",
-                            bsClass: "form-control",
-                            placeholder: "Saisir votre addresse ici",
-                            onChange: this.handleChange,
-                            value: this.state.address
-                          }
-                        ]}
-                      /></Modal.Body>
+          <Modal.Body> <text> Payer le service !</text></Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>
               Close
             </Button>
             
-            <Button variant="primary" onClick={this.handleValidate}>
+            <Button variant="primary" onClick={() =>this.handleValidate(service)}>
              Validez votre adresse !
             </Button>
           </Modal.Footer>
@@ -92,9 +78,7 @@ class RequestServices extends Component {
                           borderColor: colorRole("#888888"),
                           color: colorRole("#888888")
                         }}
-                        onClick={e => {
-                          this.addService();
-                        }}
+                        onClick={this.handleShow}
                       >
                         Vous devez valider votre service ! 
                       </Button>
@@ -145,11 +129,11 @@ class RequestServices extends Component {
     console.log(this.state.services);
 
     return (
-      <div className="radio">
+      <div>
         {(this.state.services != undefined && this.state.services.length) > 0 &&
           this.state.services.map(service => {
             return (
-              <Col md={12}>
+              <Col md={12} style={{marginTop:40}}>
                 <Card
                   //title="Inscrivez-vous"
                   //category="Remplir les informations ci dessous"
@@ -161,12 +145,7 @@ class RequestServices extends Component {
                           {this.renderHeader(service)}
                           </h2>
                         </div>
-                        <PanelGroup
-                          accordion
-                          id="accordion_problems"
-                          activeKey={service.date}
-                          onSelect={this.handleSelect}
-                        >
+                      
                           <Panel eventKey="1">
                             <Panel.Heading>
                               <Panel.Title toggle style={style.question}>
@@ -177,7 +156,6 @@ class RequestServices extends Component {
                               {this.renderContent(service)}
                             </Panel.Body>
                           </Panel>
-                        </PanelGroup>
                       </div>
                     </div>
                   }

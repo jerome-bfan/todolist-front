@@ -109,7 +109,7 @@ export function postServicePro(service) {
     category: 2,
     location: "Asnières",
     prix: 10,
-    date:"2019-01-31 23:41:21"
+    date: "2019-01-31 23:41:21"
     //This is where you define the body of the request
   };
   var pathParams = {
@@ -151,6 +151,35 @@ export function postServiceUser(id_servicepro, address) {
       "POST",
       undefined,
       body
+    )
+    .then(function(result) {
+      console.log(result);
+
+      return result;
+    })
+    .catch(function(error) {
+      console.log(error);
+      return error;
+    });
+}
+
+export function putPayedService(id_servicepro, address) {
+  var pathParams = {
+    //This is where path request params go.
+    id_client: splitIdentity()
+  };
+
+  var body = {
+    id_servicepro: id_servicepro,
+    address: address
+  };
+
+  return instanceApi()
+    .invokeApi(
+      pathParams,
+      "p2pe/requested_services_client/requested_service/80/paid",
+      "PUT",
+      undefined
     )
     .then(function(result) {
       console.log(result);

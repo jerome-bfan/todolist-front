@@ -16,7 +16,7 @@ class MyServices extends Component {
 
   _renderPage() {
     return (
-      <div className="content">
+      <div>
 
        <RequestServices/>
       </div>
