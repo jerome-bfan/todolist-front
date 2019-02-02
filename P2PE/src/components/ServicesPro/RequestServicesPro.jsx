@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getServiceUser, putPayedService } from "../../Provider/Api";
+import { getServicePro, putPayedService } from "../../Provider/Api";
 import Card from "components/Card/Card";
 import { colorRole } from "../../functions/p2peFunction";
 import { Grid, Row, Col, Panel, PanelGroup, Modal } from "react-bootstrap";
@@ -26,7 +26,7 @@ class RequestServicesPro extends Component {
     };
   }
   componentWillMount() {
-    getServiceUser().then(services => {
+    getServicePro().then(services => {
       console.log(services);
       this.setState({
         show: false,
@@ -34,7 +34,7 @@ class RequestServicesPro extends Component {
       });
       if (services.data != undefined) {
         services.data.map(service => {
-          if (!service.paid && service.validated) {
+          if (!service.paid && !service.validated) {
             this.setState(prevState => ({
               notification: prevState.notification + 1
             }));
@@ -70,18 +70,18 @@ class RequestServicesPro extends Component {
     this.setState({ show: true });
   }
   renderContent(service) {
-    if (service.paid) {
+    if (service.validated) {
       return (
         <div>
-          <text>Vous avez payer le service !</text>
+          <text>Vous avez valider le service !</text>
         </div>
       );
-    } else if (!service.paid) {
-      if (service.validated) {
+    } else if (!service.validated) {
+      if (!service.paid) {
         return (
           <div>
             <text>
-              Vous devez payer votre service valider car le pro la validé
+              Vous devez validé le service pour que l'utilisateur puisse payer !
             </text>
             <Modal show={this.state.show} onHide={this.handleClose}>
               <Modal.Header closeButton>
@@ -120,8 +120,7 @@ class RequestServicesPro extends Component {
         return (
           <div>
             <text>
-              Vous n'avez pas encore payer car le pro n'as pas encore validé sa
-              tâche
+              Le service est déja payer par l'utilisateur ! 
             </text>
           </div>
         );
@@ -164,23 +163,23 @@ class RequestServicesPro extends Component {
     );
   }
   renderHeader(service) {
-    if (service.paid) {
+    if (service.validated) {
       return (
         <div>
-          <text>Service payé :</text>
+          <text>Service validé :</text>
         </div>
       );
-    } else if (!service.paid) {
-      if (service.validated) {
+    } else if (!service.validated) {
+      if (service.paid) {
         return (
           <div>
-            <text>En attente de payement :</text>
+            <text>Validé et payé</text>
           </div>
         );
-      } else if (!service.validated) {
+      } else if (!service.paid) {
         return (
           <div>
-            <text>En attente de validation :</text>
+            <text>En attente de  votre validation :</text>
           </div>
         );
       }

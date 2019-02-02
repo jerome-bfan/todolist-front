@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getServicePro, putPayedService } from "../../Provider/Api";
+import { getServiceUser, putPayedService } from "../../Provider/Api";
 import Card from "components/Card/Card";
 import { colorRole } from "../../functions/p2peFunction";
 import { Grid, Row, Col, Panel, PanelGroup, Modal } from "react-bootstrap";
@@ -26,7 +26,7 @@ class RequestServices extends Component {
     };
   }
   componentWillMount() {
-    getServicePro().then(services => {
+    getServiceUser().then(services => {
       console.log(services);
       this.setState({
         show: false,

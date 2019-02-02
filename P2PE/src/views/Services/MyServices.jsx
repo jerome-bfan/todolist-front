@@ -7,6 +7,7 @@ import Button from "components/CustomButton/CustomButton.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { ServiceCard } from "../../components/Card/ServiceCard";
 import RequestServices from "../../components/ServicesUser/RequestServices";
+import RequestServicesPro from "../../components/ServicesPro/RequestServicesPro";
 
 class MyServices extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class MyServices extends Component {
     if (localStorage.getItem("rolePro")) {
       return (
         <div>
-          <RequestServices />
+          <RequestServicesPro />
         </div>
       );
     }
