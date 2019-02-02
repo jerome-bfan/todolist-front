@@ -1,13 +1,15 @@
 import React, { Component } from "react";
-import { getServiceUser,putPayedService } from "../../Provider/Api";
+import { getServiceUser, putPayedService } from "../../Provider/Api";
 import Card from "components/Card/Card";
 import { colorRole } from "../../functions/p2peFunction";
-import { Grid, Row,Col, Panel, PanelGroup,Modal } from "react-bootstrap";
+import { Grid, Row, Col, Panel, PanelGroup, Modal } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 
 import { iconsArray } from "variables/Variables.jsx";
 import { style } from "variables/Variables.jsx";
-import { FormInputs } from 'components/FormInputs/FormInputs.jsx';
+import { FormInputs } from "components/FormInputs/FormInputs.jsx";
+import NotificationSystem from "react-notification-system";
+import { makeNotif } from "../../layouts/Dashboard/Dashboard";
 
 class RequestServices extends Component {
   constructor(props) {
@@ -30,11 +32,26 @@ class RequestServices extends Component {
         show: false,
         services: services.data
       });
-      services.data.map((service) => {
+      services.data.map(service => {
         if (!service.paid && service.validated) {
-          this.setState(prevState => ({ notification: prevState.notification + 1 }));
+          this.setState(prevState => ({
+            notification: prevState.notification + 1
+          }));
         }
-      })
+      });
+      if (this.state.notification > 0) {
+        makeNotif(
+          this.refs.notificationSystem,
+          "info",
+          "Vous avez des notifications!"
+        );
+      } else {
+        makeNotif(
+          this.refs.notificationSystem,
+          "info",
+          "Vous n'avez pas de notifications!"
+        );
+      }
     });
   }
   handleClose() {
@@ -42,10 +59,10 @@ class RequestServices extends Component {
   }
 
   handleValidate(service) {
-     putPayedService(service.id).then(()=> {
+    putPayedService(service.id).then(() => {
       this.setState({ show: false });
-     });
-    }
+    });
+  }
 
   handleShow() {
     this.setState({ show: true });
@@ -65,30 +82,36 @@ class RequestServices extends Component {
               Vous devez payer votre service valider car le pro la validé
             </text>
             <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Validez le service</Modal.Title>
-          </Modal.Header>
-          <Modal.Body> <text> Payer le service !</text></Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}>
-            Fermez
-            </Button>
-            
-            <Button variant="primary" onClick={() =>this.handleValidate(service)}>
-             Validez le payement
-            </Button>
-          </Modal.Footer>
-        </Modal>
+              <Modal.Header closeButton>
+                <Modal.Title>Validez le service</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                {" "}
+                <text> Payer le service !</text>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={this.handleClose}>
+                  Fermez
+                </Button>
+
+                <Button
+                  variant="primary"
+                  onClick={() => this.handleValidate(service)}
+                >
+                  Validez le payement
+                </Button>
+              </Modal.Footer>
+            </Modal>
             <Button
-                        style={{
-                          marginLeft:30,
-                          borderColor: colorRole("#888888"),
-                          color: colorRole("#888888")
-                        }}
-                        onClick={this.handleShow}
-                      >
-                        Payer le service
-                      </Button>
+              style={{
+                marginLeft: 30,
+                borderColor: colorRole("#888888"),
+                color: colorRole("#888888")
+              }}
+              onClick={this.handleShow}
+            >
+              Payer le service
+            </Button>
           </div>
         );
       } else if (!service.validated) {
@@ -103,42 +126,40 @@ class RequestServices extends Component {
       }
     }
   }
-  renderContentNotification ()
-    {
-      if(this.state.notification > 0) {
-        return (
-          <text>
-           Vous avez {this.state.notification} notification ! Regarder votre historique de service et selectionner le bouton payer !
-          </text>
-        )
-      } 
-      else {
-        if(this.state.notification > 0) {
-          return (
-            <text>
-              Vous n'avez pas de notification !
-            </text>
-          )
-        } 
+  renderContentNotification() {
+    if (this.state.notification > 0) {
+      return (
+        <text>
+          Vous avez {this.state.notification} notification ! Regarder votre
+          historique de service et selectionner le bouton payer !
+        </text>
+      );
+    } else {
+      if (this.state.notification > 0) {
+        return <text>Vous n'avez pas de notification !</text>;
       }
     }
+  }
   renderNotification() {
-    return   <Card
-    title="Notification"
-    category={"Voici le nombre de notifcation ("+ this.state.notification+ ")"}
-    content={
-      <div style={{ flexDirection: "column" }}>
-        <div className="">
-          <div className="App-header">
-            <h2 style={style.title}>
-            </h2>
+    return (
+      <Card
+        title="Notification"
+        category={
+          "Voici le nombre de notifcation (" + this.state.notification + ")"
+        }
+        content={
+          <div style={{ flexDirection: "column" }}>
+            <div className="">
+              <div className="App-header">
+                <h2 style={style.title} />
+              </div>
+
+              {this.renderContentNotification()}
+            </div>
           </div>
-        
-            {this.renderContentNotification()}
-        </div>
-      </div>
-    }
-  />
+        }
+      />
+    );
   }
   renderHeader(service) {
     if (service.paid) {
@@ -151,18 +172,13 @@ class RequestServices extends Component {
       if (service.validated) {
         return (
           <div>
-            <text>
-              En attente de payement :
-            </text>
-        
+            <text>En attente de payement :</text>
           </div>
         );
       } else if (!service.validated) {
         return (
           <div>
-            <text>
-              En attente de validation :
-            </text>
+            <text>En attente de validation :</text>
           </div>
         );
       }
@@ -174,12 +190,12 @@ class RequestServices extends Component {
 
     return (
       <div>
-      {this.renderNotification()}
+        <NotificationSystem ref="notificationSystem" style={style} />
+        {this.renderNotification()}
         {(this.state.services != undefined && this.state.services.length) > 0 &&
           this.state.services.map(service => {
-
             return (
-              <Col md={12} style={{marginTop:40}}>
+              <Col md={12} style={{ marginTop: 40 }}>
                 <Card
                   //title="Inscrivez-vous"
                   //category="Remplir les informations ci dessous"
@@ -188,20 +204,18 @@ class RequestServices extends Component {
                       <div className="">
                         <div className="App-header">
                           <h2 style={style.title}>
-                          {this.renderHeader(service)}
+                            {this.renderHeader(service)}
                           </h2>
                         </div>
-                      
-                          <Panel eventKey="1">
-                            <Panel.Heading>
-                              <Panel.Title toggle style={style.question}>
-                                {service.date}
-                              </Panel.Title>
-                            </Panel.Heading>
-                            <Panel.Body>
-                              {this.renderContent(service)}
-                            </Panel.Body>
-                          </Panel>
+
+                        <Panel eventKey="1">
+                          <Panel.Heading>
+                            <Panel.Title toggle style={style.question}>
+                              {service.date}
+                            </Panel.Title>
+                          </Panel.Heading>
+                          <Panel.Body>{this.renderContent(service)}</Panel.Body>
+                        </Panel>
                       </div>
                     </div>
                   }
