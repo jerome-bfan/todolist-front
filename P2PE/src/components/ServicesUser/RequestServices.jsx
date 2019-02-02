@@ -17,8 +17,10 @@ class RequestServices extends Component {
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleValidate = this.handleValidate.bind(this);
+    this.renderNotification = this.renderNotification.bind(this);
     this.state = {
-      services: []
+      services: [],
+      notification: 0
     };
   }
   componentWillMount() {
@@ -28,6 +30,11 @@ class RequestServices extends Component {
         show: false,
         services: services.data
       });
+      services.data.map((service) => {
+        if (!service.paid && service.validated) {
+          this.setState(prevState => ({ notification: prevState.notification + 1 }));
+        }
+      })
     });
   }
   handleClose() {
@@ -35,7 +42,7 @@ class RequestServices extends Component {
   }
 
   handleValidate(service) {
-     putPayedService(service).then(()=> {
+     putPayedService(service.id).then(()=> {
       this.setState({ show: false });
      });
     }
@@ -64,11 +71,11 @@ class RequestServices extends Component {
           <Modal.Body> <text> Payer le service !</text></Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>
-              Close
+            Fermez
             </Button>
             
             <Button variant="primary" onClick={() =>this.handleValidate(service)}>
-             Validez votre adresse !
+             Validez le payement
             </Button>
           </Modal.Footer>
         </Modal>
@@ -80,7 +87,7 @@ class RequestServices extends Component {
                         }}
                         onClick={this.handleShow}
                       >
-                        Vous devez valider votre service ! 
+                        Payer le service
                       </Button>
           </div>
         );
@@ -95,6 +102,43 @@ class RequestServices extends Component {
         );
       }
     }
+  }
+  renderContentNotification ()
+    {
+      if(this.state.notification > 0) {
+        return (
+          <text>
+           Vous avez {this.state.notification} notification ! Regarder votre historique de service et selectionner le bouton payer !
+          </text>
+        )
+      } 
+      else {
+        if(this.state.notification > 0) {
+          return (
+            <text>
+              Vous n'avez pas de notification !
+            </text>
+          )
+        } 
+      }
+    }
+  renderNotification() {
+    return   <Card
+    title="Notification"
+    category={"Voici le nombre de notifcation ("+ this.state.notification+ ")"}
+    content={
+      <div style={{ flexDirection: "column" }}>
+        <div className="">
+          <div className="App-header">
+            <h2 style={style.title}>
+            </h2>
+          </div>
+        
+            {this.renderContentNotification()}
+        </div>
+      </div>
+    }
+  />
   }
   renderHeader(service) {
     if (service.paid) {
@@ -130,8 +174,10 @@ class RequestServices extends Component {
 
     return (
       <div>
+      {this.renderNotification()}
         {(this.state.services != undefined && this.state.services.length) > 0 &&
           this.state.services.map(service => {
+
             return (
               <Col md={12} style={{marginTop:40}}>
                 <Card

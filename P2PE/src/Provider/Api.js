@@ -163,21 +163,17 @@ export function postServiceUser(id_servicepro, address) {
     });
 }
 
-export function putPayedService(id_servicepro, address) {
+export function putPayedService(id) {
   var pathParams = {
     //This is where path request params go.
     id_client: splitIdentity()
   };
 
-  var body = {
-    id_servicepro: id_servicepro,
-    address: address
-  };
 
   return instanceApi()
     .invokeApi(
       pathParams,
-      "p2pe/requested_services_client/requested_service/80/paid",
+      "p2pe/requested_services_client/requested_service/"+ id +"/paid",
       "PUT",
       undefined
     )
