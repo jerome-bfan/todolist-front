@@ -171,7 +171,7 @@ class Dashboard extends Component {
                                   .notificationSystem;
                                 makeNotif(
                                   _notificationSystem,
-                                  "error  ",
+                                  "error",
                                   e.message
                                 );
                               });

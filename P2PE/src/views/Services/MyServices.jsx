@@ -13,21 +13,23 @@ class MyServices extends Component {
     super(props);
   }
 
-
   _renderPage() {
-    return (
-      <div>
-
-       <RequestServices/>
-      </div>
-    );
+    if (localStorage.getItem("roleUser")) {
+      return (
+        <div>
+          <RequestServices />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <text>Vous devez etre connecter en tant qu'utilisateur pour voir vos service</text>
+        </div>
+      );
+    }
   }
 
- 
-
-  componentWillMount() {
-    
-  }
+  componentWillMount() {}
   render() {
     return this._renderPage();
   }
