@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getServicePro, putPayedService } from "../../Provider/Api";
+import { getServicePro, putValidateService } from "../../Provider/Api";
 import Card from "components/Card/Card";
 import { colorRole } from "../../functions/p2peFunction";
 import { Grid, Row, Col, Panel, PanelGroup, Modal } from "react-bootstrap";
@@ -61,7 +61,7 @@ class RequestServicesPro extends Component {
   }
 
   handleValidate(service) {
-    putPayedService(service.id).then(() => {
+    putValidateService(service.id).then(() => {
       this.setState({ show: false });
     });
   }
@@ -166,7 +166,7 @@ class RequestServicesPro extends Component {
     if (service.validated) {
       return (
         <div>
-          <text>Service validé :</text>
+          <text>Service validé</text>
         </div>
       );
     } else if (!service.validated) {
@@ -179,7 +179,7 @@ class RequestServicesPro extends Component {
       } else if (!service.paid) {
         return (
           <div>
-            <text>En attente de  votre validation :</text>
+            <text>En attente de  votre validation</text>
           </div>
         );
       }

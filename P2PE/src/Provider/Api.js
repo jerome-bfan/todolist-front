@@ -205,14 +205,33 @@ export function putPayedService(id) {
     });
 }
 
+export function putValidateService(id) {
+  return instanceApi()
+    .invokeApi(
+      undefined,
+      "p2pe/requested_services_for_pro/requested-service/"+ id +"/validated",
+      "PUT",
+      undefined
+    )
+    .then(function(result) {
+      console.log(result);
+
+      return result;
+    })
+    .catch(function(error) {
+      console.log(error);
+      return error;
+    });
+}
+
 export function postUser(id) {
   var body = {
     id: id,
     age: "20",
-    profession: "bois",
+    profession: "aws secret ",
     birthday: "12/12/1994",
     gender: "homme",
-    adress: "paris"
+    adress: "aws secret"
   };
 
   return instanceApi()
