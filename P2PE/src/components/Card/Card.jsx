@@ -55,7 +55,9 @@ export class Card2 extends Component {
 
   handleValidate() {
     console.log(this.props.id)
-     postServiceUser(this.props.id,this.state.address).then();
+     postServiceUser(this.props.id,this.state.address).then(()=> {
+      this.setState({ show: false });
+     });
     }
 
   handleShow() {

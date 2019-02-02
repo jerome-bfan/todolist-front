@@ -1,6 +1,7 @@
 import Dashboard from "views/Dashboard/Dashboard";
 import UserProfile from "views/UserProfile/UserProfile";
-import Service from "views/Services/Services";
+import Services from "views/Services/Services";
+import MyServices from "views/Services/MyServices";
 import Help from "views/Help/Help";
 import Contact from "views/Contact/Contact";
 import Icons from "views/Icons/Icons";
@@ -16,10 +17,16 @@ const dashboardRoutes = [
     component: Dashboard
   },
   {
-    path: "/table",
+    path: "/service",
     name: "Service",
     icon: "pe-7s-note2",
-    component: Service
+    component: Services
+  },
+  {
+    path: "/myservices",
+    name: "Mes services",
+    icon: "pe-7s-note2",
+    component: MyServices
   },
   {
     path: "/help",

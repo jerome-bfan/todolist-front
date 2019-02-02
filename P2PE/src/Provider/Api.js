@@ -108,7 +108,8 @@ export function postServicePro(service) {
     description: service.description,
     category: 2,
     location: "Asnières",
-    prix: 10
+    prix: 10,
+    date:"2019-01-31 23:41:21"
     //This is where you define the body of the request
   };
   var pathParams = {

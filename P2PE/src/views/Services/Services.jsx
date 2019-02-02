@@ -7,7 +7,7 @@ import Button from "components/CustomButton/CustomButton.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { ServiceCard } from "../../components/Card/ServiceCard";
 
-class Services extends Component {
+export default class Services extends Component {
   constructor(props) {
     super(props);
     this._renderPage = this._renderPage.bind(this);
@@ -221,4 +221,3 @@ class Services extends Component {
   }
 }
 
-export default Services;
