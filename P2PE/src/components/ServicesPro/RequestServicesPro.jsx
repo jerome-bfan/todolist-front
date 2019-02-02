@@ -20,12 +20,14 @@ class RequestServicesPro extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleValidate = this.handleValidate.bind(this);
     this.renderNotification = this.renderNotification.bind(this);
+    this.getServices = this.getServices.bind(this);
     this.state = {
       services: [],
       notification: 0
     };
   }
-  componentWillMount() {
+
+  getServices() {
     getServicePro().then(services => {
       console.log(services);
       this.setState({
@@ -56,13 +58,20 @@ class RequestServicesPro extends Component {
       }
     });
   }
+  componentWillMount() {
+    this.getServices();
+  }
   handleClose() {
     this.setState({ show: false });
   }
 
   handleValidate(service) {
     putValidateService(service.id).then(() => {
-      this.setState({ show: false });
+      this.getServices();
+      this.setState(prevState => ({
+        notification: prevState.notification - 1,
+        show: false
+      }));
     });
   }
 
@@ -80,48 +89,53 @@ class RequestServicesPro extends Component {
       if (!service.paid) {
         return (
           <div>
-            <text>
-              Vous devez validé le service pour que l'utilisateur puisse payer !
-            </text>
-            <Modal show={this.state.show} onHide={this.handleClose}>
-              <Modal.Header closeButton>
-                <Modal.Title>Validez le service</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                {" "}
-                <text> Payer le service !</text>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button variant="secondary" onClick={this.handleClose}>
-                  Fermez
-                </Button>
+            <Row>
+              <Col md={9}>
+                <text>
+                  Vous devez validé le service pour que l'utilisateur puisse
+                  payer !
+                </text>
+              </Col>
+              <Col md={3}>
+                <Modal show={this.state.show} onHide={this.handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Validez le service</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    {" "}
+                    <text> Validez le service !</text>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={this.handleClose}>
+                      Fermez
+                    </Button>
 
+                    <Button
+                      variant="primary"
+                      onClick={() => this.handleValidate(service)}
+                    >
+                      Validez le service
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
                 <Button
-                  variant="primary"
-                  onClick={() => this.handleValidate(service)}
+                  style={{
+                    marginLeft: 30,
+                    borderColor: colorRole("#888888"),
+                    color: colorRole("#888888")
+                  }}
+                  onClick={this.handleShow}
                 >
-                  Validez le payement
+                  Valider le service
                 </Button>
-              </Modal.Footer>
-            </Modal>
-            <Button
-              style={{
-                marginLeft: 30,
-                borderColor: colorRole("#888888"),
-                color: colorRole("#888888")
-              }}
-              onClick={this.handleShow}
-            >
-              Payer le service
-            </Button>
+              </Col>
+            </Row>
           </div>
         );
       } else if (!service.validated) {
         return (
           <div>
-            <text>
-              Le service est déja payer par l'utilisateur ! 
-            </text>
+            <text>Le service est déja payer par l'utilisateur !</text>
           </div>
         );
       }
@@ -132,7 +146,7 @@ class RequestServicesPro extends Component {
       return (
         <text>
           Vous avez {this.state.notification} notification ! Regarder votre
-          historique de service et selectionner le bouton payer !
+          historique de service et selectionner le bouton valider !
         </text>
       );
     } else {
@@ -164,22 +178,33 @@ class RequestServicesPro extends Component {
   }
   renderHeader(service) {
     if (service.validated) {
-      return (
-        <div>
-          <text>Service validé</text>
-        </div>
-      );
-    } else if (!service.validated) {
       if (service.paid) {
         return (
           <div>
             <text>Validé et payé</text>
           </div>
         );
+      
+      }
+      else if (!service.paid){
+        return (
+
+        <div>
+            <text>En attente du payement de l'utilisateur</text>
+          </div>
+        );
+      }
+    } else if (!service.validated) {
+      if (service.paid) {
+        return (
+          <div>
+            <text>Invalidé et payé</text>
+          </div>
+        );
       } else if (!service.paid) {
         return (
           <div>
-            <text>En attente de  votre validation</text>
+            <text>En attente de votre validation</text>
           </div>
         );
       }
@@ -212,7 +237,10 @@ class RequestServicesPro extends Component {
                         <Panel eventKey="1">
                           <Panel.Heading>
                             <Panel.Title toggle style={style.question}>
-                              {service.date}
+                              <Row>
+                                <Col md={8}>{service.address}</Col>
+                                <Col md={4}>{service.date}</Col>
+                              </Row>
                             </Panel.Title>
                           </Panel.Heading>
                           <Panel.Body>{this.renderContent(service)}</Panel.Body>
