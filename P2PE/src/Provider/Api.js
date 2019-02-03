@@ -122,7 +122,7 @@ export function postServicePro(service) {
     title: service.title,
     name: service.name,
     description: service.title,
-    category: 2,
+    category: Number(service.category),
     location: "paris",
     id_pro: splitIdentity(),
     prix: 10

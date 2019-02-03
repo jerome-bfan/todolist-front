@@ -7,7 +7,7 @@ import {
   postNotes,
   postServicePro
 } from "../../Provider/Api";
-import { Grid, Row, Col, FormControl } from "react-bootstrap";
+import { Grid, Row, Col, FormControl,ControlLabel } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { ServiceCard } from "../../components/Card/ServiceCard";
@@ -20,13 +20,14 @@ export default class Services extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.renderAddService = this.renderAddService.bind(this);
     this.handleChangeSelect = this.handleChangeSelect.bind(this);
+    this.handleChangeSelectCategorie = this.handleChangeSelectCategorie.bind(this);
     this.state = {
       services: [],
       addTitle: "",
       searchType: "title",
-      addCategory: "",
-      addDescription: "",
-      addName: ""
+      addCategory: 2,
+      addDescription: "pas de description",
+      addName: "pas de nom"
     };
   }
 
@@ -67,21 +68,31 @@ renderAddService() {
               }
             ]}
           />
+      <ControlLabel>Catégorie</ControlLabel>
 
-          <FormInputs
-            ncols={["col-md-12"]}
-            proprieties={[
-              {
-                label: "Catégorie du service",
-                type: "text",
-                id: "addCategory",
-                bsClass: "form-control",
-                placeholder: "Catégorie du service",
-                onChange: this.handleChange,
-                value: this.state.addCategory
-              }
-            ]}
-          />
+<FormControl
+              style={{
+                marginBottom: 0,
+                paddingBottom: 0
+              }}
+              componentClass="select"
+              placeholder="select"
+              inputRef={el => (this.inputCat = el)}
+              onChange={this.handleChangeSelectCategorie}
+            >
+              <option id="searchType" value="1">
+                Par titre
+              </option>
+              <option id="searchType" value="2">
+                {" "}
+                Par catégorie
+              </option>
+              <option id="searchType" value="3">
+              </option>
+              <option id="searchType" value="4">
+                Par location
+              </option>
+            </FormControl>
 
           <FormInputs
             ncols={["col-md-12"]}
@@ -121,6 +132,10 @@ renderAddService() {
   }
   handleChangeSelect(event) {
     this.setState({ searchType: this.inputEl.value });
+    console.log(this.inputEl.value);
+  }
+  handleChangeSelectCategorie(event) {
+    this.setState({ addCategory: this.inputCat.value });
     console.log(this.inputEl.value);
   }
   _search = text => {
