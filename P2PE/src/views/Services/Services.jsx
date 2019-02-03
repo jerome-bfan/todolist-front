@@ -42,6 +42,7 @@ export default class Services extends Component {
     this.setState({ [event.target.id]: event.target.value });
   }
   renderAddService() {
+    if(localStorage.getItem("rolePro")) {
     return (
       <div
         style={{ flexDirection: "column", marginBottom: 30, marginLeft: 10 }}
@@ -144,7 +145,8 @@ export default class Services extends Component {
         </div>
       </div>
     );
-  }
+  }else return null;
+}
   handleChangeSelect(event) {
     this.setState({ searchType: this.inputEl.value });
     console.log(this.inputEl.value);

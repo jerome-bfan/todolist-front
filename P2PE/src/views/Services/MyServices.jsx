@@ -8,35 +8,37 @@ import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { ServiceCard } from "../../components/Card/ServiceCard";
 import RequestServices from "../../components/ServicesUser/RequestServices";
 import RequestServicesPro from "../../components/ServicesPro/RequestServicesPro";
+export const displayServiceHome= () => {
+  if (localStorage.getItem("roleUser")) {
+    return (
+      <div>
+        <RequestServices />
+      </div>
+    );
+  }
+  if (localStorage.getItem("rolePro")) {
+    return (
+      <div>
+        <RequestServicesPro />
+      </div>
+    );
+  }
 
+  else {
+    return (
+      <div>
+        <text>Vous devez etre connecter en tant qu'utilisateur pour voir vos service</text>
+      </div>
+    );
+  }
+}
 class MyServices extends Component {
   constructor(props) {
     super(props);
   }
 
   _renderPage() {
-    if (localStorage.getItem("roleUser")) {
-      return (
-        <div>
-          <RequestServices />
-        </div>
-      );
-    }
-    if (localStorage.getItem("rolePro")) {
-      return (
-        <div>
-          <RequestServicesPro />
-        </div>
-      );
-    }
-
-    else {
-      return (
-        <div>
-          <text>Vous devez etre connecter en tant qu'utilisateur pour voir vos service</text>
-        </div>
-      );
-    }
+    displayServiceHome();
   }
 
   componentWillMount() {}

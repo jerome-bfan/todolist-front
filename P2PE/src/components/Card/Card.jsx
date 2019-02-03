@@ -114,7 +114,7 @@ export class Card2 extends Component {
             <Col md={12}>
               {" "}
               <Button variant="primary" onClick={this.handleShow}>
-                Launch demo modal
+                Valider le service !
               </Button>
             </Col>
           </Row>
