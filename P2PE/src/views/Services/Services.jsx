@@ -1,7 +1,12 @@
 import Card from "components/Card/Card.jsx";
 import React, { Component } from "react";
 import { colorRole } from "../../functions/p2peFunction";
-import { deleteNotes, getNotes, postNotes, postServicePro } from "../../Provider/Api";
+import {
+  deleteNotes,
+  getNotes,
+  postNotes,
+  postServicePro
+} from "../../Provider/Api";
 import { Grid, Row, Col, FormControl } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
@@ -13,6 +18,7 @@ export default class Services extends Component {
     this._renderPage = this._renderPage.bind(this);
     this.addService = this.addService.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.renderAddService = this.renderAddService.bind(this);
     this.handleChangeSelect = this.handleChangeSelect.bind(this);
     this.state = {
       services: [],
@@ -27,6 +33,92 @@ export default class Services extends Component {
   handleChange(event) {
     this.setState({ [event.target.id]: event.target.value });
   }
+renderAddService() {
+    return     <div style={{ flexDirection: "column",marginBottom:30}}>
+    <h3>Ajouter un service</h3>
+    <div className="ct-chart">
+      <Row>
+        <Col md={8}>
+          <FormInputs
+            ncols={["col-md-12"]}
+            proprieties={[
+              {
+                label: "Titre du service ",
+                id: "addTitle",
+                type: "text",
+                bsClass: "form-control",
+                placeholder: "Titre du service",
+                onChange: this.handleChange,
+                value: this.state.addTitle
+              }
+            ]}
+          />
+          <FormInputs
+            ncols={["col-md-12"]}
+            proprieties={[
+              {
+                label: "Nom du service",
+                type: "text",
+                id: "addName",
+                bsClass: "form-control",
+                placeholder: "Nom du service",
+                onChange: this.handleChange,
+                value: this.state.addName
+              }
+            ]}
+          />
+
+          <FormInputs
+            ncols={["col-md-12"]}
+            proprieties={[
+              {
+                label: "Catégorie du service",
+                type: "text",
+                id: "addCategory",
+                bsClass: "form-control",
+                placeholder: "Catégorie du service",
+                onChange: this.handleChange,
+                value: this.state.addCategory
+              }
+            ]}
+          />
+
+          <FormInputs
+            ncols={["col-md-12"]}
+            proprieties={[
+              {
+                label: "Description du service",
+                type: "text",
+                id: "addDescription",
+                bsClass: "form-control",
+                placeholder: "Description du service",
+                onChange: this.handleChange,
+                value: this.state.addDescription
+              }
+            ]}
+          />
+          <Row>
+            <Button
+              style={{
+                marginLeft:12,
+                borderColor: colorRole("#888888"),
+                color: colorRole("#888888")
+              }}
+              onClick={e => {
+                this.addService();
+              }}
+            >
+            <text>
+              Ajouter un service
+              </text>
+            </Button>
+          </Row>
+        </Col>
+      </Row>
+      <br />
+    </div>
+  </div>
+  }
   handleChangeSelect(event) {
     this.setState({ searchType: this.inputEl.value });
     console.log(this.inputEl.value);
@@ -38,7 +130,9 @@ export default class Services extends Component {
       } else if (this.state.searchType == "title") {
         return text.title.toLowerCase().indexOf(this.state.search) !== -1;
       } else if (this.state.searchType == "category") {
-        return text.categoryName.toLowerCase().indexOf(this.state.search) !== -1;
+        return (
+          text.categoryName.toLowerCase().indexOf(this.state.search) !== -1
+        );
       } else if (this.state.searchType == "location") {
         return text.location.indexOf(this.state.search) !== -1;
       } else return this.state.services;
@@ -47,7 +141,11 @@ export default class Services extends Component {
   _renderPage() {
     return (
       <div className="content">
-        <Row style={{ display: "flex", alignItems: " center",marginBottom : 20 }}>
+        {this.renderAddService()}
+          
+        <Row
+          style={{ display: "flex", alignItems: " center", marginBottom: 20 }}
+        >
           <Col md={8}>
             <FormInputs
               ncols={["col-md-12"]}
@@ -91,99 +189,19 @@ export default class Services extends Component {
             </FormControl>
           </Col>
         </Row>
-   
-            <div>
-              <Grid fluid>
-                {(this.state.services != undefined &&
-                  this.state.services.length) > 0 &&
-                  this.state.services
-                    .filter(text => this._search(text))
-                    .map(service => {
-                      console.log(service);
-                      return <ServiceCard {...service} />;
-                    })}
-              </Grid>
-              <div style={{ flexDirection: "column" }}>
-                <div className="ct-chart">
-                  <Row >
-                    <Col md={8}>
-                      <FormInputs
-                        ncols={["col-md-12"]}
-                        proprieties={[
-                          {
-                            label: "Titre du service ",
-                            id: "addTitle",
-                            type: "text",
-                            bsClass: "form-control",
-                            placeholder: "Titre du service",
-                            onChange: this.handleChange,
-                            value: this.state.addTitle
-                          }
-                        ]}
-                      />
-                      <FormInputs
-                        ncols={["col-md-12"]}
-                        proprieties={[
-                          {
-                            label: "Nom du service",
-                            type: "text",
-                            id: "addName",
-                            bsClass: "form-control",
-                            placeholder: "Nom du service",
-                            onChange: this.handleChange,
-                            value: this.state.addName
-                          }
-                        ]}
-                      />
 
-                      <FormInputs
-                        ncols={["col-md-12"]}
-                        proprieties={[
-                          {
-                            label: "Catégorie du service",
-                            type: "text",
-                            id: "addCategory",
-                            bsClass: "form-control",
-                            placeholder: "Catégorie du service",
-                            onChange: this.handleChange,
-                            value: this.state.addCategory
-                          }
-                        ]}
-                      />
-
-                      <FormInputs
-                        ncols={["col-md-12"]}
-                        proprieties={[
-                          {
-                            label: "Description du service",
-                            type: "text",
-                            id: "addDescription",
-                            bsClass: "form-control",
-                            placeholder: "Description du service",
-                            onChange: this.handleChange,
-                            value: this.state.addDescription
-                          }
-                        ]}
-                      />
-
-                      <Button
-                        style={{
-                          borderColor: colorRole("#888888"),
-                          color: colorRole("#888888")
-                        }}
-                        onClick={e => {
-                          this.addService();
-                        }}
-                      >
-                        Ajouter un service
-                      </Button>
-                    </Col>
-                  </Row>
-                  <br />
-                </div>
-              </div>
-            </div>
-       
+        <div>
+          <Grid fluid>
+            {(this.state.services != undefined && this.state.services.length) >
+              0 &&
+              this.state.services
+                .filter(text => this._search(text))
+                .map(service => {
+                  console.log(service);
+                  return <ServiceCard {...service} />;
+                })}
+          </Grid>
+        </div>
       </div>
     );
   }
@@ -220,4 +238,3 @@ export default class Services extends Component {
     return this._renderPage();
   }
 }
-
