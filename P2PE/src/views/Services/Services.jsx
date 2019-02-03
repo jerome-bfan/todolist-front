@@ -31,10 +31,10 @@ export default class Services extends Component {
       addTitle: "",
       searchType: "title",
       addCategory: 1,
-      addDescription: "pas de description",
-      addLocation: "pas de location",
+      addDescription: "",
+      addLocation: "",
       addPrix: 10,
-      addName: "pas de nom"
+      addName: ""
     };
   }
 

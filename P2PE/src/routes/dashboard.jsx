@@ -18,7 +18,7 @@ const dashboardRoutes = [
   },
   {
     path: "/service",
-    name: "Service",
+    name: "Services",
     icon: "pe-7s-note2",
     component: Services
   },

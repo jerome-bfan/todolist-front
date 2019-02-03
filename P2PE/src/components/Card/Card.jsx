@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, Row, Col, Button, } from "react-bootstrap";
+import { Modal, Row, Col, Button } from "react-bootstrap";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { postServiceUser } from "../../Provider/Api";
 
@@ -42,10 +42,11 @@ export class Card2 extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleValidate = this.handleValidate.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.buttonModal = this.buttonModal.bind(this);
 
     this.state = {
       show: false,
-      address:""
+      address: ""
     };
   }
 
@@ -53,12 +54,22 @@ export class Card2 extends Component {
     this.setState({ show: false });
   }
 
-  handleValidate() {
-    console.log(this.props.id)
-     postServiceUser(this.props.id,this.state.address).then(()=> {
-      this.setState({ show: false });
-     });
+  buttonModal() {
+    if (localStorage.getItem("roleUser")) {
+      return (
+        <Button variant="primary" onClick={this.handleShow}>
+          Réserver le service !
+        </Button>
+      );
     }
+  }
+
+  handleValidate() {
+    console.log(this.props.id);
+    postServiceUser(this.props.id, this.state.address).then(() => {
+      this.setState({ show: false });
+    });
+  }
 
   handleShow() {
     this.setState({ show: true });
@@ -72,29 +83,32 @@ export class Card2 extends Component {
       <div className={"card" + (this.props.plain ? " card-plain" : "")}>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Validez le service</Modal.Title>
+            <Modal.Title>Réservez le service</Modal.Title>
           </Modal.Header>
-          <Modal.Body> <FormInputs
-                        ncols={["col-md-12"]}
-                        proprieties={[
-                          {
-                            label: "Veuillez rentrer votre adresse",
-                            type: "text",
-                            id: "address",
-                            bsClass: "form-control",
-                            placeholder: "Saisir votre addresse ici",
-                            onChange: this.handleChange,
-                            value: this.state.address
-                          }
-                        ]}
-                      /></Modal.Body>
+          <Modal.Body>
+            {" "}
+            <FormInputs
+              ncols={["col-md-12"]}
+              proprieties={[
+                {
+                  label: "Veuillez rentrer votre adresse",
+                  type: "text",
+                  id: "address",
+                  bsClass: "form-control",
+                  placeholder: "Saisir votre addresse ici",
+                  onChange: this.handleChange,
+                  value: this.state.address
+                }
+              ]}
+            />
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>
               Close
             </Button>
-            
+
             <Button variant="primary" onClick={this.handleValidate}>
-             Validez votre adresse !
+              Validez votre adresse !
             </Button>
           </Modal.Footer>
         </Modal>
@@ -111,12 +125,7 @@ export class Card2 extends Component {
             <Col md={12}>{this.props.topRight}</Col>
           </Row>
           <Row>
-            <Col md={12}>
-              {" "}
-              <Button variant="primary" onClick={this.handleShow}>
-                Valider le service !
-              </Button>
-            </Col>
+            <Col md={12}> {this.buttonModal()}</Col>
           </Row>
         </Col>
         <Row />

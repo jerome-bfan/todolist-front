@@ -3,6 +3,37 @@ import { Card2 } from "components/Card/Card";
 import Button from "components/CustomButton/CustomButton.jsx";
 import { Panel } from "react-bootstrap";
 
+export function DispoService({ state }) {
+  if (state) {
+    return (
+      <text style={{ color: "rgb(125, 206, 125)", fontWeight: "bold" }}>
+        <i
+          style={{
+            color: "rgb(125, 206, 125)",
+            fontWeight: "bold",
+            marginRight: 5
+          }}
+          className="pe-7s-check"
+        />{" "}
+        Disponible
+      </text>
+    );
+  } else {
+    return (
+      <text style={{ color: "rgb(255, 0, 67)", fontWeight: "bold" }}>
+        <i
+          style={{
+            color: "rgb(255, 0, 67)",
+            fontWeight: "bold",
+            marginRight: 5
+          }}
+          className="pe-7s-close"
+        />{" "}
+        Non disponible
+      </text>
+    );
+  }
+}
 export class ServiceCard extends Component {
   _renderButtonValidate = () => {
     return (
@@ -44,11 +75,12 @@ export class ServiceCard extends Component {
               >
                 <Panel.Heading>
                   <Panel.Title toggle style={{ textAlign: "left" }}>
-                    Description
+                    Plus de details
                   </Panel.Title>
                 </Panel.Heading>
                 <Panel.Body collapsible>{this.props.description}</Panel.Body>
               </Panel>
+              <DispoService state={this.props.state} />
             </div>
           }
         />
