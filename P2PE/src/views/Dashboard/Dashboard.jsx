@@ -21,7 +21,6 @@ import {
 } from "../../Provider/AuthProvider";
 import { isConnected } from "../../functions/p2peFunction";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
-import { getNotes, postServiceUser } from "../../Provider/Api";
 import { makeNotif } from "../../layouts/Dashboard/Dashboard";
 import { style } from "variables/Variables.jsx";
 

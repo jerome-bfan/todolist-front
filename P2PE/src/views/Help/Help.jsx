@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Grid, Row, Col, Collapse, Well, Panel, PanelGroup
         } from "react-bootstrap";
 import {
-  getNotes,
   getAllNotes,
   deleteNotes,
   postNotesAdmin,

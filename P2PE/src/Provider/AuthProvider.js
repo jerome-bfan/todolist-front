@@ -94,9 +94,6 @@ export async function authentification(form) {
             "sessionToken",
             AWS.config.credentials.sessionToken
           );
-          // getNotes().then(test => {
-          //     console.log(test) });
-          //window.location.reload();
 
           resolve(true);
           return "test";

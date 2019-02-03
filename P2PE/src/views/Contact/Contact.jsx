@@ -5,9 +5,7 @@ import { Grid, Row, Col, Collapse, Well, Panel, PanelGroup,
           Form, FormGroup, Label, FormControl, textarea
         } from "react-bootstrap";
 import {
-  getNotes,
-  getAllNotes,
-  deleteNotes,
+
   postNotesAdmin,
   deleteNoteAdmin
 } from "../../Provider/Api";

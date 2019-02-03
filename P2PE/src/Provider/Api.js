@@ -33,7 +33,7 @@ export function getUser() {
     });
 }
 
-export function getNotes() {
+export function getAllServices() {
   const additionalParams = {
     headers: { "Access-Control-Allow-Origin": "*" }
   };
@@ -83,6 +83,24 @@ export function getServiceUser() {
       return error;
     });
 }
+
+export function getCategories() {
+  return instanceApi()
+    .invokeApi(
+      undefined,
+      "p2pe/categories",
+      "GET"
+    )
+    .then(function(result) {
+      console.log(result);
+      return result;
+    })
+    .catch(function(error) {
+      console.log(error);
+      return error;
+    });
+}
+
 export function getServicePro() {
   return instanceApi()
     .invokeApi(
