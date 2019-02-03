@@ -100,7 +100,6 @@ export function getServicePro() {
     });
 }
 
-
 export function postNotes(note) {
   var body = {
     note: note,
@@ -122,21 +121,22 @@ export function postServicePro(service) {
   var body = {
     title: service.title,
     name: service.name,
-    description: service.description,
+    description: service.title,
     category: 2,
-    location: "Asnières",
-    prix: 10,
-    date: "2019-01-31 23:41:21"
+    location: "paris",
+    id_pro: splitIdentity(),
+    prix: 10
+
     //This is where you define the body of the request
   };
   var pathParams = {
     //This is where path request params go.
-    id_pro: 2
+    id_client: 2
   };
 
   return instanceApi()
     .invokeApi(
-      undefined,
+      null,
       "p2pe/services_pro/" + splitIdentity(),
       "POST",
       undefined,
@@ -186,11 +186,10 @@ export function putPayedService(id) {
     id_client: splitIdentity()
   };
 
-
   return instanceApi()
     .invokeApi(
       pathParams,
-      "p2pe/requested_services_client/requested_service/"+ id +"/paid",
+      "p2pe/requested_services_client/requested_service/" + id + "/paid",
       "PUT",
       undefined
     )
@@ -209,7 +208,7 @@ export function putValidateService(id) {
   return instanceApi()
     .invokeApi(
       undefined,
-      "p2pe/requested_services_for_pro/requested-service/"+ id +"/validated",
+      "p2pe/requested_services_for_pro/requested-service/" + id + "/validated",
       "PUT",
       undefined
     )
