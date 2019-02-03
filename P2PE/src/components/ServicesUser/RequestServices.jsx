@@ -44,6 +44,36 @@ export function ValidatedService({ validated }) {
   </text>;
   }
 }
+
+export function PayedService({ paid }) {
+  if (paid) {
+    return (
+      <text style={{ color: "rgb(125, 206, 125)", fontWeight: "bold" }}>
+        <i
+          style={{
+            color: "rgb(125, 206, 125)",
+            fontWeight: "bold",
+            marginRight: 5
+          }}
+          className="pe-7s-check"
+        />{" "}
+        Payé
+      </text>
+    );
+  } else {
+    return <text style={{ color: "rgb(255, 0, 67)", fontWeight: "bold" }}>
+    <i
+      style={{
+        color: "rgb(255, 0, 67)",
+        fontWeight: "bold",
+        marginRight: 5
+      }}
+      className="pe-7s-close"
+    />{" "}
+    Non Payé
+  </text>;
+  }
+}
 class RequestServices extends Component {
   constructor(props) {
     super(props);
@@ -305,15 +335,17 @@ class RequestServices extends Component {
                           </Panel.Heading>
                           <Panel.Body>
                             <Row>{this.renderContent(service)}</Row>
-                            <Row>
-                              <Col md={6}>
-                                <ValidatedService
-                                   style={{
+                            <Row  style={{
+                              marginTop:30
+                                }}>
+                              <Col md={6}    style={{
                                   textAlign: "center",
                                   flexDirection: "row",
                                   alignItems: "center",
                                   justifyContent: "center"
-                                }}
+                                }}>
+                                <ValidatedService
+                                
                                   validated={service.validated}
                                 />
                               </Col>
@@ -326,8 +358,8 @@ class RequestServices extends Component {
                                   justifyContent: "center"
                                 }}
                               >
-                                <ValidatedService
-                                  validated={service.validated}
+                                <PayedService
+                                  paid={service.paid}
                                 />
                               </Col>
                             </Row>
