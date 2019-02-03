@@ -8,7 +8,7 @@ import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { ServiceCard } from "../../components/Card/ServiceCard";
 import RequestServices from "../../components/ServicesUser/RequestServices";
 import RequestServicesPro from "../../components/ServicesPro/RequestServicesPro";
-export const displayServiceHome= () => {
+export function displayHomeService() {
   if (localStorage.getItem("roleUser")) {
     return (
       <div>
@@ -22,12 +22,12 @@ export const displayServiceHome= () => {
         <RequestServicesPro />
       </div>
     );
-  }
-
-  else {
+  } else {
     return (
       <div>
-        <text>Vous devez etre connecter en tant qu'utilisateur pour voir vos service</text>
+        <text>
+          Vous devez etre connecter en tant qu'utilisateur pour voir vos service
+        </text>
       </div>
     );
   }
@@ -38,7 +38,7 @@ class MyServices extends Component {
   }
 
   _renderPage() {
-    displayServiceHome();
+    return displayHomeService();
   }
 
   componentWillMount() {}

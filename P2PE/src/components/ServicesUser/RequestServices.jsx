@@ -18,6 +18,7 @@ class RequestServices extends Component {
     this.renderHeader = this.renderHeader.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.deleteService = this.deleteService.bind(this);
     this.handleValidate = this.handleValidate.bind(this);
     this.renderNotification = this.renderNotification.bind(this);
     this.state = {
@@ -58,6 +59,12 @@ class RequestServices extends Component {
   }
   handleClose() {
     this.setState({ show: false });
+  }
+  deleteService(service) {
+    this.state.services.pop(service);
+    this.setState({
+      services: this.state.services
+    });
   }
 
   handleValidate(service) {
@@ -123,6 +130,16 @@ class RequestServices extends Component {
               Vous n'avez pas encore payer car le pro n'as pas encore validé sa
               tâche
             </text>
+            <Button
+              style={{
+                marginLeft: 30,
+                borderColor: colorRole("#888888"),
+                color: colorRole("#888888")
+              }}
+              onClick={() => this.deleteService(service)}
+            >
+              Supprimer le service
+            </Button>
           </div>
         );
       }
@@ -181,6 +198,7 @@ class RequestServices extends Component {
         return (
           <div>
             <text>En attente de validation :</text>
+         
           </div>
         );
       }
