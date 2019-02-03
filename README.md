@@ -18,7 +18,8 @@ Amazon S3 URL (Testing Only)
 
 - Bucket : s3
 
-For have the read access call jerome on teams !
+For have the read access call jerome on teams , u must have an AWS account update by him to have different rights
+in order to provider
 
 
 # For Developer
@@ -30,7 +31,7 @@ For have the read access call jerome on teams !
 
 Launch the server for dev :
 
-```npm install ```
+``` npm install ```
 
 
 Download and Copy the awsexport.js inside src folder (p2pe/src) :
@@ -42,8 +43,8 @@ if is an expired link : call jerome on teams
 
 Launch the server for dev :
 
-```npm start ```
+``` npm start ```
 
-# Doubts? Ideas? Corrections?
+# Doubts? Ideas? Corrections, Question?
 
-Send a message on teams at jerome !
+Send a message on teams !
