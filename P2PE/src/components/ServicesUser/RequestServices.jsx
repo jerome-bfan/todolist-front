@@ -14,7 +14,36 @@ import { style } from "variables/Variables.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import NotificationSystem from "react-notification-system";
 import { makeNotif } from "../../layouts/Dashboard/Dashboard";
-
+import Timestamp from "react-timestamp";
+export function ValidatedService({ validated }) {
+  if (validated) {
+    return (
+      <text style={{ color: "rgb(125, 206, 125)", fontWeight: "bold" }}>
+        <i
+          style={{
+            color: "rgb(125, 206, 125)",
+            fontWeight: "bold",
+            marginRight: 5
+          }}
+          className="pe-7s-check"
+        />{" "}
+        Validé
+      </text>
+    );
+  } else {
+    return <text style={{ color: "rgb(255, 0, 67)", fontWeight: "bold" }}>
+    <i
+      style={{
+        color: "rgb(255, 0, 67)",
+        fontWeight: "bold",
+        marginRight: 5
+      }}
+      className="pe-7s-close"
+    />{" "}
+    Non validé
+  </text>;
+  }
+}
 class RequestServices extends Component {
   constructor(props) {
     super(props);
@@ -24,13 +53,14 @@ class RequestServices extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.deleteService = this.deleteService.bind(this);
     this.handleValidate = this.handleValidate.bind(this);
+    this.getServicesUser = this.getServicesUser.bind(this);
     this.renderNotification = this.renderNotification.bind(this);
     this.state = {
       services: [],
       notification: 0
     };
   }
-  componentWillMount() {
+  getServicesUser() {
     getServiceUser().then(services => {
       console.log(services);
       this.setState({
@@ -61,6 +91,9 @@ class RequestServices extends Component {
       }
     });
   }
+  componentWillMount() {
+    this.getServicesUser();
+  }
   handleClose() {
     this.setState({ show: false });
   }
@@ -80,6 +113,8 @@ class RequestServices extends Component {
 
   handleValidate(service) {
     putPayedService(service.id).then(() => {
+      this.getServicesUser();
+
       this.setState({ show: false });
     });
   }
@@ -98,60 +133,71 @@ class RequestServices extends Component {
       if (service.validated) {
         return (
           <div>
-            <text>
-              Vous devez payer votre service valider car le pro la validé
-            </text>
-            <Modal show={this.state.show} onHide={this.handleClose}>
-              <Modal.Header closeButton>
-                <Modal.Title>Validez le service</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                {" "}
-                <text> Payer le service !</text>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button variant="secondary" onClick={this.handleClose}>
-                  Fermez
-                </Button>
+            <Row>
+              <Col md={8}>
+                <text>
+                  Vous devez payer votre service valider car le pro la validé
+                </text>
+              </Col>
+              <Modal show={this.state.show} onHide={this.handleClose}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Validez le service</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  {" "}
+                  <text> Payer le service !</text>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={this.handleClose}>
+                    Fermez
+                  </Button>
 
-                <Button
-                  variant="primary"
-                  onClick={() => this.handleValidate(service)}
-                >
-                  Validez le payement
-                </Button>
-              </Modal.Footer>
-            </Modal>
-            <Button
-              style={{
-                marginLeft: 30,
-                borderColor: colorRole("#888888"),
-                color: colorRole("#888888")
-              }}
-              onClick={this.handleShow}
-            >
-              Payer le service
-            </Button>
+                  <Button
+                    variant="primary"
+                    onClick={() => this.handleValidate(service)}
+                  >
+                    Validez le payement
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+              <Col md={4}>
+
+              <Button
+                style={{
+                  marginLeft: 30,
+                  borderColor: colorRole("#888888"),
+                  color: colorRole("#888888")
+                }}
+                onClick={this.handleShow}
+              >
+                Payer le service
+              </Button>
+              </Col>
+            </Row>
           </div>
         );
       } else if (!service.validated) {
         return (
-          <div>
-            <text>
-              Vous n'avez pas encore payer car le pro n'as pas encore validé sa
-              tâche
-            </text>
-            <Button
-              style={{
-                marginLeft: 30,
-                borderColor: colorRole("#888888"),
-                color: colorRole("#888888")
-              }}
-              onClick={() => this.deleteService(service)}
-            >
-              Supprimez le service
-            </Button>
-          </div>
+          <Row>
+            <Col md={8}>
+              <text>
+                Vous n'avez pas encore payer car le pro n'as pas encore validé
+                sa tâche
+              </text>
+            </Col>
+            <Col md={3}>
+              <Button
+                style={{
+                  marginLeft: 30,
+                  borderColor: colorRole("#888888"),
+                  color: colorRole("#888888")
+                }}
+                onClick={() => this.deleteService(service)}
+              >
+                Supprimez le service
+              </Button>
+            </Col>
+          </Row>
         );
       }
     }
@@ -241,10 +287,51 @@ class RequestServices extends Component {
                         <Panel eventKey="1">
                           <Panel.Heading>
                             <Panel.Title toggle style={style.question}>
-                              {service.date}
+                              <Row>
+                                <Col md={8}>
+                                  <text> Adrresse: {service.address}</text>
+                                </Col>
+                                <Col md={4}>
+                                  <text>
+                                    il ya:{" "}
+                                    <Timestamp
+                                      time={service.date}
+                                      precision={1}
+                                    />
+                                  </text>
+                                </Col>
+                              </Row>{" "}
                             </Panel.Title>
                           </Panel.Heading>
-                          <Panel.Body>{this.renderContent(service)}</Panel.Body>
+                          <Panel.Body>
+                            <Row>{this.renderContent(service)}</Row>
+                            <Row>
+                              <Col md={6}>
+                                <ValidatedService
+                                   style={{
+                                  textAlign: "center",
+                                  flexDirection: "row",
+                                  alignItems: "center",
+                                  justifyContent: "center"
+                                }}
+                                  validated={service.validated}
+                                />
+                              </Col>
+                              <Col
+                                md={6}
+                                style={{
+                                  textAlign: "center",
+                                  flexDirection: "row",
+                                  alignItems: "center",
+                                  justifyContent: "center"
+                                }}
+                              >
+                                <ValidatedService
+                                  validated={service.validated}
+                                />
+                              </Col>
+                            </Row>
+                          </Panel.Body>
                         </Panel>
                       </div>
                     </div>
