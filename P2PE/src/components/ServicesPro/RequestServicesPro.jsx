@@ -4,6 +4,7 @@ import Card from "components/Card/Card";
 import { colorRole } from "../../functions/p2peFunction";
 import { Grid, Row, Col, Panel, PanelGroup, Modal } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
+import Timestamp from "react-timestamp";
 
 import { iconsArray } from "variables/Variables.jsx";
 import { style } from "variables/Variables.jsx";
@@ -72,6 +73,11 @@ class RequestServicesPro extends Component {
         notification: prevState.notification - 1,
         show: false
       }));
+      makeNotif(
+        this.refs.notificationSystem,
+        "success",
+        "Vous avez validés le service !"
+      );
     });
   }
 
@@ -120,7 +126,7 @@ class RequestServicesPro extends Component {
                 </Modal>
                 <Button
                   style={{
-                    marginLeft: 30,
+                    marginRight: 10,
                     borderColor: colorRole("#888888"),
                     color: colorRole("#888888")
                   }}
@@ -146,7 +152,7 @@ class RequestServicesPro extends Component {
       return (
         <text>
           Vous avez {this.state.notification} notification ! Regarder votre
-          historique de service et selectionner le bouton valider !
+          historique de service et selectionner valider pour que l'utilisateur effectue le payment de la tâche !
         </text>
       );
     } else {
@@ -181,15 +187,12 @@ class RequestServicesPro extends Component {
       if (service.paid) {
         return (
           <div>
-            <text>Validé et payé</text>
+            <text style= {{color:"green"}}>Validé et payé</text>
           </div>
         );
-      
-      }
-      else if (!service.paid){
+      } else if (!service.paid) {
         return (
-
-        <div>
+          <div>
             <text>En attente du payement de l'utilisateur</text>
           </div>
         );
@@ -204,7 +207,7 @@ class RequestServicesPro extends Component {
       } else if (!service.paid) {
         return (
           <div>
-            <text>En attente de votre validation</text>
+            <text style= {{color:"red"}}>En attente de votre validation</text>
           </div>
         );
       }
@@ -238,8 +241,18 @@ class RequestServicesPro extends Component {
                           <Panel.Heading>
                             <Panel.Title toggle style={style.question}>
                               <Row>
-                                <Col md={8}>{service.address}</Col>
-                                <Col md={4}>{service.date}</Col>
+                                <Col md={8}>
+                                  <text> Adrresse: {service.address}</text>
+                                </Col>
+                                <Col md={4}>
+                                  <text>
+                                    Crée le:{" "}
+                                    <Timestamp
+                                      time={service.date}
+                                      precision={1}
+                                    />
+                                  </text>
+                                </Col>
                               </Row>
                             </Panel.Title>
                           </Panel.Heading>
