@@ -51,6 +51,18 @@ export function getAllServices() {
     });
 }
 
+export function deleteServiceRequested(id) {
+  
+  return instanceApi()
+    .invokeApi(null, "p2pe/requested_services_client/requested_service/" + id, "DELETE")
+    .then(function(result) {
+      return result;
+    })
+    .catch(function(error) {
+      return error;
+    });
+}
+
 export function getAllNotes() {
   const additionalParams = {
     headers: { "Access-Control-Allow-Origin": "*" }

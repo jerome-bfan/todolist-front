@@ -1,5 +1,9 @@
 import React, { Component } from "react";
-import { getServiceUser, putPayedService } from "../../Provider/Api";
+import {
+  getServiceUser,
+  putPayedService,
+  deleteServiceRequested
+} from "../../Provider/Api";
 import Card from "components/Card/Card";
 import { colorRole } from "../../functions/p2peFunction";
 import { Grid, Row, Col, Panel, PanelGroup, Modal } from "react-bootstrap";
@@ -61,9 +65,16 @@ class RequestServices extends Component {
     this.setState({ show: false });
   }
   deleteService(service) {
-    this.state.services.pop(service);
-    this.setState({
-      services: this.state.services
+    deleteServiceRequested(service.id).then(() => {
+      this.state.services.pop(service);
+      this.setState({
+        services: this.state.services
+      });
+      makeNotif(
+        this.refs.notificationSystem,
+        "error",
+        "Vous avez supprimés un service"
+      );
     });
   }
 
@@ -138,7 +149,7 @@ class RequestServices extends Component {
               }}
               onClick={() => this.deleteService(service)}
             >
-              Supprimer le service
+              Supprimez le service
             </Button>
           </div>
         );
@@ -198,7 +209,6 @@ class RequestServices extends Component {
         return (
           <div>
             <text>En attente de validation :</text>
-         
           </div>
         );
       }
