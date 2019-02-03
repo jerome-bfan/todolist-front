@@ -27,6 +27,8 @@ export default class Services extends Component {
       searchType: "title",
       addCategory: 2,
       addDescription: "pas de description",
+      addLocation: "pas de location",
+      addPrix: 0,
       addName: "pas de nom"
     };
   }
@@ -35,7 +37,7 @@ export default class Services extends Component {
     this.setState({ [event.target.id]: event.target.value });
   }
 renderAddService() {
-    return     <div style={{ flexDirection: "column",marginBottom:30}}>
+    return     <div style={{ flexDirection: "column",marginBottom:30, marginLeft:10}}>
     <h3>Ajouter un service</h3>
     <div className="ct-chart">
       <Row>
@@ -65,6 +67,34 @@ renderAddService() {
                 placeholder: "Nom du service",
                 onChange: this.handleChange,
                 value: this.state.addName
+              }
+            ]}
+          />
+            <FormInputs
+            ncols={["col-md-12"]}
+            proprieties={[
+              {
+                label: "Adresse du service",
+                type: "text",
+                id: "addLocation",
+                bsClass: "form-control",
+                placeholder: "Adresse du service",
+                onChange: this.handleChange,
+                value: this.state.addLocation
+              }
+            ]}
+          />
+            <FormInputs
+            ncols={["col-md-12"]}
+            proprieties={[
+              {
+                label: "Prix",
+                type: "number",
+                id: "addPrix",
+                bsClass: "form-control",
+                placeholder: "Prix",
+                onChange: this.handleChange,
+                value: this.state.addPrix,
               }
             ]}
           />
@@ -226,6 +256,8 @@ renderAddService() {
       name: this.state.addName,
       description: this.state.addDescription,
       category: this.state.addCategory,
+      location: this.state.addLocation,
+      prix: this.state.addPrix,
       title: this.state.addTitle
     };
     postServicePro(service);

@@ -123,9 +123,9 @@ export function postServicePro(service) {
     name: service.name,
     description: service.title,
     category: Number(service.category),
-    location: "paris",
+    location: service.location,
     id_pro: splitIdentity(),
-    prix: 10
+    prix: Number(service.prix)
 
     //This is where you define the body of the request
   };
