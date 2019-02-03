@@ -5,7 +5,8 @@ import {
   deleteNotes,
   postNotes,
   postServicePro,
-  getAllServices
+  getAllServices,
+  getCategories
 } from "../../Provider/Api";
 import { Grid, Row, Col, FormControl, ControlLabel } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
@@ -29,10 +30,10 @@ export default class Services extends Component {
       categories: [],
       addTitle: "",
       searchType: "title",
-      addCategory: 2,
+      addCategory: 1,
       addDescription: "pas de description",
       addLocation: "pas de location",
-      addPrix: 0,
+      addPrix: 10,
       addName: "pas de nom"
     };
   }
@@ -160,17 +161,16 @@ export default class Services extends Component {
         inputRef={el => (this.inputCat = el)}
         onChange={this.handleChangeSelectCategorie}
       >
-        <option id="searchType" value="1">
-          Par titre
-        </option>
-        <option id="searchType" value="2">
-          {" "}
-          Par catégorie
-        </option>
-        <option id="searchType" value="3" />
-        <option id="searchType" value="4">
-          Par location
-        </option>
+      {(this.state.categories != undefined && this.state.categories.length) >
+              0 &&
+              this.state.categories
+                .map(cat => {
+                  console.log(cat);
+                  return      <option id="searchType" value={cat.id}>
+          {cat.name}
+        </option>;
+                })}
+      
       </FormControl>
     );
   }
@@ -286,6 +286,14 @@ export default class Services extends Component {
 
       this.setState({
         services: api.data
+      });
+    });
+    getCategories().then(api => {
+      console.log("state");
+      console.log(api);
+
+      this.setState({
+        categories: api.data
       });
     });
   }
