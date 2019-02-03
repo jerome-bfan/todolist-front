@@ -32,6 +32,7 @@ in order to provider
 Launch the server for dev :
 
 ``` npm install ```
+``` npm audit fix  ```
 
 
 Download and Copy the awsexport.js inside src folder (p2pe/src) :
