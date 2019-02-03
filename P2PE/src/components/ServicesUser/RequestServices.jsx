@@ -45,6 +45,37 @@ export function ValidatedService({ validated }) {
   }
 }
 
+export function StateService({ validated,paid }) {
+  return (<Row  style={{
+    marginTop:30
+      }}>
+    <Col md={6}    style={{
+        textAlign: "center",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center"
+      }}>
+      <ValidatedService
+      
+        validated={validated}
+      />
+    </Col>
+    <Col
+      md={6}
+      style={{
+        textAlign: "center",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center"
+      }}
+    >
+      <PayedService
+        paid={paid}
+      />
+    </Col>
+  </Row>);
+}
+
 export function PayedService({ paid }) {
   if (paid) {
     return (
@@ -335,34 +366,7 @@ class RequestServices extends Component {
                           </Panel.Heading>
                           <Panel.Body>
                             <Row>{this.renderContent(service)}</Row>
-                            <Row  style={{
-                              marginTop:30
-                                }}>
-                              <Col md={6}    style={{
-                                  textAlign: "center",
-                                  flexDirection: "row",
-                                  alignItems: "center",
-                                  justifyContent: "center"
-                                }}>
-                                <ValidatedService
-                                
-                                  validated={service.validated}
-                                />
-                              </Col>
-                              <Col
-                                md={6}
-                                style={{
-                                  textAlign: "center",
-                                  flexDirection: "row",
-                                  alignItems: "center",
-                                  justifyContent: "center"
-                                }}
-                              >
-                                <PayedService
-                                  paid={service.paid}
-                                />
-                              </Col>
-                            </Row>
+                            <StateService validated={service.validated} paid={service.paid}/>
                           </Panel.Body>
                         </Panel>
                       </div>

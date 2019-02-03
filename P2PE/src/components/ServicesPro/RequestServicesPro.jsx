@@ -11,6 +11,7 @@ import { style } from "variables/Variables.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import NotificationSystem from "react-notification-system";
 import { makeNotif } from "../../layouts/Dashboard/Dashboard";
+import { StateService } from "../ServicesUser/RequestServices";
 
 class RequestServicesPro extends Component {
   constructor(props) {
@@ -256,7 +257,10 @@ class RequestServicesPro extends Component {
                               </Row>
                             </Panel.Title>
                           </Panel.Heading>
-                          <Panel.Body>{this.renderContent(service)}</Panel.Body>
+                          <Panel.Body><Row>{this.renderContent(service)}</Row>
+                          <StateService validated={service.validated} paid={service.paid}/>
+
+                          </Panel.Body>
                         </Panel>
                       </div>
                     </div>
