@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Row, Col, Button } from "react-bootstrap";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
-import { postServiceUser, putUpdateService, putUpdateServicePro } from "../../Provider/Api";
+import { postServiceUser, putUpdateService, putUpdateServicePro, splitIdentity } from "../../Provider/Api";
 
 export class Card extends Component {
   render() {
@@ -45,6 +45,7 @@ export class Card2 extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.buttonModal = this.buttonModal.bind(this);
     this.modalContent = this.modalContent.bind(this);
+    this.btnUpdate = this.btnUpdate.bind(this);
 
     this.state = {
       show: false,
@@ -60,6 +61,9 @@ export class Card2 extends Component {
   handleClose() {
     this.setState({ show: false });
   }
+  btnUpdate () {
+    this.setState({ show: false });
+  }
 
   buttonModal() {
     if (localStorage.getItem("roleUser")) {
@@ -69,7 +73,7 @@ export class Card2 extends Component {
         </Button>
       );
     }
-    else if (localStorage.getItem("rolePro")) {
+    else if (localStorage.getItem("rolePro") && this.props.service.pro== splitIdentity()) {
       return (
         <Button variant="primary" onClick={this.handleShow}>
           Modifier le service !
