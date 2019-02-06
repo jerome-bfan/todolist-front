@@ -52,9 +52,12 @@ export function getAllServices() {
 }
 
 export function deleteServiceRequested(id) {
-  
   return instanceApi()
-    .invokeApi(null, "p2pe/requested_services_client/requested_service/" + id, "DELETE")
+    .invokeApi(
+      null,
+      "p2pe/requested_services_client/requested_service/" + id,
+      "DELETE"
+    )
     .then(function(result) {
       return result;
     })
@@ -98,11 +101,7 @@ export function getServiceUser() {
 
 export function getCategories() {
   return instanceApi()
-    .invokeApi(
-      undefined,
-      "p2pe/categories",
-      "GET"
-    )
+    .invokeApi(undefined, "p2pe/categories", "GET")
     .then(function(result) {
       console.log(result);
       return result;
@@ -235,7 +234,6 @@ export function putPayedService(id) {
 }
 
 export function putValidateService(id) {
-  
   return instanceApi()
     .invokeApi(
       undefined,
@@ -254,12 +252,12 @@ export function putValidateService(id) {
     });
 }
 
-export function putUpdateService(service) { 
+export function putUpdateService(service) {
   var body = {
     name: service.name ? service.name : "",
     description: service.description ? service.description : "",
     location: service.location,
-    prix: 10,
+    prix: 10
   };
   return instanceApi()
     .invokeApi(
@@ -279,20 +277,30 @@ export function putUpdateService(service) {
       return error;
     });
 }
-export function putUpdateServicePro(service) { 
+export function putUpdateServicePro(service,id) {
+  console.log(id);
+
   var body = {
-    name: service.name ? service.name : "",
-    description: service.description ? service.description : "",
-    location: service.location,
-    prix: 10,
   };
-body.prix= 115;
-  console.log("body")
-  console.log(body)
+  if (!!service.prix) {
+    body.prix = Number(service.prix);
+  }
+  if (!!service.location) {
+    body.location = service.location;
+  }
+  if (!! service.description) {
+    body.description = service.description;
+  }
+  if (!! service.title) {
+    body.title = service.title;
+  }
+
+  console.log("body");
+  console.log(body);
   return instanceApi()
     .invokeApi(
       undefined,
-      "p2pe/services_pro/service_pro/" + 9,
+      "p2pe/services_pro/service_pro/" + id,
       "PUT",
       undefined,
       body
@@ -307,7 +315,6 @@ body.prix= 115;
       return error;
     });
 }
-
 
 export function postUser(id) {
   var body = {

@@ -48,9 +48,14 @@ export class Card2 extends Component {
 
     this.state = {
       show: false,
-      address: ""
+      address: "",
+      updateDescription:this.props.service.location,
+      updateTitle:this.props.service.title,
+      updatePrix:this.props.service.prix,
+      updateLocation:this.props.service.location,
     };
   }
+ 
 
   handleClose() {
     this.setState({ show: false });
@@ -99,7 +104,7 @@ export class Card2 extends Component {
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>
-              Close
+              Fermez
             </Button>
 
             <Button variant="primary" onClick={this.handleValidate}>
@@ -112,32 +117,75 @@ export class Card2 extends Component {
       return (
         <div>
           <Modal.Header closeButton>
-            <Modal.Title>Modifier le service</Modal.Title>
+            <Modal.Title>Modifiez le service</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {" "}
+          
+                    <FormInputs
+              ncols={["col-md-12"]}
+              proprieties={[
+                {
+                  label: "Veuillez rentrer votre titre",
+                  type: "text",
+                  id: "updateTitle",
+                  bsClass: "form-control",
+                  placeholder: "Saisir votre titre ici",
+                  onChange: this.handleChange,
+                  value: this.state.updateTitle
+                }
+              ]}
+            />
             <FormInputs
               ncols={["col-md-12"]}
               proprieties={[
                 {
                   label: "Veuillez rentrer votre adresse",
                   type: "text",
-                  id: "address",
+                  id: "updateLocation",
                   bsClass: "form-control",
                   placeholder: "Saisir votre addresse ici",
                   onChange: this.handleChange,
-                  value: this.state.address
+                  value: this.state.updateLocation
+                }
+              ]}
+            />
+            <FormInputs
+              ncols={["col-md-12"]}
+              proprieties={[
+                {
+                  label: "Veuillez rentrer votre description",
+                  type: "textarea",
+                  id: "updateDescription",
+                  bsClass: "form-control",
+                  placeholder: "Saisir votre description ici",
+                  onChange: this.handleChange,
+                  value: this.state.updateDescription
+                }
+              ]}
+            />
+            <FormInputs
+              ncols={["col-md-12"]}
+              proprieties={[
+                {
+                  label: "Veuillez rentrer un prix",
+                  type: "number",
+                  id: "updatePrix",
+                  bsClass: "form-control",
+                  placeholder: "Saisir votre prix ici",
+                  onChange: this.handleChange,
+                  value: this.state.updatePrix
                 }
               ]}
             />
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>
-              Close
+              Fermez
             </Button>
 
             <Button variant="primary" onClick={this.handleUpdate}>
-              Modifier votre adresse !
+              Modifiez le service
             </Button>
           </Modal.Footer>
         </div>
@@ -153,9 +201,19 @@ export class Card2 extends Component {
   }
   handleUpdate() {
     console.log(this.props);
-    putUpdateServicePro(this.props).then(() => {
+    let service= {
+      location:this.state.updateLocation,
+      title:this.state.updateTitle,
+      description:this.state.updateDescription,
+      prix:this.state.updatePrix,
+    }
+    console.log(service);
+
+    putUpdateServicePro(service,this.props.id).then(() => {
       this.setState({ show: false });
-    });
+      //window.location.reload();
+
+    });                 
   }
 
   handleShow() {
@@ -163,6 +221,7 @@ export class Card2 extends Component {
   }
   handleChange(event) {
     this.setState({ [event.target.id]: event.target.value });
+console.log(this.state);
   }
 
   render() {
