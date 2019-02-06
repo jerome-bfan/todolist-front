@@ -6,7 +6,7 @@ import {
 } from "amazon-cognito-identity-js";
 import React, { Component } from "react";
 import ChartistGraph from "react-chartist";
-import { Grid, Row, Col, Panel, PanelGroup, } from "react-bootstrap";
+import { Grid, Row, Col, Panel, PanelGroup } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import awsmobile from "../../aws-exports";
 import AWS from "aws-sdk/dist/aws-sdk-react-native";
@@ -23,8 +23,7 @@ import { isConnected } from "../../functions/p2peFunction";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { makeNotif } from "../../layouts/Dashboard/Dashboard";
 import { style } from "variables/Variables.jsx";
-import { displayHomeService } from '../Services/MyServices';
-
+import { displayHomeService } from "../Services/MyServices";
 
 class Dashboard extends Component {
   constructor(props, context) {
@@ -44,14 +43,16 @@ class Dashboard extends Component {
       successRegister: ""
     };
     if (isConnected()) {
-     // postServiceUser("d").then();
-     const splitString = "eu-west-1:c72978e3-2d1a-4e61-a913-ba1f5e13ea08".split(":");
+      // postServiceUser("d").then();
+      const splitString = "eu-west-1:c72978e3-2d1a-4e61-a913-ba1f5e13ea08".split(
+        ":"
+      );
 
-     console.log(splitString);
+      console.log(splitString);
       this.state = {
         connected: true
       };
-     } else {
+    } else {
       this.state = {
         connected: false
       };
@@ -59,8 +60,27 @@ class Dashboard extends Component {
     this._renderConnection = this._renderConnection.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this._renderInscription = this._renderInscription.bind(this);
+    this.displayTypeAccount = this.displayTypeAccount.bind(this);
+    this.borderPro = this.borderPro.bind(this);
+    this.borderCustomer = this.borderCustomer.bind(this);
   }
-
+  displayTypeAccount() {
+    if (this.state.typeAccount == "user") {
+      return "Client ";
+    } else if (this.state.typeAccount == "pro") {
+      return "Pro";
+    }
+  }
+  borderPro() {
+    if (this.state.typeAccount == "pro") {
+      return "red ";
+    }
+  }
+  borderCustomer() {
+    if (this.state.typeAccount == "user") {
+      return "red ";
+    }
+  }
   componentWillMount() {
     this.setState({
       username: "jaydde",
@@ -212,7 +232,9 @@ class Dashboard extends Component {
                 >
                   <Panel eventKey="1">
                     <Panel.Heading>
-                      <Panel.Title toggle style={style.question}>Ce que nous faisons</Panel.Title>
+                      <Panel.Title toggle style={style.question}>
+                        Ce que nous faisons
+                      </Panel.Title>
                     </Panel.Heading>
                     <Panel.Body>
                       Notre site vous propose de vous mettre en relation avec
@@ -251,7 +273,7 @@ class Dashboard extends Component {
   }
 
   _renderFormPro = () => {
-    if(this.state.hideFormPro) {
+    if (this.state.hideFormPro) {
       return (
         <div>
           <FormInputs
@@ -284,7 +306,7 @@ class Dashboard extends Component {
           />
         </div>
       );
-          }
+    }
   };
   _renderInscription() {
     if (!this.state.connected) {
@@ -298,27 +320,36 @@ class Dashboard extends Component {
             content={
               <div style={{ flexDirection: "column" }}>
                 <div className="">
-                 
                   <Row>
                     <Col md={8}>
                       <Row style={{ marginBottom: 20 }}>
-                        <h4>Vous êtes :</h4>
+                        <h4 style={{ paddingLeft: 5 }}>Vous êtes: {this.displayTypeAccount()}</h4>
 
                         <Button
-                          style={{ marginLeft: 15 }}
+                          style={{
+                            marginLeft: 15,
+                            borderColor: this.borderCustomer()
+                          }}
                           onClick={e => {
-                            this.setState({ typeAccount: "user",
-                            hideFormPro: false });
+                            this.setState({
+                              typeAccount: "user",
+                              hideFormPro: false
+                            });
                           }}
                         >
                           Utilisateur
                         </Button>
                         <text style={{ marginLeft: 10 }}>OU</text>
                         <Button
-                          style={{ marginLeft: 15 }}
+                          style={{
+                            marginLeft: 15,
+                            borderColor: this.borderPro()
+                          }}
                           onClick={e => {
-                            this.setState({ typeAccount: "pro",
-                            hideFormPro: true });
+                            this.setState({
+                              typeAccount: "pro",
+                              hideFormPro: true
+                            });
                           }}
                         >
                           Pro
