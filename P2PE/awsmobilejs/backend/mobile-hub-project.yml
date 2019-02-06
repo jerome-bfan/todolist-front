@@ -45,6 +45,7 @@ features:
           '/p2pe/services_pro/proposed_services/{id_pro}': !com.amazonaws.mobilehub.v0.Function {}
           /p2pe/services_pro/service_pro: !com.amazonaws.mobilehub.v0.Function {}
           '/p2pe/services_pro/service_pro/{id_service_pro}': !com.amazonaws.mobilehub.v0.Function {}
+          '/p2pe/services_pro/service_pro/{id_service_pro}/state': !com.amazonaws.mobilehub.v0.Function {}
           '/p2pe/services_pro/{id_pro}': !com.amazonaws.mobilehub.v0.Function {}
           /p2pe/users: !com.amazonaws.mobilehub.v0.Function {}
           /p2pe/users/user: !com.amazonaws.mobilehub.v0.Function {}

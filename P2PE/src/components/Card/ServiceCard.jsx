@@ -49,6 +49,7 @@ export class ServiceCard extends Component {
         <Card2
           id={this.props.id_service}
           title={this.props.title}
+          service={this.props}
           category={
             <div>
               {this.props.categoryName} ({this.props.location})

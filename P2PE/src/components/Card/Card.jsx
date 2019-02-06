@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Row, Col, Button } from "react-bootstrap";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
-import { postServiceUser } from "../../Provider/Api";
+import { postServiceUser, putUpdateService, putUpdateServicePro } from "../../Provider/Api";
 
 export class Card extends Component {
   render() {
@@ -41,8 +41,10 @@ export class Card2 extends Component {
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleValidate = this.handleValidate.bind(this);
+    this.handleUpdate= this.handleUpdate.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.buttonModal = this.buttonModal.bind(this);
+    this.modalContent = this.modalContent.bind(this);
 
     this.state = {
       show: false,
@@ -62,26 +64,19 @@ export class Card2 extends Component {
         </Button>
       );
     }
+    else if (localStorage.getItem("rolePro")) {
+      return (
+        <Button variant="primary" onClick={this.handleShow}>
+          Modifier le service !
+        </Button>
+      );
+    }
   }
 
-  handleValidate() {
-    console.log(this.props.id);
-    postServiceUser(this.props.id, this.state.address).then(() => {
-      this.setState({ show: false });
-    });
-  }
-
-  handleShow() {
-    this.setState({ show: true });
-  }
-  handleChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
-  }
-
-  render() {
-    return (
-      <div className={"card" + (this.props.plain ? " card-plain" : "")}>
-        <Modal show={this.state.show} onHide={this.handleClose}>
+  modalContent() {
+    if (localStorage.getItem("roleUser")) {
+      return (
+        <div>
           <Modal.Header closeButton>
             <Modal.Title>Réservez le service</Modal.Title>
           </Modal.Header>
@@ -111,6 +106,70 @@ export class Card2 extends Component {
               Validez votre adresse !
             </Button>
           </Modal.Footer>
+        </div>
+      );
+    } else if (localStorage.getItem("rolePro")) {
+      return (
+        <div>
+          <Modal.Header closeButton>
+            <Modal.Title>Modifier le service</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {" "}
+            <FormInputs
+              ncols={["col-md-12"]}
+              proprieties={[
+                {
+                  label: "Veuillez rentrer votre adresse",
+                  type: "text",
+                  id: "address",
+                  bsClass: "form-control",
+                  placeholder: "Saisir votre addresse ici",
+                  onChange: this.handleChange,
+                  value: this.state.address
+                }
+              ]}
+            />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleClose}>
+              Close
+            </Button>
+
+            <Button variant="primary" onClick={this.handleUpdate}>
+              Modifier votre adresse !
+            </Button>
+          </Modal.Footer>
+        </div>
+      );
+    }
+  }
+
+  handleValidate() {
+    console.log(this.props.id);
+    postServiceUser(this.props.id, this.state.address).then(() => {
+      this.setState({ show: false });
+    });
+  }
+  handleUpdate() {
+    console.log(this.props);
+    putUpdateServicePro(this.props).then(() => {
+      this.setState({ show: false });
+    });
+  }
+
+  handleShow() {
+    this.setState({ show: true });
+  }
+  handleChange(event) {
+    this.setState({ [event.target.id]: event.target.value });
+  }
+
+  render() {
+    return (
+      <div className={"card" + (this.props.plain ? " card-plain" : "")}>
+        <Modal show={this.state.show} onHide={this.handleClose}>
+          {this.modalContent()}
         </Modal>
         <Col md={9}>
           <div

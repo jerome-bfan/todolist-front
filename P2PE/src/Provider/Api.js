@@ -235,6 +235,7 @@ export function putPayedService(id) {
 }
 
 export function putValidateService(id) {
+  
   return instanceApi()
     .invokeApi(
       undefined,
@@ -252,6 +253,61 @@ export function putValidateService(id) {
       return error;
     });
 }
+
+export function putUpdateService(service) { 
+  var body = {
+    name: service.name ? service.name : "",
+    description: service.description ? service.description : "",
+    location: service.location,
+    prix: 10,
+  };
+  return instanceApi()
+    .invokeApi(
+      undefined,
+      "p2pe/services_pro/service_pro/" + service.id,
+      "PUT",
+      undefined,
+      body
+    )
+    .then(function(result) {
+      console.log(result);
+
+      return result;
+    })
+    .catch(function(error) {
+      console.log(error);
+      return error;
+    });
+}
+export function putUpdateServicePro(service) { 
+  var body = {
+    name: service.name ? service.name : "",
+    description: service.description ? service.description : "",
+    location: service.location,
+    prix: 10,
+  };
+body.prix= 115;
+  console.log("body")
+  console.log(body)
+  return instanceApi()
+    .invokeApi(
+      undefined,
+      "p2pe/services_pro/service_pro/" + 9,
+      "PUT",
+      undefined,
+      body
+    )
+    .then(function(result) {
+      console.log(result);
+
+      return result;
+    })
+    .catch(function(error) {
+      console.log(error);
+      return error;
+    });
+}
+
 
 export function postUser(id) {
   var body = {
