@@ -204,7 +204,6 @@ export default class Services extends Component {
   _renderPage() {
     return (
       <div className="content">
-        {this.renderAddService()}
 
         <Row
           style={{ display: "flex", alignItems: " center", marginBottom: 20 }}
@@ -268,6 +267,7 @@ export default class Services extends Component {
                 })}
           </Grid>
         </div>
+        {this.renderAddService()}
       </div>
     );
   }
