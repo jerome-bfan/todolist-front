@@ -204,6 +204,7 @@ export default class Services extends Component {
   _renderPage() {
     return (
       <div className="content">
+        {this.renderAddService()}
 
         <Row
           style={{ display: "flex", alignItems: " center", marginBottom: 20 }}
@@ -267,7 +268,6 @@ export default class Services extends Component {
                 })}
           </Grid>
         </div>
-        {this.renderAddService()}
       </div>
     );
   }
@@ -282,7 +282,7 @@ export default class Services extends Component {
       title: this.state.addTitle
     };
     postServicePro(service);
-    this.state.services.push(service);
+    this.state.services.unshift(service);
     this.setState({
       services: this.state.services
     });

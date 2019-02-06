@@ -372,10 +372,10 @@ class Dashboard extends Component {
                         ncols={["col-md-12"]}
                         proprieties={[
                           {
-                            label: "Téléphone",
+                            label: "Téléphone ( +33625017105)",
                             type: "text",
                             bsClass: "form-control",
-                            placeholder: "Téléphone",
+                            placeholder: "Téléphone ( +33625017105)",
                             id: "registerPhone",
                             value: this.state.registerPhone,
                             onChange: this.handleChange
