@@ -278,7 +278,8 @@ export function putUpdateService(service) {
     });
 }
 export function putUpdateServiceRequestUser(service, id) {
-  console.log(id);
+  console.log("j2");
+  console.log(service);
 
   var body = {};
 
@@ -308,12 +309,16 @@ export function putUpdateServiceRequestUser(service, id) {
 }
 
 export function putUpdateServicePro(service, id) {
-  console.log(id);
-
+  console.log(service);
+  
   var body = {};
   if (!!service.prix) {
     body.prix = Number(service.prix);
   }
+  
+    body.state = service.state;
+ 
+
   if (!!service.location) {
     body.location = service.location;
   }
@@ -336,7 +341,7 @@ export function putUpdateServicePro(service, id) {
     )
     .then(function(result) {
       console.log(result);
-      window.location.reload()
+      //window.location.reload()
       return result;
     })
     .catch(function(error) {

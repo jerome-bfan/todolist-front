@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { Modal, Row, Col, Button } from "react-bootstrap";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
-import { postServiceUser, putUpdateService, putUpdateServicePro, splitIdentity } from "../../Provider/Api";
+import {
+  postServiceUser,
+  putUpdateService,
+  putUpdateServicePro,
+  splitIdentity
+} from "../../Provider/Api";
 
 export class Card extends Component {
   render() {
@@ -41,27 +46,30 @@ export class Card2 extends Component {
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleValidate = this.handleValidate.bind(this);
-    this.handleUpdate= this.handleUpdate.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.buttonModal = this.buttonModal.bind(this);
     this.modalContent = this.modalContent.bind(this);
     this.btnUpdate = this.btnUpdate.bind(this);
+    this.borderState = this.borderState.bind(this);
+    this.borderNoState = this.borderNoState.bind(this);
+    
 
     this.state = {
       show: false,
       address: "",
-      updateDescription:this.props.service.location,
-      updateTitle:this.props.service.title,
-      updatePrix:this.props.service.prix,
-      updateLocation:this.props.service.location,
+      updateDescription: this.props.service.location,
+      updateTitle: this.props.service.title,
+      updatePrix: this.props.service.prix,
+      updateLocation: this.props.service.location,
+      updateState: this.props.service.state
     };
   }
- 
 
   handleClose() {
     this.setState({ show: false });
   }
-  btnUpdate () {
+  btnUpdate() {
     this.setState({ show: false });
   }
 
@@ -72,8 +80,10 @@ export class Card2 extends Component {
           Réserver le service !
         </Button>
       );
-    }
-    else if (localStorage.getItem("rolePro") && this.props.service.pro== splitIdentity()) {
+    } else if (
+      localStorage.getItem("rolePro") &&
+      this.props.service.pro == splitIdentity()
+    ) {
       return (
         <Button variant="primary" onClick={this.handleShow}>
           Modifier le service !
@@ -81,7 +91,16 @@ export class Card2 extends Component {
       );
     }
   }
-
+  borderState() {
+    if (this.state.updateState) {
+      return "red ";
+    }
+  }
+  borderNoState() {
+    if (!this.state.updateState) {
+      return "red ";
+    }
+  }
   modalContent() {
     if (localStorage.getItem("roleUser")) {
       return (
@@ -121,12 +140,11 @@ export class Card2 extends Component {
       return (
         <div>
           <Modal.Header closeButton>
-            <Modal.Title>Modifiez le service</Modal.Title>
+            <Modal.Title>Modifiez le service </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {" "}
-          
-                    <FormInputs
+            <FormInputs
               ncols={["col-md-12"]}
               proprieties={[
                 {
@@ -182,6 +200,33 @@ export class Card2 extends Component {
                 }
               ]}
             />
+            <Button
+              style={{
+                marginLeft: 15,
+                borderColor: this.borderState()
+
+              }}
+              onClick={e => {
+                this.setState({
+                  updateState: 1,
+                });
+              }}
+            >
+              Disponible
+            </Button>
+            <Button
+              style={{
+                marginLeft: 15,
+                borderColor: this.borderNoState()
+              }}
+              onClick={e => {
+                this.setState({
+                  updateState: 0,
+                });
+              }}
+            >
+              Pas disponible
+            </Button>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>
@@ -205,19 +250,19 @@ export class Card2 extends Component {
   }
   handleUpdate() {
     console.log(this.props);
-    let service= {
-      location:this.state.updateLocation,
-      title:this.state.updateTitle,
-      description:this.state.updateDescription,
-      prix:this.state.updatePrix,
-    }
+    let service = {
+      location: this.state.updateLocation,
+      title: this.state.updateTitle,
+      description: this.state.updateDescription,
+      prix: this.state.updatePrix,
+      state: this.state.updateState
+    };
     console.log(service);
 
-    putUpdateServicePro(service,this.props.id).then(() => {
+    putUpdateServicePro(service, this.props.id).then(() => {
       this.setState({ show: false });
       //window.location.reload();
-
-    });                 
+    });
   }
 
   handleShow() {
@@ -225,7 +270,7 @@ export class Card2 extends Component {
   }
   handleChange(event) {
     this.setState({ [event.target.id]: event.target.value });
-console.log(this.state);
+    console.log(this.state);
   }
 
   render() {
