@@ -65,20 +65,7 @@ export default class Services extends Component {
                     }
                   ]}
                 />
-                <FormInputs
-                  ncols={["col-md-12"]}
-                  proprieties={[
-                    {
-                      label: "Nom du service",
-                      type: "text",
-                      id: "addName",
-                      bsClass: "form-control",
-                      placeholder: "Nom du service",
-                      onChange: this.handleChange,
-                      value: this.state.addName
-                    }
-                  ]}
-                />
+            
                 <FormInputs
                   ncols={["col-md-12"]}
                   proprieties={[

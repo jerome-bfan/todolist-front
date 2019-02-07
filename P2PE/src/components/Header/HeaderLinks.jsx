@@ -60,9 +60,9 @@ class HeaderLinks extends Component {
           </NavItem>
         </Nav>
         <Nav pullRight>
-          <NavItem eventKey={1} href="#">
+          {/* <NavItem eventKey={1} href="#">
             {this._renderRole()}
-          </NavItem>
+          </NavItem> */}
           <NavItem eventKey={3} href="/dashboard" onClick={() => this.logOut()}>
             Log out
           </NavItem>
