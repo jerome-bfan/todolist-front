@@ -336,7 +336,7 @@ export function putUpdateServicePro(service, id) {
     )
     .then(function(result) {
       console.log(result);
-      // window.location.reload()
+      window.location.reload()
       return result;
     })
     .catch(function(error) {
