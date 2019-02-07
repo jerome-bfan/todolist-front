@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import {
   getServiceUser,
   putPayedService,
-  deleteServiceRequested
+  deleteServiceRequested,
+  putUpdateServiceRequestUser
 } from "../../Provider/Api";
 import Card from "components/Card/Card";
 import { colorRole } from "../../functions/p2peFunction";
@@ -31,49 +32,53 @@ export function ValidatedService({ validated }) {
       </text>
     );
   } else {
-    return <text style={{ color: "rgb(255, 0, 67)", fontWeight: "bold" }}>
-    <i
-      style={{
-        color: "rgb(255, 0, 67)",
-        fontWeight: "bold",
-        marginRight: 5
-      }}
-      className="pe-7s-close"
-    />{" "}
-    Non validé
-  </text>;
+    return (
+      <text style={{ color: "rgb(255, 0, 67)", fontWeight: "bold" }}>
+        <i
+          style={{
+            color: "rgb(255, 0, 67)",
+            fontWeight: "bold",
+            marginRight: 5
+          }}
+          className="pe-7s-close"
+        />{" "}
+        Non validé
+      </text>
+    );
   }
 }
 
-export function StateService({ validated,paid }) {
-  return (<Row  style={{
-    marginTop:30
-      }}>
-    <Col md={6}    style={{
-        textAlign: "center",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center"
-      }}>
-      <ValidatedService
-      
-        validated={validated}
-      />
-    </Col>
-    <Col
-      md={6}
+export function StateService({ validated, paid }) {
+  return (
+    <Row
       style={{
-        textAlign: "center",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center"
+        marginTop: 30
       }}
     >
-      <PayedService
-        paid={paid}
-      />
-    </Col>
-  </Row>);
+      <Col
+        md={6}
+        style={{
+          textAlign: "center",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center"
+        }}
+      >
+        <ValidatedService validated={validated} />
+      </Col>
+      <Col
+        md={6}
+        style={{
+          textAlign: "center",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center"
+        }}
+      >
+        <PayedService paid={paid} />
+      </Col>
+    </Row>
+  );
 }
 
 export function PayedService({ paid }) {
@@ -92,17 +97,19 @@ export function PayedService({ paid }) {
       </text>
     );
   } else {
-    return <text style={{ color: "rgb(255, 0, 67)", fontWeight: "bold" }}>
-    <i
-      style={{
-        color: "rgb(255, 0, 67)",
-        fontWeight: "bold",
-        marginRight: 5
-      }}
-      className="pe-7s-close"
-    />{" "}
-    Non Payé
-  </text>;
+    return (
+      <text style={{ color: "rgb(255, 0, 67)", fontWeight: "bold" }}>
+        <i
+          style={{
+            color: "rgb(255, 0, 67)",
+            fontWeight: "bold",
+            marginRight: 5
+          }}
+          className="pe-7s-close"
+        />{" "}
+        Non Payé
+      </text>
+    );
   }
 }
 class RequestServices extends Component {
@@ -111,13 +118,18 @@ class RequestServices extends Component {
     this.renderContent = this.renderContent.bind(this);
     this.renderHeader = this.renderHeader.bind(this);
     this.handleShow = this.handleShow.bind(this);
+    this.handleShowUpdate = this.handleShowUpdate.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.deleteService = this.deleteService.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleValidate = this.handleValidate.bind(this);
     this.getServicesUser = this.getServicesUser.bind(this);
+    this.modalUpdate = this.modalUpdate.bind(this);
     this.renderNotification = this.renderNotification.bind(this);
     this.state = {
       services: [],
+      updateAddress: "",
+      updateId: "",
       notification: 0
     };
   }
@@ -126,6 +138,7 @@ class RequestServices extends Component {
       console.log(services);
       this.setState({
         show: false,
+        showModal: false,
         services: services.data
       });
       if (services.data != undefined) {
@@ -156,7 +169,25 @@ class RequestServices extends Component {
     this.getServicesUser();
   }
   handleClose() {
-    this.setState({ show: false });
+    this.setState({
+      show: false,
+      showModal: false
+    });
+  }
+  putUpdateService(service) {
+    let serviceObj = {
+      address: this.state.updateAddress
+    };
+    console.log(service);
+    putUpdateServiceRequestUser(serviceObj, this.state.updateId).then(() => {
+      this.getServicesUser();
+      this.setState({ showModal: false });
+      //window.location.reload();
+    });
+  }
+  handleChange(event) {
+    this.setState({ [event.target.id]: event.target.value });
+    console.log(this.state);
   }
   deleteService(service) {
     deleteServiceRequested(service.id).then(() => {
@@ -179,10 +210,70 @@ class RequestServices extends Component {
       this.setState({ show: false });
     });
   }
+  handleShowUpdate(service) {
+    this.setState({ showModal: true });
+    this.setState({
+      updateAddress: service.address,
+      updateId: service.id,
+    });
+  }
 
   handleShow() {
     this.setState({ show: true });
   }
+
+  modalUpdate(service) {
+    console.log(service);
+    return (
+      <div>
+        <Modal show={this.state.showModal} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modifier le service</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {" "}
+            <FormInputs
+              ncols={["col-md-12"]}
+              proprieties={[
+                {
+                  label: "Rensignez votre adresse",
+                  type: "text",
+                  bsClass: "form-control",
+                  placeholder: "Adresse",
+                  id: "updateAddress",
+                  value: this.state.updateAddress,
+                  onChange: this.handleChange
+                }
+              ]}
+            />{" "}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleClose}>
+              Fermez
+            </Button>
+
+            <Button
+              variant="primary"
+              onClick={service => this.putUpdateService(service)}
+            >
+              Modifiez le service
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        <Button
+          style={{
+            marginLeft: 30,
+            borderColor: colorRole("#888888"),
+            color: colorRole("#888888")
+          }}
+          onClick={() => this.handleShowUpdate(service)}
+        >
+          Modifiez le service
+        </Button>
+      </div>
+    );
+  }
+
   renderContent(service) {
     if (service.paid) {
       return (
@@ -222,17 +313,16 @@ class RequestServices extends Component {
                 </Modal.Footer>
               </Modal>
               <Col md={4}>
-
-              <Button
-                style={{
-                  marginLeft: 30,
-                  borderColor: colorRole("#888888"),
-                  color: colorRole("#888888")
-                }}
-                onClick={this.handleShow}
-              >
-                Payer le service
-              </Button>
+                <Button
+                  style={{
+                    marginLeft: 30,
+                    borderColor: colorRole("#888888"),
+                    color: colorRole("#888888")
+                  }}
+                  onClick={this.handleShow}
+                >
+                  Payer le service
+                </Button>
               </Col>
             </Row>
           </div>
@@ -366,8 +456,12 @@ class RequestServices extends Component {
                           </Panel.Heading>
                           <Panel.Body>
                             <Row>{this.renderContent(service)}</Row>
-                            <StateService validated={service.validated} paid={service.paid}/>
+                            <StateService
+                              validated={service.validated}
+                              paid={service.paid}
+                            />
                           </Panel.Body>
+                          {this.modalUpdate(service)}
                         </Panel>
                       </div>
                     </div>

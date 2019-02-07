@@ -277,21 +277,50 @@ export function putUpdateService(service) {
       return error;
     });
 }
-export function putUpdateServicePro(service,id) {
+export function putUpdateServiceRequestUser(service, id) {
   console.log(id);
 
-  var body = {
-  };
+  var body = {};
+
+  if (!!service.address) {
+    body.address = service.address;
+  }
+
+  console.log("body");
+  console.log(body);
+  return instanceApi()
+    .invokeApi(
+      undefined,
+      "p2pe/requested_services_for_pro/requested-service/" + id,
+      "PUT",
+      undefined,
+      body
+    )
+    .then(function(result) {
+      console.log(result);
+      // window.location.reload()
+      return result;
+    })
+    .catch(function(error) {
+      console.log(error);
+      return error;
+    });
+}
+
+export function putUpdateServicePro(service, id) {
+  console.log(id);
+
+  var body = {};
   if (!!service.prix) {
     body.prix = Number(service.prix);
   }
   if (!!service.location) {
     body.location = service.location;
   }
-  if (!! service.description) {
+  if (!!service.description) {
     body.description = service.description;
   }
-  if (!! service.title) {
+  if (!!service.title) {
     body.title = service.title;
   }
 
@@ -307,7 +336,7 @@ export function putUpdateServicePro(service,id) {
     )
     .then(function(result) {
       console.log(result);
-      window.location.reload()
+      // window.location.reload()
       return result;
     })
     .catch(function(error) {
