@@ -36,7 +36,7 @@ class RequestServicesPro extends Component {
         show: false,
         services: services.data
       });
-      if (services.data != undefined) {
+      if (services.data != undefined && this.state.services.length > 0) {
         services.data.map(service => {
           if (!service.paid && !service.validated) {
             this.setState(prevState => ({
