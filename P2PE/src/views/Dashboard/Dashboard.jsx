@@ -17,13 +17,15 @@ import NotificationSystem from "react-notification-system";
 import {
   authentification,
   register,
-  poolData
+  poolData,
+  authentificationSocial
 } from "../../Provider/AuthProvider";
 import { isConnected } from "../../functions/p2peFunction";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { makeNotif } from "../../layouts/Dashboard/Dashboard";
 import { style } from "variables/Variables.jsx";
 import { displayHomeService } from "../Services/MyServices";
+import FacebookLogin from "react-facebook-login";
 
 class Dashboard extends Component {
   constructor(props, context) {
@@ -169,6 +171,7 @@ class Dashboard extends Component {
                           }
                         ]}
                       />
+                  
                       <Row>
                         <Button
                           style={{ marginLeft: 15 }}
@@ -200,6 +203,13 @@ class Dashboard extends Component {
                           Connectez-vous
                         </Button>
                       </Row>
+                      <FacebookLogin
+                        appId="145755959479180"
+                        autoLoad={true}
+                        fields="name,email,picture"
+                        callback={authentificationSocial}
+                        cssClass="my-facebook-button-class"
+                      />
                     </Col>
                   </Row>
                   <br />
@@ -323,7 +333,9 @@ class Dashboard extends Component {
                   <Row>
                     <Col md={8}>
                       <Row style={{ marginBottom: 20 }}>
-                        <h4 style={{ paddingLeft: 5 }}>Vous êtes: {this.displayTypeAccount()}</h4>
+                        <h4 style={{ paddingLeft: 5 }}>
+                          Vous êtes: {this.displayTypeAccount()}
+                        </h4>
 
                         <Button
                           style={{
