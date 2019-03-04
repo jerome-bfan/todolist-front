@@ -33,6 +33,9 @@ const style = {
       fontWeight: 'bold',
       margin: '10px 0 5px'
     },
+    text: {
+      fontSize: '20px'
+    },
     li : {
       float: 'left',
       display: 'block',
@@ -54,12 +57,18 @@ const services = {
   service1 : {
     title: 'Jardinage',
     description: 'Tondre la pelouse',
-    price: '40€'
+    price: '40€',
+    emplacement: '14, rue de la pelouse',
+    options: 'une option',
+    date: '2019-04-02'
   },
   service2 : {
     title: 'Informatique',
     description: 'Lutter contre les virus',
-    price: '70€'
+    price: '70€',
+    emplacement: '14, rue des infos',
+    options: 'une option',
+    date: '2019-04-02'
   }
 }
 
@@ -75,7 +84,6 @@ class Historical extends Component {
     postNotesAdmin(this.note.value).then();
     window.location.reload();
   }
-// https://help.instagram.com/
 
   _renderHistorical() {
     return (
@@ -98,6 +106,38 @@ class Historical extends Component {
                 </ul>
               </div>
               <div style={style.line}></div>
+              <div>
+                <ul style={style.ul}>
+                  <li style={style.ul.li}>
+                    <p style={style.ul.text}>
+                      { services.service1.description }
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <ul style={style.ul}>
+                  <li style={style.ul.li}>
+                    <p style={style.ul.text}>
+                      { services.service1.emplacement }
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <ul style={style.ul}>
+                  <li style={style.ul.li}>
+                    <p style={style.ul.text}>
+                      { services.service1.options }
+                    </p>
+                  </li>
+                  <li style={style.ul.liBis}>
+                    <p style={style.ul.text}>
+                      { services.service1.date }
+                    </p>
+                  </li>
+                </ul>
+              </div>
             </div>
           }
         />
@@ -116,6 +156,9 @@ class Historical extends Component {
         <Grid fluid>
           <Row>
             <h2 style={style.title}>Historique</h2>
+
+
+
             {this._renderHistorical()}
           </Row>
         </Grid>
