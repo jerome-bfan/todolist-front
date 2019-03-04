@@ -2,6 +2,7 @@ import Dashboard from "views/Dashboard/Dashboard";
 import UserProfile from "views/UserProfile/UserProfile";
 import Services from "views/Services/Services";
 import MyServices from "views/Services/MyServices";
+import Historical from "views/Historical/Historical";
 import Help from "views/Help/Help";
 import Contact from "views/Contact/Contact";
 import Icons from "views/Icons/Icons";
@@ -29,8 +30,14 @@ const dashboardRoutes = [
     component: MyServices
   },
   {
+    path: "/historical",
+    name: "Historique",
+    icon: "pe-7s-folder",
+    component: Historical
+  },
+  {
     path: "/help",
-    name: "Page help",
+    name: "Page d'aide",
     icon: "pe-7s-news-paper",
     component: Help
   },
