@@ -76,7 +76,33 @@ class Historical extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      notes: []
+      notes: [],
+      services: {
+        service1 : {
+          title: 'Jardinage',
+          description: 'Tondre la pelouse',
+          price: '40€',
+          emplacement: '14, rue de la pelouse',
+          options: 'une option',
+          date: '2019-04-02'
+        },
+        service2 : {
+          title: 'Informatique',
+          description: 'Lutter contre les virus',
+          price: '70€',
+          emplacement: '123, rue des infos',
+          options: 'une option',
+          date: '2024-09-19'
+        },
+        service3 : {
+          title: 'Bricolage',
+          description: 'Construire des choses et les réparer',
+          price: '1500€',
+          emplacement: '38, rue des infos',
+          options: 'une option',
+          date: '2024-09-19'
+        }
+      }
     };
   }
 
@@ -86,21 +112,23 @@ class Historical extends Component {
   }
 
   _renderHistorical() {
-    return (
-      <Col md={12}>
+    const myServices = Object
+      .keys(this.state.services)
+      .map(key => (
         <Card
+          key = {key}
           content={
             <div>
               <div>
                 <ul style={style.ul}>
                   <li style={style.ul.li}>
                     <h2 style={style.ul.title}>
-                      { services.service1.title }
+                      { this.state.services[key].title }
                     </h2>
                   </li>
                   <li style={style.ul.liBis}>
                     <h2 style={style.ul.title}>
-                      { services.service1.price }
+                      { this.state.services[key].price }
                     </h2>
                   </li>
                 </ul>
@@ -109,38 +137,43 @@ class Historical extends Component {
               <div>
                 <ul style={style.ul}>
                   <li style={style.ul.li}>
-                    <p style={style.ul.text}>
-                      { services.service1.description }
-                    </p>
+                    <div style={style.ul.text}>
+                      { this.state.services[key].description }
+                    </div>
                   </li>
                 </ul>
               </div>
               <div>
                 <ul style={style.ul}>
                   <li style={style.ul.li}>
-                    <p style={style.ul.text}>
-                      { services.service1.emplacement }
-                    </p>
+                    <div style={style.ul.text}>
+                      { this.state.services[key].emplacement }
+                    </div>
                   </li>
                 </ul>
               </div>
               <div>
                 <ul style={style.ul}>
                   <li style={style.ul.li}>
-                    <p style={style.ul.text}>
-                      { services.service1.options }
-                    </p>
+                    <div style={style.ul.text}>
+                      { this.state.services[key].options }
+                    </div>
                   </li>
                   <li style={style.ul.liBis}>
-                    <p style={style.ul.text}>
-                      { services.service1.date }
-                    </p>
+                    <div style={style.ul.text}>
+                      { this.state.services[key].date }
+                    </div>
                   </li>
                 </ul>
               </div>
             </div>
           }
         />
+      ));
+
+    return (
+      <Col md={12}>
+        {myServices}
       </Col>
     );
   }
@@ -152,13 +185,10 @@ class Historical extends Component {
 
   render() {
     return (
-      <div className="content">
+      <div>
         <Grid fluid>
           <Row>
             <h2 style={style.title}>Historique</h2>
-
-
-
             {this._renderHistorical()}
           </Row>
         </Grid>
