@@ -18,11 +18,11 @@ export const poolData = {
   region: "eu-west-1"
 };
 
-export const authentificationSocial = (response) => {
+export const authentificationSocial = response => {
   console.log("social");
 
   console.log(response);
-  
+
   localStorage.removeItem("identityId");
   localStorage.removeItem("accessKeyId");
   localStorage.removeItem("secretAccessKey");
@@ -32,59 +32,61 @@ export const authentificationSocial = (response) => {
   localStorage.removeItem("email");
   localStorage.clear();
 
-        console.log(response.accessToken);
-        AWS.config.update({ region: "eu-west-1" });
+  console.log(response.accessToken);
+  AWS.config.update({ region: "eu-west-1" });
+  if (response.El) {
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: awsmobile.aws_cognito_identity_pool_id,
+      Logins: {
+        "accounts.google.com": response.tokenId
+      }
+    });
+  } else {
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: awsmobile.aws_cognito_identity_pool_id,
+      Logins: {
+        "graph.facebook.com": response.accessToken
+            }
+    });
+  }
 
-        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-          IdentityPoolId: awsmobile.aws_cognito_identity_pool_id,
-          Logins: {
-            "accounts.google.com": response.tokenId
-          }
-        });
+  // localStorage.setItem("jwtToken", result.getIdToken().getJwtToken());
 
-        // localStorage.setItem("jwtToken", result.getIdToken().getJwtToken());
+  // var sessionIdInfo = jwtDecode(result.getIdToken().jwtToken);
+  // var groups = sessionIdInfo["cognito:groups"];
+  // if (groups) {
+  //   var email = sessionIdInfo["email"];
+  //   if (email != null) {
+  //     localStorage.setItem("email", email);
+  //   }
+  //   groups.map((answer, i) => {
+  //     if (answer == "user") {
+  //       localStorage.setItem("roleUser", true);
+  //     } else if (answer == "admin") {
+  //       localStorage.setItem("roleAdmin", true);
+  //     } else if (answer == "pro") {
+  //       localStorage.setItem("rolePro", true);
+  //     }
+  //   });
+  // }
 
-        // var sessionIdInfo = jwtDecode(result.getIdToken().jwtToken);
-        // var groups = sessionIdInfo["cognito:groups"];
-        // if (groups) {
-        //   var email = sessionIdInfo["email"];
-        //   if (email != null) {
-        //     localStorage.setItem("email", email);
-        //   }
-        //   groups.map((answer, i) => {
-        //     if (answer == "user") {
-        //       localStorage.setItem("roleUser", true);
-        //     } else if (answer == "admin") {
-        //       localStorage.setItem("roleAdmin", true);
-        //     } else if (answer == "pro") {
-        //       localStorage.setItem("rolePro", true);
-        //     }
-        //   });
-        // }
+  AWS.config.credentials.get(function() {
+    //postUser(splitIdentity(AWS.config.credentials.identityId)).then();
 
-         AWS.config.credentials.get(function() {
-          //postUser(splitIdentity(AWS.config.credentials.identityId)).then();
+    console.log(AWS.config.credentials);
+    console.log(AWS.config.credentials.identityId);
+    localStorage.setItem("identityId", AWS.config.credentials.identityId);
+    localStorage.setItem("accessKeyId", AWS.config.credentials.accessKeyId);
+    localStorage.setItem(
+      "secretAccessKey",
+      AWS.config.credentials.secretAccessKey
+    );
+    localStorage.setItem("sessionToken", AWS.config.credentials.sessionToken);
 
-          console.log(AWS.config.credentials);
-          console.log(AWS.config.credentials.identityId);
-          localStorage.setItem("identityId", AWS.config.credentials.identityId);
-          localStorage.setItem(
-            "accessKeyId",
-            AWS.config.credentials.accessKeyId
-          );
-          localStorage.setItem(
-            "secretAccessKey",
-            AWS.config.credentials.secretAccessKey
-          );
-          localStorage.setItem(
-            "sessionToken",
-            AWS.config.credentials.sessionToken
-          );
-
-          return true;
-        });
-        return true;
-}
+    return true;
+  });
+  return true;
+};
 export async function authentification(form) {
   console.log(form);
   var username = form.username;
