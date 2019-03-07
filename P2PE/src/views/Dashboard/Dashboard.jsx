@@ -26,7 +26,11 @@ import { makeNotif } from "../../layouts/Dashboard/Dashboard";
 import { style } from "variables/Variables.jsx";
 import { displayHomeService } from "../Services/MyServices";
 import FacebookLogin from "react-facebook-login";
+import GoogleLogin from 'react-google-login';
 
+const responseGoogle = (response) => {
+  console.log(response);
+}
 class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
@@ -45,12 +49,6 @@ class Dashboard extends Component {
       successRegister: ""
     };
     if (isConnected()) {
-      // postServiceUser("d").then();
-      const splitString = "eu-west-1:c72978e3-2d1a-4e61-a913-ba1f5e13ea08".split(
-        ":"
-      );
-
-      console.log(splitString);
       this.state = {
         connected: true
       };
@@ -65,6 +63,7 @@ class Dashboard extends Component {
     this.displayTypeAccount = this.displayTypeAccount.bind(this);
     this.borderPro = this.borderPro.bind(this);
     this.borderCustomer = this.borderCustomer.bind(this);
+    this.responseFacebook = this.responseFacebook.bind(this);
   }
   displayTypeAccount() {
     if (this.state.typeAccount == "user") {
@@ -106,6 +105,14 @@ class Dashboard extends Component {
   handleChange(event) {
     this.setState({ [event.target.id]: event.target.value });
     console.log(this.state);
+  }
+  responseFacebook(response) {
+    console.log(response);
+    if (!!response.accessToken) {
+      const connected = authentificationSocial(response);
+      this.setState({ connected: connected });
+    }
+    console.log(response);
   }
 
   _renderConnection() {
@@ -171,7 +178,7 @@ class Dashboard extends Component {
                           }
                         ]}
                       />
-                  
+
                       <Row>
                         <Button
                           style={{ marginLeft: 15 }}
@@ -205,10 +212,17 @@ class Dashboard extends Component {
                       </Row>
                       <FacebookLogin
                         appId="145755959479180"
-                        autoLoad={true}
+                        autoLoad={false}
                         fields="name,email,picture"
-                        callback={authentificationSocial}
+                        callback={this.responseFacebook}
                         cssClass="my-facebook-button-class"
+                      />
+                       <GoogleLogin
+                        clientId="151151252669-vol99icd9ej8rbdugq4sps34bofv7e1g.apps.googleusercontent.com"
+                        buttonText="Login"
+                        onSuccess={responseGoogle}
+                            onFailure={responseGoogle}
+
                       />
                     </Col>
                   </Row>

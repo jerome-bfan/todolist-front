@@ -62,7 +62,7 @@ export const authentificationSocial = (response) => {
         //   });
         // }
 
-        AWS.config.credentials.get(function() {
+         AWS.config.credentials.get(function() {
           //postUser(splitIdentity(AWS.config.credentials.identityId)).then();
 
           console.log(AWS.config.credentials);
@@ -81,9 +81,9 @@ export const authentificationSocial = (response) => {
             AWS.config.credentials.sessionToken
           );
 
-          return "test";
+          return true;
         });
-        return "test";
+        return true;
 }
 export async function authentification(form) {
   console.log(form);
