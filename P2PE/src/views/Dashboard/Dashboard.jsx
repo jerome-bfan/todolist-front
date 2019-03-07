@@ -183,7 +183,6 @@ class Dashboard extends Component {
                         <Button
                           style={{ marginLeft: 15 }}
                           onClick={e => {
-                            //authentification(this.state).then(e => {})
                             authentification(this.state)
                               .then(e => {
                                 this.setState({ connected: e });
@@ -220,9 +219,7 @@ class Dashboard extends Component {
                        <GoogleLogin
                         clientId="151151252669-vol99icd9ej8rbdugq4sps34bofv7e1g.apps.googleusercontent.com"
                         buttonText="Login"
-                        onSuccess={responseGoogle}
-                            onFailure={responseGoogle}
-
+                        onSuccess={this.responseFacebook}
                       />
                     </Col>
                   </Row>

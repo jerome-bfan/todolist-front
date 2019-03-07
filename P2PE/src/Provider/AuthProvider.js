@@ -32,13 +32,13 @@ export const authentificationSocial = (response) => {
   localStorage.removeItem("email");
   localStorage.clear();
 
-        console.log(response);
+        console.log(response.accessToken);
         AWS.config.update({ region: "eu-west-1" });
 
         AWS.config.credentials = new AWS.CognitoIdentityCredentials({
           IdentityPoolId: awsmobile.aws_cognito_identity_pool_id,
           Logins: {
-            "graph.facebook.com": response.accessToken
+            "accounts.google.com": response.tokenId
           }
         });
 
