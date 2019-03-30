@@ -50,38 +50,38 @@ export class MapContainer extends Component {
           <Marker
             onClick={this.onMarkerClick}
             title={'Current location'}
-            name={'My location'}>
+            name={'My location'}
+            content={'test'} />
 
-          </Marker>
           <Marker
             onClick={this.onMarkerClick}
             title={'Title as tooltip 1'}
             name={'SOMA'}
-            position={points[0]}
-            onClick={this.onMarkerClick} />
+            content={'test'}
+            position={points[0]} />
 
           <Marker
             onClick={this.onMarkerClick}
             title={'Title as tooltip 2'}
             name={'Dolores park'}
-            position={points[1]}
-            onClick={this.onMarkerClick} />
+            content={'test'}
+            position={points[1]} />
 
-          <Marker onClick={this.onMarkerClick}
-                name={'Current location'} />
 
-            <InfoWindow
-              marker={this.state.activeMarker}
-              visible={this.state.showingInfoWindow}>
-                <div>
-                  <h1>{this.state.selectedPlace.name}</h1>
-                </div>
-            </InfoWindow>
+          <InfoWindow
+            marker={this.state.activeMarker}
+            visible={this.state.showingInfoWindow}
+            style={{width: '400px', height: '400px', position: 'relative'}}>
+              <div>
+                <h1>{this.state.selectedPlace.name}</h1>
+                <h3>{this.state.selectedPlace.content}</h3>
+              </div>
+          </InfoWindow>
         </Map>
     );
   }
 }
 
 export default GoogleApiWrapper({
-  apiKey: ('AIzaSyCZsidxj-jegaO0xMAFZkpOn7KsCk1a2rg')
+  apiKey: ('')
 })(MapContainer)
