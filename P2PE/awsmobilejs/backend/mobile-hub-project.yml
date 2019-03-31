@@ -1,13 +1,13 @@
---- !com.amazonaws.mobilehub.v0.Project 
+--- !com.amazonaws.mobilehub.v0.Project
 apps:
   react-native: !com.amazonaws.mobilehub.v0.AppDO {}
   web: !com.amazonaws.mobilehub.v0.AppDO {}
 features:
-  cloudlogic: !com.amazonaws.mobilehub.v0.CloudLogic 
+  cloudlogic: !com.amazonaws.mobilehub.v0.CloudLogic
     attributes:
       no-lock: true
     components:
-      todolist: !com.amazonaws.mobilehub.v0.API 
+      todolist: !com.amazonaws.mobilehub.v0.API
         attributes:
           api-arn: 'arn:aws:execute-api:eu-west-1:937480555301:utj65gp237'
           name: todolist
@@ -32,25 +32,8 @@ features:
           '/p2pe/requested_services_client/requested_service/{id_requested_service}': !com.amazonaws.mobilehub.v0.Function {}
           '/p2pe/requested_services_client/requested_service/{id_requested_service}/paid': !com.amazonaws.mobilehub.v0.Function {}
           '/p2pe/requested_services_client/{id_client}': !com.amazonaws.mobilehub.v0.Function {}
-          /p2pe/requested_services_for_pro: !com.amazonaws.mobilehub.v0.Function {}
-          /p2pe/requested_services_for_pro/requested-service: !com.amazonaws.mobilehub.v0.Function {}
-          '/p2pe/requested_services_for_pro/requested-service/{id_requested_service}': !com.amazonaws.mobilehub.v0.Function {}
-          '/p2pe/requested_services_for_pro/requested-service/{id_requested_service}/validated': !com.amazonaws.mobilehub.v0.Function {}
-          '/p2pe/requested_services_for_pro/{id_pro}': !com.amazonaws.mobilehub.v0.Function {}
-          /p2pe/services_pro: !com.amazonaws.mobilehub.v0.Function {}
-          /p2pe/services_pro/available: !com.amazonaws.mobilehub.v0.Function {}
-          /p2pe/services_pro/available/category: !com.amazonaws.mobilehub.v0.Function {}
-          '/p2pe/services_pro/available/category/{id_category}': !com.amazonaws.mobilehub.v0.Function {}
-          /p2pe/services_pro/proposed_services: !com.amazonaws.mobilehub.v0.Function {}
-          '/p2pe/services_pro/proposed_services/{id_pro}': !com.amazonaws.mobilehub.v0.Function {}
-          /p2pe/services_pro/service_pro: !com.amazonaws.mobilehub.v0.Function {}
-          '/p2pe/services_pro/service_pro/{id_service_pro}': !com.amazonaws.mobilehub.v0.Function {}
-          '/p2pe/services_pro/service_pro/{id_service_pro}/state': !com.amazonaws.mobilehub.v0.Function {}
-          '/p2pe/services_pro/{id_pro}': !com.amazonaws.mobilehub.v0.Function {}
           /p2pe/users: !com.amazonaws.mobilehub.v0.Function {}
           /p2pe/users/user: !com.amazonaws.mobilehub.v0.Function {}
-          '/p2pe/users/user/{id_user}': !com.amazonaws.mobilehub.v0.Function {}
-          '/p2pe/users/user/{id_user}/exists': !com.amazonaws.mobilehub.v0.Function {}
           /pro: !com.amazonaws.mobilehub.v0.Function {}
           '/pro/{id_pro}': !com.amazonaws.mobilehub.v0.Function {}
           '/pro/{id_pro}/services': !com.amazonaws.mobilehub.v0.Function {}
@@ -66,21 +49,21 @@ features:
           /user: !com.amazonaws.mobilehub.v0.Function {}
           '/user/{id_user}': !com.amazonaws.mobilehub.v0.Function {}
           '/user/{id_user}/requested-service': !com.amazonaws.mobilehub.v0.Function {}
-  content-delivery: !com.amazonaws.mobilehub.v0.ContentDelivery 
+  content-delivery: !com.amazonaws.mobilehub.v0.ContentDelivery
     attributes:
       enabled: true
       visibility: public-global
     components:
       release: !com.amazonaws.mobilehub.v0.Bucket {}
-  mobile-analytics: !com.amazonaws.mobilehub.v0.Pinpoint 
+  mobile-analytics: !com.amazonaws.mobilehub.v0.Pinpoint
     components:
       analytics: !com.amazonaws.mobilehub.v0.PinpointAnalytics {}
-  sign-in: !com.amazonaws.mobilehub.v0.SignIn 
+  sign-in: !com.amazonaws.mobilehub.v0.SignIn
     attributes:
       enabled: true
       optional-sign-in: true
     components:
-      sign-in-user-pools: !com.amazonaws.mobilehub.v0.UserPoolsIdentityProvider 
+      sign-in-user-pools: !com.amazonaws.mobilehub.v0.UserPoolsIdentityProvider
         attributes:
           user-pool-id: eu-west-1_T6YnwqOUq
 name: cloud-2
