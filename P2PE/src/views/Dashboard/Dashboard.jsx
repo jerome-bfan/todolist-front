@@ -275,6 +275,7 @@ class Dashboard extends Component {
 
   _renderConnected() {
     if (this.state.connected) {
+      this.props.handleConnected()
       return (
         <div className="content">
           <Grid fluid>

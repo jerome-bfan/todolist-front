@@ -50,4 +50,21 @@ const dashboardRoutes = [
   { redirect: true, path: "/", to: "/dashboard", name: "Dashboard" }
 ];
 
+export const dashboardUnConnected = [
+  {
+    path: "/dashboard",
+    name: "Accueil",
+    icon: "pe-7s-graph",
+    component: Dashboard
+  },
+  {
+    path: "/contact",
+    name: "Contact",
+    icon: "pe-7s-id",
+    component: Contact
+  },
+
+  { redirect: true, path: "/", to: "/dashboard", name: "Dashboard" }
+];
+
 export default dashboardRoutes;

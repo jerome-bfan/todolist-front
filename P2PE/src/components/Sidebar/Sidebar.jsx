@@ -6,14 +6,14 @@ import HeaderLinks from "../Header/HeaderLinks.jsx";
 import imagine from "assets/img/sidebar-3.jpg";
 import logo from "assets/img/reactlogo.png";
 
-import dashboardRoutes from "routes/dashboard.jsx";
-import { colorRole } from "../../functions/p2peFunction.js";
+import dashboardRoutes, {dashboardUnConnected} from "routes/dashboard.jsx";
+import { colorRole, isConnected } from "../../functions/p2peFunction.js";
 
 class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      width: window.innerWidth
+      width: window.innerWidth,
     };
   }
   activeRoute(routeName) {
@@ -30,6 +30,12 @@ class Sidebar extends Component {
     const sidebarBackground = {
       backgroundImage: "url(" + imagine + ")"
     };
+    let menuRoute = {};
+    if (isConnected() || this.props.menuConnect) {
+      menuRoute = dashboardRoutes;
+    } else {
+      menuRoute = dashboardUnConnected;
+    }
     return (
       <div
         id="sidebar"
@@ -43,7 +49,6 @@ class Sidebar extends Component {
             href="https://www.creative-tim.com"
             className="simple-text logo-mini"
           >
-            
           </a>
           <a
             href=""
@@ -55,7 +60,7 @@ class Sidebar extends Component {
         <div className="sidebar-wrapper">
           <ul className="nav">
             {this.state.width <= 991 ? <HeaderLinks /> : null}
-            {dashboardRoutes.map((prop, key) => {
+            {menuRoute.map((prop, key) => {
               if (!prop.redirect)
                 return (
                   <li
