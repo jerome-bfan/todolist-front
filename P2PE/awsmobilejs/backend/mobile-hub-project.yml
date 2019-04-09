@@ -1,6 +1,5 @@
 --- !com.amazonaws.mobilehub.v0.Project
 apps:
-  react-native: !com.amazonaws.mobilehub.v0.AppDO {}
   web: !com.amazonaws.mobilehub.v0.AppDO {}
 features:
   cloudlogic: !com.amazonaws.mobilehub.v0.CloudLogic
@@ -63,7 +62,21 @@ features:
       enabled: true
       optional-sign-in: true
     components:
+<<<<<<< HEAD
       sign-in-user-pools: !com.amazonaws.mobilehub.v0.UserPoolsIdentityProvider
+=======
+      sign-in-facebook: !com.amazonaws.mobilehub.v0.StandardIdentityProvider 
+        attributes:
+          provider-id: '145755959479180'
+          provider-name: facebook
+      sign-in-google: !com.amazonaws.mobilehub.v0.OpenIDConnectIdentityProvider 
+        attributes:
+          open-id-connect-audience-android: 151151252669-8jjidu1np7ipr01ksr6k34n4hffjthk3.apps.googleusercontent.com
+          open-id-connect-audience-ios: 151151252669-8jjidu1np7ipr01ksr6k34n4hffjthk3.apps.googleusercontent.com
+          open-id-connect-audience-webapp: 151151252669-8jjidu1np7ipr01ksr6k34n4hffjthk3.apps.googleusercontent.com
+          open-id-provider-url: 'https://accounts.google.com'
+      sign-in-user-pools: !com.amazonaws.mobilehub.v0.UserPoolsIdentityProvider 
+>>>>>>> master
         attributes:
           user-pool-id: eu-west-1_T6YnwqOUq
 name: cloud-2

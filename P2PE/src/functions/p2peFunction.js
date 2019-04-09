@@ -5,6 +5,7 @@ export function isConnected() {
     return false;
   }
 }
+  
 export function colorRole(defaultColor) {
   if (localStorage.getItem("roleAdmin")) {
     return "red";
@@ -13,6 +14,5 @@ export function colorRole(defaultColor) {
   } else if (localStorage.getItem("roleUser")) {
     return "black";
   }
-
   return defaultColor;
 }

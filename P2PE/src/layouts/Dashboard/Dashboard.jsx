@@ -48,12 +48,19 @@ class Dashboard extends Component {
     super(props);
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleNotificationClick = this.handleNotificationClick.bind(this);
+    this.handleConnected = this.handleConnected.bind(this);
     this.state = {
       _notificationSystem: null,
+      menuConnected:false,
     };
   }
 
+  handleConnected() {
+    console.log('jjj');
+    if(!this.state.menuConnected)
+      this.setState({ menuConnected: true });
 
+  }
   handleNotificationClick(position) {
     var color = Math.floor(Math.random() * 4 + 1);
     var level;
@@ -86,6 +93,7 @@ class Dashboard extends Component {
       autoDismiss: 15
     });
   }
+
   componentDidMount() {
     this.setState({ _notificationSystem: this.refs.notificationSystem });
     var _notificationSystem = this.refs.notificationSystem;
@@ -94,9 +102,9 @@ class Dashboard extends Component {
       else if(!isConnected())
       {
         makeNotif(_notificationSystem,"warning","Vous etes déconnectées");
-
       }
   }
+
   componentDidUpdate(e) {
     if (
       window.innerWidth < 993 &&
@@ -113,10 +121,13 @@ class Dashboard extends Component {
   }
   
   render() {
+    if(isConnected()) {
+      
+    }
     return (
       <div className="wrapper">
         <NotificationSystem ref="notificationSystem" style={style} />
-        <Sidebar {...this.props}/>
+        <Sidebar  menuConnect={this.state.menuConnected} {...this.props}/>
         <div id="main-panel" className="main-panel" ref="mainPanel">
           <Header {...this.props} />
           <Switch>
@@ -130,6 +141,7 @@ class Dashboard extends Component {
                       <prop.component
                         {...routeProps}
                         handleClick={this.handleNotificationClick}
+                        handleConnected={this.handleConnected}
                       />
                     )}
                   />
