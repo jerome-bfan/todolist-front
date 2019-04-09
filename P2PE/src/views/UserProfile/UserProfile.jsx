@@ -17,13 +17,13 @@ import avatar from "assets/img/faces/face-3.jpg";
 
 class UserProfile extends Component {
   _userProfilRender() {
-    var userform = true;
+    var userform = false;
     if (userform == true) {
       userform = (
         <div>
           <Col md={8}>
             <Card
-              title="Edit Profile"
+              title="Page admin"
               content={
                 <form>
                   <FormInputs
@@ -145,7 +145,7 @@ class UserProfile extends Component {
                   />
 
                   <Button bsStyle="info" pullRight fill type="submit">
-                    Update Profile
+                    Mise à jour de l'admin
                   </Button>
                   <div className="clearfix" />
                 </form>
@@ -241,7 +241,7 @@ class UserProfile extends Component {
                   />
 
                   <Button bsStyle="info" pullRight fill type="submit">
-                    Update Profile
+                    Mise à jour du profil
                   </Button>
                   <div className="clearfix" />
                 </form>
