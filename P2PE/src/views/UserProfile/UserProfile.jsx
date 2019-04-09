@@ -17,7 +17,7 @@ import avatar from "assets/img/faces/face-3.jpg";
 
 class UserProfile extends Component {
   _userProfilRender() {
-    var userform = false;
+    var userform = true;
     if (userform == true) {
       userform = (
         <div>
@@ -30,10 +30,10 @@ class UserProfile extends Component {
                     ncols={["col-md-5", "col-md-3", "col-md-4"]}
                     proprieties={[
                       {
-                        label: "Company name",
+                        label: "Nom de l'entreprise",
                         type: "text",
                         bsClass: "form-control",
-                        placeholder: "Company name",
+                        placeholder: "Nom de l'entreprise",
                         defaultValue: "Apple France"
                       },
                       {
@@ -44,10 +44,10 @@ class UserProfile extends Component {
                         defaultValue: "32212091600208"
                       },
                       {
-                        label: "Number of employees",
+                        label: "Nombre d'employés",
                         type: "text",
                         bsClass: "form-control",
-                        placeholder: "Number of employees",
+                        placeholder: "Nombre d'employés",
                         defaultValue: "199"
                       }
                     ]}
@@ -55,13 +55,13 @@ class UserProfile extends Component {
                   <Row>
                     <Col md={12}>
                       <FormGroup controlId="formControlsTextarea">
-                        <ControlLabel>About the company</ControlLabel>
+                        <ControlLabel>`A propose de l'entreprise`</ControlLabel>
                         <FormControl
                           rows="5"
                           componentClass="textarea"
                           bsClass="form-control"
-                          placeholder="Here can be the description of your company"
-                          defaultValue="Apple is a US-based multinational company that designs and markets consumer electronics, personal computers, and computer software."
+                          placeholder="Ici se trouvera la description de l'entreprise"
+                          defaultValue="Apple est une multinationale basée aux États-Unis qui conçoit et commercialise des produits électroniques grand public, des ordinateurs personnels et des logiciels."
                         />
                       </FormGroup>
                     </Col>
@@ -70,24 +70,24 @@ class UserProfile extends Component {
                     ncols={["col-md-5", "col-md-3", "col-md-4"]}
                     proprieties={[
                       {
-                        label: "First name",
+                        label: "Prénom",
                         type: "text",
                         bsClass: "form-control",
-                        placeholder: "First name",
+                        placeholder: "Prénom",
                         defaultValue: "Mike"
                       },
                       {
-                        label: "Last name",
+                        label: "Nom",
                         type: "text",
                         bsClass: "form-control",
-                        placeholder: "Last name",
+                        placeholder: "Nom",
                         defaultValue: "Andrew"
                       },
                       {
-                        label: "Email address",
+                        label: "Adresse Email",
                         type: "email",
                         bsClass: "form-control",
-                        placeholder: "Email address",
+                        placeholder: "Adresse Email",
                         defaultValue: "mike.andrew@gmail.com"
                       }
                     ]}
@@ -96,10 +96,10 @@ class UserProfile extends Component {
                     ncols={["col-md-12"]}
                     proprieties={[
                       {
-                        label: "Phone number",
+                        label: "Numéro de téléphone",
                         type: "text",
                         bsClass: "form-control",
-                        placeholder: "Phone number",
+                        placeholder: "Numéro de téléphone",
                         defaultValue: "0655423909"
                       }
                     ]}
@@ -108,10 +108,10 @@ class UserProfile extends Component {
                     ncols={["col-md-12"]}
                     proprieties={[
                       {
-                        label: "Adress",
+                        label: "Adresse postale",
                         type: "text",
                         bsClass: "form-control",
-                        placeholder: "Home Adress",
+                        placeholder: "Adresse postale",
                         defaultValue:
                           "Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
                       }
@@ -121,24 +121,24 @@ class UserProfile extends Component {
                     ncols={["col-md-4", "col-md-4", "col-md-4"]}
                     proprieties={[
                       {
-                        label: "City",
+                        label: "Ville",
                         type: "text",
                         bsClass: "form-control",
-                        placeholder: "City",
+                        placeholder: "Ville",
                         defaultValue: "New York"
                       },
                       {
-                        label: "Country",
+                        label: "Pays",
                         type: "text",
                         bsClass: "form-control",
-                        placeholder: "Country",
+                        placeholder: "Pays",
                         defaultValue: "USA"
                       },
                       {
-                        label: "Postal Code",
+                        label: "Code postal",
                         type: "number",
                         bsClass: "form-control",
-                        placeholder: "Postal Code",
+                        placeholder: "Code postal",
                         defaultValue: "10001"
                       }
                     ]}
@@ -166,24 +166,24 @@ class UserProfile extends Component {
                     ncols={["col-md-5", "col-md-3", "col-md-4"]}
                     proprieties={[
                       {
-                        label: "First name",
+                        label: "Prénom",
                         type: "text",
                         bsClass: "form-control",
-                        placeholder: "First name",
+                        placeholder: "Prénom",
                         defaultValue: "Mike"
                       },
                       {
-                        label: "Last name",
+                        label: "Nom",
                         type: "text",
                         bsClass: "form-control",
-                        placeholder: "Last name",
+                        placeholder: "Nom",
                         defaultValue: "Andrew"
                       },
                       {
-                        label: "Email address",
+                        label: "Adresse Email",
                         type: "email",
                         bsClass: "form-control",
-                        placeholder: "Email",
+                        placeholder: "Adresse Email",
                         defaultValue: "mike.andrew@gmail.com"
                       }
                     ]}
@@ -192,10 +192,10 @@ class UserProfile extends Component {
                     ncols={["col-md-12"]}
                     proprieties={[
                       {
-                        label: "Phone number",
+                        label: "Numéro de téléphone",
                         type: "text",
                         bsClass: "form-control",
-                        placeholder: "Phone number",
+                        placeholder: "Numéro de téléphone",
                         defaultValue: "0655423909"
                       }
                     ]}
@@ -204,10 +204,10 @@ class UserProfile extends Component {
                     ncols={["col-md-12"]}
                     proprieties={[
                       {
-                        label: "Adress",
+                        label: "Adresse postale",
                         type: "text",
                         bsClass: "form-control",
-                        placeholder: "Home Adress",
+                        placeholder: "Adresse postale",
                         defaultValue:
                           "Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
                       }
@@ -217,24 +217,24 @@ class UserProfile extends Component {
                     ncols={["col-md-4", "col-md-4", "col-md-4"]}
                     proprieties={[
                       {
-                        label: "City",
+                        label: "Ville",
                         type: "text",
                         bsClass: "form-control",
-                        placeholder: "City",
+                        placeholder: "Ville",
                         defaultValue: "New York"
                       },
                       {
-                        label: "Country",
+                        label: "Pays",
                         type: "text",
                         bsClass: "form-control",
-                        placeholder: "Country",
+                        placeholder: "Pays",
                         defaultValue: "USA"
                       },
                       {
-                        label: "Postal Code",
+                        label: "Code postal",
                         type: "number",
                         bsClass: "form-control",
-                        placeholder: "Postal Code",
+                        placeholder: "Code postal",
                         defaultValue: "10001"
                       }
                     ]}
@@ -270,10 +270,8 @@ class UserProfile extends Component {
                 description={
                   <span>
                     "Lamborghini Mercy
-                    <br />
-                    Your chick she so thirsty
-                    <br />
-                    I'm in that two seat Lambo"
+                    <br/>Votre poussin elle si soif
+                    <br/>Je suis dans cette deux places Lambo"
                   </span>
                 }
                 socials={
