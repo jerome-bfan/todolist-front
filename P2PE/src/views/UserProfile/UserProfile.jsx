@@ -16,122 +16,248 @@ import Button from "components/CustomButton/CustomButton.jsx";
 import avatar from "assets/img/faces/face-3.jpg";
 
 class UserProfile extends Component {
+  _userProfilRender() {
+    return (
+      <div>
+        <Col md={8}>
+          <Card
+            title="Edit Profile"
+            content={
+              <form>
+                <FormInputs
+                  ncols={["col-md-5", "col-md-3", "col-md-4"]}
+                  proprieties={[
+                    {
+                      label: "First name",
+                      type: "text",
+                      bsClass: "form-control",
+                      placeholder: "First name",
+                      defaultValue: "Mike"
+                    },
+                    {
+                      label: "Last name",
+                      type: "text",
+                      bsClass: "form-control",
+                      placeholder: "Last name",
+                      defaultValue: "Andrew"
+                    },
+                    {
+                      label: "Email address",
+                      type: "email",
+                      bsClass: "form-control",
+                      placeholder: "Email",
+                      defaultValue: "mike.andrew@gmail.com"
+                    }
+                  ]}
+                />
+                <FormInputs
+                  ncols={["col-md-12"]}
+                  proprieties={[
+                    {
+                      label: "Phone number",
+                      type: "text",
+                      bsClass: "form-control",
+                      placeholder: "Phone number",
+                      defaultValue: "0655423909"
+                    }
+                  ]}
+                />
+                <FormInputs
+                  ncols={["col-md-12"]}
+                  proprieties={[
+                    {
+                      label: "Adress",
+                      type: "text",
+                      bsClass: "form-control",
+                      placeholder: "Home Adress",
+                      defaultValue:
+                        "Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                    }
+                  ]}
+                />
+                <FormInputs
+                  ncols={["col-md-4", "col-md-4", "col-md-4"]}
+                  proprieties={[
+                    {
+                      label: "City",
+                      type: "text",
+                      bsClass: "form-control",
+                      placeholder: "City",
+                      defaultValue: "New York"
+                    },
+                    {
+                      label: "Country",
+                      type: "text",
+                      bsClass: "form-control",
+                      placeholder: "Country",
+                      defaultValue: "USA"
+                    },
+                    {
+                      label: "Postal Code",
+                      type: "number",
+                      bsClass: "form-control",
+                      placeholder: "Postal Code",
+                      defaultValue: "10001"
+                    }
+                  ]}
+                />
+
+                <Button bsStyle="info" pullRight fill type="submit">
+                  Update Profile
+                </Button>
+                <div className="clearfix" />
+              </form>
+            }
+          />
+        </Col>
+      </div>
+    );
+  }
+
+  _proProfilRender() {
+    return (
+      <div>
+        <Col md={8}>
+          <Card
+            title="Edit Profile"
+            content={
+              <form>
+                <FormInputs
+                  ncols={["col-md-5", "col-md-3", "col-md-4"]}
+                  proprieties={[
+                    {
+                      label: "Company name",
+                      type: "text",
+                      bsClass: "form-control",
+                      placeholder: "Company name",
+                      defaultValue: "Apple France"
+                    },
+                    {
+                      label: "SIRET",
+                      type: "text",
+                      bsClass: "form-control",
+                      placeholder: "SIRET",
+                      defaultValue: "32212091600208"
+                    },
+                    {
+                      label: "Number of employees",
+                      type: "text",
+                      bsClass: "form-control",
+                      placeholder: "Number of employees",
+                      defaultValue: "199"
+                    }
+                  ]}
+                />
+                <Row>
+                  <Col md={12}>
+                    <FormGroup controlId="formControlsTextarea">
+                      <ControlLabel>About the company</ControlLabel>
+                      <FormControl
+                        rows="5"
+                        componentClass="textarea"
+                        bsClass="form-control"
+                        placeholder="Here can be the description of your company"
+                        defaultValue="Apple is a US-based multinational company that designs and markets consumer electronics, personal computers, and computer software."
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <FormInputs
+                  ncols={["col-md-5", "col-md-3", "col-md-4"]}
+                  proprieties={[
+                    {
+                      label: "First name",
+                      type: "text",
+                      bsClass: "form-control",
+                      placeholder: "First name",
+                      defaultValue: "Mike"
+                    },
+                    {
+                      label: "Last name",
+                      type: "text",
+                      bsClass: "form-control",
+                      placeholder: "Last name",
+                      defaultValue: "Andrew"
+                    },
+                    {
+                      label: "Email address",
+                      type: "email",
+                      bsClass: "form-control",
+                      placeholder: "Email address",
+                      defaultValue: "mike.andrew@gmail.com"
+                    }
+                  ]}
+                />
+                <FormInputs
+                  ncols={["col-md-12"]}
+                  proprieties={[
+                    {
+                      label: "Phone number",
+                      type: "text",
+                      bsClass: "form-control",
+                      placeholder: "Phone number",
+                      defaultValue: "0655423909"
+                    }
+                  ]}
+                />
+                <FormInputs
+                  ncols={["col-md-12"]}
+                  proprieties={[
+                    {
+                      label: "Adress",
+                      type: "text",
+                      bsClass: "form-control",
+                      placeholder: "Home Adress",
+                      defaultValue:
+                        "Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                    }
+                  ]}
+                />
+                <FormInputs
+                  ncols={["col-md-4", "col-md-4", "col-md-4"]}
+                  proprieties={[
+                    {
+                      label: "City",
+                      type: "text",
+                      bsClass: "form-control",
+                      placeholder: "City",
+                      defaultValue: "New York"
+                    },
+                    {
+                      label: "Country",
+                      type: "text",
+                      bsClass: "form-control",
+                      placeholder: "Country",
+                      defaultValue: "USA"
+                    },
+                    {
+                      label: "Postal Code",
+                      type: "number",
+                      bsClass: "form-control",
+                      placeholder: "Postal Code",
+                      defaultValue: "10001"
+                    }
+                  ]}
+                />
+
+                <Button bsStyle="info" pullRight fill type="submit">
+                  Update Profile
+                </Button>
+                <div className="clearfix" />
+              </form>
+            }
+          />
+        </Col>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className="content">
         <Grid fluid>
           <Row>
-            <Col md={8}>
-              <Card
-                title="Edit Profile"
-                content={
-                  <form>
-                    <FormInputs
-                      ncols={["col-md-5", "col-md-3", "col-md-4"]}
-                      proprieties={[
-                        {
-                          label: "Company (disabled)",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "Company",
-                          defaultValue: "Creative Code Inc.",
-                          disabled: true
-                        },
-                        {
-                          label: "Username",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "Username",
-                          defaultValue: "michael23"
-                        },
-                        {
-                          label: "Email address",
-                          type: "email",
-                          bsClass: "form-control",
-                          placeholder: "Email"
-                        }
-                      ]}
-                    />
-                    <FormInputs
-                      ncols={["col-md-6", "col-md-6"]}
-                      proprieties={[
-                        {
-                          label: "First name",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "First name",
-                          defaultValue: "Mike"
-                        },
-                        {
-                          label: "Last name",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "Last name",
-                          defaultValue: "Andrew"
-                        }
-                      ]}
-                    />
-                    <FormInputs
-                      ncols={["col-md-12"]}
-                      proprieties={[
-                        {
-                          label: "Adress",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "Home Adress",
-                          defaultValue:
-                            "Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                        }
-                      ]}
-                    />
-                    <FormInputs
-                      ncols={["col-md-4", "col-md-4", "col-md-4"]}
-                      proprieties={[
-                        {
-                          label: "City",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "City",
-                          defaultValue: "Mike"
-                        },
-                        {
-                          label: "Country",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "Country",
-                          defaultValue: "Andrew"
-                        },
-                        {
-                          label: "Postal Code",
-                          type: "number",
-                          bsClass: "form-control",
-                          placeholder: "ZIP Code"
-                        }
-                      ]}
-                    />
-
-                    <Row>
-                      <Col md={12}>
-                        <FormGroup controlId="formControlsTextarea">
-                          <ControlLabel>About Me</ControlLabel>
-                          <FormControl
-                            rows="5"
-                            componentClass="textarea"
-                            bsClass="form-control"
-                            placeholder="Here can be your description"
-                            defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Button bsStyle="info" pullRight fill type="submit">
-                      Update Profile
-                    </Button>
-                    <div className="clearfix" />
-                  </form>
-                }
-              />
-            </Col>
+            {this._userProfilRender()}
             <Col md={4}>
               <UserCard
                 bgImage="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400"
@@ -163,7 +289,10 @@ class UserProfile extends Component {
               />
             </Col>
           </Row>
-        </Grid>>
+          <Row>
+            {this._proProfilRender()}
+          </Row>
+        </Grid>
       </div>
     );
   }
