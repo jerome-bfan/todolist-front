@@ -225,12 +225,12 @@ export async function register(form) {
   var attributeSiret = new CognitoUserAttribute(dataSiret);
   var attributenbEmploye = new CognitoUserAttribute(dataNbEmploye);
 
-  attributeList.push(attributenbEmploye);
-  attributeList.push(attributeEmail);
-  attributeList.push(attributeSiret);
-  attributeList.push(attributePhoneNumber);
-  attributeList.push(attributePreferedUsername);
-  attributeList.push(attributeName);
+    attributeList.push(attributenbEmploye);
+    attributeList.push(attributeEmail);
+    attributeList.push(attributeSiret);
+    //attributeList.push(attributePhoneNumber);
+  //attributeList.push(attributePreferedUsername);
+   // attributeList.push(attributeName);
 
   console.log(`Register User ${username} ${phone} ${email}`);
   return new Promise((resolve, reject) => {
