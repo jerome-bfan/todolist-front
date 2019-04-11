@@ -24,6 +24,9 @@ export default class Services extends Component {
     this.handleChangeSelectCategorie = this.handleChangeSelectCategorie.bind(
       this
     );
+
+
+    console.log("test")
     this.formControl = this.formControl.bind(this);
     this.state = {
       services: [],

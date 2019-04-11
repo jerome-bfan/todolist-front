@@ -132,6 +132,8 @@ class RequestServices extends Component {
       updateId: "",
       notification: 0
     };
+    console.log("ddd");
+
   }
   getServicesUser() {
     getServiceUser().then(services => {
@@ -141,6 +143,19 @@ class RequestServices extends Component {
         showModal: false,
         services: services.data
       });
+      let serviceBrute = {
+        name :'test',
+        title : 'test',
+        addresse:'test'
+      }
+      if(services.data != undefined) {
+        this.setState({
+          show: false,
+          showModal: false,
+          services: serviceBrute
+        });
+
+      }
       if (services.data != undefined && this.state.services.length > 0) {
         services.data.map(service => {
           if (!service.paid && service.validated) {

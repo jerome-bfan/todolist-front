@@ -41,7 +41,7 @@ class HeaderLinks extends Component {
 
     const notification = (
       <div>
-        <i className="pe-7s-bell" style={{fontSize:20}} />
+        <i className="pe-7s-bell" style={{ fontSize: 20 }} />
         <b className="caret" />
         <span className="notification">5</span>
         <p className="hidden-lg hidden-md">Notification</p>
@@ -54,9 +54,6 @@ class HeaderLinks extends Component {
             <i className="fa fa-dashboard" />
             <p className="hidden-lg hidden-md">Dashboard</p>
           </NavItem>
-
-          <i className="fa fa-globe" />
-
           <NavDropdown
             eventKey={2}
             title={notification}
@@ -82,8 +79,6 @@ class HeaderLinks extends Component {
       </div>
     );
   }
-
-
 }
 
 export default HeaderLinks;
