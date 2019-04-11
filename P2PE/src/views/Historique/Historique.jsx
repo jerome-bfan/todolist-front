@@ -10,7 +10,7 @@ const services = [
   {
     accept: true,
     service_name: 'Informatique',
-    price: '35€',
+    price: 29,
     name_customer: 'Salvador Dali',
     description: 'Réparer l\'ordi',
     emplacement: 'rue de l\'informatique',
@@ -20,7 +20,7 @@ const services = [
   {
     accept: false,
     service_name: 'Jardinage',
-    price: '48€',
+    price: 48,
     name_customer: 'Pablo Picasso',
     description: 'Arroser les plantes',
     emplacement: 'rue du clochet',
@@ -30,7 +30,7 @@ const services = [
   {
     accept: true,
     service_name: 'Bricolage',
-    price: '29€',
+    price: 35,
     name_customer: 'Lee Ufan',
     description: 'Réparer la douche',
     emplacement: 'rue de l\'hiver',
@@ -57,6 +57,24 @@ const myStyle = {
     margin: '5px',
     fontWeight: 'bold',
     fontSize: '30px'
+  },
+  rang1: {
+    padding: 0,
+    marginLeft: '60px',
+    listStyleType: 'none',
+  },
+  rang2: {
+    marginLeft: '2px',
+    float: 'left'
+  },
+  rang3: {
+    display: 'block',
+    float: 'left',
+    width: '100px',
+    color: '#000000',
+    textDecoration: 'none',
+    textAlign: 'center',
+    marginBottom: '20px'
   }
 }
 
@@ -77,7 +95,48 @@ class Dashboard extends Component {
     }
   }
 
+  _sortListDate() {
+    function tri(a,b)
+    {
+    	if (a.date < b.date) return -1;
+    	else if (a.date == b.date) return 0;
+    	else return 1;
+    }
+
+    services.sort(tri);
+
+    console.log(services);
+  }
+
+  _sortListService() {
+    function tri(a,b)
+    {
+    	if (a.service < b.service) return -1;
+    	else if (a.service == b.service) return 0;
+    	else return 1;
+    }
+
+    services.sort(tri);
+
+    console.log(services);
+  }
+
+  _sortListPrice() {
+    function tri(a,b)
+    {
+    	if (a.price < b.price) return -1;
+    	else if (a.price == b.price) return 0;
+    	else return 1;
+    }
+
+    services.sort(tri);
+
+    console.log(services);
+  }
+
   _rendrePresentation() {
+    {this._sortListService()}
+
     return (
       services.map(item =>
         <Grid fluid>
@@ -96,7 +155,7 @@ class Dashboard extends Component {
                             <h2 style={myStyle.title}>{item.service_name}</h2>
                           </Col>
                           <Col md={2}>
-                            <h2 style={myStyle.title}>{item.price}</h2>
+                            <h2 style={myStyle.title}>{item.price}€</h2>
                           </Col>
                         </Row>
                       </Grid>
@@ -142,7 +201,26 @@ class Dashboard extends Component {
     return (
       <div className="content">
         <NotificationSystem ref="notificationSystem" style={style} />
-
+        <ul style={myStyle.rang1}>
+          <li style={myStyle.rang2}>
+            Classer les services par
+          </li>
+          <li style={myStyle.rang2}>
+            <a href="#" style={Object.assign(myStyle.rang3)}>
+              Date
+            </a>
+          </li>
+          <li style={myStyle.rang2}>
+            <a href="#" style={Object.assign(myStyle.rang3)}>
+              Service
+            </a>
+          </li>
+          <li style={myStyle.rang2}>
+            <a href="#" onclick={this._sortListPrice()} style={Object.assign(myStyle.rang3)}>
+              Prix
+            </a>
+          </li>
+        </ul>
         {this._renderConnected()}
       </div>
     );
