@@ -8,7 +8,25 @@ import Icons from "views/Icons/Icons";
 import Maps from "views/Maps/Maps";
 import Notifications from "views/Notifications/Notifications";
 import Upgrade from "views/Upgrade/Upgrade";
+import Panier from "views/User/Panier";
+import Typography from '../views/Help/Help';
+import { isConnected } from "../functions/p2peFunction";
 
+export const getRoutes = (connected) => {
+  let menuRoute = {};
+
+  if (isConnected() || connected) {
+    if (connected == "pro"  || localStorage.getItem("rolePro")) {
+      menuRoute = dashboardRoutesPro;
+    } else if (connected == "user" || localStorage.getItem("roleUser")) {
+      menuRoute = dashboardRoutesUser;
+    }
+  } else {
+    menuRoute = dashboardUnConnected;
+} 
+return menuRoute
+
+}
 export const dashboardRoutesUser = [
   {
     path: "/dashboard",
@@ -23,10 +41,16 @@ export const dashboardRoutesUser = [
     component: Services
   },
   {
-    path: "/myservices",
+    path: "/ez",
     name: "Mes services",
     icon: "pe-7s-note2",
-    component: MyServices
+    component: Help
+  },
+  {
+    path: "/panier",
+    name: "Mon panier",
+    icon: "pe-7s-note2",
+    component: Typography
   },
   {
     path: "/help",
@@ -61,12 +85,6 @@ const dashboardRoutes = [
     name: "Services",
     icon: "pe-7s-note2",
     component: Services
-  },
-  {
-    path: "/myservices",
-    name: "Mes services",
-    icon: "pe-7s-note2",
-    component: MyServices
   },
   {
     path: "/help",

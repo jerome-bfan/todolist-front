@@ -7,18 +7,11 @@ import Footer from "components/Footer/Footer";
 import Sidebar from "components/Sidebar/Sidebar";
 
 import { style } from "variables/Variables.jsx";
-import awsmobile from "../../aws-exports";
-import Amplify, { API } from "aws-amplify";
-import dashboardRoutes from "routes/dashboard.jsx";
-import {
-  CognitoUserPool,
-  CognitoUserAttribute,
-  CognitoUser,
-  AuthenticationDetails
-} from "amazon-cognito-identity-js";
+
 import AWS from "aws-sdk";
 import { authentification } from "../../Provider/AuthProvider";
 import { isConnected, colorRole } from "../../functions/p2peFunction";
+import { getRoutes } from "../../routes/dashboard";
 
 export function makeNotif(ref, type, message) {
   var color = Math.floor(Math.random() * 4 + 1);
@@ -128,14 +121,15 @@ class Dashboard extends Component {
   render() {
     if (isConnected()) {
     }
+    let route  = getRoutes(this.state.menuConnect);
     return (
       <div className="wrapper">
         <NotificationSystem ref="notificationSystem" style={style} />
         <Sidebar menuConnect={this.state.menuConnected} {...this.props} />
         <div id="main-panel" className="main-panel" ref="mainPanel">
-          <Header {...this.props} />
+          <Header menuConnect={this.state.menuConnected}{...this.props} />
           <Switch>
-            {dashboardRoutes.map((prop, key) => {
+            {route.map((prop, key) => {
               if (prop.name === "Accueil")
                 return (
                   <Route

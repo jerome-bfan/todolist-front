@@ -4,14 +4,8 @@ import { NavLink } from "react-router-dom";
 import HeaderLinks from "../Header/HeaderLinks.jsx";
 
 import imagine from "assets/img/sidebar-3.jpg";
-import logo from "assets/img/reactlogo.png";
-
-import dashboardRoutes, {
-  dashboardUnConnected,
-  dashboardRoutesUser,
-  dashboardRoutesPro
-} from "routes/dashboard.jsx";
 import { colorRole, isConnected } from "../../functions/p2peFunction.js";
+import { getRoutes } from "../../routes/dashboard.jsx";
 
 class Sidebar extends Component {
   constructor(props) {
@@ -36,20 +30,22 @@ class Sidebar extends Component {
     const sidebarBackground = {
       backgroundImage: "url(" + imagine + ")"
     };
-    let menuRoute = {};
-    if (isConnected() || this.props.menuConnect) {
-      if (this.props.menuConnect) {
-        if (this.props.menuConnect == "pro") {
-          menuRoute = dashboardRoutesPro;
-        } else if (this.props.menuConnect == "user") {
-          menuRoute = dashboardRoutesUser;
-        }
-      } else {
-        menuRoute = dashboardRoutes;
-      }
-    } else {
-      menuRoute = dashboardUnConnected;
-    }
+    //let menuRoute = {};
+    // if (isConnected() || this.props.menuConnect) {
+    //     console.log("dddd");
+    //     console.log(this.props.menuConnect);
+    //     if (this.props.menuConnect == "pro") {
+    //       menuRoute = dashboardRoutesPro;
+    //     } else if (this.props.menuConnect == "user" || localStorage.getItem("roleUser")) {
+    //       console.log("faaf");
+
+    //       menuRoute = dashboardRoutesUser;
+    //     }
+    //   } else {
+    //     menuRoute = dashboardUnConnected;
+    // } 
+    let menuRoute = getRoutes(this.props.menuConnect);
+
     return (
       <div
         id="sidebar"
