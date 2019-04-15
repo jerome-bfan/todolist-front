@@ -49,6 +49,7 @@ features:
           /p2pe/users: !com.amazonaws.mobilehub.v0.Function {}
           /p2pe/users/user: !com.amazonaws.mobilehub.v0.Function {}
           '/p2pe/users/user/{id_user}': !com.amazonaws.mobilehub.v0.Function {}
+          '/p2pe/users/user/{id_user}/contact': !com.amazonaws.mobilehub.v0.Function {}
           '/p2pe/users/user/{id_user}/exists': !com.amazonaws.mobilehub.v0.Function {}
           /pro: !com.amazonaws.mobilehub.v0.Function {}
           '/pro/{id_pro}': !com.amazonaws.mobilehub.v0.Function {}

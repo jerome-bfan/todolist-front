@@ -6,14 +6,18 @@ import HeaderLinks from "../Header/HeaderLinks.jsx";
 import imagine from "assets/img/sidebar-3.jpg";
 import logo from "assets/img/reactlogo.png";
 
-import dashboardRoutes, {dashboardUnConnected} from "routes/dashboard.jsx";
+import dashboardRoutes, {
+  dashboardUnConnected,
+  dashboardRoutesUser,
+  dashboardRoutesPro
+} from "routes/dashboard.jsx";
 import { colorRole, isConnected } from "../../functions/p2peFunction.js";
 
 class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      width: window.innerWidth,
+      width: window.innerWidth
     };
   }
   activeRoute(routeName) {
@@ -22,17 +26,27 @@ class Sidebar extends Component {
   updateDimensions() {
     this.setState({ width: window.innerWidth });
   }
+
   componentDidMount() {
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions.bind(this));
   }
+
   render() {
     const sidebarBackground = {
       backgroundImage: "url(" + imagine + ")"
     };
     let menuRoute = {};
     if (isConnected() || this.props.menuConnect) {
-      menuRoute = dashboardRoutes;
+      if (this.props.menuConnect) {
+        if (this.props.menuConnect == "pro") {
+          menuRoute = dashboardRoutesPro;
+        } else if (this.props.menuConnect == "user") {
+          menuRoute = dashboardRoutesUser;
+        }
+      } else {
+        menuRoute = dashboardRoutes;
+      }
     } else {
       menuRoute = dashboardUnConnected;
     }
@@ -40,7 +54,7 @@ class Sidebar extends Component {
       <div
         id="sidebar"
         className="sidebar"
-        data-color={colorRole(("black"))}
+        data-color={colorRole("black")}
         data-image={imagine}
       >
         <div className="sidebar-background" style={sidebarBackground} />
@@ -48,12 +62,8 @@ class Sidebar extends Component {
           <a
             href="https://www.creative-tim.com"
             className="simple-text logo-mini"
-          >
-          </a>
-          <a
-            href=""
-            className="simple-text logo-normal"
-          >
+          />
+          <a href="" className="simple-text logo-normal">
             P2PEE
           </a>
         </div>
