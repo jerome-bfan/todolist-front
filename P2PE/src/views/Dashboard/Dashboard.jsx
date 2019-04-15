@@ -14,7 +14,7 @@ import AWS from "aws-sdk/dist/aws-sdk-react-native";
 import { Card } from "components/Card/Card.jsx";
 import NotificationSystem from "react-notification-system";
 
-import Map from "../Maps/GGMap";
+import Map from "components/Map/GGMap";
 
 import {
   authentification,
