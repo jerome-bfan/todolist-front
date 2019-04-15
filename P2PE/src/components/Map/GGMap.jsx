@@ -47,6 +47,7 @@ export class MapContainer extends Component {
 
     var services = [
       {
+        id: 1,
         title: 'Title as tooltip 1',
         nom_pro: 'Jay Jay',
         service_name: 'jardinage',
@@ -56,6 +57,7 @@ export class MapContainer extends Component {
         emplacement: { lat: 48.814819, lng: 2.373283 }
       },
       {
+        id: 2,
         title: 'Title as tooltip 2',
         nom_pro: 'YO YO',
         service_name: 'Informatique',
@@ -82,6 +84,7 @@ export class MapContainer extends Component {
             description={'test'} />
 
           {services.map(item => <Marker
+                                key={item.id}
                                 onClick={this.onMarkerClick}
                                 title={item.title}
                                 service_name={item.service_name}
