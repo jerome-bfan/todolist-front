@@ -97,7 +97,51 @@ export class HistoriquePro extends Component {
     }
   }
 
-  _rendrePresentation() {
+  _cardHeader(item) {
+    return (
+      <div className="App-header" style={myStyle.top}>
+        <Grid fluid>
+          <Row>
+            <Col md={2}>
+              {this._acceptOrNot(item.accept)}
+            </Col>
+            <Col md={8}>
+              <h2 style={myStyle.title}>{item.service_name}</h2>
+            </Col>
+            <Col md={2}>
+              <h2 style={myStyle.title}>{item.price}€</h2>
+            </Col>
+          </Row>
+        </Grid>
+      </div>
+    );
+  }
+
+  _cardContent(item) {
+    return (
+      <div>
+        <Grid fluid>
+          <Row>
+            <Col md={12}>
+              <p>{item.name_customer}</p>
+              <p>{item.description}</p>
+              <p>{item.emplacement}</p>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={10}>
+              <p>{item.options}</p>
+            </Col>
+            <Col md={2}>
+              <p>{item.date}</p>
+            </Col>
+          </Row>
+        </Grid>
+      </div>
+    );
+  }
+
+  _renderList() {
     return (
       services.map(item =>
         <Grid fluid>
@@ -106,40 +150,8 @@ export class HistoriquePro extends Component {
               <Card
                 content={
                   <div style={{ flexDirection: "column" }}>
-                    <div className="App-header" style={myStyle.top}>
-                      <Grid fluid>
-                        <Row>
-                          <Col md={2}>
-                            {this._acceptOrNot(item.accept)}
-                          </Col>
-                          <Col md={8}>
-                            <h2 style={myStyle.title}>{item.service_name}</h2>
-                          </Col>
-                          <Col md={2}>
-                            <h2 style={myStyle.title}>{item.price}€</h2>
-                          </Col>
-                        </Row>
-                      </Grid>
-                    </div>
-                    <div>
-                      <Grid fluid>
-                        <Row>
-                          <Col md={12}>
-                            <p>{item.name_customer}</p>
-                            <p>{item.description}</p>
-                            <p>{item.emplacement}</p>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col md={10}>
-                            <p>{item.options}</p>
-                          </Col>
-                          <Col md={2}>
-                            <p>{item.date}</p>
-                          </Col>
-                        </Row>
-                      </Grid>
-                    </div>
+                    {this._cardHeader(item)}
+                    {this._cardContent(item)}
                   </div>
                 }
               />
@@ -147,14 +159,6 @@ export class HistoriquePro extends Component {
           </Row>
         </Grid>
       )
-    );
-  }
-
-  _renderConnected() {
-    return (
-      <div className="content">
-        {this._rendrePresentation()}
-      </div>
     );
   }
 
@@ -203,7 +207,7 @@ export class HistoriquePro extends Component {
             </Button>
           </li>
         </ul>
-        {this._renderConnected()}
+        {this._renderList()}
       </div>
     );
   }
