@@ -50,7 +50,7 @@ export const dashboardRoutesUser = [
     path: "/panier",
     name: "Mon panier",
     icon: "pe-7s-note2",
-    component: Typography
+    component: Panier
   },
   {
     path: "/help",
