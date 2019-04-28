@@ -13,8 +13,8 @@ import AWS from "aws-sdk/dist/aws-sdk-react-native";
 
 import { Card } from "components/Card/Card.jsx";
 import NotificationSystem from "react-notification-system";
-
 import DashboardCustomer from "components/Dashboard/DashboardCustomer";
+import DashboardPro from "components/Dashboard/DashboardPro";
 
 import {
   authentification,
@@ -235,16 +235,39 @@ class Dashboard extends Component {
 
   _renderConnected() {
     if (this.state.connected) {
-      this.props.handleConnected()
+      this.props.handleConnected();
+
+      if (localStorage.getItem("roleUser")) {
+        return (
+          <div className="content">
+            <Grid fluid>
+              <Row>
+                <h2 style={style.title}>Bienvenue sur la page d'accueil</h2>
+                <DashboardCustomer></DashboardCustomer>
+              </Row>
+            </Grid>
+            {displayHomeService()}
+          </div>
+        );
+      } if (localStorage.getItem("rolePro")) {
+        return (
+          <div className="content">
+            <Grid fluid>
+              <Row>
+                <h2 style={style.title}>Bienvenue sur la page d'accueil</h2>
+                <DashboardPro></DashboardPro>
+              </Row>
+            </Grid>
+            {displayHomeService()}
+          </div>
+        );
+      }
+    } else {
       return (
-        <div className="content">
-          <Grid fluid>
-            <Row>
-              <h2 style={style.title}>Bienvenue sur la page d'accueil</h2>
-              <DashboardCustomer></DashboardCustomer>
-            </Row>
-          </Grid>
-          {displayHomeService()}
+        <div>
+          <text>
+            Vous devez etre connecter en tant qu'utilisateur pour voir vos service
+          </text>
         </div>
       );
     }
