@@ -16,7 +16,7 @@ class Panier extends Component {
           location: "asnières sur seine",
           description: "Se couper les cheveux",
           prix: 20,
-          option: [
+          options: [
             {
               title: "teinture",
               value: "blonde"
@@ -33,7 +33,7 @@ class Panier extends Component {
           location: "asnières sur seine",
           description: "Changer le tuyau du lavabo",
           prix: 18,
-          option: [
+          options: [
             {
               title: "materiaux",
               value: "metal"
@@ -47,10 +47,10 @@ class Panier extends Component {
     var array = [...this.state.services]; // make a separate copy of the array
     if (index !== -1) {
       array.splice(index, 1);
-      this.setState({services: array});
+      this.setState({ services: array });
     }
   }
-  
+
   _renderCard(service, index) {
     return (
       <div key={index} className="card">
@@ -84,6 +84,14 @@ class Panier extends Component {
               <div> Nom du pro : {service.title}</div>
               <div> Description : {service.description}</div>
               <div> Nom du pro : {service.title}</div>
+              <div> Options :</div>
+
+              {
+                service.options.map((t) => {
+                  console.log(t);
+                  console.log("serviced");
+                  return <div>- {t.title} : {t.value}</div>
+                })}
             </div>
             <div>
               {" "}
@@ -91,10 +99,9 @@ class Panier extends Component {
                 style={{
                   marginLeft: 15,
                   borderColor: "blue",
-                  color : "blue"
+                  color: "blue"
                 }}
-                onClick={e => {
-                }}
+                onClick={e => {}}
               >
                 Modifier
               </Button>
@@ -102,11 +109,10 @@ class Panier extends Component {
                 style={{
                   marginLeft: 15,
                   borderColor: "red",
-                  color : "red"
+                  color: "red"
                 }}
                 onClick={e => {
                   this._deleteService(index);
-
                 }}
               >
                 Supprimez

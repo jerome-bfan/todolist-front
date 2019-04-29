@@ -81,7 +81,7 @@ export class ServiceCard extends Component {
                 </Panel.Heading>
                 <Panel.Body collapsible>{this.props.description}</Panel.Body>
               </Panel>
-              <DispoService state={this.props.state} />
+              <DispoService state={"disponible"} />
             </div>
           }
         />
@@ -89,7 +89,7 @@ export class ServiceCard extends Component {
     );
   }
   render() {
-    return <div>dd{this._renderContent()}</div>;
+    return <div>{this._renderContent()}</div>;
   }
 }
 

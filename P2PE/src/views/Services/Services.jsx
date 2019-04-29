@@ -29,8 +29,22 @@ export default class Services extends Component {
     this.formControl = this.formControl.bind(this);
     this.state = {
       services: [
-        { title: "name", id_service: 1,categoryName: "test" },
-        { title: "name", id_service: 2, prix:3,categoryName:"ee",  }
+        {
+          title: "Venez vous couper les cheveux",
+          id_service: 1,
+          location: "Asnières",
+          categoryName: "coiffeur",
+          description:"Nouvelle coupe",
+          prix:10,
+        },
+        {
+          title: "Venez vous lavez les cheveux",
+          id_service: 2,
+          description:"Changer vos tuyaux",
+          location: "Colombes",
+          categoryName: "plomberie",
+          prix: 3,
+        }
       ],
       categories: [],
       addTitle: "",
@@ -255,7 +269,7 @@ export default class Services extends Component {
                 .filter(text => this._search(text))
                 .map(service => {
                   console.log(service);
-                  console.log('service');
+                  console.log("service");
                   return <ServiceCard {...service} />;
                 })}
           </Grid>
