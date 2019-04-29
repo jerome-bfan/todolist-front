@@ -12,6 +12,7 @@ import Panier from "views/User/Panier";
 import Historique from "views/Historique/Historique";
 import Typography from '../views/Help/Help';
 import { isConnected } from "../functions/p2peFunction";
+import ListClient from '../views/Pro/ListClient';
 
 export const getRoutes = (connected) => {
   let menuRoute = {};
@@ -121,6 +122,12 @@ export const dashboardRoutesPro = [
     name: "Mes Services",
     icon: "pe-7s-note2",
     component: Services
+  },
+  {
+    path: "/list-client",
+    name: "Liste Client",
+    icon: "pe-7s-note2",
+    component: ListClient
   },
   {
     path: "/historical",
