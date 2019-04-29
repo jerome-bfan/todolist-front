@@ -18,7 +18,7 @@ import avatar from "assets/img/faces/face-3.jpg";
 class UserProfile extends Component {
   _userProfilRender() {
     var userform = false;
-    if (userform == true) {
+    if (localStorage.getItem("rolePro")) {
       userform = (
         <div>
           <Col md={8}>
