@@ -9,6 +9,7 @@ import Maps from "views/Maps/Maps";
 import Notifications from "views/Notifications/Notifications";
 import Upgrade from "views/Upgrade/Upgrade";
 import Panier from "views/User/Panier";
+import Historique from "views/Historique/Historique";
 import Typography from '../views/Help/Help';
 import { isConnected } from "../functions/p2peFunction";
 
@@ -23,7 +24,7 @@ export const getRoutes = (connected) => {
     }
   } else {
     menuRoute = dashboardUnConnected;
-} 
+}
 return menuRoute
 
 }
@@ -51,6 +52,12 @@ export const dashboardRoutesUser = [
     name: "Mon panier",
     icon: "pe-7s-note2",
     component: Panier
+  },
+  {
+    path: "/historical",
+    name: "Historique",
+    icon: "pe-7s-stopwatch",
+    component: Historique
   },
   {
     path: "/help",
