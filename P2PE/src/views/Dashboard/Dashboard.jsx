@@ -243,7 +243,9 @@ class Dashboard extends Component {
             <Grid fluid>
               <Row>
                 <h2 style={style.title}>Bienvenue sur la page d'accueil</h2>
-                <DashboardCustomer></DashboardCustomer>
+
+                <DashboardPro></DashboardPro>
+                {/* <DashboardCustomer></DashboardCustomer>*/}
               </Row>
             </Grid>
             {displayHomeService()}
