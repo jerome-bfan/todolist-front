@@ -15,6 +15,8 @@ import { Card } from "components/Card/Card.jsx";
 import NotificationSystem from "react-notification-system";
 
 import Map from "../Maps/GGMap";
+import DashboardCustomer from "components/Dashboard/DashboardCustomer";
+import DashboardPro from "components/Dashboard/DashboardPro";
 
 import {
   authentification,
