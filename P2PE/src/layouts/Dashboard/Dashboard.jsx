@@ -7,16 +7,13 @@ import Footer from "components/Footer/Footer";
 import Sidebar from "components/Sidebar/Sidebar";
 
 import { style } from "variables/Variables.jsx";
-import awsmobile from '../../aws-exports';
-import Amplify,{API} from 'aws-amplify';
-import dashboardRoutes from "routes/dashboard.jsx";
-import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
-import AWS from 'aws-sdk';
+
+import AWS from "aws-sdk";
 import { authentification } from "../../Provider/AuthProvider";
-import { isConnected, colorRole } from '../../functions/p2peFunction';
+import { isConnected, colorRole } from "../../functions/p2peFunction";
+import { getRoutes } from "../../routes/dashboard";
 
-
-export function makeNotif (ref, type, message) {
+export function makeNotif(ref, type, message) {
   var color = Math.floor(Math.random() * 4 + 1);
   var level;
   switch (type) {
@@ -51,14 +48,16 @@ class Dashboard extends Component {
     this.handleConnected = this.handleConnected.bind(this);
     this.state = {
       _notificationSystem: null,
-      menuConnected:false,
+      menuConnected: false,
     };
   }
 
-  handleConnected() {
-    console.log('jjj');
-    if(!this.state.menuConnected)
-      this.setState({ menuConnected: true });
+  handleConnected(typeAccount) {
+    console.log("jjj");
+    console.log(typeAccount);
+    if (!this.state.menuConnected) {
+      this.setState({ menuConnected: typeAccount });
+    }
 
   }
   handleNotificationClick(position) {
@@ -97,12 +96,11 @@ class Dashboard extends Component {
   componentDidMount() {
     this.setState({ _notificationSystem: this.refs.notificationSystem });
     var _notificationSystem = this.refs.notificationSystem;
-    if(isConnected())
-      makeNotif(_notificationSystem,"info","Vous etes connectés");
-      else if(!isConnected())
-      {
-        makeNotif(_notificationSystem,"warning","Vous etes déconnectées");
-      }
+    if (isConnected())
+      makeNotif(_notificationSystem, "info", "Vous etes connectés");
+    else if (!isConnected()) {
+      makeNotif(_notificationSystem, "warning", "Vous etes déconnectées");
+    }
   }
 
   componentDidUpdate(e) {
@@ -119,19 +117,19 @@ class Dashboard extends Component {
       this.refs.mainPanel.scrollTop = 0;
     }
   }
-  
+
   render() {
-    if(isConnected()) {
-      
+    if (isConnected()) {
     }
+    let route  = getRoutes(this.state.menuConnect);
     return (
       <div className="wrapper">
         <NotificationSystem ref="notificationSystem" style={style} />
-        <Sidebar  menuConnect={this.state.menuConnected} {...this.props}/>
+        <Sidebar menuConnect={this.state.menuConnected} {...this.props} />
         <div id="main-panel" className="main-panel" ref="mainPanel">
-          <Header {...this.props} />
+          <Header menuConnect={this.state.menuConnected}{...this.props} />
           <Switch>
-            {dashboardRoutes.map((prop, key) => {
+            {route.map((prop, key) => {
               if (prop.name === "Accueil")
                 return (
                   <Route

@@ -28,8 +28,7 @@ import { makeNotif } from "../../layouts/Dashboard/Dashboard";
 import { style } from "variables/Variables.jsx";
 import { displayHomeService } from "../Services/MyServices";
 import FacebookLogin from "react-facebook-login";
-import GoogleLogin from 'react-google-login';
-
+import GoogleLogin from "react-google-login";
 
 class Dashboard extends Component {
   constructor(props, context) {
@@ -186,8 +185,7 @@ class Dashboard extends Component {
                             authentification(this.state)
                               .then(e => {
                                 this.setState({ connected: e });
-
-                                console.log(e);
+                                this.props.handleConnected(e);
                               })
                               .catch(e => {
                                 console.log(e);
@@ -216,7 +214,7 @@ class Dashboard extends Component {
                         callback={this.responseFacebook}
                         cssClass="my-facebook-button-class"
                       />
-                       <GoogleLogin
+                      <GoogleLogin
                         clientId="151151252669-vol99icd9ej8rbdugq4sps34bofv7e1g.apps.googleusercontent.com"
                         buttonText="Login"
                         onSuccess={this.responseFacebook}

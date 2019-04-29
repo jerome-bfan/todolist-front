@@ -9,8 +9,26 @@ import Maps from "views/Maps/Maps";
 import Historique from "views/Historique/Historique";
 import Notifications from "views/Notifications/Notifications";
 import Upgrade from "views/Upgrade/Upgrade";
+import Panier from "views/User/Panier";
+import Typography from '../views/Help/Help';
+import { isConnected } from "../functions/p2peFunction";
 
-const dashboardRoutes = [
+export const getRoutes = (connected) => {
+  let menuRoute = {};
+
+  if (isConnected() || connected) {
+    if (connected == "pro"  || localStorage.getItem("rolePro")) {
+      menuRoute = dashboardRoutesPro;
+    } else if (connected == "user" || localStorage.getItem("roleUser")) {
+      menuRoute = dashboardRoutesUser;
+    }
+  } else {
+    menuRoute = dashboardUnConnected;
+} 
+return menuRoute
+
+}
+export const dashboardRoutesUser = [
   {
     path: "/dashboard",
     name: "Accueil",
@@ -30,10 +48,16 @@ const dashboardRoutes = [
     component: Services
   },
   {
-    path: "/myservices",
+    path: "/ez",
     name: "Mes services",
     icon: "pe-7s-note2",
     component: MyServices
+  },
+  {
+    path: "/panier",
+    name: "Mon panier",
+    icon: "pe-7s-note2",
+    component: Panier
   },
   {
     path: "/help",
@@ -56,7 +80,80 @@ const dashboardRoutes = [
 
   { redirect: true, path: "/", to: "/dashboard", name: "Dashboard" }
 ];
+const dashboardRoutes = [
+  {
+    path: "/dashboard",
+    name: "Accueil",
+    icon: "pe-7s-graph",
+    component: Dashboard
+  },
+  {
+    path: "/service",
+    name: "Services",
+    icon: "pe-7s-note2",
+    component: Services
+  },
+  {
+    path: "/help",
+    name: "Page help",
+    icon: "pe-7s-news-paper",
+    component: Help
+  },
+  {
+    path: "/user",
+    name: "User Profile",
+    icon: "pe-7s-user",
+    component: UserProfile
+  },
+  {
+    path: "/contact",
+    name: "Contact",
+    icon: "pe-7s-id",
+    component: Contact
+  },
 
+  { redirect: true, path: "/", to: "/dashboard", name: "Dashboard" }
+];
+export const dashboardRoutesPro = [
+  {
+    path: "/dashboard",
+    name: "Accueil",
+    icon: "pe-7s-graph",
+    component: Dashboard
+  },
+  {
+    path: "/service",
+    name: "Pro",
+    icon: "pe-7s-note2",
+    component: Services
+  },
+  {
+    path: "/myservices",
+    name: "Mes services",
+    icon: "pe-7s-note2",
+    component: MyServices
+  },
+  {
+    path: "/help",
+    name: "Page help",
+    icon: "pe-7s-news-paper",
+    component: Help
+  },
+  {
+    path: "/user",
+    name: "Mon compte",
+    icon: "pe-7s-user",
+    component: UserProfile
+  },
+  {
+    path: "/contact",
+    name: "Contact",
+    icon: "pe-7s-id",
+    component: Contact
+  },
+
+  { redirect: true, path: "/", to: "/dashboard", name: "Dashboard" }
+];
 export const dashboardUnConnected = [
   {
     path: "/dashboard",

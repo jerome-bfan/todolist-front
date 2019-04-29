@@ -12,7 +12,7 @@ export function displayHomeService() {
   if (localStorage.getItem("roleUser")) {
     return (
       <div>
-        <RequestServices />
+        <RequestServices/>
       </div>
     );
   }

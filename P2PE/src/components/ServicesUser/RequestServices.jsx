@@ -133,7 +133,6 @@ class RequestServices extends Component {
       notification: 0
     };
     console.log("ddd");
-
   }
   getServicesUser() {
     getServiceUser().then(services => {

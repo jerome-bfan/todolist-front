@@ -4,16 +4,14 @@ import { NavLink } from "react-router-dom";
 import HeaderLinks from "../Header/HeaderLinks.jsx";
 
 import imagine from "assets/img/sidebar-3.jpg";
-import logo from "assets/img/reactlogo.png";
-
-import dashboardRoutes, {dashboardUnConnected} from "routes/dashboard.jsx";
 import { colorRole, isConnected } from "../../functions/p2peFunction.js";
+import { getRoutes } from "../../routes/dashboard.jsx";
 
 class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      width: window.innerWidth,
+      width: window.innerWidth
     };
   }
   activeRoute(routeName) {
@@ -22,25 +20,37 @@ class Sidebar extends Component {
   updateDimensions() {
     this.setState({ width: window.innerWidth });
   }
+
   componentDidMount() {
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions.bind(this));
   }
+
   render() {
     const sidebarBackground = {
       backgroundImage: "url(" + imagine + ")"
     };
-    let menuRoute = {};
-    if (isConnected() || this.props.menuConnect) {
-      menuRoute = dashboardRoutes;
-    } else {
-      menuRoute = dashboardUnConnected;
-    }
+    //let menuRoute = {};
+    // if (isConnected() || this.props.menuConnect) {
+    //     console.log("dddd");
+    //     console.log(this.props.menuConnect);
+    //     if (this.props.menuConnect == "pro") {
+    //       menuRoute = dashboardRoutesPro;
+    //     } else if (this.props.menuConnect == "user" || localStorage.getItem("roleUser")) {
+    //       console.log("faaf");
+
+    //       menuRoute = dashboardRoutesUser;
+    //     }
+    //   } else {
+    //     menuRoute = dashboardUnConnected;
+    // } 
+    let menuRoute = getRoutes(this.props.menuConnect);
+
     return (
       <div
         id="sidebar"
         className="sidebar"
-        data-color={colorRole(("black"))}
+        data-color={colorRole("black")}
         data-image={imagine}
       >
         <div className="sidebar-background" style={sidebarBackground} />
@@ -48,12 +58,8 @@ class Sidebar extends Component {
           <a
             href="https://www.creative-tim.com"
             className="simple-text logo-mini"
-          >
-          </a>
-          <a
-            href=""
-            className="simple-text logo-normal"
-          >
+          />
+          <a href="" className="simple-text logo-normal">
             P2PEE
           </a>
         </div>

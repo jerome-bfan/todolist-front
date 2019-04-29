@@ -135,17 +135,10 @@ export async function authentification(form) {
           if (email != null) {
             localStorage.setItem("email", email);
           }
-          groups.map((answer, i) => {
-            if (answer == "user") {
-              localStorage.setItem("roleUser", true);
-            } else if (answer == "admin") {
-              localStorage.setItem("roleAdmin", true);
-            } else if (answer == "pro") {
-              localStorage.setItem("rolePro", true);
-            }
-          });
-        }
+          var typeAccount = getTypeAccount(groups);
 
+        }
+        
         AWS.config.credentials.get(function() {
           postUser(splitIdentity(AWS.config.credentials.identityId)).then();
 
@@ -164,10 +157,8 @@ export async function authentification(form) {
             AWS.config.credentials.sessionToken
           );
 
-          resolve(true);
-          return "test";
+          resolve(typeAccount.toString());
         });
-        return "test";
       },
 
       onFailure: function(err) {
@@ -176,6 +167,26 @@ export async function authentification(form) {
         return err;
       }
     });
+  });
+}
+
+export function getTypeAccount (groups) {
+  var typeAccount = "";
+   return groups.map((answer, i) => {
+    if (answer == "user") {
+      localStorage.setItem("roleUser", true);
+     return "user";
+    } else if (answer == "admin") {
+      localStorage.setItem("roleAdmin", true);
+    } else if (answer == "pro") {
+      localStorage.setItem("rolePro", true);
+     return "pro";
+
+    }
+    console.log("accco");
+
+    console.log(typeAccount)
+    return typeAccount;
   });
 }
 

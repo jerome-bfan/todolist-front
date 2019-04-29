@@ -25,11 +25,13 @@ export default class Services extends Component {
       this
     );
 
-
-    console.log("test")
+    console.log("test");
     this.formControl = this.formControl.bind(this);
     this.state = {
-      services: [],
+      services: [
+        { title: "name", id_service: 1,categoryName: "test" },
+        { title: "name", id_service: 2, prix:3,categoryName:"ee",  }
+      ],
       categories: [],
       addTitle: "",
       searchType: "title",
@@ -68,7 +70,7 @@ export default class Services extends Component {
                     }
                   ]}
                 />
-            
+
                 <FormInputs
                   ncols={["col-md-12"]}
                   proprieties={[
@@ -153,8 +155,7 @@ export default class Services extends Component {
         inputRef={el => (this.inputCat = el)}
         onChange={this.handleChangeSelectCategorie}
       >
-        {(this.state.categories != undefined && this.state.categories.length) >
-          0 &&
+        {this.state.categories.length > 0 &&
           this.state.categories.map(cat => {
             console.log(cat);
             return (
@@ -253,7 +254,8 @@ export default class Services extends Component {
               this.state.services
                 .filter(text => this._search(text))
                 .map(service => {
-                  //console.log(service);
+                  console.log(service);
+                  console.log('service');
                   return <ServiceCard {...service} />;
                 })}
           </Grid>
@@ -281,14 +283,14 @@ export default class Services extends Component {
 
   componentWillMount() {
     //deleteNotes(2).then();
-    getAllServices().then(api => {
-      console.log("state");
-      //console.log(api);
+    // getAllServices().then(api => {
+    //   console.log("state");
+    //   //console.log(api);
 
-      this.setState({
-        services: api.data
-      });
-    });
+    //   this.setState({
+    //     services: api.data
+    //   });
+    // });
     getCategories().then(api => {
       console.log("state");
       // console.log(api);
