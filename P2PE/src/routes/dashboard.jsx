@@ -44,7 +44,7 @@ export const dashboardRoutesUser = [
     path: "/ez",
     name: "Mes services",
     icon: "pe-7s-note2",
-    component: Help
+    component: MyServices
   },
   {
     path: "/panier",
@@ -134,7 +134,7 @@ export const dashboardRoutesPro = [
   },
   {
     path: "/user",
-    name: "User Profile",
+    name: "Mon compte",
     icon: "pe-7s-user",
     component: UserProfile
   },
