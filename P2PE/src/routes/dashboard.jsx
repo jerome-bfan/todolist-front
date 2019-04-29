@@ -42,10 +42,10 @@ export const dashboardRoutesUser = [
     component: Services
   },
   {
-    path: "/ez",
-    name: "Mes services",
-    icon: "pe-7s-note2",
-    component: MyServices
+    path: "/historical",
+    name: "Historique",
+    icon: "pe-7s-stopwatch",
+    component: Historique
   },
   {
     path: "/panier",
@@ -53,12 +53,7 @@ export const dashboardRoutesUser = [
     icon: "pe-7s-note2",
     component: Panier
   },
-  {
-    path: "/historical",
-    name: "Historique",
-    icon: "pe-7s-stopwatch",
-    component: Historique
-  },
+ 
   {
     path: "/help",
     name: "Page help",
@@ -67,7 +62,7 @@ export const dashboardRoutesUser = [
   },
   {
     path: "/user",
-    name: "User Profile",
+    name: "Mon profile",
     icon: "pe-7s-user",
     component: UserProfile
   },
@@ -123,15 +118,15 @@ export const dashboardRoutesPro = [
   },
   {
     path: "/service",
-    name: "Pro",
+    name: "Mes Services",
     icon: "pe-7s-note2",
     component: Services
   },
   {
-    path: "/myservices",
-    name: "Mes services",
-    icon: "pe-7s-note2",
-    component: MyServices
+    path: "/historical",
+    name: "Historique",
+    icon: "pe-7s-stopwatch",
+    component: Historique
   },
   {
     path: "/help",
