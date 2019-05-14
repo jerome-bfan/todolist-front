@@ -12,6 +12,7 @@ import Panier from "views/User/Panier";
 import HistoriquePro from "views/Pro/Historique";
 import HistoriqueCustormer from "views/User/Historique";
 import Typography from '../views/Help/Help';
+import PresentationPro from 'views/User/PresentationPro';
 import { isConnected } from "../functions/p2peFunction";
 
 export const getRoutes = (connected) => {
@@ -54,7 +55,12 @@ export const dashboardRoutesUser = [
     icon: "pe-7s-note2",
     component: Panier
   },
-
+  {
+    path: "/prespro",
+    name: "PresentationPro",
+    icon: "pe-7s-note2",
+    component: PresentationPro
+  },
   {
     path: "/help",
     name: "Page help",
