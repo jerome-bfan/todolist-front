@@ -57,11 +57,7 @@ export const dashboardRoutesUser = [
     component: Panier
   },
   {
-<<<<<<< HEAD
     path: "/prespro/:id",
-=======
-    path: "/prespro",
->>>>>>> 1a6ea8749e7e2c53ec041733cbe85ca83e7acc87
     name: "PresentationPro",
     icon: "pe-7s-note2",
     component: PresentationPro
