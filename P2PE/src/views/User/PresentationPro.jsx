@@ -167,7 +167,7 @@ class PresentationPro extends Component {
       );
     } else {
       return (
-        <div>
+        <div style={myStyle.rendStyle}>
           {this.render_divout()}
         </div>
       );
