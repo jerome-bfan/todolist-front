@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import Map from "views/Maps/GGMap";
 import { Grid, Row, Col, Panel, PanelGroup } from "react-bootstrap";
