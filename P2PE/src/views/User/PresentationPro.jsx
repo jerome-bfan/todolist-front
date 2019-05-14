@@ -28,6 +28,9 @@ const myStyle = {
     secondRow: {
       paddingBottom: '20px',
       fontSize: '20px'
+    },
+    rendStyle: {
+      paddingTop: '20px'
     }
 }
 
@@ -71,8 +74,6 @@ class PresentationPro extends Component {
   }
 
   render_divid(el) {
-      console.log(el);
-
       return(
         <div>
           <Grid fluid>
@@ -160,7 +161,7 @@ class PresentationPro extends Component {
 
     if (elfind != 'undefined') {
       return (
-        <div>
+        <div style={myStyle.rendStyle}>
           {this.render_divid(elfind)}
         </div>
       );
