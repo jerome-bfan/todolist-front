@@ -12,6 +12,7 @@ import { Grid, Row, Col, FormControl, ControlLabel } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { ServiceCard } from "../../components/Card/ServiceCard";
+import ServicesProC from "../../components/ServicesPro/ServicesProC";
 
 export default class ServicesPro extends Component {
   constructor(props) {
@@ -20,7 +21,6 @@ export default class ServicesPro extends Component {
     this.addService = this.addService.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.renderAddService = this.renderAddService.bind(this);
-  
 
     console.log("test");
     this.formControl = this.formControl.bind(this);
@@ -30,17 +30,17 @@ export default class ServicesPro extends Component {
           title: "Venez vous couper les cheveux",
           id_service: 1,
           location: "Asnières",
-          categoryName: "coiffeur",
-          description:"Nouvelle coupe",
-          prix:10,
+          category: "coiffeur",
+          description: "Nouvelle coupe",
+          prix: 10
         },
         {
           title: "Venez vous lavez les cheveux",
           id_service: 2,
-          description:"Changer vos tuyaux",
+          description: "Changer vos tuyaux",
           location: "Colombes",
-          categoryName: "plomberie",
-          prix: 3,
+          category: "plomberie",
+          prix: 3
         }
       ],
       categories: [],
@@ -100,9 +100,23 @@ export default class ServicesPro extends Component {
                   ncols={["col-md-12"]}
                   proprieties={[
                     {
+                      label: "Description",
+                      type: "text",
+                      id: "addDescription",
+                      bsClass: "form-control",
+                      placeholder: "Prix",
+                      onChange: this.handleChange,
+                      value: this.state.addDescription
+                    }
+                  ]}
+                />
+                <FormInputs
+                  ncols={["col-md-12"]}
+                  proprieties={[
+                    {
                       label: "Prix",
                       type: "number",
-                      id: "addPrix",
+                      id: "addDescription",
                       bsClass: "form-control",
                       placeholder: "Prix",
                       onChange: this.handleChange,
@@ -110,21 +124,18 @@ export default class ServicesPro extends Component {
                     }
                   ]}
                 />
-                <ControlLabel>Catégorie</ControlLabel>
-
-                {this.formControl()}
 
                 <FormInputs
                   ncols={["col-md-12"]}
                   proprieties={[
                     {
-                      label: "Description du service",
+                      label: "Catégorie du service",
                       type: "text",
-                      id: "addDescription",
+                      id: "addCategory",
                       bsClass: "form-control",
-                      placeholder: "Description du service",
+                      placeholder: "Catégorie du service",
                       onChange: this.handleChange,
-                      value: this.state.addDescription
+                      value: this.state.addCategory
                     }
                   ]}
                 />
@@ -139,7 +150,7 @@ export default class ServicesPro extends Component {
                       this.addService();
                     }}
                   >
-                    <text>Ajouter un service</text>
+                    <div>Ajouter un service</div>
                   </Button>
                 </Row>
               </Col>
@@ -150,7 +161,7 @@ export default class ServicesPro extends Component {
       );
     } else return null;
   }
-  
+
   formControl() {
     return (
       <FormControl
@@ -180,6 +191,7 @@ export default class ServicesPro extends Component {
     return (
       <div className="content">
         {this.renderAddService()}
+        <ServicesProC {...this.state} />
       </div>
     );
   }

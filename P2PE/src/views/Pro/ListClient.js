@@ -94,6 +94,7 @@ class ListClient extends Component {
       </div>
     );
   }
+  
   _renderPage() {
     return (
       <div className="content">

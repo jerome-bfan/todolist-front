@@ -1,7 +1,6 @@
 import Dashboard from "views/Dashboard/Dashboard";
 import UserProfile from "views/UserProfile/UserProfile";
 import ServicesUser from "../views/User/ServicesUser";
-import MyServices from "views/Services/MyServices";
 import Help from "views/Help/Help";
 import Contact from "views/Contact/Contact";
 import Icons from "views/Icons/Icons";

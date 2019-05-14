@@ -28,7 +28,6 @@ import { isConnected } from "../../functions/p2peFunction";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { makeNotif } from "../../layouts/Dashboard/Dashboard";
 import { style } from "variables/Variables.jsx";
-import { displayHomeService } from "../Services/MyServices";
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
 
@@ -256,7 +255,8 @@ class Dashboard extends Component {
               {this._rendrePresentation()}
             </Row>
           </Grid>
-          {displayHomeService()}
+          
+          {/* {displayHomeService()} */}
         </div>
       );
     }
