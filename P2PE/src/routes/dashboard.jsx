@@ -1,6 +1,6 @@
 import Dashboard from "views/Dashboard/Dashboard";
 import UserProfile from "views/UserProfile/UserProfile";
-import Services from "views/Services/Services";
+import ServicesUser from "../views/User/ServicesUser";
 import MyServices from "views/Services/MyServices";
 import Help from "views/Help/Help";
 import Contact from "views/Contact/Contact";
@@ -13,6 +13,7 @@ import Historique from "views/Historique/Historique";
 import Typography from '../views/Help/Help';
 import { isConnected } from "../functions/p2peFunction";
 import ListClient from '../views/Pro/ListClient';
+import ServicesPro from '../views/Pro/ServicesPro';
 
 export const getRoutes = (connected) => {
   let menuRoute = {};
@@ -40,7 +41,7 @@ export const dashboardRoutesUser = [
     path: "/service",
     name: "Services",
     icon: "pe-7s-note2",
-    component: Services
+    component: ServicesUser
   },
   {
     path: "/historical",
@@ -87,7 +88,7 @@ const dashboardRoutes = [
     path: "/service",
     name: "Services",
     icon: "pe-7s-note2",
-    component: Services
+    component: ServicesUser
   },
   {
     path: "/help",
@@ -121,7 +122,7 @@ export const dashboardRoutesPro = [
     path: "/service",
     name: "Mes Services",
     icon: "pe-7s-note2",
-    component: Services
+    component: ServicesPro
   },
   {
     path: "/list-client",
