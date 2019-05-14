@@ -32,6 +32,7 @@ export default class ServicesPro extends Component {
           location: "Asnières",
           category: "coiffeur",
           description: "Nouvelle coupe",
+          enable:true,
           prix: 10
         },
         {
@@ -40,17 +41,16 @@ export default class ServicesPro extends Component {
           description: "Changer vos tuyaux",
           location: "Colombes",
           category: "plomberie",
-          prix: 3
+          enable:false,
+          prix: 3,
+          enable:false,
         }
       ],
-      categories: [],
       addTitle: "",
-      searchType: "title",
-      addCategory: 1,
+      addCategory: "",
       addDescription: "",
       addLocation: "",
-      addPrix: 10,
-      addName: ""
+      addPrix: 0,
     };
   }
 
@@ -104,7 +104,7 @@ export default class ServicesPro extends Component {
                       type: "text",
                       id: "addDescription",
                       bsClass: "form-control",
-                      placeholder: "Prix",
+                      placeholder: "Description",
                       onChange: this.handleChange,
                       value: this.state.addDescription
                     }
@@ -116,7 +116,8 @@ export default class ServicesPro extends Component {
                     {
                       label: "Prix",
                       type: "number",
-                      id: "addDescription",
+                      id: "addPrix",
+                      min:"0",
                       bsClass: "form-control",
                       placeholder: "Prix",
                       onChange: this.handleChange,
@@ -198,14 +199,12 @@ export default class ServicesPro extends Component {
 
   addService() {
     const service = {
-      name: this.state.addName,
       description: this.state.addDescription,
       category: this.state.addCategory,
       location: this.state.addLocation,
       prix: this.state.addPrix,
       title: this.state.addTitle
     };
-    postServicePro(service);
     this.state.services.unshift(service);
     this.setState({
       services: this.state.services
@@ -214,23 +213,7 @@ export default class ServicesPro extends Component {
   }
 
   componentWillMount() {
-    //deleteNotes(2).then();
-    // getAllServices().then(api => {
-    //   console.log("state");
-    //   //console.log(api);
-
-    //   this.setState({
-    //     services: api.data
-    //   });
-    // });
-    getCategories().then(api => {
-      console.log("state");
-      // console.log(api);
-
-      this.setState({
-        categories: api.data
-      });
-    });
+  
   }
   render() {
     console.log(this.state.services);

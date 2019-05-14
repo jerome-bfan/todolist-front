@@ -15,7 +15,7 @@ export function DispoService({ state }) {
           }}
           className="pe-7s-check"
         />{" "}
-        Disponible
+        {state}
       </text>
     );
   } else {
@@ -42,6 +42,9 @@ export class ServiceCard extends Component {
       </Button>
     );
   };
+  _renderDisponibility() {
+    return <DispoService state={"disponible"} />;
+  }
   _renderContent() {
     return (
       <div key={this.props.id}>
@@ -81,7 +84,7 @@ export class ServiceCard extends Component {
                 </Panel.Heading>
                 <Panel.Body collapsible>{this.props.description}</Panel.Body>
               </Panel>
-              <DispoService state={"disponible"} />
+              {this._renderDisponibility()}
             </div>
           }
         />
