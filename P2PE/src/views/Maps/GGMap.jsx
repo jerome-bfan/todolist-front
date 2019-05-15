@@ -66,8 +66,6 @@ export class MapContainer extends Component {
       }
     ]
 
-    console.log(currentLocation.emplacement);
-
     return (
         <Map google={this.props.google}
             style={style}
@@ -83,7 +81,8 @@ export class MapContainer extends Component {
             service_name={'My location'}
             description={'test'} />
 
-          {services.map(item => <Marker
+          {services.map((item, i) => <Marker
+                                key={i}
                                 onClick={this.onMarkerClick}
                                 title={item.title}
                                 service_name={item.service_name}
