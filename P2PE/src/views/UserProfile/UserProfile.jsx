@@ -159,7 +159,7 @@ class UserProfile extends Component {
         <div>
           <Col md={8}>
             <Card
-              title="Edit Profile"
+              title="Éditer mon profil"
               content={
                 <form>
                   <FormInputs
