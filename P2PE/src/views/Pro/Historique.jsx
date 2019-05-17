@@ -6,38 +6,6 @@ import NotificationSystem from "react-notification-system";
 import ChartistGraph from "react-chartist";
 import { style } from "variables/Variables.jsx";
 
-const services = [
-  {
-    accept: true,
-    service_name: 'Informatique',
-    price: 29,
-    name_customer: 'Salvador Dali',
-    description: 'Réparer l\'ordi',
-    emplacement: 'rue de l\'informatique',
-    options: 'Réinstaller windows',
-    date: '2019-07-24'
-  },
-  {
-    accept: false,
-    service_name: 'Jardinage',
-    price: 48,
-    name_customer: 'Pablo Picasso',
-    description: 'Arroser les plantes',
-    emplacement: 'rue du clochet',
-    options: 'Amener un arrosoir',
-    date: '2019-06-19'
-  },
-  {
-    accept: true,
-    service_name: 'Bricolage',
-    price: 35,
-    name_customer: 'Lee Ufan',
-    description: 'Réparer la douche',
-    emplacement: 'rue de l\'hiver',
-    date: '2019-05-02'
-  }
-];
-
 const myStyle = {
   notifTrue: {
     padding: '10px 20px',
@@ -80,9 +48,41 @@ const myStyle = {
   }
 }
 
-export class HistoriquePro extends Component {
+export class HistoriqueCustomer extends Component {
   constructor(props, context) {
     super(props, context);
+
+    this.state = {services: [
+      {
+        accept: true,
+        service_name: 'Informatique',
+        price: 29,
+        name_customer: 'Salvador Dali',
+        description: 'Réparer l\'ordi',
+        emplacement: 'rue de l\'informatique',
+        options: 'Réinstaller windows',
+        date: '2019-07-24'
+      },
+      {
+        accept: false,
+        service_name: 'Jardinage',
+        price: 48,
+        name_customer: 'Pablo Picasso',
+        description: 'Arroser les plantes',
+        emplacement: 'rue du clochet',
+        options: 'Amener un arrosoir',
+        date: '2019-06-19'
+      },
+      {
+        accept: true,
+        service_name: 'Bricolage',
+        price: 35,
+        name_customer: 'Lee Ufan',
+        description: 'Réparer la douche',
+        emplacement: 'rue de l\'hiver',
+        date: '2019-05-02'
+      }
+    ]};
   }
 
   _acceptOrNot(accept) {
@@ -143,8 +143,8 @@ export class HistoriquePro extends Component {
 
   _renderList() {
     return (
-      services.map(item =>
-        <Grid fluid>
+      this.state.services.map((item, i) =>
+        <Grid fluid key={i}>
           <Row>
             <Col md={12}>
               <Card
@@ -162,28 +162,40 @@ export class HistoriquePro extends Component {
     );
   }
 
+  tri(type) {
+      if (type == 'date') {
+          var myServices =  this.state.services.sort((a, b) => {
+              if (a.date < b.date) return -1;
+              else if (a.date == b.date) return 0;
+              else return 1;
+          });
+          this.setState({
+              services: myServices
+          });
+      }
+      if (type == 'price') {
+          var myServices =  this.state.services.sort((a, b) => {
+              if (a.price < b.price) return -1;
+              else if (a.price == b.price) return 0;
+              else return 1;
+          });
+          this.setState({
+              services: myServices
+          });
+      }
+      if (type == 'service') {
+          var myServices =  this.state.services.sort((a, b) => {
+              if (a.service_name < b.service_name) return -1;
+              else if (a.service_name == b.service_name) return 0;
+              else return 1;
+          });
+          this.setState({
+              services: myServices
+          });
+      }
+  }
+
   render() {
-    function triDate(a,b)
-    {
-    	if (a.date < b.date) return -1;
-    	else if (a.date == b.date) return 0;
-    	else return 1;
-    }
-
-    function triService(a,b)
-    {
-    	if (a.service < b.service) return -1;
-    	else if (a.service == b.service) return 0;
-    	else return 1;
-    }
-
-    function triPrice(a,b)
-    {
-      if (a.price < b.price) return -1;
-      else if (a.price == b.price) return 0;
-      else return 1;
-    }
-
     return (
       <div className="content">
         <NotificationSystem ref="notificationSystem" style={style} />
@@ -192,17 +204,17 @@ export class HistoriquePro extends Component {
             Classer les services par
           </li>
           <li style={myStyle.rang2}>
-            <Button onClick={services.sort(triDate)} style={Object.assign(myStyle.rang3)}>
+            <Button onClick={ ( ) => this.tri('date') } style={Object.assign(myStyle.rang3)}>
               Date
             </Button>
           </li>
           <li style={myStyle.rang2}>
-            <Button onClick={services.sort(triService)} style={Object.assign(myStyle.rang3)}>
+            <Button onClick={ ( ) => this.tri('service') } style={Object.assign(myStyle.rang3)}>
               Service
             </Button>
           </li>
           <li style={myStyle.rang2}>
-            <Button onClick={services.sort(triPrice)} style={Object.assign(myStyle.rang3)}>
+            <Button onClick={ ( ) => this.tri('price') } style={Object.assign(myStyle.rang3)}>
               Prix
             </Button>
           </li>
@@ -213,4 +225,4 @@ export class HistoriquePro extends Component {
   }
 }
 
-export default HistoriquePro;
+export default HistoriqueCustomer;

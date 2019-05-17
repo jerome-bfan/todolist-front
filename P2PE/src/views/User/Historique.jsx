@@ -162,34 +162,37 @@ export class HistoriqueCustomer extends Component {
     );
   }
 
-  triDate()
-  {
-      this.state.services.sort((a,b) => {
-          if (a.date < b.date) return -1;
-          else if (a.date == b.date) return 0;
-          else return 1;
-      });
-      console.log(this.state.services);
-  }
-
-  triService()
-  {
-      this.state.services.sort((a,b) => {
-          if (a.service_name < b.service_name) return -1;
-          else if (a.service_name == b.service_name) return 0;
-          else return 1;
-      });
-      console.log(this.state.services);
-  }
-
-  triPrice()
-  {
-      this.state.services.sort((a,b) => {
-          if (a.price < b.price) return -1;
-          else if (a.price == b.price) return 0;
-          else return 1;
-      });
-      console.log(this.state.services);
+  tri(type) {
+      if (type == 'date') {
+          var myServices =  this.state.services.sort((a, b) => {
+              if (a.date < b.date) return -1;
+              else if (a.date == b.date) return 0;
+              else return 1;
+          });
+          this.setState({
+              services: myServices
+          });
+      }
+      if (type == 'price') {
+          var myServices =  this.state.services.sort((a, b) => {
+              if (a.price < b.price) return -1;
+              else if (a.price == b.price) return 0;
+              else return 1;
+          });
+          this.setState({
+              services: myServices
+          });
+      }
+      if (type == 'service') {
+          var myServices =  this.state.services.sort((a, b) => {
+              if (a.service_name < b.service_name) return -1;
+              else if (a.service_name == b.service_name) return 0;
+              else return 1;
+          });
+          this.setState({
+              services: myServices
+          });
+      }
   }
 
   render() {
@@ -201,17 +204,17 @@ export class HistoriqueCustomer extends Component {
             Classer les services par
           </li>
           <li style={myStyle.rang2}>
-            <Button onClick={this.triDate()} style={Object.assign(myStyle.rang3)}>
+            <Button onClick={ ( ) => this.tri('date') } style={Object.assign(myStyle.rang3)}>
               Date
             </Button>
           </li>
           <li style={myStyle.rang2}>
-            <Button onClick={this.triService()} style={Object.assign(myStyle.rang3)}>
+            <Button onClick={ ( ) => this.tri('service') } style={Object.assign(myStyle.rang3)}>
               Service
             </Button>
           </li>
           <li style={myStyle.rang2}>
-            <Button onClick={this.triPrice()} style={Object.assign(myStyle.rang3)}>
+            <Button onClick={ ( ) => this.tri('price') } style={Object.assign(myStyle.rang3)}>
               Prix
             </Button>
           </li>
