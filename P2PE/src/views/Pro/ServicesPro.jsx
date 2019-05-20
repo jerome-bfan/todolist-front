@@ -22,8 +22,6 @@ export default class ServicesPro extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.updateService = this.updateService.bind(this);
     this.renderAddService = this.renderAddService.bind(this);
-
-    console.log("test");
     this.formControl = this.formControl.bind(this);
     this.state = {
       services: [

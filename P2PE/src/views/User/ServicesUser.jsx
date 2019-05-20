@@ -32,20 +32,20 @@ export default class ServicesUser extends Component {
           id_service: 1,
           location: "Asnières",
           categoryName: "coiffeur",
-          description:"Nouvelle coupe",
-          prix:10,
+          description: "Nouvelle coupe",
+          prix: 10
         },
         {
           title: "Venez vous lavez les cheveux",
           id_service: 2,
-          description:"Changer vos tuyaux",
+          description: "Changer vos tuyaux",
           location: "Colombes",
           categoryName: "plomberie",
-          prix: 3,
+          prix: 3
         }
       ],
       categories: [],
-      searchType: "title",
+      searchType: "title"
     };
   }
 
