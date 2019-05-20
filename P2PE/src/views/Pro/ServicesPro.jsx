@@ -20,6 +20,7 @@ export default class ServicesPro extends Component {
     this._renderPage = this._renderPage.bind(this);
     this.addService = this.addService.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.updateService = this.updateService.bind(this);
     this.renderAddService = this.renderAddService.bind(this);
 
     console.log("test");
@@ -32,7 +33,7 @@ export default class ServicesPro extends Component {
           location: "Asnières",
           category: "coiffeur",
           description: "Nouvelle coupe",
-          enable:true,
+          enable: true,
           prix: 10
         },
         {
@@ -41,22 +42,40 @@ export default class ServicesPro extends Component {
           description: "Changer vos tuyaux",
           location: "Colombes",
           category: "plomberie",
-          enable:false,
+          enable: false,
           prix: 3,
-          enable:false,
+          enable: false
         }
       ],
       addTitle: "",
       addCategory: "",
       addDescription: "",
       addLocation: "",
-      addPrix: 0,
+      addPrix: 0
     };
   }
 
   handleChange(event) {
     this.setState({ [event.target.id]: event.target.value });
   }
+
+  updateService(service, id ) {
+    console.log("je suis ici");
+    console.log(service);
+    
+    var array = this.state.services.filter(item => {
+    console.log("item2");
+    console.log(item);
+      return item.id_service != service.id_service;
+    });
+    console.log("item");
+    array.unshift(service);
+    console.log(array);
+    this.setState({
+      services: array
+    });
+  }
+
   renderAddService() {
     if (localStorage.getItem("rolePro")) {
       return (
@@ -117,7 +136,7 @@ export default class ServicesPro extends Component {
                       label: "Prix",
                       type: "number",
                       id: "addPrix",
-                      min:"0",
+                      min: "0",
                       bsClass: "form-control",
                       placeholder: "Prix",
                       onChange: this.handleChange,
@@ -192,7 +211,7 @@ export default class ServicesPro extends Component {
     return (
       <div className="content">
         {this.renderAddService()}
-        <ServicesProC {...this.state} />
+        <ServicesProC {...this.state} updateService={this.updateService} />
       </div>
     );
   }
@@ -212,9 +231,7 @@ export default class ServicesPro extends Component {
     // console.log(this.state.services);
   }
 
-  componentWillMount() {
-  
-  }
+  componentWillMount() {}
   render() {
     console.log(this.state.services);
 
