@@ -11,7 +11,7 @@ import {
 import { Grid, Row, Col, FormControl, ControlLabel } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
-import { ServiceCard } from "../../components/Card/ServiceCard";
+import { ServiceCard } from "../../components/ServicesUser/RequestServices";
 import ServicesProC from "../../components/ServicesPro/ServicesProC";
 
 export default class ServicesPro extends Component {

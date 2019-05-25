@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Button, Modal, FormControl } from "react-bootstrap";
-import { DispoService } from "../Card/ServiceCard";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 
 class UpdatePanier extends Component {

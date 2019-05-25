@@ -11,7 +11,7 @@ import {
 import { Grid, Row, Col, FormControl, ControlLabel } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
-import { ServiceCard } from "../../components/Card/ServiceCard";
+import RequestServices from '../../components/ServicesUser/RequestServices';
 
 export default class ServicesUser extends Component {
   constructor(props) {
@@ -168,7 +168,7 @@ export default class ServicesUser extends Component {
                 .map(service => {
                   console.log(service);
                   console.log("service");
-                  return <ServiceCard {...service} />;
+                  return <RequestServices {...service} />;
                 })}
           </Grid>
         </div>

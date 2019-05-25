@@ -11,7 +11,7 @@ import { style } from "variables/Variables.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import NotificationSystem from "react-notification-system";
 import { makeNotif } from "../../layouts/Dashboard/Dashboard";
-import { StateService } from "../ServicesUser/RequestServices";
+import { StateService } from "../ServicesUser/RequestServicesCard";
 
 class RequestServicesPro extends Component {
   constructor(props) {

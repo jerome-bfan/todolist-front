@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { DispoService } from "../Card/ServiceCard";
+import { DispoService } from "../ServicesUser/RequestServices";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 
 class ServicesProC extends Component {

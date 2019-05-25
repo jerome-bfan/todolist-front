@@ -3,7 +3,7 @@ import { getServicePro, putValidateService } from "../../Provider/Api";
 import { Grid, Row, Col, Panel, PanelGroup } from "react-bootstrap";
 import { style } from "variables/Variables.jsx";
 import { Card } from "components/Card/Card.jsx";
-import { StateService } from "../ServicesUser/RequestServices";
+import { StateService } from "../ServicesUser/RequestServicesCard";
 
 const myStyle = {
   title : {
