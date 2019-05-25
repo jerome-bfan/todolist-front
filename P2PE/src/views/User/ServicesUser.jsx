@@ -33,7 +33,17 @@ export default class ServicesUser extends Component {
           location: "Asnières",
           categoryName: "coiffeur",
           description: "Nouvelle coupe",
-          prix: 10
+          prix: 10,
+          options: [
+            {
+              title: "teinture",
+              value: ["blonde", "rousse"]
+            },
+            {
+              title: "coupe",
+              value: ["courte"]
+            }
+          ]
         },
         {
           title: "Venez vous lavez les cheveux",
@@ -41,10 +51,20 @@ export default class ServicesUser extends Component {
           description: "Changer vos tuyaux",
           location: "Colombes",
           categoryName: "plomberie",
-          prix: 3
+          prix: 3,
+          options: [
+            {
+              title: "teinture",
+              value: ["blonde", "rousse"]
+            },
+            {
+              title: "coupe",
+              value: ["courte"]
+            }
+          ],
         }
       ],
-      categories: [],
+     
       searchType: "title"
     };
   }

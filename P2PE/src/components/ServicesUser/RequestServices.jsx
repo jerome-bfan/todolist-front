@@ -77,13 +77,32 @@ export class RequestServices extends Component {
               <Panel
                 eventKey="1"
                 style={{ cornerRadius: 30, marginRight: 100, marginTop: 30 }}
-              >
+              > { (this.props.options != undefined && this.props.options.length) >
+              0 && this.props.options.map(option => {
+                console.log("itemPanierd");
+                return (
+                  <div>
+                     {option.title} :
+                    {Object.values(option.value).map(optionValue => {
+                      console.log("itemPanierd");
+                      console.log(optionValue);
+                      return (
+                        <div>
+                         <p> -{optionValue}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })}
                 <Panel.Heading>
+                
                   <Panel.Title toggle style={{ textAlign: "left" }}>
                     Plus de details
                   </Panel.Title>
                 </Panel.Heading>
-                <Panel.Body collapsible>{this.props.description}</Panel.Body>
+                <Panel.Body collapsible>{this.props.description} 
+             </Panel.Body>
               </Panel>
               {this._renderDisponibility()}
             </div>
