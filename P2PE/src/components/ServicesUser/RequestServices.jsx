@@ -74,10 +74,8 @@ export class RequestServices extends Component {
           content={
             <div>
               {" "}
-              <Panel
-                eventKey="1"
-                style={{ cornerRadius: 30, marginRight: 100, marginTop: 30 }}
-              > { (this.props.options != undefined && this.props.options.length) >
+              <div>
+             { (this.props.options != undefined && this.props.options.length) >
               0 && this.props.options.map(option => {
                 console.log("itemPanierd");
                 return (
@@ -95,6 +93,11 @@ export class RequestServices extends Component {
                   </div>
                 );
               })}
+              </div>
+              <Panel
+                eventKey="1"
+                style={{ cornerRadius: 30, marginRight: 100, marginTop: 30 }}
+              >
                 <Panel.Heading>
                 
                   <Panel.Title toggle style={{ textAlign: "left" }}>
@@ -102,6 +105,7 @@ export class RequestServices extends Component {
                   </Panel.Title>
                 </Panel.Heading>
                 <Panel.Body collapsible>{this.props.description} 
+
              </Panel.Body>
               </Panel>
               {this._renderDisponibility()}

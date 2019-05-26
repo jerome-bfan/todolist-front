@@ -46,6 +46,24 @@ export default class ServicesUser extends Component {
           ]
         },
         {
+          title: "Peinture à domicile",
+          id_service: 3,
+          location: "Asnières",
+          categoryName: "Peinture",
+          description: "Je peux refaire tous les murs de votre maison",
+          prix: 20,
+          options: [
+            {
+              title: "couleur",
+              value: ["noir", "bleu","rouge"]
+            },
+            {
+              title: "qualité de la peinture",
+              value: ["bien", "moyen","extra"]
+            }
+          ]
+        },
+        {
           title: "Venez vous lavez les cheveux",
           id_service: 2,
           description: "Changer vos tuyaux",
@@ -185,10 +203,10 @@ export default class ServicesUser extends Component {
               0 &&
               this.state.services
                 .filter(text => this._search(text))
-                .map(service => {
+                .map((service,index) => {
                   console.log(service);
                   console.log("service");
-                  return <RequestServices {...service} />;
+                  return <RequestServices key={index} {...service} />;
                 })}
           </Grid>
         </div>

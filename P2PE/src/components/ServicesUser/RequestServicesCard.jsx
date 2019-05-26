@@ -1,31 +1,35 @@
 import React, { Component } from "react";
-import { Modal, Row, Col, Button } from "react-bootstrap";
-import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import {
-  postServiceUser,
-  putUpdateService,
-  putUpdateServicePro,
-  splitIdentity
-} from "../../Provider/Api";
+  Modal,
+  Row,
+  Col,
+  Button,
+  FormControl,
+  FormGroup,
+  ControlLabel
+} from "react-bootstrap";
+import { FormInputs } from "components/FormInputs/FormInputs.jsx";
+
+import { postServiceUser } from "../../Provider/Api";
 export class RequestServicesCard extends Component {
   constructor(props, context) {
     super(props, context);
-
+    this.inputOptions = [];
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleValidate = this.handleValidate.bind(this);
-    this.handleUpdate = this.handleUpdate.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.buttonModal = this.buttonModal.bind(this);
     this.modalContent = this.modalContent.bind(this);
     this.btnUpdate = this.btnUpdate.bind(this);
     this.borderState = this.borderState.bind(this);
     this.borderNoState = this.borderNoState.bind(this);
-    
+    this.handleChangeOptions = this.handleChangeOptions.bind(this);
 
     this.state = {
       show: false,
-      address: "",
+      address: "", // modal reserver
+      service: {},
       updateDescription: this.props.service.location,
       updateTitle: this.props.service.title,
       updatePrix: this.props.service.prix,
@@ -41,23 +45,13 @@ export class RequestServicesCard extends Component {
     this.setState({ show: false });
   }
 
-  buttonModal() {
-    if (localStorage.getItem("roleUser")) {
-      return (
-        <Button variant="primary" onClick={this.handleShow}>
-          Réserver le service !
-        </Button>
-      );
-    } else if (
-      localStorage.getItem("rolePro") &&
-      this.props.service.pro == splitIdentity()
-    ) {
-      return (
-        <Button variant="primary" onClick={this.handleShow}>
-          Modifier le service !
-        </Button>
-      );
-    }
+  buttonModal(service) {
+    console.log(service);
+    return (
+      <Button variant="primary" onClick={() => this.handleShow(service)}>
+        Réserver le service !
+      </Button>
+    );
   }
   borderState() {
     if (this.state.updateState) {
@@ -70,71 +64,118 @@ export class RequestServicesCard extends Component {
     }
   }
   modalContent() {
-    if (localStorage.getItem("roleUser")) {
-      return (
-        <div>
-          <Modal.Header closeButton>
-            <Modal.Title>Réservez le service</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {" "}
-            <FormInputs
-              ncols={["col-md-12"]}
-              proprieties={[
-                {
-                  label: "Veuillez rentrer votre adresse",
-                  type: "text",
-                  id: "address",
-                  bsClass: "form-control",
-                  placeholder: "Saisir votre addresse ici",
-                  onChange: this.handleChange,
-                  value: this.state.address
-                }
-              ]}
-            />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}>
-              Fermez
-            </Button>
+    //TODO CHANGE dddd
+    return (
+      <div>
+        <Modal.Header closeButton>
+          <Modal.Title>Réservez le service</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {" "}
+          <FormInputs
+            ncols={["col-md-12"]}
+            proprieties={[
+              {
+                label: "Veuillez rentrer votre adresse",
+                type: "text",
+                id: "address",
+                bsClass: "form-control",
+                placeholder: "Saisir votre addresse ici",
+                inputRef: input => (this.inputAddress = input)
+              }
+            ]}
+          />{" "}
+          {this.state.service.options &&
+            this.state.service.options.map((option, index) => {
+              console.log("itemPanierd");
+              return (
+                <FormGroup key={index}>
+                  <ControlLabel>{option.title}</ControlLabel>
+                  <FormControl
+                    style={{
+                      marginBottom: 0,
+                      paddingBottom: 0
+                    }}
+                    label={"ss"}
+                    id={option.title}
+                    componentClass="select"
+                    placeholder="select"
+                    inputRef={el => this.inputOptions.push(el)}
+                    onChange={event => this.handleChangeOptions(option, event)}
+                  >
+                    {option.value &&
+                      Object.values(option.value).length > 0 &&
+                      Object.values(option.value).map((option, index) => {
+                        console.log(option);
+                        console.log("option");
+                        return (
+                          <option key={index} id="searchType" value={option}>
+                            {option}
+                          </option>
+                        );
+                      })}
+                  </FormControl>
+                </FormGroup>
+              );
+            })}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={this.handleClose}>
+            Fermez
+          </Button>
 
-            <Button variant="primary" onClick={this.handleValidate}>
-              Validez votre adresse !
-            </Button>
-          </Modal.Footer>
-        </div>
-      );
-    } 
+          <Button variant="primary" onClick={this.handleValidate}>
+            Réserver avec ces options
+          </Button>
+        </Modal.Footer>
+      </div>
+    );
   }
-
+  handleChangeOptions(option, event) {
+    // console.log(event.target.value);
+    // console.log(this.state.service);
+    // var selectChanged = this.state.service.options.filter(item => {
+    //   console.log("item2");
+    //   console.log(item);
+    //   return item.title == option.title;
+    // });
+    // console.log("opt");
+    // selectChanged[0].defaultOption = event.target.value;
+    // console.log(this.state.service);
+  }
   handleValidate() {
-    console.log(this.props.id);
-    postServiceUser(this.props.id, this.state.address).then(() => {
-      this.setState({ show: false });
+    let service = Object.assign(this.state.service);
+
+    this.inputOptions.map(optionValue => {
+      service.options.map(stateOption => {
+        if (optionValue.id == stateOption.title) {
+          stateOption.defaultValue = optionValue.value;
+        }
+        console.log("inputOptions");
+        console.log(optionValue);
+        console.log(optionValue.value);
+      });
     });
-  }
-  handleUpdate() {
-    console.log(this.props);
-    let service = {
-      location: this.state.updateLocation,
-      title: this.state.updateTitle,
-      description: this.state.updateDescription,
-      prix: this.state.updatePrix,
-      state: this.state.updateState
+
+    let addressValue = this.inputAddress.value;
+    console.log("service");
+    service = {
+      ...service,
+      address: addressValue
     };
     console.log(service);
-
-    putUpdateServicePro(service, this.props.id).then(() => {
-      this.setState({ show: false });
-      //window.location.reload();
-    });
+    console.log("service");
   }
+  //TODO api validate request servuce
 
-  handleShow() {
-    this.setState({ show: true });
+  handleShow(service) {
+    // add default value here
+    this.setState({ show: true, service: service });
+    console.log(service.options);
+    console.log("service.options");
   }
   handleChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
+    // this.setState({ [event.target.id]: event.target.value });
     console.log(this.state);
   }
 
@@ -157,7 +198,7 @@ export class RequestServicesCard extends Component {
             <Col md={12}>{this.props.topRight}</Col>
           </Row>
           <Row>
-            <Col md={12}> {this.buttonModal()}</Col>
+            <Col md={12}> {this.buttonModal(this.props.service)}</Col>
           </Row>
         </Col>
         <Row />
