@@ -16,13 +16,26 @@ class Panier extends Component {
     console.log(localStorage.getItem("panier"));
     console.log(JSON.parse(localStorage.getItem("panier")));
     this.state = {
-      panier: []
+      panier: [],
+      itemPanier: []
     };
-if(localStorage.getItem("panier")) {
-  this.state.panier = JSON.parse(localStorage.getItem("panier"));
-}
+    if (localStorage.getItem("panier")) {
+      this.state.panier = JSON.parse(localStorage.getItem("panier"));
+    }
   }
-  _updatePanier() {}
+  _updatePanier(service, id) {
+    console.log("updatePanier");
+    console.log(service);
+    console.log(this.state.panier);
+    var array = this.state.panier
+    array.splice(service.id, 1,service);
+    this.setState(prevState => ({
+      panier: array
+    }));
+    localStorage.setItem("panier", JSON.stringify(array));
+
+    this._closePanier();
+  }
 
   _closePanier() {
     this.setState({ displayUpdate: false });
@@ -33,6 +46,8 @@ if(localStorage.getItem("panier")) {
     if (index !== -1) {
       array.splice(index, 1);
       this.setState({ panier: array });
+      localStorage.setItem("panier", JSON.stringify(array));
+
     }
   }
 
@@ -67,16 +82,19 @@ if(localStorage.getItem("panier")) {
           >
             <div>
               <div> Nom du pro : {itemPanier.namePro}</div>
+              <div> Adresse : {itemPanier.address}</div>
+
               <div> Description : {itemPanier.description}</div>
               <div> Location : {itemPanier.location}</div>
               <div> Les différentes options :</div>
 
-              {itemPanier.options.map(option => {
+              {itemPanier.options.map((option,index) => {
+               
                 console.log("itemPanierd");
                 return (
                   <div>
                     {option.title} :
-                    {Object.values(option.value).map(optionValue => {
+                    {Object.values(option.value).map((optionValue, index) => {
                       console.log("itemPanierd");
                       return (
                         <div>
@@ -97,7 +115,16 @@ if(localStorage.getItem("panier")) {
                   color: "blue"
                 }}
                 onClick={e => {
-                  this.setState({ displayUpdate: true });
+                  
+                  this.setState(prevState => ({
+                    itemPanier: {
+                      ...itemPanier,
+                      id: index
+                    }
+                  }));
+                  this.setState({
+                    displayUpdate: true,
+                  });
                 }}
               >
                 Modifier
@@ -114,6 +141,14 @@ if(localStorage.getItem("panier")) {
               >
                 Supprimez
               </Button>
+              {itemPanier.options.map(option => {
+                console.log("itemPanierd");
+                return (
+                  <div>
+                    <div> L'option choisie : {option.defaultValue}</div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -121,6 +156,7 @@ if(localStorage.getItem("panier")) {
     );
   }
   _renderPage() {
+    let newPanier = []; //for index
     return (
       <div className="content">
         <UpdatePanier
@@ -131,6 +167,9 @@ if(localStorage.getItem("panier")) {
 
         {(this.state.panier != undefined && this.state.panier.length) > 0 &&
           this.state.panier.map((itemPanier, index) => {
+           itemPanier.id =index
+           newPanier.push(itemPanier);
+
             console.log(itemPanier);
             console.log("itemPanier");
             return this._renderCard(itemPanier, index);

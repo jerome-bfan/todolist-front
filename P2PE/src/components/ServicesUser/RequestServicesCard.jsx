@@ -24,7 +24,6 @@ export class RequestServicesCard extends Component {
     this.btnUpdate = this.btnUpdate.bind(this);
     this.borderState = this.borderState.bind(this);
     this.borderNoState = this.borderNoState.bind(this);
-    this.handleChangeOptions = this.handleChangeOptions.bind(this);
 
     this.state = {
       show: false,
@@ -101,7 +100,6 @@ export class RequestServicesCard extends Component {
                     componentClass="select"
                     placeholder="select"
                     inputRef={el => this.inputOptions.push(el)}
-                    onChange={event => this.handleChangeOptions(option, event)}
                   >
                     {option.value &&
                       Object.values(option.value).length > 0 &&
@@ -131,18 +129,7 @@ export class RequestServicesCard extends Component {
       </div>
     );
   }
-  handleChangeOptions(option, event) {
-    // console.log(event.target.value);
-    // console.log(this.state.service);
-    // var selectChanged = this.state.service.options.filter(item => {
-    //   console.log("item2");
-    //   console.log(item);
-    //   return item.title == option.title;
-    // });
-    // console.log("opt");
-    // selectChanged[0].defaultOption = event.target.value;
-    // console.log(this.state.service);
-  }
+
   handleValidate() {
     let service = Object.assign(this.state.service);
 

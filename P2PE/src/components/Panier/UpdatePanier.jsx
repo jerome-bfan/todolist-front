@@ -1,71 +1,106 @@
 import React, { Component } from "react";
-import { Button, Modal, FormControl } from "react-bootstrap";
+import {
+  Button,
+  Modal,
+  FormControl,
+  FormGroup,
+  ControlLabel
+} from "react-bootstrap";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 
 class UpdatePanier extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
+    console.log("props");
     this._renderModalUpdate = this._renderModalUpdate.bind(this);
-    this.handleShow = this.handleShow.bind(this);
+    this.inputOptions = [];
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.formControl = this.formControl.bind(this);
-
-    // this.state = {
-    //   show: this.props.displayUpdate
-    // };
+    this._renderFormAdress = this._renderFormAdress.bind(this);
+    
   }
 
   handleSave() {
     // this.setState({ show: false });
-    const service = {
-      description: this.state.addDescription,
-      category: this.state.addCategory,
-      location: this.state.addLocation,
-      prix: this.state.addPrix,
-      title: this.state.addTitle,
-      id_service: this.state.id,
-      enable: this.state.enable
-    };
-    this.props.updateService(service, this.state.id);
-    console.log("fff");
-  }
+    let service = Object.assign(this.props.itemPanier);
 
-  handleShow(service) {
-    this.setState({
-      show: true,
-      addDescription: service.description,
-      addCategory: service.category,
-      id: service.id_service,
-      addLocation: service.location,
-      addPrix: service.prix,
-      addTitle: service.title,
-      enable: service.enable
+    this.inputOptions.map(optionValue => {
+      service.options.map(stateOption => {
+        if ((optionValue != null) & (stateOption != null))
+          if (optionValue.id == stateOption.title) {
+            stateOption.defaultValue = optionValue.value;
+          }
+      });
     });
+
+    // let addressValue = this.inputAddress.value;
+    service = {
+      ...service,
+      address:  this.inputAddress.value
+    }
+    console.log("service");
+    this.props.updatePanier(service);
+    console.log("fff");
+    console.log(service);
   }
 
   formControl() {
+    console.log(this.props.panier);
+    console.log("fpsps");
+
+    if (!!this.props.itemPanier.options) {
+      return this.props.itemPanier.options.map((option, index) => {
+        console.log("itemPanierddddd");
+        console.log(option);
+        return (
+          <FormGroup key={index}>
+            <ControlLabel>{option.title}</ControlLabel>
+            <FormControl
+              style={{
+                marginBottom: 0,
+                paddingBottom: 0
+              }}
+              id={option.title}
+              componentClass="select"
+              placeholder="select"
+              defaultValue={option.defaultValue}
+              inputRef={el => this.inputOptions.push(el)}
+            >
+              {option.value &&
+                Object.values(option.value).length > 0 &&
+                Object.values(option.value).map((option, index) => {
+                  console.log(option);
+                  console.log("option");
+                  return (
+                    <option key={index} id="searchType" value={option}>
+                      {option}
+                    </option>
+                  );
+                })}
+            </FormControl>
+          </FormGroup>
+        );
+      });
+    }
+  }
+  _renderFormAdress() {
     return (
-      <FormControl
-        style={{
-          marginBottom: 0,
-          paddingBottom: 0
-        }}
-        componentClass="select"
-        placeholder="select"
-        inputRef={el => (this.inputCat = el)}
-        onChange={this.handleChangeSelectCategorie}
-      >
-        {this.state && this.state.categories.length > 0 &&
-          this.state.categories.map(cat => {
-            console.log(cat);
-            return (
-              <option id="searchType" value={cat.id}>
-                {cat.name}
-              </option>
-            );
-          })}
-      </FormControl>
+      <FormInputs
+        ncols={["col-md-12"]}
+        proprieties={[
+          {
+            label: "Veuillez rentrer votre adresse",
+            type: "text",
+            id: "address",
+            defaultValue:this.props.itemPanier.address,
+            bsClass: "form-control",
+            placeholder: "Saisir votre addresse ici",
+            inputRef: input => (this.inputAddress = input)
+          }
+        ]}
+      />
     );
   }
 
@@ -74,11 +109,10 @@ class UpdatePanier extends Component {
       <div>
         <Modal show={this.props.displayUpdate} onHide={this.props.closePanier}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Modifier son panier ! </Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-           {this.formControl()}
-          </Modal.Body>
+          <Modal.Body>{this.formControl()}
+          {this._renderFormAdress()}</Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.props.closePanier}>
               Fermez
