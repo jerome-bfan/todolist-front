@@ -12,40 +12,15 @@ class Panier extends Component {
     this._closePanier = this._closePanier.bind(this);
 
     this._deleteItemPanier = this._deleteItemPanier.bind(this);
+    console.log("panier");
+    console.log(localStorage.getItem("panier"));
+    console.log(JSON.parse(localStorage.getItem("panier")));
     this.state = {
-      panier: [
-        {
-          title: "Jardinerie",
-          namePro: "Jean claude",
-          location: "asnières sur seine",
-          description: "Se couper les cheveux",
-          prix: 20,
-          options: [
-            {
-              title: "teinture",
-              value: ["blonde", "rousse"]
-            },
-            {
-              title: "coupe",
-              value: ["courte"]
-            }
-          ]
-        },
-        {
-          title: "Plomberie",
-          namePro: "Jean vandam",
-          location: "asnières sur seine",
-          description: "Changer le tuyau du lavabo",
-          prix: 18,
-          options: [
-            {
-              title: "materiaux",
-              value: ["metal", "bois", "PVC"]
-            }
-          ]
-        }
-      ]
+      panier: []
     };
+if(localStorage.getItem("panier")) {
+  this.state.panier = JSON.parse(localStorage.getItem("panier"));
+}
   }
   _updatePanier() {}
 
@@ -100,12 +75,12 @@ class Panier extends Component {
                 console.log("itemPanierd");
                 return (
                   <div>
-                     {option.title} :
+                    {option.title} :
                     {Object.values(option.value).map(optionValue => {
                       console.log("itemPanierd");
                       return (
                         <div>
-                         <p> -{optionValue}</p>
+                          <p> -{optionValue}</p>
                         </div>
                       );
                     })}

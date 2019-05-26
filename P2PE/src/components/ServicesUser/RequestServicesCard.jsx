@@ -148,9 +148,10 @@ export class RequestServicesCard extends Component {
 
     this.inputOptions.map(optionValue => {
       service.options.map(stateOption => {
-        if (optionValue.id == stateOption.title) {
-          stateOption.defaultValue = optionValue.value;
-        }
+        if ((optionValue != null) & (stateOption != null))
+          if (optionValue.id == stateOption.title) {
+            stateOption.defaultValue = optionValue.value;
+          }
         console.log("inputOptions");
         console.log(optionValue);
         console.log(optionValue.value);
@@ -165,7 +166,19 @@ export class RequestServicesCard extends Component {
     };
     console.log(service);
     console.log("service");
+
+    if (!!addressValue) {
+      this.setState({ show: false });
+      let panier = JSON.parse(localStorage.getItem("panier"));
+      if (panier == null) {
+        console.log("je suis null");
+        panier = [];
+      }
+      panier.push(service);
+      localStorage.setItem("panier", JSON.stringify(panier));
+    }
   }
+
   //TODO api validate request servuce
 
   handleShow(service) {
