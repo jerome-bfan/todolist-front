@@ -52,37 +52,42 @@ export class HistoriqueCustomer extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = {services: [
-      {
-        accept: true,
-        service_name: 'Informatique',
-        price: 29,
-        name_customer: 'Salvador Dali',
-        description: 'Réparer l\'ordi',
-        emplacement: 'rue de l\'informatique',
-        options: 'Réinstaller windows',
-        date: '2019-07-24'
-      },
-      {
-        accept: false,
-        service_name: 'Jardinage',
-        price: 48,
-        name_customer: 'Pablo Picasso',
-        description: 'Arroser les plantes',
-        emplacement: 'rue du clochet',
-        options: 'Amener un arrosoir',
-        date: '2019-06-19'
-      },
-      {
-        accept: true,
-        service_name: 'Bricolage',
-        price: 35,
-        name_customer: 'Lee Ufan',
-        description: 'Réparer la douche',
-        emplacement: 'rue de l\'hiver',
-        date: '2019-05-02'
-      }
-    ]};
+    this.state = {
+      services: [
+        {
+          accept: true,
+          service_name: 'Informatique',
+          price: 29,
+          name_customer: 'Salvador Dali',
+          description: 'Réparer l\'ordi',
+          emplacement: 'rue de l\'informatique',
+          options: 'Réinstaller windows',
+          date: '2019-07-24'
+        },
+        {
+          accept: false,
+          service_name: 'Jardinage',
+          price: 48,
+          name_customer: 'Pablo Picasso',
+          description: 'Arroser les plantes',
+          emplacement: 'rue du clochet',
+          options: 'Amener un arrosoir',
+          date: '2019-06-19'
+        },
+        {
+          accept: true,
+          service_name: 'Bricolage',
+          price: 35,
+          name_customer: 'Lee Ufan',
+          description: 'Réparer la douche',
+          emplacement: 'rue de l\'hiver',
+          date: '2019-05-02'
+        }
+      ],
+      orderDate: 'asc',
+      orderService: 'asc',
+      orderPrice: 'asc'
+    };
   }
 
   _acceptOrNot(accept) {
@@ -163,34 +168,81 @@ export class HistoriqueCustomer extends Component {
   }
 
   tri(type) {
-      if (type == 'date') {
+      if (type == 'date' && this.state.orderDate == 'asc') {
           var myServices =  this.state.services.sort((a, b) => {
               if (a.date < b.date) return -1;
               else if (a.date == b.date) return 0;
               else return 1;
           });
           this.setState({
-              services: myServices
+              services: myServices,
+              orderDate: 'desc',
+              orderService: 'asc',
+              orderPrice: 'asc'
           });
-      }
-      if (type == 'price') {
+      } else if (type == 'date' && this.state.orderDate == 'desc') {
           var myServices =  this.state.services.sort((a, b) => {
-              if (a.price < b.price) return -1;
-              else if (a.price == b.price) return 0;
+              if (a.date > b.date) return -1;
+              else if (a.date == b.date) return 0;
               else return 1;
           });
           this.setState({
-              services: myServices
+              services: myServices,
+              orderDate: 'asc',
+              orderService: 'asc',
+              orderPrice: 'asc'
           });
       }
-      if (type == 'service') {
+
+      if (type == 'service' && this.state.orderService == 'asc') {
           var myServices =  this.state.services.sort((a, b) => {
               if (a.service_name < b.service_name) return -1;
               else if (a.service_name == b.service_name) return 0;
               else return 1;
           });
           this.setState({
-              services: myServices
+              services: myServices,
+              orderDate: 'asc',
+              orderService: 'desc',
+              orderPrice: 'asc'
+          });
+      } else if (type == 'service' && this.state.orderService == 'desc') {
+          var myServices =  this.state.services.sort((a, b) => {
+              if (a.service_name > b.service_name) return -1;
+              else if (a.service_name == b.service_name) return 0;
+              else return 1;
+          });
+          this.setState({
+              services: myServices,
+              orderDate: 'asc',
+              orderService: 'asc',
+              orderPrice: 'asc'
+          });
+      }
+
+      if (type == 'price' && this.state.orderPrice == 'asc') {
+          var myServices =  this.state.services.sort((a, b) => {
+              if (a.price < b.price) return -1;
+              else if (a.price == b.price) return 0;
+              else return 1;
+          });
+          this.setState({
+              services: myServices,
+              orderDate: 'asc',
+              orderService: 'asc',
+              orderPrice: 'desc'
+          });
+      } else if (type == 'price' && this.state.orderPrice == 'desc') {
+          var myServices =  this.state.services.sort((a, b) => {
+              if (a.price > b.price) return -1;
+              else if (a.price == b.price) return 0;
+              else return 1;
+          });
+          this.setState({
+              services: myServices,
+              orderDate: 'asc',
+              orderService: 'asc',
+              orderPrice: 'asc'
           });
       }
   }
