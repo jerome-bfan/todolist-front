@@ -139,9 +139,6 @@ export class RequestServicesCard extends Component {
           if (optionValue.id == stateOption.title) {
             stateOption.defaultValue = optionValue.value;
           }
-        console.log("inputOptions");
-        console.log(optionValue);
-        console.log(optionValue.value);
       });
     });
 

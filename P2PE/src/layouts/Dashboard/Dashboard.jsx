@@ -48,8 +48,19 @@ class Dashboard extends Component {
     this.handleConnected = this.handleConnected.bind(this);
     this.state = {
       _notificationSystem: null,
-      menuConnected: false,
+      menuConnected: false
     };
+    const options = { 
+      method: 'post',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }    
+    }   
+    console.log("data")
+    fetch("http://localhost:3001/login", options)
+      .then(response => console.log(response))
+      .then(data => console.log(data));
   }
 
   handleConnected(typeAccount) {
@@ -58,7 +69,6 @@ class Dashboard extends Component {
     if (!this.state.menuConnected) {
       this.setState({ menuConnected: typeAccount });
     }
-
   }
   handleNotificationClick(position) {
     var color = Math.floor(Math.random() * 4 + 1);
@@ -121,13 +131,13 @@ class Dashboard extends Component {
   render() {
     if (isConnected()) {
     }
-    let route  = getRoutes(this.state.menuConnect);
+    let route = getRoutes(this.state.menuConnect);
     return (
       <div className="wrapper">
         <NotificationSystem ref="notificationSystem" style={style} />
         <Sidebar menuConnect={this.state.menuConnected} {...this.props} />
         <div id="main-panel" className="main-panel" ref="mainPanel">
-          <Header menuConnect={this.state.menuConnected}{...this.props} />
+          <Header menuConnect={this.state.menuConnected} {...this.props} />
           <Switch>
             {route.map((prop, key) => {
               if (prop.name === "Accueil")
