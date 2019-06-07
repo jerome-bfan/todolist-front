@@ -30,7 +30,7 @@ in order to provider
 # Build
 
 Launch the server for dev :
-
+``` remove the package-lock.json ```
 ``` npm install ```
 ``` npm audit fix  (if necesary)```
 
