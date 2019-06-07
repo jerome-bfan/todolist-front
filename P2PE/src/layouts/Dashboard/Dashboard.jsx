@@ -12,6 +12,7 @@ import AWS from "aws-sdk";
 import { authentification } from "../../Provider/AuthProvider";
 import { isConnected, colorRole } from "../../functions/p2peFunction";
 import { getRoutes } from "../../routes/dashboard";
+import { register } from "../../Provider/Api";
 
 export function makeNotif(ref, type, message) {
   var color = Math.floor(Math.random() * 4 + 1);
@@ -50,17 +51,6 @@ class Dashboard extends Component {
       _notificationSystem: null,
       menuConnected: false
     };
-    const options = { 
-      method: 'post',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      }    
-    }   
-    console.log("data")
-    fetch("http://localhost:3001/login", options)
-      .then(response => console.log(response))
-      .then(data => console.log(data));
   }
 
   handleConnected(typeAccount) {

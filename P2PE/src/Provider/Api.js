@@ -1,5 +1,41 @@
 const apigClientFactory = require("aws-api-gateway-client").default;
+export const url = "http://localhost:3001/";
+export const optionsUnConnected = {
+  headers: {
+    Accept: "application/json, text/plain, */*",
+    "Content-Type": "application/json"
+  }
+};
 
+export async function register() {
+  const user = {
+    email: "jay2s@gmail.com",
+    password: "jay",
+    gender: "male",
+    address: "24 rue de la vie",
+    phone_number: "063567676",
+    first_name: "jerome",
+    last_name: "joujouany",
+    role: "user",
+    company_name: "la street",
+    company_description: "la vraie",
+    profession: "askip dev"
+  };
+  optionsUnConnected.method = "post";
+  optionsUnConnected.body = JSON.stringify(user);
+
+  try {
+    const rawResponse = await fetch(url + "users", optionsUnConnected);
+    const response = await rawResponse;
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+
+}
+
+//TODO DELEte this above
 export function instanceApi() {
   return apigClientFactory.newClient({
     accessKey: localStorage.getItem("accessKeyId"),
@@ -310,14 +346,13 @@ export function putUpdateServiceRequestUser(service, id) {
 
 export function putUpdateServicePro(service, id) {
   console.log(service);
-  
+
   var body = {};
   if (!!service.prix) {
     body.prix = Number(service.prix);
   }
-  
-    body.state = service.state;
- 
+
+  body.state = service.state;
 
   if (!!service.location) {
     body.location = service.location;
@@ -341,7 +376,7 @@ export function putUpdateServicePro(service, id) {
     )
     .then(function(result) {
       console.log(result);
-      window.location.reload()
+      window.location.reload();
       return result;
     })
     .catch(function(error) {

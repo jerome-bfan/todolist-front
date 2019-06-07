@@ -22,7 +22,8 @@ import {
   authentification,
   register,
   poolData,
-  authentificationSocial
+  authentificationSocial,
+  postRegister
 } from "../../Provider/AuthProvider";
 import { isConnected } from "../../functions/p2peFunction";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
@@ -30,6 +31,7 @@ import { makeNotif } from "../../layouts/Dashboard/Dashboard";
 import { style } from "variables/Variables.jsx";
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
+import { postUser } from "../../Provider/Api";
 
 class Dashboard extends Component {
   constructor(props, context) {
@@ -234,14 +236,10 @@ class Dashboard extends Component {
 
   _rendrePresentation() {
     if (localStorage.getItem("roleUser")) {
-      return (
-        <DashboardCustomer></DashboardCustomer>
-      );
+      return <DashboardCustomer />;
     }
     if (localStorage.getItem("rolePro")) {
-      return (
-        <DashboardPro></DashboardPro>
-      );
+      return <DashboardPro />;
     }
   }
 
@@ -255,7 +253,7 @@ class Dashboard extends Component {
               {this._rendrePresentation()}
             </Row>
           </Grid>
-          
+
           {/* {displayHomeService()} */}
         </div>
       );
@@ -410,12 +408,13 @@ class Dashboard extends Component {
                         ]}
                       />
                       <Button
-                        onClick={testhist => {
-                          console.log();
-                          register(this.state)
+                        onClick={() => {
+                          postRegister(this.state)
                             .then(e => {
+                                    console.log("test23");
+                              console.log(e)
                               var mess =
-                                "Vous devez accepté votre email avant de vous connecter";
+                                "Vous êtes inscrit";
                               this.setState({ successRegister: mess });
                               this.setState({
                                 _notificationSystem: this.refs
@@ -424,13 +423,17 @@ class Dashboard extends Component {
                               var _notificationSystem = this.refs
                                 .notificationSystem;
                               makeNotif(_notificationSystem, "info", mess);
-                              this.setState({ errorRegister: e.message });
+                              this.setState({ errorRegister: "" });
 
                               console.log(e);
                             })
                             .catch(e => {
                               console.log(e);
-                              this.setState({ errorRegister: e.message });
+                              console.log("100");
+                                    console.log("test24");
+
+                              console.log(e);
+                              this.setState({ errorRegister: "Veuillez réssayer" });
                               this.setState({
                                 _notificationSystem: this.refs
                                   .notificationSystem
@@ -440,9 +443,45 @@ class Dashboard extends Component {
                               makeNotif(
                                 _notificationSystem,
                                 "error",
-                                e.message
+                                "Veuillez réssayer"
                               );
                             });
+
+                          // postRegister(this.state)
+                          //   .then(e => {
+                          //       console.log("test23");
+                          //     console.log(e)
+                          //     var mess =
+                          //       "Vous devez accepté votre email avant de vous connecter";
+                          //     this.setState({ successRegister: mess });
+                          //     this.setState({
+                          //       _notificationSystem: this.refs
+                          //         .notificationSystem
+                          //     });
+                          //     var _notificationSystem = this.refs
+                          //       .notificationSystem;
+                          //     makeNotif(_notificationSystem, "info", mess);
+                          //     this.setState({ errorRegister: e.message });
+
+                          //     console.log(e);
+                          //   })
+                          //   .catch(e => {
+                          //     console.log("test24");
+
+                          //     console.log(e);
+                          //     this.setState({ errorRegister: e.message });
+                          //     this.setState({
+                          //       _notificationSystem: this.refs
+                          //         .notificationSystem
+                          //     });
+                          //     var _notificationSystem = this.refs
+                          //       .notificationSystem;
+                          //     makeNotif(
+                          //       _notificationSystem,
+                          //       "error",
+                          //       e.message
+                          //     );
+                          //   });
                         }}
                       >
                         Inscrivez-vous

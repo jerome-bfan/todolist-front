@@ -7,8 +7,44 @@ import {
 import awsmobile from "../aws-exports";
 import Amplify, { API } from "aws-amplify";
 import AWS from "aws-sdk/dist/aws-sdk-react-native";
-import { getNotes, getUser, getAllNotes, postUser, splitIdentity } from "./Api";
+import { getNotes, getUser, getAllNotes, postUser, splitIdentity, optionsUnConnected, url } from "./Api";
 var jwtDecode = require("jwt-decode");
+
+
+export async function postRegister(form) {
+  var email = form.registerEmail;
+  var username = form.registerUserName;
+  var phone = form.registerPhone;
+  var password = form.registerPassword;
+  var siret = form.registerSiret;
+  var nbEmploye = form.registerNbEmploye;
+  const user = {
+    email: form.registerEmail,
+    password: form.registerPassword,
+    gender: "male",
+    address: "24 rue de la vie",
+    phone_number: form.registerPhone,
+    first_name: form.registerUserName,
+    last_name: "joujouany",
+    role: form.typeAccount,
+   
+  };
+  optionsUnConnected.method = "post";
+  optionsUnConnected.body = JSON.stringify(user);
+
+    const rawResponse = await fetch(url+ "users", optionsUnConnected);
+    console.log(rawResponse)
+    return new Promise((resolve, reject) => {
+      if (!rawResponse.ok) {
+        reject(rawResponse);
+      }
+      
+      resolve(rawResponse)
+    });
+    
+
+}
+//TODO DELETE ABOVE 
 
 const apigClientFactory = require("aws-api-gateway-client").default;
 
