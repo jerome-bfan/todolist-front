@@ -16,7 +16,8 @@ import ServicesPro from '../views/Pro/ServicesPro';
 
 export const getRoutes = (connected) => {
   let menuRoute = {};
-
+  console.log(connected);
+  console.log("connected");
   if (isConnected() || connected) {
     if (connected == "pro"  || localStorage.getItem("rolePro")) {
       menuRoute = dashboardRoutesPro;
@@ -26,7 +27,7 @@ export const getRoutes = (connected) => {
   } else {
     menuRoute = dashboardUnConnected;
 }
-return menuRoute
+return dashboardRoutesUser
 
 }
 export const dashboardRoutesUser = [

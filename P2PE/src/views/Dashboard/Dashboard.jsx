@@ -23,7 +23,8 @@ import {
   register,
   poolData,
   authentificationSocial,
-  postRegister
+  postRegister,
+  postLogin
 } from "../../Provider/AuthProvider";
 import { isConnected } from "../../functions/p2peFunction";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
@@ -156,11 +157,11 @@ class Dashboard extends Component {
                         ncols={["col-md-12"]}
                         proprieties={[
                           {
-                            label: "Username",
+                            label: "Mail",
                             id: "username",
                             type: "text",
                             bsClass: "form-control",
-                            placeholder: "Username",
+                            placeholder: "Mail",
                             onChange: this.handleChange,
                             value: this.state.username
                           }
@@ -185,25 +186,46 @@ class Dashboard extends Component {
                         <Button
                           style={{ marginLeft: 15 }}
                           onClick={e => {
-                            authentification(this.state)
+                            // authentification(this.state)
+                            //   .then(e => {
+                            //     this.setState({ connected: e });
+                            //     this.props.handleConnected(e);
+                            //   })
+                            //   .catch(e => {
+                            //     console.log(e);
+                            //     this.setState({ errorConnect: e.message });
+                            //     this.setState({
+                            //       _notificationSystem: this.refs
+                            //         .notificationSystem
+                            //     });
+                            //     var _notificationSystem = this.refs
+                            //       .notificationSystem;
+                            //     makeNotif(
+                            //       _notificationSystem,
+                            //       "error",
+                            //       e.message
+                            //     );
+                            //   });
+                            postLogin(this.state)
                               .then(e => {
-                                this.setState({ connected: e });
+                                this.setState({
+                                  connected: e
+                                });
                                 this.props.handleConnected(e);
+                                console.log("e");
+                                console.log(e);
                               })
                               .catch(e => {
                                 console.log(e);
-                                this.setState({ errorConnect: e.message });
+                                console.log(e);
+                                this.setState({ errorConnect: "Mauvais mot de passe" });
                                 this.setState({
                                   _notificationSystem: this.refs
                                     .notificationSystem
                                 });
                                 var _notificationSystem = this.refs
                                   .notificationSystem;
-                                makeNotif(
-                                  _notificationSystem,
-                                  "error",
-                                  e.message
-                                );
+                                makeNotif(_notificationSystem, "error", "Mauvais mot de passe");
                               });
                           }}
                         >
@@ -411,10 +433,7 @@ class Dashboard extends Component {
                         onClick={() => {
                           postRegister(this.state)
                             .then(e => {
-                                    console.log("test23");
-                              console.log(e)
-                              var mess =
-                                "Vous êtes inscrit";
+                              var mess = "Vous êtes inscrit";
                               this.setState({ successRegister: mess });
                               this.setState({
                                 _notificationSystem: this.refs
@@ -426,14 +445,15 @@ class Dashboard extends Component {
                               this.setState({ errorRegister: "" });
 
                               console.log(e);
+
+                              console.log("e");
                             })
                             .catch(e => {
-                              console.log(e);
-                              console.log("100");
-                                    console.log("test24");
-
-                              console.log(e);
-                              this.setState({ errorRegister: "Veuillez réssayer" });
+                              console.log(e.body);
+                              console.log("e");
+                              this.setState({
+                                errorRegister: "Veuillez réssayer"
+                              });
                               this.setState({
                                 _notificationSystem: this.refs
                                   .notificationSystem

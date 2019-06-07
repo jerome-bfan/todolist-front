@@ -7,17 +7,45 @@ import {
 import awsmobile from "../aws-exports";
 import Amplify, { API } from "aws-amplify";
 import AWS from "aws-sdk/dist/aws-sdk-react-native";
-import { getNotes, getUser, getAllNotes, postUser, splitIdentity, optionsUnConnected, url } from "./Api";
+import {
+  getNotes,
+  getUser,
+  getAllNotes,
+  postUser,
+  splitIdentity,
+  optionsUnConnected,
+  url
+} from "./Api";
 var jwtDecode = require("jwt-decode");
 
+export async function postLogin(form) {
+  const login = {
+    email: form.username,
+    password: form.password
+  };
+  optionsUnConnected.method = "post";
+  optionsUnConnected.body = JSON.stringify(login);
 
+  const rawResponse = await fetch(url + "login", optionsUnConnected);
+  const responseJson = await rawResponse.json();
+  console.log("responseJson");
+  console.log(responseJson.message);
+
+  return new Promise((resolve, reject) => {
+    if (!rawResponse.ok) {
+      reject(responseJson.message);
+    }
+    console.log("debugjay");
+    console.log(responseJson.message);
+    if (responseJson.current_user.role == "user") {
+      localStorage.setItem("roleUser", true);
+    } else if (responseJson.current_user.role == "pro") {
+      localStorage.setItem("rolePro", true);
+    }
+    resolve(responseJson.current_user.role);
+  });
+}
 export async function postRegister(form) {
-  var email = form.registerEmail;
-  var username = form.registerUserName;
-  var phone = form.registerPhone;
-  var password = form.registerPassword;
-  var siret = form.registerSiret;
-  var nbEmploye = form.registerNbEmploye;
   const user = {
     email: form.registerEmail,
     password: form.registerPassword,
@@ -25,26 +53,28 @@ export async function postRegister(form) {
     address: "24 rue de la vie",
     phone_number: form.registerPhone,
     first_name: form.registerUserName,
+    number_employee: form.registerNbEmploye,
     last_name: "joujouany",
-    role: form.typeAccount,
-   
+    role: form.typeAccount
   };
   optionsUnConnected.method = "post";
   optionsUnConnected.body = JSON.stringify(user);
 
-    const rawResponse = await fetch(url+ "users", optionsUnConnected);
-    console.log(rawResponse)
-    return new Promise((resolve, reject) => {
-      if (!rawResponse.ok) {
-        reject(rawResponse);
-      }
-      
-      resolve(rawResponse)
-    });
-    
+  const rawResponse = await fetch(url + "users", optionsUnConnected);
+  console.log("rawResponse");
+  console.log(form.registerSiret);
+  if(!! form.registerSiret) {
+    user.siret = form.registerSiret;
+  }
+  return new Promise((resolve, reject) => {
+    if (!rawResponse.ok) {
+      reject(rawResponse);
+    }
 
+    resolve(rawResponse);
+  });
 }
-//TODO DELETE ABOVE 
+//TODO DELETE ABOVE
 
 const apigClientFactory = require("aws-api-gateway-client").default;
 
@@ -82,7 +112,7 @@ export const authentificationSocial = response => {
       IdentityPoolId: awsmobile.aws_cognito_identity_pool_id,
       Logins: {
         "graph.facebook.com": response.accessToken
-            }
+      }
     });
   }
 
@@ -137,6 +167,7 @@ export async function authentification(form) {
     Username: username,
     Pool: userPool
   };
+
   var cognitoUser = new CognitoUser(userData);
   localStorage.removeItem("identityId");
   localStorage.removeItem("accessKeyId");
@@ -172,9 +203,8 @@ export async function authentification(form) {
             localStorage.setItem("email", email);
           }
           var typeAccount = getTypeAccount(groups);
-
         }
-        
+
         AWS.config.credentials.get(function() {
           postUser(splitIdentity(AWS.config.credentials.identityId)).then();
 
@@ -206,22 +236,21 @@ export async function authentification(form) {
   });
 }
 
-export function getTypeAccount (groups) {
+export function getTypeAccount(groups) {
   var typeAccount = "";
-   return groups.map((answer, i) => {
+  return groups.map((answer, i) => {
     if (answer == "user") {
       localStorage.setItem("roleUser", true);
-     return "user";
+      return "user";
     } else if (answer == "admin") {
       localStorage.setItem("roleAdmin", true);
     } else if (answer == "pro") {
       localStorage.setItem("rolePro", true);
-     return "pro";
-
+      return "pro";
     }
     console.log("accco");
 
-    console.log(typeAccount)
+    console.log(typeAccount);
     return typeAccount;
   });
 }
@@ -272,12 +301,12 @@ export async function register(form) {
   var attributeSiret = new CognitoUserAttribute(dataSiret);
   var attributenbEmploye = new CognitoUserAttribute(dataNbEmploye);
 
-    attributeList.push(attributenbEmploye);
-    attributeList.push(attributeEmail);
-    attributeList.push(attributeSiret);
-    //attributeList.push(attributePhoneNumber);
+  attributeList.push(attributenbEmploye);
+  attributeList.push(attributeEmail);
+  attributeList.push(attributeSiret);
+  //attributeList.push(attributePhoneNumber);
   //attributeList.push(attributePreferedUsername);
-   // attributeList.push(attributeName);
+  // attributeList.push(attributeName);
 
   console.log(`Register User ${username} ${phone} ${email}`);
   return new Promise((resolve, reject) => {
