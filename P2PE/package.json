@@ -22,6 +22,7 @@
     "react-google-login": "^5.0.2",
     "react-google-maps": "9.4.5",
     "react-notification-system": "0.2.17",
+    "react-places-autocomplete": "^7.2.1",
     "react-router-dom": "4.2.2",
     "react-scripts": "1.1.1",
     "react-timestamp": "^4.4.0",

@@ -13,11 +13,46 @@ const style = {
 }
 
 export class MapContainer extends Component {
-  state = {
-    showingInfoWindow: false,
-    activeMarker: {},
-    selectedPlace: {},
-  };
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      showingInfoWindow: false,
+      activeMarker: {},
+      selectedPlace: {},
+      myLocation: {lat:1, lng: 1},
+      currentLocation: [
+        {
+          title: 'Current location',
+          service_name: 'My location',
+          description: 'test',
+          adresse: '20 Rue Gandon',
+          ville: 'Paris'
+        }
+      ],
+      services: [
+        {
+          title: 'Title as tooltip 1',
+          nom_pro: 'Jay Jay',
+          service_name: 'jardinage',
+          description: 'Nettoyer votre jardin',
+          prix: '20€',
+          adresse: "160 avenue d'Italie",
+          ville: 'Paris'
+        },
+        {
+          title: 'Title as tooltip 2',
+          nom_pro: 'YO YO',
+          service_name: 'Informatique',
+          description: 'Nettoyer votre ordinateur',
+          prix: '35€',
+          adresse: '17 rue tagore',
+          ville: 'Paris'
+        }
+      ]
+    };
+  }
+
 
   onMarkerClick = (props, marker, e) =>
     this.setState({
@@ -35,42 +70,50 @@ export class MapContainer extends Component {
     }
   };
 
-  render() {
-    var currentLocation = [
-      {
-        title: 'Current location',
-        service_name: 'My location',
-        description: 'test',
-        emplacement: { lat: 48.815619, lng: 2.362983 }
-      }
-    ]
+  async getData(itemAdresse, itemVille) {
+    itemAdresse = itemAdresse.replace(" ", "+");
+    itemVille = itemVille.replace(" ", "+");
 
-    var services = [
-      {
-        title: 'Title as tooltip 1',
-        nom_pro: 'Jay Jay',
-        service_name: 'jardinage',
-        description: 'Nettoyer votre jardin',
-        prix: '20€',
-        adresse: 'rue du commerce',
-        emplacement: { lat: 48.814819, lng: 2.373283 }
-      },
-      {
-        title: 'Title as tooltip 2',
-        nom_pro: 'YO YO',
-        service_name: 'Informatique',
-        description: 'Nettoyer votre ordinateur',
-        prix: '35€',
-        adresse: 'rue du maréchal',
-        emplacement: { lat: 48.815619, lng: 2.373283 }
-      }
-    ]
+    const response = await fetch('https://api.opencagedata.com/geocode/v1/json?q=' + itemAdresse + ',+' + itemVille + '&key=7e1d894466d346d884499d2bac3fe736');
+    const json = await response.json();
+
+    var data= {
+      lat: json.results[1].geometry.lat,
+      lng: json.results[1].geometry.lng
+    };
+
+    return data;
+  }
+
+  handleChange(key, value) {
+    this.setState({ [key]: value });
+  }
+
+  async setMyLocation() {
+    let promise = new Promise((resolve, reject) => {
+      setTimeout(() => resolve(
+          this.getData(this.state.currentLocation[0].adresse, this.state.currentLocation[0].ville)
+      ), 3000)
+    });
+
+    let result = await promise; // wait till the promise resolves (*)
+
+    this.handleChange('myLocation', result);
+
+    console.log(result);
+    console.log(this.state.myLocation);
+  }
+
+  render() {
+    console.log('Before ');
+    this.setMyLocation();
+    console.log('After');
 
     return (
         <Map google={this.props.google}
             style={style}
             initialCenter={
-              currentLocation[0].emplacement
+              this.state.myLocation
             }
             zoom={15}
             onClick={this.onMapClicked}>
@@ -81,7 +124,7 @@ export class MapContainer extends Component {
             service_name={'My location'}
             description={'test'} />
 
-          {services.map((item, i) => <Marker
+          {this.state.services.map((item, i) => <Marker
                                 key={i}
                                 onClick={this.onMarkerClick}
                                 title={item.title}
@@ -90,7 +133,7 @@ export class MapContainer extends Component {
                                 description={item.description}
                                 prix={item.prix}
                                 adresse={item.adresse}
-                                position={item.emplacement} />
+                                position={{lat:1, lng: 1}} />
           )}
 
           <InfoWindow
