@@ -77,13 +77,10 @@ export class RequestServices extends Component {
               <div>
              { (this.props.options != undefined && this.props.options.length) >
               0 && this.props.options.map(option => {
-                console.log("itemPanierd");
                 return (
                   <div>
                      {option.title} :
                     {Object.values(option.value).map(optionValue => {
-                      console.log("itemPanierd");
-                      console.log(optionValue);
                       return (
                         <div>
                          <p> -{optionValue}</p>

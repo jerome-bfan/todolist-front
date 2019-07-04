@@ -49,18 +49,11 @@ export default class ServicesPro extends Component {
     this.setState({ [event.target.id]: event.target.value });
   }
 
-  updateService(service, id ) {
-    console.log("je suis ici");
-    console.log(service);
-    
+  updateService(service, id) {
     var array = this.state.services.filter(item => {
-    console.log("item2");
-    console.log(item);
       return item.id_service != service.id_service;
     });
-    console.log("item");
     array.unshift(service);
-    console.log(array);
     this.setState({
       services: array
     });
@@ -186,7 +179,6 @@ export default class ServicesPro extends Component {
       >
         {this.state.categories.length > 0 &&
           this.state.categories.map(cat => {
-            console.log(cat);
             return (
               <option id="searchType" value={cat.id}>
                 {cat.name}
@@ -218,13 +210,10 @@ export default class ServicesPro extends Component {
     this.setState({
       services: this.state.services
     });
-    // console.log(this.state.services);
   }
 
   componentWillMount() {}
   render() {
-    console.log(this.state.services);
-
     return this._renderPage();
   }
 }

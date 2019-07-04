@@ -102,20 +102,16 @@ class Dashboard extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.id]: event.target.value });
-    console.log(this.state);
   }
   responseFacebook(response) {
-    console.log(response);
     if (!!response.accessToken) {
       const connected = authentificationSocial(response);
       this.setState({ connected: connected });
     }
-    console.log(response);
   }
 
   _renderConnection() {
     var value = localStorage.getItem("identityId");
-    console.log(value);
 
     if (!this.state.connected) {
       let errorConnect = (
@@ -181,46 +177,28 @@ class Dashboard extends Component {
                         <Button
                           style={{ marginLeft: 15 }}
                           onClick={e => {
-                            // authentification(this.state)
-                            //   .then(e => {
-                            //     this.setState({ connected: e });
-                            //     this.props.handleConnected(e);
-                            //   })
-                            //   .catch(e => {
-                            //     console.log(e);
-                            //     this.setState({ errorConnect: e.message });
-                            //     this.setState({
-                            //       _notificationSystem: this.refs
-                            //         .notificationSystem
-                            //     });
-                            //     var _notificationSystem = this.refs
-                            //       .notificationSystem;
-                            //     makeNotif(
-                            //       _notificationSystem,
-                            //       "error",
-                            //       e.message
-                            //     );
-                            //   });
                             postLogin(this.state)
                               .then(e => {
                                 this.setState({
                                   connected: e
                                 });
                                 this.props.handleConnected(e);
-                                console.log("e");
-                                console.log(e);
                               })
                               .catch(e => {
-                                console.log(e);
-                                console.log(e);
-                                this.setState({ errorConnect: "Mauvais mot de passe" });
+                                this.setState({
+                                  errorConnect: "Mauvais mot de passe"
+                                });
                                 this.setState({
                                   _notificationSystem: this.refs
                                     .notificationSystem
                                 });
                                 var _notificationSystem = this.refs
                                   .notificationSystem;
-                                makeNotif(_notificationSystem, "error", "Mauvais mot de passe");
+                                makeNotif(
+                                  _notificationSystem,
+                                  "error",
+                                  "Mauvais mot de passe"
+                                );
                               });
                           }}
                         >
@@ -270,8 +248,6 @@ class Dashboard extends Component {
               {this._rendrePresentation()}
             </Row>
           </Grid>
-
-          {/* {displayHomeService()} */}
         </div>
       );
     }

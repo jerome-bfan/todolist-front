@@ -89,13 +89,10 @@ class Panier extends Component {
               <div> Les différentes options :</div>
 
               {itemPanier.options.map((option,index) => {
-               
-                console.log("itemPanierd");
                 return (
                   <div>
                     {option.title} :
                     {Object.values(option.value).map((optionValue, index) => {
-                      console.log("itemPanierd");
                       return (
                         <div>
                           <p> -{optionValue}</p>
@@ -142,7 +139,6 @@ class Panier extends Component {
                 Supprimez
               </Button>
               {itemPanier.options.map(option => {
-                console.log("itemPanierd");
                 return (
                   <div>
                     <div> L'option choisie : {option.defaultValue}</div>
@@ -169,9 +165,6 @@ class Panier extends Component {
           this.state.panier.map((itemPanier, index) => {
            itemPanier.id =index
            newPanier.push(itemPanier);
-
-            console.log(itemPanier);
-            console.log("itemPanier");
             return this._renderCard(itemPanier, index);
           })}
       </div>

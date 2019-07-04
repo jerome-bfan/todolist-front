@@ -40,20 +40,12 @@ class UpdatePanier extends Component {
       ...service,
       address:  this.inputAddress.value
     }
-    console.log("service");
     this.props.updatePanier(service);
-    console.log("fff");
-    console.log(service);
   }
 
   formControl() {
-    console.log(this.props.panier);
-    console.log("fpsps");
-
     if (!!this.props.itemPanier.options) {
       return this.props.itemPanier.options.map((option, index) => {
-        console.log("itemPanierddddd");
-        console.log(option);
         return (
           <FormGroup key={index}>
             <ControlLabel>{option.title}</ControlLabel>
@@ -71,8 +63,7 @@ class UpdatePanier extends Component {
               {option.value &&
                 Object.values(option.value).length > 0 &&
                 Object.values(option.value).map((option, index) => {
-                  console.log(option);
-                  console.log("option");
+           
                   return (
                     <option key={index} id="searchType" value={option}>
                       {option}

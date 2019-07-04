@@ -85,7 +85,6 @@ export class RequestServicesCard extends Component {
           />{" "}
           {this.state.service.options &&
             this.state.service.options.map((option, index) => {
-              console.log("itemPanierd");
               return (
                 <FormGroup key={index}>
                   <ControlLabel>{option.title}</ControlLabel>
