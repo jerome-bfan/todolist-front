@@ -35,7 +35,7 @@ export default class ServicesUser extends Component {
           location: "Asnières",
           categoryName: "coiffeur",
           description: "Nouvelle coupe",
-          prix: 10,
+          prix: 10.02,
           options: [
             {
               title: "teinture",
@@ -53,7 +53,7 @@ export default class ServicesUser extends Component {
           location: "Asnières",
           categoryName: "Peinture",
           description: "Je peux refaire tous les murs de votre maison",
-          prix: 20,
+          prix: 10.1,
           options: [
             {
               title: "couleur",
@@ -96,7 +96,23 @@ export default class ServicesUser extends Component {
   handleChangeSelect(event) {
     this.setState({ searchType: this.inputEl.value });
     console.log(this.inputEl.value);
+    if (this.inputEl.value == "prix+") {
+      this.sortServicesByIncreasingPrice(this.state.services, true);
+    } else {
+      this.sortServicesByIncreasingPrice(this.state.services, false);
+    }
   }
+
+  sortServicesByIncreasingPrice(services, bool) {
+    if (bool) {
+      services.sort((a, b) =>
+        (a.prix > b.prix) ? 1 : -1);
+    } else {
+      services.sort((a, b) =>
+        (a.prix > b.prix) ? -1 : 1);
+    }
+  }
+
   formControl() {
     return (
       <FormControl
@@ -192,8 +208,11 @@ export default class ServicesUser extends Component {
               <option id="searchType" value="location">
                 Par location
               </option>
-              <option id="searchType" value="prix">
-                Par Prix
+              <option id="searchType" value="prix+">
+                Par Prix croissant
+              </option>
+              <option id="searchType" value="prix-">
+                Par Prix decroissant
               </option>
             </FormControl>
           </Col>
