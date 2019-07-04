@@ -4,11 +4,7 @@ import { Grid, Row, Col, Collapse, Well, Panel, PanelGroup,
 
           Form, FormGroup, Label, FormControl, textarea
         } from "react-bootstrap";
-import {
 
-  postNotesAdmin,
-  deleteNoteAdmin
-} from "../../Provider/Api";
 import Button from "components/CustomButton/CustomButton";
 import Card from "components/Card/Card.jsx";
 
@@ -49,10 +45,7 @@ class Contact extends Component {
     super(props);
   }
 
-  addNote() {
-    postNotesAdmin(this.note.value).then();
-    window.location.reload();
-  }
+ 
 // https://help.instagram.com/
 
   /* Google Map */
@@ -181,11 +174,6 @@ class Contact extends Component {
         />
       </Col>
     );
-  }
-
-  deleteNote() {
-    deleteNoteAdmin(this.id_note.value).then();
-    window.location.reload();
   }
 
   render() {

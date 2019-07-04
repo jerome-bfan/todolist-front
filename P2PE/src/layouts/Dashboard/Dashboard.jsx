@@ -12,7 +12,6 @@ import AWS from "aws-sdk";
 import { authentification } from "../../Provider/AuthProvider";
 import { isConnected, colorRole } from "../../functions/p2peFunction";
 import { getRoutes } from "../../routes/dashboard";
-import { register } from "../../Provider/Api";
 
 export function makeNotif(ref, type, message) {
   var color = Math.floor(Math.random() * 4 + 1);

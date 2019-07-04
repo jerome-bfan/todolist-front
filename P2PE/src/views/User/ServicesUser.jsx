@@ -1,15 +1,6 @@
 import Card from "components/Card/Card.jsx";
 import React, { Component } from "react";
-import { colorRole } from "../../functions/p2peFunction";
-import {
-  deleteNotes,
-  postNotes,
-  postServicePro,
-  getAllServices,
-  getCategories
-} from "../../Provider/Api";
 import { Grid, Row, Col, FormControl, ControlLabel } from "react-bootstrap";
-import Button from "components/CustomButton/CustomButton.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import RequestServices from '../../components/ServicesUser/RequestServices';
 import { getServices } from "../../Provider/ServicesProvider";
@@ -244,7 +235,6 @@ export default class ServicesUser extends Component {
       prix: this.state.addPrix,
       title: this.state.addTitle
     };
-    postServicePro(service);
     this.state.services.unshift(service);
     this.setState({
       services: this.state.services
@@ -253,23 +243,7 @@ export default class ServicesUser extends Component {
   }
 
   componentWillMount() {
-    //deleteNotes(2).then();
-    // getAllServices().then(api => {
-    //   console.log("state");
-    //   //console.log(api);
 
-    //   this.setState({
-    //     services: api.data
-    //   });
-    // });
-    getCategories().then(api => {
-      console.log("state");
-      // console.log(api);
-
-      this.setState({
-        categories: api.data
-      });
-    });
   }
   render() {
     console.log(this.state.services);

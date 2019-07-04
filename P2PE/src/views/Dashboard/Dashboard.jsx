@@ -32,7 +32,6 @@ import { makeNotif } from "../../layouts/Dashboard/Dashboard";
 import { style } from "variables/Variables.jsx";
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
-import { postUser } from "../../Provider/Api";
 
 class Dashboard extends Component {
   constructor(props, context) {

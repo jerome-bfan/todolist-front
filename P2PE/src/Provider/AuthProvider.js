@@ -5,14 +5,8 @@ import {
   AuthenticationDetails
 } from "amazon-cognito-identity-js";
 import awsmobile from "../aws-exports";
-import Amplify, { API } from "aws-amplify";
 import AWS from "aws-sdk/dist/aws-sdk-react-native";
 import {
-  getNotes,
-  getUser,
-  getAllNotes,
-  postUser,
-  splitIdentity,
   optionsUnConnected,
   url
 } from "./Api";
@@ -208,7 +202,6 @@ export async function authentification(form) {
         }
 
         AWS.config.credentials.get(function() {
-          postUser(splitIdentity(AWS.config.credentials.identityId)).then();
 
           console.log(AWS.config.credentials.identityId);
           localStorage.setItem("identityId", AWS.config.credentials.identityId);

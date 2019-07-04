@@ -1,12 +1,7 @@
 import React, { Component } from "react";
 import { Grid, Row, Col, Collapse, Well, Panel, PanelGroup
         } from "react-bootstrap";
-import {
-  getAllNotes,
-  deleteNotes,
-  postNotesAdmin,
-  deleteNoteAdmin
-} from "../../Provider/Api";
+
 import Button from "components/CustomButton/CustomButton";
 
 import Card from "components/Card/Card.jsx";
@@ -51,10 +46,6 @@ class Typography extends Component {
     };
   }
 
-  addNote() {
-    postNotesAdmin(this.note.value).then();
-    window.location.reload();
-  }
 // https://help.instagram.com/
 
   _renderProblems() {
@@ -576,10 +567,7 @@ class Typography extends Component {
     );
   }
 
-  deleteNote() {
-    deleteNoteAdmin(this.id_note.value).then();
-    window.location.reload();
-  }
+  
 
   render() {
     return (

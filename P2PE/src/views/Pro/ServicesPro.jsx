@@ -1,13 +1,6 @@
 import Card from "components/Card/Card.jsx";
 import React, { Component } from "react";
 import { colorRole } from "../../functions/p2peFunction";
-import {
-  deleteNotes,
-  postNotes,
-  postServicePro,
-  getAllServices,
-  getCategories
-} from "../../Provider/Api";
 import { Grid, Row, Col, FormControl, ControlLabel } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";

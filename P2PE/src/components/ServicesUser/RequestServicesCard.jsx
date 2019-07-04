@@ -10,7 +10,6 @@ import {
 } from "react-bootstrap";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 
-import { postServiceUser } from "../../Provider/Api";
 export class RequestServicesCard extends Component {
   constructor(props, context) {
     super(props, context);
