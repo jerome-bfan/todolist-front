@@ -4,13 +4,16 @@ export async function getServices() {
   console.log("je suis ici");
 
   optionsUnConnected.method = "get";
+  optionsUnConnected.body = undefined;
   optionsUnConnected.headers = new Headers( {
     "Content-Type": "application/json",
     'x-access-token' :localStorage.getItem("token")
   });
 
+
   const rawResponse = await fetch(url + "proposed_services", optionsUnConnected);
   const responseJson = await rawResponse.json();
+
   console.log("responseJsonJay");
   console.log(responseJson);
   console.log("responseJsonJay");
