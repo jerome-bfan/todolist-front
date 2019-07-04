@@ -12,6 +12,7 @@ import { Grid, Row, Col, FormControl, ControlLabel } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import RequestServices from '../../components/ServicesUser/RequestServices';
+import { getServices } from "../../Provider/ServicesProvider";
 
 export default class ServicesUser extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ export default class ServicesUser extends Component {
     this.handleChangeSelectCategorie = this.handleChangeSelectCategorie.bind(
       this
     );
+    getServices().then(serv => {console.log(serv)})
 
     console.log("test");
     this.formControl = this.formControl.bind(this);

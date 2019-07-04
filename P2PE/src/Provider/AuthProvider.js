@@ -37,6 +37,8 @@ export async function postLogin(form) {
     }
     console.log("debugjay");
     console.log(responseJson.message);
+    localStorage.setItem("token", responseJson.token);
+
     if (responseJson.current_user.role == "user") {
       localStorage.setItem("roleUser", true);
     } else if (responseJson.current_user.role == "pro") {
