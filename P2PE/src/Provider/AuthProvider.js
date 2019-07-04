@@ -4,7 +4,7 @@ import {
   CognitoUser,
   AuthenticationDetails
 } from "amazon-cognito-identity-js";
-import awsmobile from "../aws-exports";
+
 import AWS from "aws-sdk/dist/aws-sdk-react-native";
 import {
   optionsUnConnected,
@@ -75,8 +75,6 @@ export async function postRegister(form) {
 const apigClientFactory = require("aws-api-gateway-client").default;
 
 export const poolData = {
-  UserPoolId: awsmobile.aws_user_pools_id, // Your user pool id here
-  ClientId: awsmobile.aws_user_pools_web_client_id, // Your client id here
   region: "eu-west-1"
 };
 
@@ -98,14 +96,12 @@ export const authentificationSocial = response => {
   AWS.config.update({ region: "eu-west-1" });
   if (response.El) {
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: awsmobile.aws_cognito_identity_pool_id,
       Logins: {
         "accounts.google.com": response.tokenId
       }
     });
   } else {
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: awsmobile.aws_cognito_identity_pool_id,
       Logins: {
         "graph.facebook.com": response.accessToken
       }
@@ -181,7 +177,6 @@ export async function authentification(form) {
         AWS.config.update({ region: "eu-west-1" });
 
         AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-          IdentityPoolId: awsmobile.aws_cognito_identity_pool_id,
           Logins: {
             "cognito-idp.eu-west-1.amazonaws.com/eu-west-1_T6YnwqOUq": result
               .getIdToken()
@@ -338,7 +333,6 @@ export async function register(form) {
             AWS.config.update({ region: "eu-west-1" });
 
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-              IdentityPoolId: awsmobile.aws_cognito_identity_pool_id,
               Logins: {
                 "cognito-idp.eu-west-1.amazonaws.com/eu-west-1_T6YnwqOUq": result
                   .getIdToken()
@@ -350,7 +344,6 @@ export async function register(form) {
 
             var params = {
               GroupName: form.typeAccount /* required */,
-              UserPoolId: awsmobile.aws_user_pools_id /* required */,
               Username: username /* required */
             };
 

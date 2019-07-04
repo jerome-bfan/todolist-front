@@ -12,6 +12,8 @@ export async function getServices() {
 
   console.log("responseJsonJay");
   console.log(responseJson);
+  console.log("responseJsonJay");
+
 
 
   return new Promise((resolve, reject) => {

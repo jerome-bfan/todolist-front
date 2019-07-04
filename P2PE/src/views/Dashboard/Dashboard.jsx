@@ -5,16 +5,12 @@ import {
   AuthenticationDetails
 } from "amazon-cognito-identity-js";
 import React, { Component } from "react";
-import ChartistGraph from "react-chartist";
 import { Grid, Row, Col, Panel, PanelGroup } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
-import awsmobile from "../../aws-exports";
-import AWS from "aws-sdk/dist/aws-sdk-react-native";
 
 import { Card } from "components/Card/Card.jsx";
 import NotificationSystem from "react-notification-system";
 
-import Map from "../Maps/GGMap";
 import DashboardCustomer from "components/Dashboard/DashboardCustomer";
 import DashboardPro from "components/Dashboard/DashboardPro";
 
