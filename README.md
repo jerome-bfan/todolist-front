@@ -25,7 +25,6 @@ in order to provider
 # For Developer
 ### Prerequisites
 - NPM installed
-- awsexport.js file 
 
 # Build
 
@@ -35,10 +34,6 @@ Launch the server for dev :
 ``` npm audit fix  (if necesary)```
 
 
-Download and Copy the awsexport.js inside src folder (p2pe/src) :
-
-```https://epitechfr-my.sharepoint.com/:u:/g/personal/elody_chevalier_epitech_eu/ERb-Eul3kuxOr9E7sv5oagQBecglUXDGKskgsjojY3MdOQ?e=ijnU6o ```
-if is an expired link : call jerome on teams
 
 # Run
 
