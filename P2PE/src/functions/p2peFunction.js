@@ -1,5 +1,5 @@
 export function isConnected() {
-  if (localStorage.getItem("identityId") != null) {
+  if (localStorage.getItem("token") != null) {
     return true;
   } else {
     return false;

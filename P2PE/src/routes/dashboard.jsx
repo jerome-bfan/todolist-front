@@ -27,7 +27,7 @@ export const getRoutes = (connected) => {
   } else {
     menuRoute = dashboardUnConnected;
 }
-return dashboardRoutesUser
+return menuRoute
 
 }
 export const dashboardRoutesUser = [
