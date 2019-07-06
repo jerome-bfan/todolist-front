@@ -56,7 +56,7 @@ export class RequestServices extends Component {
           service={this.props}
           category={
             <div>
-              {this.props.categoryName} ({this.props.location})
+              {this.props.location}
             </div>
           }
           topRight={

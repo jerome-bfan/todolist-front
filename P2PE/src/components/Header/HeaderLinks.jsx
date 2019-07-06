@@ -14,6 +14,7 @@ class HeaderLinks extends Component {
     localStorage.removeItem("roleUser");
     localStorage.removeItem("roleAdmin");
     localStorage.removeItem("email");
+    localStorage.removeItem("token");
     localStorage.clear();
   }
 
