@@ -2,7 +2,7 @@ import Card from "components/Card/Card.jsx";
 import React, { Component } from "react";
 import { Grid, Row, Col, FormControl, ControlLabel } from "react-bootstrap";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
-import RequestServices from '../../components/ServicesUser/RequestServices';
+import RequestServices from "../../components/ServicesUser/RequestServices";
 import { getServices } from "../../Provider/ServicesProvider";
 
 export default class ServicesUser extends Component {
@@ -14,55 +14,24 @@ export default class ServicesUser extends Component {
     this.handleChangeSelectCategorie = this.handleChangeSelectCategorie.bind(
       this
     );
-    getServices().then(serv => {console.log(serv)})
 
     console.log("test");
     this.formControl = this.formControl.bind(this);
     this.state = {
-      services: [
-        {
-          title: "Venez vous couper les cheveux",
-          id_service: 1,
-          location: "Asnières",
-          categoryName: "coiffeur",
-          description: "Nouvelle coupe",
-          prix: 10.02,
-          options: [
-            {
-              title: "teinture",
-              value: ["blonde", "rousse"]
-            },
-            {
-              title: "coupe",
-              value: ["courte"]
-            }
-          ]
-        },
-        {
-          title: "Peinture à domicile",
-          id_service: 3,
-          location: "Asnières",
-          categoryName: "Peinture",
-          description: "Je peux refaire tous les murs de votre maison",
-          prix: 10.1,
-          options: [
-            {
-              title: "couleur",
-              value: ["noir", "bleu","rouge"]
-            },
-            {
-              title: "qualité de la peinture",
-              value: ["bien", "moyen","extra"]
-            }
-          ]
-        },
-        {
-          title: "Venez vous lavez les cheveux",
-          id_service: 2,
-          description: "Changer vos tuyaux",
-          location: "Colombes",
-          categoryName: "plomberie",
-          prix: 3,
+      services: [],
+      searchType: "title"
+    };
+  }
+  componentDidMount() {
+    getServices().then(services => {
+      const newServices = services.map(function(service) {
+        return {
+          id_service: service.id,
+          title: service.name,
+          description: service.description,
+          id_pro: service.id_pro,
+          location:service.location,
+          prix: service.price,
           options: [
             {
               title: "teinture",
@@ -73,11 +42,15 @@ export default class ServicesUser extends Component {
               value: ["courte"]
             }
           ],
-        }
-      ],
-     
-      searchType: "title"
-    };
+
+          
+        };
+      });
+      console.log("debug-v3");
+      console.log(newServices);
+      console.log("debug");
+      this.setState({ services: newServices});
+    });
   }
 
   handleChange(event) {
@@ -96,11 +69,9 @@ export default class ServicesUser extends Component {
 
   sortServicesByIncreasingPrice(services, bool) {
     if (bool) {
-      services.sort((a, b) =>
-        (a.prix > b.prix) ? 1 : -1);
+      services.sort((a, b) => (a.prix > b.prix ? 1 : -1));
     } else {
-      services.sort((a, b) =>
-        (a.prix > b.prix) ? -1 : 1);
+      services.sort((a, b) => (a.prix > b.prix ? -1 : 1));
     }
   }
 
@@ -139,6 +110,7 @@ export default class ServicesUser extends Component {
       } else if (this.state.searchType == "title") {
         return text.title.toLowerCase().indexOf(this.state.search) !== -1;
       } else if (this.state.searchType == "prix") {
+        console.log(text);
         console.log(text);
         console.log("debug");
         if (text.prix != null) {
@@ -215,7 +187,7 @@ export default class ServicesUser extends Component {
               0 &&
               this.state.services
                 .filter(text => this._search(text))
-                .map((service,index) => {
+                .map((service, index) => {
                   console.log(service);
                   console.log("service");
                   return <RequestServices key={index} {...service} />;
@@ -242,9 +214,7 @@ export default class ServicesUser extends Component {
     // console.log(this.state.services);
   }
 
-  componentWillMount() {
-
-  }
+  componentWillMount() {}
   render() {
     console.log(this.state.services);
 
