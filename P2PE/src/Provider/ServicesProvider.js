@@ -1,13 +1,10 @@
-import { optionsUnConnected,optionsConnected, url } from "./Api";
+import { optionsUnConnected,getHeaders, url } from "./Api";
 
 export async function getServices() {
   console.log("je suis ici");
 
-  optionsUnConnected.method = "get";
-  optionsUnConnected.body = undefined;
-  optionsUnConnected.headers = optionsConnected;
 
-  const rawResponse = await fetch(url + "proposed_services", optionsUnConnected);
+  const rawResponse = await fetch(url + "proposed_services", getHeaders());
   const responseJson = await rawResponse.json();
 
   console.log("responseJsonJay");
