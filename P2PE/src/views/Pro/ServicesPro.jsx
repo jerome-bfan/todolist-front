@@ -13,6 +13,8 @@ export default class ServicesPro extends Component {
     this.addService = this.addService.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.updateService = this.updateService.bind(this);
+    this.updateStateOneService = this.updateStateOneService.bind(this);
+    this.updateAllStateOneService = this.updateAllStateOneService.bind(this);
     this.renderAddService = this.renderAddService.bind(this);
     this.formControl = this.formControl.bind(this);
     this.state = {
@@ -23,18 +25,17 @@ export default class ServicesPro extends Component {
           location: "Asnières",
           category: "coiffeur",
           description: "Nouvelle coupe",
-          enable: true,
+          state: 0,
           prix: 10
         },
         {
-          title: "Venez vous lavez les cheveux",
+          title: "Pas d'eau chaude ?",
           id_service: 2,
           description: "Changer vos tuyaux",
           location: "Colombes",
           category: "plomberie",
-          enable: false,
-          prix: 3,
-          enable: false
+          state: 1,
+          prix: 3
         }
       ],
       addTitle: "",
@@ -56,6 +57,25 @@ export default class ServicesPro extends Component {
     array.unshift(service);
     this.setState({
       services: array
+    });
+  }
+  updateStateOneService(service) {
+    var array = this.state.services.filter(item => {
+      return item.id_service != service.id_service;
+    });
+    service.state = !service.state;
+    array.unshift(service);
+    this.setState({
+      services: array
+    });
+  }
+
+  updateAllStateOneService(actif) {
+    this.setState({
+      services: this.state.services.map(item => {
+        item.state = actif
+        return item;
+      })
     });
   }
 
@@ -193,7 +213,12 @@ export default class ServicesPro extends Component {
     return (
       <div className="content">
         {this.renderAddService()}
-        <ServicesProC {...this.state} updateService={this.updateService} />
+        <ServicesProC
+          {...this.state}
+          updateService={this.updateService}
+          updateStateOneService={this.updateStateOneService}
+          updateAllStateOneService={this.updateAllStateOneService}
+        />
       </div>
     );
   }
