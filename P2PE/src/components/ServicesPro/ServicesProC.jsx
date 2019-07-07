@@ -33,10 +33,10 @@ class ServicesProC extends Component {
       prix: this.state.addPrix,
       title: this.state.addTitle,
       id_service: this.state.id,
-      enable: this.state.enable,
+      state: this.state.state
     };
     this.props.updateService(service, this.state.id);
-    console.log("fff")
+    console.log("fff");
   }
 
   handleShow(service) {
@@ -48,12 +48,12 @@ class ServicesProC extends Component {
       addLocation: service.location,
       addPrix: service.prix,
       addTitle: service.title,
-      enable: service.enable,
+      state: service.state
     });
   }
 
   _renderDispo(service) {
-    if (service && service.enable) {
+    if (service && service.state == 1) {
       return <DispoService state={"Disponible"} />;
     } else {
       return <DispoService state={""} />;
@@ -61,7 +61,6 @@ class ServicesProC extends Component {
   }
 
   _renderModalUpdate(service) {
-   
     return (
       <div>
         <Modal show={this.state.show} onHide={this.handleClose}>
@@ -214,6 +213,9 @@ class ServicesProC extends Component {
                   borderColor: "red",
                   color: "red"
                 }}
+                onClick={() => {
+                  this.props.updateStateOneService(service);
+                }}
               >
                 Rendre actif
               </Button>
@@ -235,9 +237,21 @@ class ServicesProC extends Component {
               borderColor: "red",
               color: "red"
             }}
-            onClick={e => {}}
-          >
+            onClick={() => {
+                  this.props.updateAllStateOneService(0);
+                }}          >
             Rendre tout les service inactif
+          </Button>{" "}
+          <Button
+            style={{
+              marginLeft: 15,
+              borderColor: "green",
+              color: "green"
+            }}
+            onClick={() => {
+                  this.props.updateAllStateOneService(1);
+                }}          >
+            Rendre tout les service actif
           </Button>{" "}
         </h2>
         {(this.props.services != undefined && this.props.services.length) > 0 &&
