@@ -14,8 +14,6 @@ export default class ServicesUser extends Component {
     this.handleChangeSelectCategorie = this.handleChangeSelectCategorie.bind(
       this
     );
-
-    console.log("test");
     this.formControl = this.formControl.bind(this);
     this.state = {
       services: [],
@@ -24,32 +22,32 @@ export default class ServicesUser extends Component {
   }
   componentDidMount() {
     getServices().then(services => {
-      const newServices = services.map(function(service) {
-        return {
-          id_service: service.id,
-          title: service.name,
-          description: service.description,
-          id_pro: service.id_pro,
-          location:service.location,
-          prix: service.price,
-          options: [
-            {
-              title: "teinture",
-              value: ["blonde", "rousse"]
-            },
-            {
-              title: "coupe",
-              value: ["courte"]
-            }
-          ],
-
-          
-        };
-      });
-      console.log("debug-v3");
-      console.log(newServices);
-      console.log("debug");
-      this.setState({ services: newServices});
+      console.log("debug v3");
+      console.log(services);
+      if (services != undefined && services.length > 0) {
+        const newServices = services.map(function(service) {
+          return {
+            id_service: service.id,
+            title: service.name,
+            description: service.description,
+            id_pro: service.id_pro,
+            location: service.location,
+            prix: service.price,
+            state: Number(service.state),
+            options: [
+              {
+                title: "teinture",
+                value: ["blonde", "rousse"]
+              },
+              {
+                title: "coupe",
+                value: ["courte"]
+              }
+            ]
+          };
+        });
+        this.setState({ services: newServices });
+      }
     });
   }
 
@@ -190,7 +188,8 @@ export default class ServicesUser extends Component {
                 .map((service, index) => {
                   console.log(service);
                   console.log("service");
-                  return <RequestServices key={index} {...service} />;
+                  if (service.state == 1)
+                    return <RequestServices key={index} {...service} />;
                 })}
           </Grid>
         </div>
