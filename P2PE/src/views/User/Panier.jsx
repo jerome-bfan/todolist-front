@@ -9,6 +9,7 @@ class Panier extends Component {
     this._renderPage = this._renderPage.bind(this);
     this._renderCard = this._renderCard.bind(this);
     this._updatePanier = this._updatePanier.bind(this);
+    this.renderButtonPayment = this.renderButtonPayment.bind(this);
     this._closePanier = this._closePanier.bind(this);
 
     this._deleteItemPanier = this._deleteItemPanier.bind(this);
@@ -27,8 +28,8 @@ class Panier extends Component {
     console.log("updatePanier");
     console.log(service);
     console.log(this.state.panier);
-    var array = this.state.panier
-    array.splice(service.id, 1,service);
+    var array = this.state.panier;
+    array.splice(service.id, 1, service);
     this.setState(prevState => ({
       panier: array
     }));
@@ -40,6 +41,20 @@ class Panier extends Component {
   _closePanier() {
     this.setState({ displayUpdate: false });
   }
+  renderButtonPayment() {
+    return (
+      <div>
+        <Button
+          style={{
+            borderColor: "blue",
+            color: "blue"
+          }}
+        >
+         Valider votre Panier
+        </Button>
+      </div>
+    );
+  }
 
   _deleteItemPanier(index) {
     var array = [...this.state.panier]; // make a separate copy of the array
@@ -47,7 +62,6 @@ class Panier extends Component {
       array.splice(index, 1);
       this.setState({ panier: array });
       localStorage.setItem("panier", JSON.stringify(array));
-
     }
   }
 
@@ -88,7 +102,7 @@ class Panier extends Component {
               <div> Location : {itemPanier.location}</div>
               <div> Les différentes options :</div>
 
-              {itemPanier.options.map((option,index) => {
+              {itemPanier.options.map((option, index) => {
                 return (
                   <div>
                     {option.title} :
@@ -112,7 +126,6 @@ class Panier extends Component {
                   color: "blue"
                 }}
                 onClick={e => {
-                  
                   this.setState(prevState => ({
                     itemPanier: {
                       ...itemPanier,
@@ -120,7 +133,7 @@ class Panier extends Component {
                     }
                   }));
                   this.setState({
-                    displayUpdate: true,
+                    displayUpdate: true
                   });
                 }}
               >
@@ -151,6 +164,15 @@ class Panier extends Component {
       </div>
     );
   }
+
+  renderEmptyBasket() {
+    return (
+      <div>
+        <div> Votre panier est vide.</div>
+      </div>
+    );
+  }
+
   _renderPage() {
     let newPanier = []; //for index
     return (
@@ -163,10 +185,14 @@ class Panier extends Component {
 
         {(this.state.panier != undefined && this.state.panier.length) > 0 &&
           this.state.panier.map((itemPanier, index) => {
-           itemPanier.id =index
-           newPanier.push(itemPanier);
+            itemPanier.id = index;
+            newPanier.push(itemPanier);
             return this._renderCard(itemPanier, index);
           })}
+        {this.state.panier.length == 0 && this.renderEmptyBasket()}
+
+        {(this.state.panier != undefined && this.state.panier.length) > 0 &&
+          this.renderButtonPayment()}
       </div>
     );
   }
