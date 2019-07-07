@@ -1,5 +1,5 @@
 import Card from "components/Card/Card.jsx";
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import { colorRole } from "../../functions/p2peFunction";
 import { Grid, Row, Col, FormControl, ControlLabel } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
@@ -12,10 +12,12 @@ export default class ServicesPro extends Component {
     this._renderPage = this._renderPage.bind(this);
     this.addService = this.addService.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleChangeOptions = this.handleChangeOptions.bind(this);
     this.updateService = this.updateService.bind(this);
     this.updateStateOneService = this.updateStateOneService.bind(this);
     this.updateAllStateOneService = this.updateAllStateOneService.bind(this);
     this.renderAddService = this.renderAddService.bind(this);
+    this.renderAddOptions = this.renderAddOptions.bind(this);
     this.formControl = this.formControl.bind(this);
     this.state = {
       services: [
@@ -42,12 +44,29 @@ export default class ServicesPro extends Component {
       addCategory: "",
       addDescription: "",
       addLocation: "",
+      options: [
+        {
+          title: "aa",
+          value: ["",""]
+        },
+        {
+          title: "aa",
+          value: [""]
+        },
+      ],
+      inputOptions:[],
       addPrix: 0
     };
   }
 
   handleChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
+    this.setState({});
+    this.setState({ [event.target.id]: event.target.value }, () => {
+      console.log(this.state.options);
+    });
+  }
+  handleChangeOptions(event) {
+    
   }
 
   updateService(service, id) {
@@ -73,9 +92,68 @@ export default class ServicesPro extends Component {
   updateAllStateOneService(actif) {
     this.setState({
       services: this.state.services.map(item => {
-        item.state = actif
+        item.state = actif;
         return item;
       })
+    });
+  }
+
+  handleShareholderNameChange = idx => evt => {
+    const options = this.state.options.map((option, sidx) => {
+      if (idx !== sidx) return option;
+      return { ...option, title: evt.target.value };
+    });
+  
+    this.setState({ options: options });
+  };
+
+  handleShareholderValueChange = (idx,id) => evt => {
+    const options = this.state.options.map((option, sidx) => {
+      if (idx  !== sidx) return option;
+      option["value"].splice(id, 1);
+      option["value"].push(evt.target.value );
+      return { ...option, value : option["value"]};
+    });
+    console.log(options)
+    console.log(options)
+    this.setState({ options: options });  };
+
+  renderAddOptions() {
+    return this.state.options.map((option, index) => {
+      return (
+        <div>
+        <FormInputs
+          key={index}
+          ncols={["col-md-12"]}
+          proprieties={[
+            {
+              label: "Options du service",
+              type: "text",
+              bsClass: "form-control",
+              placeholder: "Options du service",
+              defaultValue: option.title,
+              onChange :this.handleShareholderNameChange(index)
+            }
+          ]}
+        />
+        {Object.values(option["value"]).map((value, i) => {
+          return  <FormInputs
+          key={i+index}
+          ncols={["col-md-12"]}
+          proprieties={[
+            {
+              label: "Valeur du service",
+              type: "text",
+              id: "options" + [i]["title"],
+              bsClass: "form-control",
+              onChange :this.handleShareholderValueChange(index,i)
+
+            }
+          ]}
+        />
+        })} 
+        </div>
+      );
     });
   }
 
@@ -148,6 +226,7 @@ export default class ServicesPro extends Component {
                   ]}
                 />
 
+                {this.renderAddOptions()}
                 <FormInputs
                   ncols={["col-md-12"]}
                   proprieties={[
@@ -162,6 +241,7 @@ export default class ServicesPro extends Component {
                     }
                   ]}
                 />
+
                 <Row>
                   <Button
                     style={{
@@ -229,8 +309,10 @@ export default class ServicesPro extends Component {
       category: this.state.addCategory,
       location: this.state.addLocation,
       prix: this.state.addPrix,
-      title: this.state.addTitle
+      title: this.state.addTitle,
+      options: this.state.options,
     };
+    console.log(service);
     this.state.services.unshift(service);
     this.setState({
       services: this.state.services
