@@ -18,6 +18,7 @@ export const getRoutes = (connected) => {
   let menuRoute = {};
   console.log(connected);
   console.log("connected");
+  menuRoute = dashboardUnConnected;
   if (isConnected() || connected) {
     if (connected == "pro"  || localStorage.getItem("rolePro")) {
       menuRoute = dashboardRoutesPro;

@@ -44,7 +44,7 @@ class Dashboard extends Component {
       errorMessage: "",
       errorConnect: "Bienvenue veuillez vous connectez",
       errorRegister: "",
-      successRegister: ""
+      successRegister: "",
     };
     if (isConnected()) {
       this.state = {
