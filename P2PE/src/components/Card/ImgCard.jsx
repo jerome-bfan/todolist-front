@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
- export class ImgCard extends Component {
+export class ImgCard extends Component {
   render() {
     return (
       <div className="card card-user">
