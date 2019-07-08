@@ -47,14 +47,10 @@ export default class ServicesPro extends Component {
       options: [
         {
           title: "aa",
-          value: ["",""]
-        },
-        {
-          title: "aa",
           value: [""]
-        },
+        }
       ],
-      inputOptions:[],
+      inputOptions: [],
       addPrix: 0
     };
   }
@@ -65,9 +61,7 @@ export default class ServicesPro extends Component {
       console.log(this.state.options);
     });
   }
-  handleChangeOptions(event) {
-    
-  }
+  handleChangeOptions(event) {}
 
   updateService(service, id) {
     var array = this.state.services.filter(item => {
@@ -103,55 +97,78 @@ export default class ServicesPro extends Component {
       if (idx !== sidx) return option;
       return { ...option, title: evt.target.value };
     });
-  
+
     this.setState({ options: options });
   };
 
-  handleShareholderValueChange = (idx,id) => evt => {
+  handleShareholderValueChange = (idx, id) => evt => {
     const options = this.state.options.map((option, sidx) => {
-      if (idx  !== sidx) return option;
+      if (idx !== sidx) return option;
       option["value"].splice(id, 1);
-      option["value"].push(evt.target.value );
-      return { ...option, value : option["value"]};
+      option["value"].push(evt.target.value);
+      return { ...option, value: option["value"] };
     });
-    console.log(options)
-    console.log(options)
-    this.setState({ options: options });  };
+    console.log(options);
+    console.log(options);
+    this.setState({ options: options });
+  };
 
   renderAddOptions() {
     return this.state.options.map((option, index) => {
       return (
-        <div>
-        <FormInputs
-          key={index}
-          ncols={["col-md-12"]}
-          proprieties={[
-            {
-              label: "Options du service",
-              type: "text",
-              bsClass: "form-control",
-              placeholder: "Options du service",
-              defaultValue: option.title,
-              onChange :this.handleShareholderNameChange(index)
-            }
-          ]}
-        />
-        {Object.values(option["value"]).map((value, i) => {
-          return  <FormInputs
-          key={i+index}
-          ncols={["col-md-12"]}
-          proprieties={[
-            {
-              label: "Valeur du service",
-              type: "text",
-              id: "options" + [i]["title"],
-              bsClass: "form-control",
-              onChange :this.handleShareholderValueChange(index,i)
+        <div key={index}  style={{     
+        }}>
+          <FormInputs
+            ncols={["col-md-9"]}
+            proprieties={[
+              {
+                label: "Nom de l'option",
+                type: "text",
+                bsClass: "form-control",
+                placeholder: "Nom de l'option",
+                defaultValue: option.title,
+                onChange: this.handleShareholderNameChange(index)
+              }
+            ]}
+          />
 
-            }
-          ]}
-        />
-        })} 
+          {Object.values(option["value"]).map((value, i) => {
+            return (
+              <div>
+                <FormInputs
+                  key={i + index}
+                  ncols={["col-md-3"]}
+                  proprieties={[
+                    {
+                      label: "Option",
+                      placeholder: "Option",
+                      type: "text",
+                      id: "optionsd" + [i]["title"],
+                      bsClass: "form-control",
+                      onChange: this.handleShareholderValueChange(index, i)
+                    }
+                  ]}
+                />
+              </div>
+            );
+          })}
+          <Button
+            style={{
+              marginLeft: 12,
+              borderColor: colorRole("#888888"),
+              color: colorRole("#888888")
+            }}
+            onClick={e => {
+              option["value"].push("");
+              console.log(option["value"]);
+              this.setState({
+                ...option,
+                value: option["value"]
+              });
+            }}
+          >
+            <div>Ajouter une autre valeur</div>
+          </Button>
         </div>
       );
     });
@@ -225,8 +242,23 @@ export default class ServicesPro extends Component {
                     }
                   ]}
                 />
-
                 {this.renderAddOptions()}
+                <Button
+                  style={{
+                    marginLeft: 12,
+                    borderColor: colorRole("#888888"),
+                    color: colorRole("#888888")
+                  }}
+                  onClick={e => {
+                    this.setState({
+                      options: this.state.options.concat([
+                        { name: "", value: [""] }
+                      ])
+                    });
+                  }}
+                >
+                  <div>Ajouter une autre options</div>
+                </Button>
                 <FormInputs
                   ncols={["col-md-12"]}
                   proprieties={[
@@ -310,7 +342,7 @@ export default class ServicesPro extends Component {
       location: this.state.addLocation,
       prix: this.state.addPrix,
       title: this.state.addTitle,
-      options: this.state.options,
+      options: this.state.options
     };
     console.log(service);
     this.state.services.unshift(service);
