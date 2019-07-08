@@ -199,6 +199,9 @@ export default class ServicesUser extends Component {
               <option id="searchType" value="location">
                 Par location
               </option>
+              <option id="searchType" value="prix">
+                Par prix
+              </option>
               <option id="searchType" value="prix+">
                 Par Prix croissant
               </option>
