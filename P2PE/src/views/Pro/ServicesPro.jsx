@@ -28,7 +28,8 @@ export default class ServicesPro extends Component {
           category: "coiffeur",
           description: "Nouvelle coupe",
           state: 0,
-          prix: 10
+          prix: 10,
+          
         },
         {
           title: "Pas d'eau chaude ?",
@@ -37,7 +38,13 @@ export default class ServicesPro extends Component {
           location: "Colombes",
           category: "plomberie",
           state: 1,
-          prix: 3
+          prix: 3,
+          options: [
+            {
+              title: "aa",
+              value: [""]
+            }
+          ]
         }
       ],
       addTitle: "",

@@ -192,8 +192,20 @@ class ServicesProC extends Component {
             <div>
               <div> Localisation : {service.location}</div>
               <div> Description : {service.description}</div>
-              <div> Category : {service.category}</div>
-              <div> Prix : {service.prix} €</div>
+              {service.options && service.options.length > 0 && service.options.map((option, index) => {
+                return (
+                  <div>
+                    {option.title} :
+                    {Object.values(option.value).length > 0 && Object.values(option.value).map((optionValue, index) => {
+                      return (
+                        <div>
+                          <p> -{optionValue}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })}              <div> Prix : {service.prix} €</div>
             </div>
             <div>
               {" "}
