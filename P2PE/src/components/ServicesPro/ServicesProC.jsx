@@ -11,6 +11,7 @@ class ServicesProC extends Component {
     this._renderDispo = this._renderDispo.bind(this);
     this._renderModalUpdate = this._renderModalUpdate.bind(this);
     this.handleShow = this.handleShow.bind(this);
+    this.renderButtonState = this.renderButtonState.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
@@ -20,6 +21,10 @@ class ServicesProC extends Component {
     };
   }
 
+  renderButtonState(service) {
+    if (service.state == 1) return "Rendre inactif";
+    else return "Rendre actif";
+  }
   handleClose() {
     this.setState({ show: false });
   }
@@ -192,20 +197,26 @@ class ServicesProC extends Component {
             <div>
               <div> Localisation : {service.location}</div>
               <div> Description : {service.description}</div>
-              {service.options && service.options.length > 0 && service.options.map((option, index) => {
-                return (
-                  <div>
-                    {option.title} :
-                    {Object.values(option.value).length > 0 && Object.values(option.value).map((optionValue, index) => {
-                      return (
-                        <div>
-                          <p> -{optionValue}</p>
-                        </div>
-                      );
-                    })}
-                  </div>
-                );
-              })}              <div> Prix : {service.prix} €</div>
+              {service.options &&
+                service.options.length > 0 &&
+                service.options.map((option, index) => {
+                  return (
+                    <div>
+                      {option.title} :
+                      {Object.values(option.value).length > 0 &&
+                        Object.values(option.value).map(
+                          (optionValue, index) => {
+                            return (
+                              <div>
+                                <p> -{optionValue}</p>
+                              </div>
+                            );
+                          }
+                        )}
+                    </div>
+                  );
+                })}{" "}
+              <div> Prix : {service.prix} €</div>
             </div>
             <div>
               {" "}
@@ -229,7 +240,7 @@ class ServicesProC extends Component {
                   this.props.updateStateOneService(service);
                 }}
               >
-                Rendre actif
+                {this.renderButtonState(service)}
               </Button>
             </div>
           </div>
@@ -250,8 +261,9 @@ class ServicesProC extends Component {
               color: "red"
             }}
             onClick={() => {
-                  this.props.updateAllStateOneService(0);
-                }}          >
+              this.props.updateAllStateOneService(0);
+            }}
+          >
             Rendre tout les service inactif
           </Button>{" "}
           <Button
@@ -261,8 +273,9 @@ class ServicesProC extends Component {
               color: "green"
             }}
             onClick={() => {
-                  this.props.updateAllStateOneService(1);
-                }}          >
+              this.props.updateAllStateOneService(1);
+            }}
+          >
             Rendre tout les service actif
           </Button>{" "}
         </h2>

@@ -349,7 +349,8 @@ export default class ServicesPro extends Component {
       location: this.state.addLocation,
       prix: this.state.addPrix,
       title: this.state.addTitle,
-      options: this.state.options
+      options: this.state.options,
+      state: 1
     };
     console.log(service);
     this.state.services.unshift(service);

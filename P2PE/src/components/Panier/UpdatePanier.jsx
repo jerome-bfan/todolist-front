@@ -62,8 +62,7 @@ class UpdatePanier extends Component {
             >
               {option.value &&
                 Object.values(option.value).length > 0 &&
-                Object.values(option.value).map((option, index) => {
-           
+                Object.values(option.value).map((option, index) => {  
                   return (
                     <option key={index} id="searchType" value={option}>
                       {option}
