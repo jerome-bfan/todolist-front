@@ -6,16 +6,37 @@ import Button from "components/CustomButton/CustomButton.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import ServicesProC from "../../components/ServicesPro/ServicesProC";
 
+
+import {
+  CognitoUserPool,
+  CognitoUserAttribute,
+  CognitoUser,
+  AuthenticationDetails
+} from "amazon-cognito-identity-js";
+
+import AWS from "aws-sdk/dist/aws-sdk-react-native";
+
+import {
+  optionsUnConnected,
+  optionsConnected,
+  url
+} from "../../Provider/Api";
+var jwtDecode = require("jwt-decode");
+
 export default class ServicesPro extends Component {
   constructor(props) {
     super(props);
+    this.init();
     this._renderPage = this._renderPage.bind(this);
     this.addService = this.addService.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.updateService = this.updateService.bind(this);
     this.renderAddService = this.renderAddService.bind(this);
     this.formControl = this.formControl.bind(this);
-    this.state = {
+    //console.log("SERVICES :: " + JSON.stringify(this.getServices()));
+    this.state = this.getServices();
+    //console.log("test");
+    /*{
       services: [
         {
           title: "Venez vous couper les cheveux",
@@ -42,7 +63,89 @@ export default class ServicesPro extends Component {
       addDescription: "",
       addLocation: "",
       addPrix: 0
-    };
+    };*/
+  }
+
+  async init (callback) {
+    this.state = await this.getServices();
+    //callback.bind(this)();
+}
+
+async refreshServices(){
+  console.log("Services refresh\n");
+}
+
+async insertService()
+{
+  const inserted = {
+    name: "aaa",
+    description: "aaaaaaaaaaaaa aaaaaaaaaa a",
+    location: "aaa aaa a",
+    price: 1,
+    option: "all",
+    id_pro: 1
+  };
+
+  optionsUnConnected.method = "post";
+  optionsUnConnected.body = JSON.stringify(inserted);
+  optionsUnConnected.headers = optionsConnected;
+
+  console.log("LOG IN INSERT : " + localStorage.getItem("tooken") + "\nrolepro : " + localStorage.getItem("rolePro"));
+
+  const rawResponse = await fetch(url + "proposed_services", optionsUnConnected);
+  const responseJson = await rawResponse.json();
+  console.log("RESPONSE OF INSERTED");
+  console.log(responseJson.message);
+  return new Promise((resolve, reject) => {
+    if (!rawResponse.ok) {
+      reject(responseJson.message);
+    }
+    localStorage.setItem("token", responseJson.token);
+
+    if (responseJson.current_user.role == "user") {
+      localStorage.setItem("roleUser", true);
+    } else if (responseJson.current_user.role == "pro") {
+      localStorage.setItem("rolePro", true);
+    }
+    resolve(responseJson.current_user.role);
+  });
+}
+
+  async getServices()
+    {
+      //this.insertService();
+      optionsUnConnected.method = "get";
+      optionsUnConnected.body = undefined;
+      optionsUnConnected.headers = optionsConnected;
+
+      const rawResponse = await fetch(url + "proposed_services", optionsUnConnected);
+      const responseJson = await rawResponse.json();
+
+      var obj = {
+        service:[],
+        addTitle: "",
+        addCategory: "",
+        addDescription: "",
+        addLocation: "",
+        addPrix: ""
+      };
+
+      responseJson.forEach(elem => {
+      var transformedElem = {
+        title: elem.name,
+        id_service: elem.id,
+        location: elem.location,
+        category: "cat",
+        description: elem.description,
+        enable: elem.enable,
+        prix: elem.price
+      };
+      obj.service.push(transformedElem);
+    });
+    this.state = obj;
+    this.setState(obj);
+    console.log(JSON.stringify(obj));
+    return (obj);
   }
 
   handleChange(event) {
@@ -57,6 +160,7 @@ export default class ServicesPro extends Component {
     this.setState({
       services: array
     });
+    //todo you need send this array
   }
 
   renderAddService() {
@@ -154,7 +258,7 @@ export default class ServicesPro extends Component {
                     }}
                   >
                     <div>Ajouter un service</div>
-                  </Button>
+                  </Button /*todo add*/>
                 </Row>
               </Col>
             </Row>

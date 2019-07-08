@@ -53,8 +53,6 @@ class Dashboard extends Component {
   }
 
   handleConnected(typeAccount) {
-    console.log("jjj");
-    console.log(typeAccount);
     if (!this.state.menuConnected) {
       this.setState({ menuConnected: typeAccount });
     }

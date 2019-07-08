@@ -19,7 +19,6 @@ class App extends Component {
                 this.setState({
                     data: resp
                 });
-                console.log("response is : ", resp);
             })
             .catch (err => console.log(err))
     }
@@ -42,7 +41,7 @@ render() {
             Learn React by Jay
       lsls
           </a>
-          
+
         </header>
       </div>
     );

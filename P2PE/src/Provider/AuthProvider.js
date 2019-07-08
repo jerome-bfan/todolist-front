@@ -22,17 +22,14 @@ export async function postLogin(form) {
 
   const rawResponse = await fetch(url + "login", optionsUnConnected);
   const responseJson = await rawResponse.json();
-  console.log("responseJson");
-  console.log(responseJson.message);
 
   return new Promise((resolve, reject) => {
     if (!rawResponse.ok) {
       reject(responseJson.message);
     }
-    console.log("debugjay");
-    console.log(responseJson.message);
+    console.log("LOOOOOOOOOOG : " + responseJson.token);
     localStorage.setItem("token", responseJson.token);
-
+    localStorage.setItem("tooken", responseJson.token);
     if (responseJson.current_user.role == "user") {
       localStorage.setItem("roleUser", true);
     } else if (responseJson.current_user.role == "pro") {
@@ -57,8 +54,6 @@ export async function postRegister(form) {
   optionsUnConnected.body = JSON.stringify(user);
 
   const rawResponse = await fetch(url + "users", optionsUnConnected);
-  console.log("rawResponse");
-  console.log(form.registerSiret);
   if(!! form.registerSiret) {
     user.siret = form.registerSiret;
   }
@@ -79,10 +74,6 @@ export const poolData = {
 };
 
 export const authentificationSocial = response => {
-  console.log("social");
-
-  console.log(response);
-
   localStorage.removeItem("identityId");
   localStorage.removeItem("accessKeyId");
   localStorage.removeItem("secretAccessKey");
@@ -92,7 +83,6 @@ export const authentificationSocial = response => {
   localStorage.removeItem("email");
   localStorage.clear();
 
-  console.log(response.accessToken);
   AWS.config.update({ region: "eu-west-1" });
   if (response.El) {
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -131,8 +121,6 @@ export const authentificationSocial = response => {
   AWS.config.credentials.get(function() {
     //postUser(splitIdentity(AWS.config.credentials.identityId)).then();
 
-    console.log(AWS.config.credentials);
-    console.log(AWS.config.credentials.identityId);
     localStorage.setItem("identityId", AWS.config.credentials.identityId);
     localStorage.setItem("accessKeyId", AWS.config.credentials.accessKeyId);
     localStorage.setItem(
@@ -146,7 +134,6 @@ export const authentificationSocial = response => {
   return true;
 };
 export async function authentification(form) {
-  console.log(form);
   var username = form.username;
   var authenticationData = {
     Username: username,
@@ -173,7 +160,6 @@ export async function authentification(form) {
   return new Promise((resolve, reject) => {
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: function(result) {
-        console.log(result);
         AWS.config.update({ region: "eu-west-1" });
 
         AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -198,7 +184,6 @@ export async function authentification(form) {
 
         AWS.config.credentials.get(function() {
 
-          console.log(AWS.config.credentials.identityId);
           localStorage.setItem("identityId", AWS.config.credentials.identityId);
           localStorage.setItem(
             "accessKeyId",
@@ -218,7 +203,6 @@ export async function authentification(form) {
       },
 
       onFailure: function(err) {
-        // console.error(err);
         reject(err);
         return err;
       }
@@ -238,9 +222,6 @@ export function getTypeAccount(groups) {
       localStorage.setItem("rolePro", true);
       return "pro";
     }
-    console.log("accco");
-
-    console.log(typeAccount);
     return typeAccount;
   });
 }
@@ -298,7 +279,6 @@ export async function register(form) {
   //attributeList.push(attributePreferedUsername);
   // attributeList.push(attributeName);
 
-  console.log(`Register User ${username} ${phone} ${email}`);
   return new Promise((resolve, reject) => {
     userPool.signUp(username, password, attributeList, null, function(
       err,
@@ -308,8 +288,6 @@ export async function register(form) {
         reject(err);
       } else {
         var cognitoUser = result.user;
-        console.log("user registered as " + cognitoUser.getUsername());
-        console.log(cognitoUser);
 
         var userPool = new CognitoUserPool(poolData);
         var userData = {
@@ -318,7 +296,6 @@ export async function register(form) {
         };
 
         // je cherche une variable
-        console.log("je cherche une variable");
         var cognitoUser = new CognitoUser(userData);
         var authenticationData = {
           Username: "jaydde3",
@@ -329,7 +306,6 @@ export async function register(form) {
         );
         cognitoUser.authenticateUser(authenticationDetails, {
           onSuccess: function(result) {
-            console.log(result);
             AWS.config.update({ region: "eu-west-1" });
 
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({

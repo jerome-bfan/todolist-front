@@ -3,6 +3,26 @@ import { Button, Modal } from "react-bootstrap";
 import { DispoService } from "../ServicesUser/RequestServices";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 
+/*startadd*/
+
+import {
+  CognitoUserPool,
+  CognitoUserAttribute,
+  CognitoUser,
+  AuthenticationDetails
+} from "amazon-cognito-identity-js";
+
+import AWS from "aws-sdk/dist/aws-sdk-react-native";
+
+import {
+  optionsUnConnected,
+  optionsConnected,
+  url
+} from "../../Provider/Api";
+var jwtDecode = require("jwt-decode");
+
+/*endadd*/
+
 class ServicesProC extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +40,90 @@ class ServicesProC extends Component {
     };
   }
 
+//startadd
+
+  async refreshServices(){
+    var i = 0;
+    this.state= await this.getServices();
+    console.log(JSON.stringify(this.state));
+    this.state.forEach(elem => {
+      this._renderCard(elem, i);
+      i++;
+    });
+  }
+
+  async insertService()
+  {
+    const inserted = {
+      name: "aaa",
+      description: "aaaaaaaaaaaaa aaaaaaaaaa a",
+      location: "aaa aaa a",
+      price: 1,
+      option: "all",
+      id_pro: 1
+    };
+
+    optionsUnConnected.method = "post";
+    optionsUnConnected.body = JSON.stringify(inserted);
+    optionsUnConnected.headers = optionsConnected;
+
+    console.log("LOG IN INSERT : " + localStorage.getItem("tooken") + "\nrolepro : " + localStorage.getItem("rolePro"));
+
+    const rawResponse = await fetch(url + "proposed_services", optionsUnConnected);
+    const responseJson = await rawResponse.json();
+    console.log("RESPONSE OF INSERTED");
+    console.log(responseJson.message);
+    return new Promise((resolve, reject) => {
+      if (!rawResponse.ok) {
+        reject(responseJson.message);
+      }
+      localStorage.setItem("token", responseJson.token);
+
+      if (responseJson.current_user.role == "user") {
+        localStorage.setItem("roleUser", true);
+      } else if (responseJson.current_user.role == "pro") {
+        localStorage.setItem("rolePro", true);
+      }
+      resolve(responseJson.current_user.role);
+    });
+  }
+
+    async getServices()
+      {
+        //this.insertService();
+        optionsUnConnected.method = "get";
+        optionsUnConnected.body = undefined;
+        optionsUnConnected.headers = optionsConnected;
+
+        const rawResponse = await fetch(url + "proposed_services", optionsUnConnected);
+        const responseJson = await rawResponse.json();
+
+        var obj = {
+          service:[],
+          addTitle: "",
+          addCategory: "",
+          addDescription: "",
+          addLocation: "",
+          addPrix: ""
+        };
+
+        responseJson.forEach(elem => {
+        var transformedElem = {
+          title: elem.name,
+          id_service: elem.id,
+          location: elem.location,
+          category: "cat",
+          description: elem.description,
+          enable: elem.enable,
+          prix: elem.price
+        };
+        obj.service.push(transformedElem);
+      });
+      this.state = obj;
+      console.log(JSON.stringify(obj));
+      return (obj);
+    }
+//endadd
   handleClose() {
     this.setState({ show: false });
   }
@@ -36,7 +140,6 @@ class ServicesProC extends Component {
       enable: this.state.enable,
     };
     this.props.updateService(service, this.state.id);
-    console.log("fff")
   }
 
   handleShow(service) {
@@ -61,7 +164,7 @@ class ServicesProC extends Component {
   }
 
   _renderModalUpdate(service) {
-   
+
     return (
       <div>
         <Modal show={this.state.show} onHide={this.handleClose}>
@@ -217,6 +320,7 @@ class ServicesProC extends Component {
               >
                 Rendre actif
               </Button>
+              //todo oncick
             </div>
           </div>
         </div>
@@ -235,10 +339,22 @@ class ServicesProC extends Component {
               borderColor: "red",
               color: "red"
             }}
-            onClick={e => {}}
+            onClick={e => {this.refreshServices()}}
           >
             Rendre tout les service inactif
-          </Button>{" "}
+          </Button //todo onClick
+          >{" "}
+          <Button
+            style={{
+              marginLeft: 15,
+              borderColor: "red",
+              color: "red"
+            }}
+            onClick={e => {this.refreshServices()}}
+          >
+            Refresh
+          </Button //todo onClick
+          >{" "}
         </h2>
         {(this.props.services != undefined && this.props.services.length) > 0 &&
           this.props.services.map((service, index) => {

@@ -11,15 +11,13 @@ import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 class UpdatePanier extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
-    console.log("props");
     this._renderModalUpdate = this._renderModalUpdate.bind(this);
     this.inputOptions = [];
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.formControl = this.formControl.bind(this);
     this._renderFormAdress = this._renderFormAdress.bind(this);
-    
+
   }
 
   handleSave() {
@@ -63,7 +61,7 @@ class UpdatePanier extends Component {
               {option.value &&
                 Object.values(option.value).length > 0 &&
                 Object.values(option.value).map((option, index) => {
-           
+
                   return (
                     <option key={index} id="searchType" value={option}>
                       {option}

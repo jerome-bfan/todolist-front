@@ -44,7 +44,6 @@ export class RequestServicesCard extends Component {
   }
 
   buttonModal(service) {
-    console.log(service);
     return (
       <Button variant="primary" onClick={() => this.handleShow(service)}>
         Réserver le service !
@@ -102,8 +101,6 @@ export class RequestServicesCard extends Component {
                     {option.value &&
                       Object.values(option.value).length > 0 &&
                       Object.values(option.value).map((option, index) => {
-                        console.log(option);
-                        console.log("option");
                         return (
                           <option key={index} id="searchType" value={option}>
                             {option}
@@ -141,19 +138,15 @@ export class RequestServicesCard extends Component {
     });
 
     let addressValue = this.inputAddress.value;
-    console.log("service");
     service = {
       ...service,
       address: addressValue
     };
-    console.log(service);
-    console.log("service");
 
     if (!!addressValue) {
       this.setState({ show: false });
       let panier = JSON.parse(localStorage.getItem("panier"));
       if (panier == null) {
-        console.log("je suis null");
         panier = [];
       }
       panier.push(service);
@@ -166,12 +159,9 @@ export class RequestServicesCard extends Component {
   handleShow(service) {
     // add default value here
     this.setState({ show: true, service: service });
-    console.log(service.options);
-    console.log("service.options");
   }
   handleChange(event) {
     // this.setState({ [event.target.id]: event.target.value });
-    console.log(this.state);
   }
 
   render() {
