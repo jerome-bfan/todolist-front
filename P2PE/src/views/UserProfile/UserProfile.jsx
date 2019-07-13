@@ -40,93 +40,84 @@ const myStyle = {
 
 class UserProfile extends Component {
   constructor(props) {
-  super(props);
-  this.state = {
-    name: 'Apple France',
-    siret: '32212091600208',
-    nbEmployes: '199',
-    description: "Apple est une multinationale basée aux États-Unis qui conçoit et commercialise des produits électroniques grand public, des ordinateurs personnels et des logiciels.",
-    img: imgs[0],
-    firstName: 'Mike',
-    lastName: 'Andrew',
-    email: 'mike.andrew@gmail.com',
-    userName: "michael24",
-    phone: '0655423909',
-    adress: 'Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09',
-    town: 'New York',
-    country: 'USA',
-    postalCode: '10001'
-  };
+    super(props);
+    this.state = {
+      user_id: 1,
+      name: '',
+      siret: '',
+      nbEmployes: '',
+      description: "",
+      img: imgs[0],
+      firstName: '',
+      lastName: '',
+      email: '',
+      userName: '',
+      phone: '',
+      adress: '',
+      town: '',
+      country: '',
+      postalCode: '',
+      role: ''
+    };
 
-   // Handle form Company
-  this.handleChangeName = this.handleChangeName.bind(this);
-  this.handleChangeSiret = this.handleChangeSiret.bind(this);
-  this.handleChangeNbEmployes = this.handleChangeNbEmployes.bind(this);
-  this.handleChangeDesc = this.handleChangeDesc.bind(this);
-  this.handleChangeImg = this.handleChangeImg.bind(this);
-  this.handleSubmitEntreprise = this.handleSubmitEntreprise.bind(this);
+     // Handle form Company
+    this.handleChangeName = this.handleChangeName.bind(this);
+    this.handleChangeSiret = this.handleChangeSiret.bind(this);
+    this.handleChangeNbEmployes = this.handleChangeNbEmployes.bind(this);
+    this.handleChangeDesc = this.handleChangeDesc.bind(this);
+    this.handleChangeImg = this.handleChangeImg.bind(this);
 
-   // Handle form Profil
-  this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
-  this.handleChangeLastName = this.handleChangeLastName.bind(this);
-  this.handleChangeEmail = this.handleChangeEmail.bind(this);
-  this.handleChangeUserName = this.handleChangeUserName.bind(this);
-  this.handleChangePhone = this.handleChangePhone.bind(this);
-  this.handleChangeAdress = this.handleChangeAdress.bind(this);
-  this.handleChangeTown = this.handleChangeTown.bind(this);
-  this.handleChangeCountry = this.handleChangeCountry.bind(this);
-  this.handleChangePostalCode = this.handleChangePostalCode.bind(this);
-  this.handleSubmitProfil = this.handleSubmitProfil.bind(this);
-}
-
- chooseImg(name) {
-  switch(name) {
-    case 'img0':
-      return imgs[0];
-    case 'img1':
-      return imgs[1];
-    case 'img2':
-      return imgs[2];
-    case 'img3':
-      return imgs[3];
-    case 'img4':
-      return imgs[4];
-    case 'img5':
-      return imgs[5];
-    default:
-      return imgs[0];
+     // Handle form Profil
+    this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
+    this.handleChangeLastName = this.handleChangeLastName.bind(this);
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.handleChangeUserName = this.handleChangeUserName.bind(this);
+    this.handleChangePhone = this.handleChangePhone.bind(this);
+    this.handleChangeAdress = this.handleChangeAdress.bind(this);
+    this.handleChangeTown = this.handleChangeTown.bind(this);
+    this.handleChangeCountry = this.handleChangeCountry.bind(this);
+    this.handleChangePostalCode = this.handleChangePostalCode.bind(this);
+    this.handleSubmitProfil = this.handleSubmitProfil.bind(this);
   }
-}
 
- handleChangeName(event) {
-  this.setState({name: event.target.value});
-}
+  chooseImg(name) {
+    switch(name) {
+      case 'img0':
+        return imgs[0];
+      case 'img1':
+        return imgs[1];
+      case 'img2':
+        return imgs[2];
+      case 'img3':
+        return imgs[3];
+      case 'img4':
+        return imgs[4];
+      case 'img5':
+        return imgs[5];
+      default:
+        return imgs[0];
+    }
+  }
 
- handleChangeSiret(event) {
-  this.setState({siret: event.target.value});
-}
+  handleChangeName(event) {
+    this.setState({name: event.target.value});
+  }
 
- handleChangeNbEmployes(event) {
-  this.setState({nbEmployes: event.target.value});
-}
+  handleChangeSiret(event) {
+    this.setState({siret: event.target.value});
+  }
 
- handleChangeDesc(event) {
-  this.setState({description: event.target.value});
-}
+  handleChangeNbEmployes(event) {
+    this.setState({nbEmployes: event.target.value});
+  }
 
- handleChangeImg(event) {
-  this.setState({img: this.chooseImg(event.target.value)});
-}
+  handleChangeDesc(event) {
+    this.setState({description: event.target.value});
+  }
 
- handleSubmitEntreprise(event) {
-  alert('Name: ' + this.state.name +
-        '\n\nSiret: ' + this.state.siret +
-        '\n\nNombre d\'employés: ' + this.state.nbEmployes +
-        '\n\nDescription: ' + this.state.description +
-        '\n\nImg url: ' + this.state.img);
-
-   event.preventDefault();
-}
+  handleChangeImg(event) {
+    this.setState({img: this.chooseImg(event.target.value)});
+  }
 
   handleChangeFirstName(event) {
     this.setState({firstName: event.target.value});
@@ -165,22 +156,65 @@ class UserProfile extends Component {
   }
 
   handleSubmitProfil(event) {
+    // alert('Name: ' + this.state.name +
+    //       '\n\nSiret: ' + this.state.siret +
+    //       '\n\nNombre d\'employés: ' + this.state.nbEmployes +
+    //       '\n\nDescription: ' + this.state.description +
+    //       '\n\nImg url: ' + this.state.img +
+    //       '\n\nFirstname: ' + this.state.firstName +
+    //       '\n\nLastname: ' + this.state.lastName +
+    //       '\n\nEmail: ' + this.state.email +
+    //       '\n\nSurnom: ' + this.state.userName +
+    //       '\n\nTéléphone: ' + this.state.phone +
+    //       '\n\nAdresse postale: ' + this.state.adress +
+    //       '\n\nVille: ' + this.state.town +
+    //       '\n\nPays: ' + this.state.country +
+    //       '\n\nCode postal: ' + this.state.postalCode);
+
     alert('Firstname: ' + this.state.firstName +
-          '\n\nLastname: ' + this.state.lastName +
           '\n\nEmail: ' + this.state.email +
-          '\n\nSurnom: ' + this.state.userName +
-          '\n\nTéléphone: ' + this.state.phone +
-          '\n\nAdresse postale: ' + this.state.adress +
-          '\n\nVille: ' + this.state.town +
-          '\n\nPays: ' + this.state.country +
-          '\n\nCode postal: ' + this.state.postalCode);
+          '\n\nid: ' + this.state.id);
+
+
+    fetch('http://localhost:3001/users/' + this.state.id, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: JSON.stringify({
+        name: this.state.firstName,
+        email: this.state.email,
+        id: this.state.id
+      })
+    })
 
     event.preventDefault();
   }
 
+  componentDidMount() {
+    fetch('http://localhost:3001/users/1')
+      .then(response => response.json())
+      .then(user => this.setState({
+          id: user[0].id,
+          name: user[0].company_name,
+          siret: user[0].siret,
+          nbEmployes: user[0].number_employee,
+          description: user[0].company_description,
+          img: imgs[0],
+          firstName: user[0].first_name,
+          lastName: user[0].last_name,
+          email: user[0].email,
+          userName: "michael24",
+          phone: user[0].phone_number,
+          adress: user[0].adress,
+          role: user[0].role,
+      }));
+  }
+
   cardImgRadio(img, key) {
     return (
-        <Col md={4} style={myStyle.colCardImg}>
+        <Col md={4} style={myStyle.colCardImg} key={key}>
           <ImgCard
             bgImage={img}
             description={
@@ -226,148 +260,6 @@ class UserProfile extends Component {
     );
   }
 
-  cardProfil() {
-    return (
-      <Col md={8}>
-        <Card
-          title="Entreprise"
-          content={
-            <form onSubmit={this.handleSubmitEntreprise}>
-              <Row>
-                <Col md={4}>
-                  <FormGroup controlId="formName">
-                    <ControlLabel>Nom de l'entreprise</ControlLabel>
-                    <FormControl type="text" value={this.state.name} onChange={this.handleChangeName} placeholder="Nom de l'entreprise" />
-                  </FormGroup>
-                </Col>
-                <Col md={4}>
-                  <FormGroup controlId="formSiret">
-                    <ControlLabel>Siret</ControlLabel>
-                    <FormControl type="text" value={this.state.siret} onChange={this.handleChangeSiret} placeholder="Siret" />
-                  </FormGroup>
-                </Col>
-                <Col md={4}>
-                  <FormGroup controlId="formNbEmploye">
-                    <ControlLabel>Nombre d'employés</ControlLabel>
-                    <FormControl type="text" value={this.state.nbEmployes} onChange={this.handleChangeNbEmployes} placeholder="Nombre d'employés" />
-                  </FormGroup>
-                </Col>
-              </Row>
-              <Row>
-                <Col md={12}>
-                  <FormGroup controlId="formControlsTextarea">
-                    <ControlLabel>A propose de l'entreprise</ControlLabel>
-                    <FormControl
-                      rows="5"
-                      componentClass="textarea"
-                      bsClass="form-control"
-                      placeholder="Ici se trouvera la description de l'entreprise"
-                      value={this.state.description}
-                      onChange={this.handleChangeDesc}
-                    />
-                  </FormGroup>
-                </Col>
-              </Row>
-              <Row>
-                {imgs.map((img, key) => {
-                  return (
-                    this.cardImgRadio(img, key)
-                  );
-                })}
-              </Row>
-
-              <Button bsStyle="info" pullRight fill type="submit">
-                Mise à jour de l'entreprise
-              </Button>
-              <div className="clearfix" />
-            </form>
-          }
-        />
-      </Col>
-    );
-  }
-
-  formProfil() {
-    return (
-      <Col md={8}>
-        <Card
-          title="Profil"
-          content={
-            <form onSubmit={this.handleSubmitProfil}>
-              <Row>
-                <Col md={4}>
-                  <FormGroup controlId="formFirstName">
-                    <ControlLabel>Prénom</ControlLabel>
-                    <FormControl type="text" value={this.state.firstName} onChange={this.handleChangeFirstName} placeholder="Prénom" />
-                  </FormGroup>
-                </Col>
-                <Col md={4}>
-                  <FormGroup controlId="formLastName">
-                    <ControlLabel>Nom</ControlLabel>
-                    <FormControl type="text" value={this.state.lastName} onChange={this.handleChangeLastName} placeholder="Nom" />
-                  </FormGroup>
-                </Col>
-                <Col md={4}>
-                  <FormGroup controlId="formEmail">
-                    <ControlLabel>Adresse Email</ControlLabel>
-                    <FormControl type="email" value={this.state.email} onChange={this.handleChangeEmail} placeholder="Adresse Email" />
-                  </FormGroup>
-                </Col>
-              </Row>
-              <Row>
-                <Col md={6}>
-                  <FormGroup controlId="formUserName">
-                    <ControlLabel>Surnom</ControlLabel>
-                    <FormControl type="text" value={this.state.userName} onChange={this.handleChangeUserName} placeholder="Surnom" />
-                  </FormGroup>
-                </Col>
-                <Col md={6}>
-                  <FormGroup controlId="formPhone">
-                    <ControlLabel>Téléphone</ControlLabel>
-                    <FormControl type="text" value={this.state.phone} onChange={this.handleChangePhone} placeholder="Téléphone" />
-                  </FormGroup>
-                </Col>
-              </Row>
-              <Row>
-                <Col md={12}>
-                  <FormGroup controlId="formPhone">
-                    <ControlLabel>Adresse postale</ControlLabel>
-                    <FormControl type="text" value={this.state.adress} onChange={this.handleChangeAdress} placeholder="Adresse postale" />
-                  </FormGroup>
-                </Col>
-              </Row>
-              <Row>
-                <Col md={4}>
-                  <FormGroup controlId="formTown">
-                    <ControlLabel>Ville</ControlLabel>
-                    <FormControl type="text" value={this.state.town} onChange={this.handleChangeTown} placeholder="Ville" />
-                  </FormGroup>
-                </Col>
-                <Col md={4}>
-                  <FormGroup controlId="formCountry">
-                    <ControlLabel>Pays</ControlLabel>
-                    <FormControl type="text" value={this.state.country} onChange={this.handleChangeCountry} placeholder="Pays" />
-                  </FormGroup>
-                </Col>
-                <Col md={4}>
-                  <FormGroup controlId="formPostalCode">
-                    <ControlLabel>Code postal</ControlLabel>
-                    <FormControl type="number" value={this.state.postalCode} onChange={this.handleChangePostalCode} placeholder="Code postal" />
-                  </FormGroup>
-                </Col>
-              </Row>
-
-              <Button bsStyle="info" pullRight fill type="submit">
-                Mise à jour du profil
-              </Button>
-              <div className="clearfix" />
-            </form>
-          }
-        />
-      </Col>
-    );
-  }
-
   _userProfilRender() {
     var userform = false;
     if (localStorage.getItem("rolePro")) {
@@ -375,11 +267,125 @@ class UserProfile extends Component {
         <div>
           <Col md={12}>
             <Row>
-              {this.cardProfil()}
+              <Col md={8}>
+                <Card
+                  title="Profil"
+                  content={
+                    <form onSubmit={this.handleSubmitProfil}>
+                      <Row>
+                        <Col md={4}>
+                          <FormGroup controlId="formName">
+                            <ControlLabel>Nom de l'entreprise</ControlLabel>
+                            <FormControl type="text" value={this.state.name} onChange={this.handleChangeName} placeholder="Nom de l'entreprise" />
+                          </FormGroup>
+                        </Col>
+                        <Col md={4}>
+                          <FormGroup controlId="formSiret">
+                            <ControlLabel>Siret</ControlLabel>
+                            <FormControl type="text" value={this.state.siret} onChange={this.handleChangeSiret} placeholder="Siret" />
+                          </FormGroup>
+                        </Col>
+                        <Col md={4}>
+                          <FormGroup controlId="formNbEmploye">
+                            <ControlLabel>Nombre d'employés</ControlLabel>
+                            <FormControl type="text" value={this.state.nbEmployes} onChange={this.handleChangeNbEmployes} placeholder="Nombre d'employés" />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md={12}>
+                          <FormGroup controlId="formControlsTextarea">
+                            <ControlLabel>A propose de l'entreprise</ControlLabel>
+                            <FormControl
+                              rows="5"
+                              componentClass="textarea"
+                              bsClass="form-control"
+                              placeholder="Ici se trouvera la description de l'entreprise"
+                              value={this.state.description}
+                              onChange={this.handleChangeDesc}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        {imgs.map((img, key) => {
+                          return (
+                            this.cardImgRadio(img, key)
+                          );
+                        })}
+                      </Row>
+                      <Row>
+                        <Col md={4}>
+                          <FormGroup controlId="formFirstName">
+                            <ControlLabel>Prénom</ControlLabel>
+                            <FormControl type="text" value={this.state.firstName} onChange={this.handleChangeFirstName} placeholder="Prénom" />
+                          </FormGroup>
+                        </Col>
+                        <Col md={4}>
+                          <FormGroup controlId="formLastName">
+                            <ControlLabel>Nom</ControlLabel>
+                            <FormControl type="text" value={this.state.lastName} onChange={this.handleChangeLastName} placeholder="Nom" />
+                          </FormGroup>
+                        </Col>
+                        <Col md={4}>
+                          <FormGroup controlId="formEmail">
+                            <ControlLabel>Adresse Email</ControlLabel>
+                            <FormControl type="email" value={this.state.email} onChange={this.handleChangeEmail} placeholder="Adresse Email" />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md={6}>
+                          <FormGroup controlId="formUserName">
+                            <ControlLabel>Surnom</ControlLabel>
+                            <FormControl type="text" value={this.state.userName} onChange={this.handleChangeUserName} placeholder="Surnom" />
+                          </FormGroup>
+                        </Col>
+                        <Col md={6}>
+                          <FormGroup controlId="formPhone">
+                            <ControlLabel>Téléphone</ControlLabel>
+                            <FormControl type="text" value={this.state.phone} onChange={this.handleChangePhone} placeholder="Téléphone" />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md={12}>
+                          <FormGroup controlId="formPhone">
+                            <ControlLabel>Adresse postale</ControlLabel>
+                            <FormControl type="text" value={this.state.adress} onChange={this.handleChangeAdress} placeholder="Adresse postale" />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md={4}>
+                          <FormGroup controlId="formTown">
+                            <ControlLabel>Ville</ControlLabel>
+                            <FormControl type="text" value={this.state.town} onChange={this.handleChangeTown} placeholder="Ville" />
+                          </FormGroup>
+                        </Col>
+                        <Col md={4}>
+                          <FormGroup controlId="formCountry">
+                            <ControlLabel>Pays</ControlLabel>
+                            <FormControl type="text" value={this.state.country} onChange={this.handleChangeCountry} placeholder="Pays" />
+                          </FormGroup>
+                        </Col>
+                        <Col md={4}>
+                          <FormGroup controlId="formPostalCode">
+                            <ControlLabel>Code postal</ControlLabel>
+                            <FormControl type="number" value={this.state.postalCode} onChange={this.handleChangePostalCode} placeholder="Code postal" />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+
+                      <Button bsStyle="info" pullRight fill type="submit">
+                        Mise à jour du profil
+                      </Button>
+                      <div className="clearfix" />
+                    </form>
+                  }
+                />
+              </Col>
               {this.userCard()}
-            </Row>
-            <Row>
-              {this.formProfil()}
             </Row>
           </Col>
         </div>
@@ -389,7 +395,82 @@ class UserProfile extends Component {
         <div>
           <Col md={12}>
             <Row>
-              {this.cardProfil()}
+              <Col md={8}>
+                <Card
+                  title="Profil"
+                  content={
+                    <form onSubmit={this.handleSubmitProfil}>
+                      <Row>
+                        <Col md={4}>
+                          <FormGroup controlId="formFirstName">
+                            <ControlLabel>Prénom</ControlLabel>
+                            <FormControl type="text" value={this.state.firstName} onChange={this.handleChangeFirstName} placeholder="Prénom" />
+                          </FormGroup>
+                        </Col>
+                        <Col md={4}>
+                          <FormGroup controlId="formLastName">
+                            <ControlLabel>Nom</ControlLabel>
+                            <FormControl type="text" value={this.state.lastName} onChange={this.handleChangeLastName} placeholder="Nom" />
+                          </FormGroup>
+                        </Col>
+                        <Col md={4}>
+                          <FormGroup controlId="formEmail">
+                            <ControlLabel>Adresse Email</ControlLabel>
+                            <FormControl type="email" value={this.state.email} onChange={this.handleChangeEmail} placeholder="Adresse Email" />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md={6}>
+                          <FormGroup controlId="formUserName">
+                            <ControlLabel>Surnom</ControlLabel>
+                            <FormControl type="text" value={this.state.userName} onChange={this.handleChangeUserName} placeholder="Surnom" />
+                          </FormGroup>
+                        </Col>
+                        <Col md={6}>
+                          <FormGroup controlId="formPhone">
+                            <ControlLabel>Téléphone</ControlLabel>
+                            <FormControl type="text" value={this.state.phone} onChange={this.handleChangePhone} placeholder="Téléphone" />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md={12}>
+                          <FormGroup controlId="formPhone">
+                            <ControlLabel>Adresse postale</ControlLabel>
+                            <FormControl type="text" value={this.state.adress} onChange={this.handleChangeAdress} placeholder="Adresse postale" />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md={4}>
+                          <FormGroup controlId="formTown">
+                            <ControlLabel>Ville</ControlLabel>
+                            <FormControl type="text" value={this.state.town} onChange={this.handleChangeTown} placeholder="Ville" />
+                          </FormGroup>
+                        </Col>
+                        <Col md={4}>
+                          <FormGroup controlId="formCountry">
+                            <ControlLabel>Pays</ControlLabel>
+                            <FormControl type="text" value={this.state.country} onChange={this.handleChangeCountry} placeholder="Pays" />
+                          </FormGroup>
+                        </Col>
+                        <Col md={4}>
+                          <FormGroup controlId="formPostalCode">
+                            <ControlLabel>Code postal</ControlLabel>
+                            <FormControl type="number" value={this.state.postalCode} onChange={this.handleChangePostalCode} placeholder="Code postal" />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+
+                      <Button bsStyle="info" pullRight fill type="submit">
+                        Mise à jour du profil
+                      </Button>
+                      <div className="clearfix" />
+                    </form>
+                  }
+                />
+              </Col>
               {this.userCard()}
             </Row>
           </Col>
