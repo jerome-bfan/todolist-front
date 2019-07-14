@@ -29,6 +29,7 @@ export async function postLogin(form) {
     if (!rawResponse.ok) {
       reject(responseJson.message);
     }
+    localStorage.setItem("id_user", responseJson.current_user.id)
     console.log("debugjay");
     console.log(responseJson.message);
     localStorage.setItem("token", responseJson.token);

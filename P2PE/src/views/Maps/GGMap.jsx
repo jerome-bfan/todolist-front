@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import { getHeaders } from '../../Provider/Api';
+
 
 const style = {
   width: '100%',
@@ -13,11 +15,35 @@ const style = {
 }
 
 export class MapContainer extends Component {
-  state = {
-    showingInfoWindow: false,
-    activeMarker: {},
-    selectedPlace: {},
-  };
+  constructor(props) {
+    super(props)
+    this.state = {
+      services: [],
+      showingInfoWindow: false,
+      activeMarker: {},
+      selectedPlace: {},
+    };
+  }
+  
+  componentDidMount() {
+    const uri = "http://localhost:9001/users/" + localStorage.getItem('user_id') + "/requested_services/extend"
+    fetch(uri, getHeaders())
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.log(result)
+          this.setState({
+            isLoaded: true,
+            services: result
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )}
 
   onMarkerClick = (props, marker, e) =>
     this.setState({
@@ -36,7 +62,7 @@ export class MapContainer extends Component {
   };
 
   render() {
-    var currentLocation = [
+    /* var currentLocation = [
       {
         title: 'Current location',
         service_name: 'My location',
@@ -64,16 +90,15 @@ export class MapContainer extends Component {
         adresse: 'rue du maréchal',
         emplacement: { lat: 48.815619, lng: 2.373283 }
       }
-    ]
+    ] */
 
-    console.log(currentLocation.emplacement);
 
     return (
         <Map google={this.props.google}
             style={style}
-            initialCenter={
+            /* initialCenter={
               currentLocation[0].emplacement
-            }
+            } */
             zoom={15}
             onClick={this.onMapClicked}>
 
@@ -83,15 +108,15 @@ export class MapContainer extends Component {
             service_name={'My location'}
             description={'test'} />
 
-          {services.map(item => <Marker
+          {this.state.services.map(item => <Marker
                                 onClick={this.onMarkerClick}
-                                title={item.title}
-                                service_name={item.service_name}
-                                nom_pro={item.nom_pro}
-                                description={item.description}
-                                prix={item.prix}
-                                adresse={item.adresse}
-                                position={item.emplacement} />
+                                title={item.proposed_name}
+                                description={item.proposed_description}
+                                prix={item.proposed_price}
+                                adresse={item.proposed_address}
+                                //TODO: change the backend to store the location based on the address using 
+                                //TODO:an api to translate address to location
+                                position={item.proposed_location} />
           )}
 
           <InfoWindow
@@ -101,6 +126,7 @@ export class MapContainer extends Component {
                 <h1 style={style.titlePopup}>
                   {this.state.selectedPlace.service_name}
                 </h1>
+                //TODO: Demander a guillaume ce qu'il faut set ici
                 <p>{this.state.selectedPlace.nom_pro}</p>
                 <p>{this.state.selectedPlace.description}</p>
                 <p>{this.state.selectedPlace.prix}</p>

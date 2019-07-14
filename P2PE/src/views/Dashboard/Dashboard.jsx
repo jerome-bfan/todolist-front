@@ -80,6 +80,7 @@ class Dashboard extends Component {
       return "red ";
     }
   }
+  
   componentWillMount() {
     this.setState({
       username: "jaydde",
@@ -206,7 +207,7 @@ class Dashboard extends Component {
                         </Button>
                       </Row>
                       <FacebookLogin
-                        appId="145755959479180"
+                        appId="603520856723739"
                         autoLoad={false}
                         fields="name,email,picture"
                         callback={this.responseFacebook}
