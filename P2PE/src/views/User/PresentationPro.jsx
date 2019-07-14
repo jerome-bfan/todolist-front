@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Grid, Row, Col, Panel, PanelGroup } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
+import { UserCard } from "components/UserCard/UserCard.jsx";
+import avatar from "assets/img/faces/face-3.jpg";
 
 const myStyle = {
     title: {
@@ -34,90 +36,49 @@ const myStyle = {
     }
 }
 
-const list_pro = [
-  {
-    id: 0,
-    company_name: 'Informatique',
-    description: 'Le Lorem Ipsum est simplement du faux texte employé dans la '
-          + 'composition et la mise en page avant impression. Le Lorem Ipsum '
-          + 'est le faux texte standard de l\'imprimerie depuis les années '
-          + '1500, quand un imprimeur anonyme assembla ensemble des morceaux de '
-          + 'texte pour réaliser un livre spécimen de polices de texte.',
-    num_siret: '54205118000066',
-    numb_employee: 30
-  },
-  {
-    id: 1,
-    company_name: 'Jardinage',
-    description: 'Le Lorem Ipsum est simplement du faux texte employé dans la '
-          + 'composition et la mise en page avant impression. Le Lorem Ipsum '
-          + 'est le faux texte standard de l\'imprimerie depuis les années '
-          + '1500, quand un imprimeur anonyme assembla ensemble des morceaux de '
-          + 'texte pour réaliser un livre spécimen de polices de texte.',
-    num_siret: '54205118000066',
-    numb_employee: 1500
-  },
-  {
-    id: 2,
-    company_name: 'Bricolage',
-    description: 'Le Lorem Ipsum est simplement du faux texte employé dans la '
-          + 'composition et la mise en page avant impression. Le Lorem Ipsum '
-          + 'est le faux texte standard de l\'imprimerie depuis les années',
-    num_siret: '79121331560066',
-    numb_employee: 210
-  },
-];
-
 class PresentationPro extends Component {
   constructor(props, context) {
     super(props, context);
+
+    this.state = {
+      list_users: []
+    };
   }
 
-  render_divid(el) {
+  componentDidMount() {
+    fetch('http://localhost:3001/users')
+      .then(response => response.json())
+      .then(users => this.setState({list_users: users}));
+  }
+
+  render_divid() {
       return(
         <div>
           <Grid fluid>
-            <Row>
-              <Col md={12}>
-                <Card
-                  content={
-                    <div style={{ flexDirection: "column" }}>
-                      <div className="">
-                        <PanelGroup
-                          accordion
-                          id="accordion_problems"
-                          onSelect={this.handleSelect}
-                        >
-                          <Panel eventKey="1">
-                            <Panel.Heading>
-                              <Panel.Title toggle style={myStyle.box_title}>
-                                {el.company_name}
-                              </Panel.Title>
-                            </Panel.Heading>
-                            <Panel.Body>
-                              <Grid fluid>
-                                <Row>
-                                  <Col md={8}>
-                                    {el.description}
-                                  </Col>
-                                  <Col md={4} style={myStyle.box_description}>
-                                    <p>
-                                      Numéro SIRET : {el.num_siret}
-                                      <br/>
-                                      <br/>Nombre d'employés : {el.numb_employee}
-                                    </p>
-                                  </Col>
-                                </Row>
-                              </Grid>
-                            </Panel.Body>
-                          </Panel>
-                        </PanelGroup>
-                      </div>
-                    </div>
+            {this.state.list_users.map((user, key) => {
+                  if (user.role === "rolePro") {
+                      return (
+                        <Row key={key}>
+                          <Col md={12}>
+                            <UserCard
+                              bgImage="https://nsm09.casimages.com/img/2019/07/05//19070510353824777916300228.jpg"
+                              avatar={avatar}
+                              name={user.first_name + ' ' + user.last_name}
+                              userName="Mickaël24"
+                              description={
+                                <span>
+                                  {user.company_name}
+                                  <br/>{user.number_employee} employés
+                                  <br/>{user.company_description}
+                                </span>
+                              }
+                            />
+                          </Col>
+                        </Row>
+                      );
                   }
-                />
-              </Col>
-            </Row>
+                }
+            )}
           </Grid>
         </div>
       );
@@ -146,23 +107,11 @@ class PresentationPro extends Component {
     );
   }
 
-  findArrayElementById(array, id) {
-    for (var i = 0; i < array.length; i++) {
-      if (array[i].id == id) {
-        return array[i];
-      }
-    }
-
-    return 'undefined';
-  }
-
   render() {
-    var elfind = this.findArrayElementById(list_pro, this.props.match.params.id);
-
-    if (elfind != 'undefined') {
+    if (this.state.list_users != []) {
       return (
         <div style={myStyle.rendStyle}>
-          {this.render_divid(elfind)}
+          {this.render_divid()}
         </div>
       );
     } else {
