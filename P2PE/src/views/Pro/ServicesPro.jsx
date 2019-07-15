@@ -6,6 +6,14 @@ import Button from "components/CustomButton/CustomButton.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import ServicesProC from "../../components/ServicesPro/ServicesProC";
 
+import {
+  optionsUnConnected,
+  url,
+  getHeaders,
+  postHeader,
+  putHeader
+} from "../../Provider/Api";
+
 export default class ServicesPro extends Component {
   constructor(props) {
     super(props);
@@ -16,10 +24,29 @@ export default class ServicesPro extends Component {
     this.updateService = this.updateService.bind(this);
     this.updateStateOneService = this.updateStateOneService.bind(this);
     this.updateAllStateOneService = this.updateAllStateOneService.bind(this);
+    this.desactivateAllServices = this.desactivateAllServices.bind(this);
+    this.activateAllServices = this.activateAllServices.bind(this);
     this.renderAddService = this.renderAddService.bind(this);
     this.renderAddOptions = this.renderAddOptions.bind(this);
     this.formControl = this.formControl.bind(this);
-    this.state = {
+    this.state =  {
+        service:[],
+        addTitle: "",
+        addCategory: "",
+        addDescription: "",
+        addLocation: "",
+        options: [
+          {
+            title: "aa",
+            value: [""]
+          }
+        ],
+        inputOptions: [],
+        addPrix: "",
+        error: null,
+        isLoaded: false
+      };
+    /*this.state = {
       services: [
         {
           title: "Venez vous couper les cheveux",
@@ -29,7 +56,7 @@ export default class ServicesPro extends Component {
           description: "Nouvelle coupe",
           state: 0,
           prix: 10,
-          
+
         },
         {
           title: "Pas d'eau chaude ?",
@@ -59,13 +86,53 @@ export default class ServicesPro extends Component {
       ],
       inputOptions: [],
       addPrix: 0
-    };
+    };*/
+
   }
+
+  componentDidMount() {
+      //(localStorage);
+      //
+     fetch(url + "pro/" + localStorage.pro_id/*"1"*/ + "/proposed_services", getHeaders()).then(res => res.json())
+     .then(
+       (result) => {
+
+         var obj = {
+           service:[],
+           isLoaded: true
+         };
+         //("Service in didMount");
+         //(result);
+         const newServices = result.map(function(service) {
+           return {
+             title: service.name,
+             id_service: service.id,
+             location: service.location,
+             category: "cat",
+             description: service.description,
+             enable: service.state,
+             prix: service.price
+           };
+         })
+         this.setState({
+           services: newServices,
+           isLoaded: true
+         });
+      },
+      (error) => {
+        this.setState({
+          isLoaded: true,
+          error: "ERROR"
+        });
+      }
+     )
+   }
+
+
 
   handleChange(event) {
     this.setState({});
     this.setState({ [event.target.id]: event.target.value }, () => {
-      console.log(this.state.options);
     });
   }
   handleChangeOptions(event) {}
@@ -78,16 +145,64 @@ export default class ServicesPro extends Component {
     this.setState({
       services: array
     });
+    fetch(url + "proposed_services/" + id, putHeader("{\"name\":\"" + service.title + "\", \"description\":\"" + service.description + "\", \"price\":\"" + service.prix + "\", \"id\":\"" + service.id_service + "\"}")).then(result=>{
+      console.log("Updated service");
+      console.log(result);
+      this.componentDidMount();
+    });
   }
+
   updateStateOneService(service) {
     var array = this.state.services.filter(item => {
       return item.id_service != service.id_service;
     });
-    service.state = !service.state;
+    var id = service.id_service;
+    //service.enable = !service.enable;
     array.unshift(service);
     this.setState({
       services: array
     });
+    if (service.enable == "1"){
+      fetch(url + "proposed_services/" + id + "/state", putHeader("{\"state\":\"0\"}")).then(result=>{
+        console.log("enable to 0");
+        console.log(result);
+        this.componentDidMount();
+      });
+    } else {
+      fetch(url + "proposed_services/" + id + "/state", putHeader("{\"state\":\"1\"}")).then(result=>{
+        console.log("enable to 1");
+        console.log(result);
+        this.componentDidMount();
+      });
+    }
+  }
+
+  desactivateAllServices(){
+    if(this.state.services && this.state.services != null)
+      {
+        this.state.services.forEach(result => {
+          fetch(url + "proposed_services/" + result.id_service + "/state", putHeader("{\"state\":\"0\"}")).then(result=>{
+            //("desactivate all");
+            //(result);
+            this.componentDidMount();
+          })
+          //(result.id_service + " desactivated");
+        });
+      }
+  }
+
+  activateAllServices(){
+    if(this.state.services && this.state.services != null)
+      {
+        this.state.services.forEach(result => {
+          fetch(url + "proposed_services/" + result.id_service + "/state", putHeader("{\"state\":\"1\"}")).then(result=>{
+            //("activate all");
+            //(result);
+            this.componentDidMount();
+          })
+          //(result.id_service + " activated");
+        });
+      }
   }
 
   updateAllStateOneService(actif) {
@@ -115,15 +230,15 @@ export default class ServicesPro extends Component {
       option["value"].push(evt.target.value);
       return { ...option, value: option["value"] };
     });
-    console.log(options);
-    console.log(options);
+    //(options);
+    //(options);
     this.setState({ options: options });
   };
 
   renderAddOptions() {
     return this.state.options.map((option, index) => {
       return (
-        <div key={index}  style={{     
+        <div key={index}  style={{
         }}>
           <FormInputs
             ncols={["col-md-9"]}
@@ -167,7 +282,7 @@ export default class ServicesPro extends Component {
             }}
             onClick={e => {
               option["value"].push("");
-              console.log(option["value"]);
+              //(option["value"]);
               this.setState({
                 ...option,
                 value: option["value"]
@@ -337,6 +452,8 @@ export default class ServicesPro extends Component {
           updateService={this.updateService}
           updateStateOneService={this.updateStateOneService}
           updateAllStateOneService={this.updateAllStateOneService}
+          desactivateAllServices={this.desactivateAllServices}
+          activateAllServices={this.activateAllServices}
         />
       </div>
     );
@@ -352,14 +469,15 @@ export default class ServicesPro extends Component {
       options: this.state.options,
       state: 1
     };
-    console.log(service);
+    //("One servide added")
+    //(service);
     this.state.services.unshift(service);
     this.setState({
       services: this.state.services
     });
   }
 
-  componentWillMount() {}
+  //componentWillMount() {}
   render() {
     return this._renderPage();
   }

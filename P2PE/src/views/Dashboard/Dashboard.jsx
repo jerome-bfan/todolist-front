@@ -415,13 +415,13 @@ class Dashboard extends Component {
                               makeNotif(_notificationSystem, "info", mess);
                               this.setState({ errorRegister: "" });
 
-                              console.log(e);
+                              //(e);
 
-                              console.log("e");
+                              //("e");
                             })
                             .catch(e => {
-                              console.log(e.body);
-                              console.log("e");
+                              //(e.body);
+                              //("e");
                               this.setState({
                                 errorRegister: "Veuillez réssayer"
                               });
@@ -440,8 +440,8 @@ class Dashboard extends Component {
 
                           // postRegister(this.state)
                           //   .then(e => {
-                          //       console.log("test23");
-                          //     console.log(e)
+                          //       //("test23");
+                          //     //(e)
                           //     var mess =
                           //       "Vous devez accepté votre email avant de vous connecter";
                           //     this.setState({ successRegister: mess });
@@ -454,12 +454,12 @@ class Dashboard extends Component {
                           //     makeNotif(_notificationSystem, "info", mess);
                           //     this.setState({ errorRegister: e.message });
 
-                          //     console.log(e);
+                          //     //(e);
                           //   })
                           //   .catch(e => {
-                          //     console.log("test24");
+                          //     //("test24");
 
-                          //     console.log(e);
+                          //     //(e);
                           //     this.setState({ errorRegister: e.message });
                           //     this.setState({
                           //       _notificationSystem: this.refs

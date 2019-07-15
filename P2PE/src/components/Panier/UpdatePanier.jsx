@@ -11,8 +11,8 @@ import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 class UpdatePanier extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
-    console.log("props");
+    //(props);
+    //("props");
     this._renderModalUpdate = this._renderModalUpdate.bind(this);
     this.inputOptions = [];
     this.handleChange = this.handleChange.bind(this);

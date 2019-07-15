@@ -28,3 +28,14 @@ export const postHeader = (body) => {
   };
   return options;
 };
+
+export const putHeader = (body) => {
+  const options = {};
+  options.method = "put";
+  options.body = body;
+  options.headers = {
+    "Content-Type": "application/json",
+    "x-access-token": localStorage.getItem("token")
+  };
+  return options;
+};

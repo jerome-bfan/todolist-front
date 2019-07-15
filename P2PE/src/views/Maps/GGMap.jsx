@@ -66,7 +66,7 @@ export class MapContainer extends Component {
       }
     ]
 
-    console.log(currentLocation.emplacement);
+    //(currentLocation.emplacement);
 
     return (
         <Map google={this.props.google}
