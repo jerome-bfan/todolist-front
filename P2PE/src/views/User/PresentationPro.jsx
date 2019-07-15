@@ -3,6 +3,7 @@ import { Grid, Row, Col, Panel, PanelGroup } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
 import { UserCard } from "components/UserCard/UserCard.jsx";
 import avatar from "assets/img/faces/face-3.jpg";
+import { getHeaders } from '../../Provider/Api';
 
 const myStyle = {
     title: {
@@ -46,12 +47,17 @@ class PresentationPro extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/users')
+    fetch('http://localhost:3001/users', getHeaders())
       .then(response => response.json())
       .then(users => this.setState({list_users: users}));
   }
 
   render_divid() {
+    console.log("identityId ===> " + localStorage.get("identityId"));
+    console.log("accessKeyId ===> " + localStorage.get("accessKeyId"));
+    console.log("secretAccessKey ===> " + localStorage.get("secretAccessKey"));
+    console.log("sessionToken ===> " + localStorage.get("sessionToken"));
+
       return(
         <div>
           <Grid fluid>
