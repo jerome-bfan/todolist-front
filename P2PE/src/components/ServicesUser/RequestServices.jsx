@@ -5,6 +5,8 @@ import { Panel } from "react-bootstrap";
 import { RequestServicesCard } from './RequestServicesCard';
 
 export function DispoService({ state }) {
+  //("Disposervice :");
+  //(state);
   if (state) {
     return (
       <text style={{ color: "rgb(125, 206, 125)", fontWeight: "bold" }}>
@@ -20,6 +22,7 @@ export function DispoService({ state }) {
       </text>
     );
   } else {
+    //("Non dispo");
     return (
       <text style={{ color: "rgb(255, 0, 67)", fontWeight: "bold" }}>
         <i
@@ -96,12 +99,12 @@ export class RequestServices extends Component {
                 style={{ cornerRadius: 30, marginRight: 100, marginTop: 30 }}
               >
                 <Panel.Heading>
-                
+
                   <Panel.Title toggle style={{ textAlign: "left" }}>
                     Plus de details
                   </Panel.Title>
                 </Panel.Heading>
-                <Panel.Body collapsible>{this.props.description} 
+                <Panel.Body collapsible>{this.props.description}
 
              </Panel.Body>
               </Panel>

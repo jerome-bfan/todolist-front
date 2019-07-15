@@ -32,12 +32,12 @@ class Sidebar extends Component {
     };
     //let menuRoute = {};
     // if (isConnected() || this.props.menuConnect) {
-    //     console.log("dddd");
-    //     console.log(this.props.menuConnect);
+    //     //("dddd");
+    //     //(this.props.menuConnect);
     //     if (this.props.menuConnect == "pro") {
     //       menuRoute = dashboardRoutesPro;
     //     } else if (this.props.menuConnect == "user" || localStorage.getItem("roleUser")) {
-    //       console.log("faaf");
+    //       //("faaf");
 
     //       menuRoute = dashboardRoutesUser;
     //     }

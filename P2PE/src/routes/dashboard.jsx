@@ -16,8 +16,8 @@ import ServicesPro from '../views/Pro/ServicesPro';
 
 export const getRoutes = (connected) => {
   let menuRoute = {};
-  console.log(connected);
-  console.log("connected");
+  //(connected);
+  //("connected");
   menuRoute = dashboardUnConnected;
   if (isConnected() || connected) {
     if (connected == "pro"  || localStorage.getItem("rolePro")) {

@@ -13,9 +13,9 @@ class Panier extends Component {
     this._closePanier = this._closePanier.bind(this);
 
     this._deleteItemPanier = this._deleteItemPanier.bind(this);
-    console.log("panier");
-    console.log(localStorage.getItem("panier"));
-    console.log(JSON.parse(localStorage.getItem("panier")));
+    //("panier");
+    //(localStorage.getItem("panier"));
+    //(JSON.parse(localStorage.getItem("panier")));
     this.state = {
       panier: [],
       itemPanier: []
@@ -25,9 +25,6 @@ class Panier extends Component {
     }
   }
   _updatePanier(service, id) {
-    console.log("updatePanier");
-    console.log(service);
-    console.log(this.state.panier);
     var array = this.state.panier;
     array.splice(service.id, 1, service);
     this.setState(prevState => ({

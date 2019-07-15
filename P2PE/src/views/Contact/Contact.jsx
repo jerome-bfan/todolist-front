@@ -94,9 +94,9 @@ class Contact extends Component {
       message: document.forms["contact"].elements[2].value,
     }
 
-    console.log(contact.name);
-    console.log(contact.email);
-    console.log(contact.message);
+    //(contact.name);
+    //(contact.email);
+    //(contact.message);
 
     window.open('mailto:guillaume.rodier@epitech.eu' +
                 '?subject=\'Contact from P2PE\'&body=<ul><li><strong>' +

@@ -22,8 +22,8 @@ export default class ServicesUser extends Component {
   }
   componentDidMount() {
     getServices().then(services => {
-      console.log("debug v3");
-      console.log(services);
+      //("debug v3");
+      //(services);
       if (services != undefined && services.length > 0) {
         const newServices = services.map(function(service) {
           return {
@@ -57,7 +57,7 @@ export default class ServicesUser extends Component {
 
   handleChangeSelect(event) {
     this.setState({ searchType: this.inputEl.value });
-    console.log(this.inputEl.value);
+    //(this.inputEl.value);
     if (this.inputEl.value == "prix+") {
       this.sortServicesByIncreasingPrice(this.state.services, true);
     } else {
@@ -87,7 +87,7 @@ export default class ServicesUser extends Component {
       >
         {this.state.categories.length > 0 &&
           this.state.categories.map(cat => {
-            console.log(cat);
+            //(cat);
             return (
               <option id="searchType" value={cat.id}>
                 {cat.name}
@@ -99,7 +99,7 @@ export default class ServicesUser extends Component {
   }
   handleChangeSelectCategorie(event) {
     this.setState({ addCategory: this.inputCat.value });
-    console.log(this.inputEl.value);
+    //(this.inputEl.value);
   }
   _search = text => {
     if (!!this.state.search) {
@@ -108,9 +108,9 @@ export default class ServicesUser extends Component {
       } else if (this.state.searchType == "title") {
         return text.title.toLowerCase().indexOf(this.state.search) !== -1;
       } else if (this.state.searchType == "prix") {
-        console.log(text);
-        console.log(text);
-        console.log("debug");
+        //(text);
+        //(text);
+        //("debug");
         if (text.prix != null) {
           return text.prix.toString().indexOf(this.state.search) !== -1;
         }
@@ -189,8 +189,6 @@ export default class ServicesUser extends Component {
               this.state.services
                 .filter(text => this._search(text))
                 .map((service, index) => {
-                  console.log(service);
-                  console.log("service");
                   if (service.state == 1)
                     return <RequestServices key={index} {...service} />;
                 })}
@@ -213,12 +211,12 @@ export default class ServicesUser extends Component {
     this.setState({
       services: this.state.services
     });
-    // console.log(this.state.services);
+    // //(this.state.services);
   }
 
   componentWillMount() {}
   render() {
-    console.log(this.state.services);
+    //(this.state.services);
 
     return this._renderPage();
   }

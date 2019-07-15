@@ -22,7 +22,7 @@ class ServicesProC extends Component {
   }
 
   renderButtonState(service) {
-    if (service.state == 1) return "Rendre inactif";
+    if (service.enable == 1) return "Rendre inactif";
     else return "Rendre actif";
   }
   handleClose() {
@@ -38,10 +38,10 @@ class ServicesProC extends Component {
       prix: this.state.addPrix,
       title: this.state.addTitle,
       id_service: this.state.id,
-      state: this.state.state
+      state: this.state.enable
     };
     this.props.updateService(service, this.state.id);
-    console.log("fff");
+    //("fff");
   }
 
   handleShow(service) {
@@ -53,12 +53,14 @@ class ServicesProC extends Component {
       addLocation: service.location,
       addPrix: service.prix,
       addTitle: service.title,
-      state: service.state
+      state: service.enable
     });
   }
 
   _renderDispo(service) {
-    if (service && service.state == 1) {
+    //("RenderDispo service state : ");
+    //(service);
+    if (service && service.enable == 1) {
       return <DispoService state={"Disponible"} />;
     } else {
       return <DispoService state={""} />;
@@ -165,6 +167,8 @@ class ServicesProC extends Component {
   }
 
   _renderCard(service, index) {
+    //("RENDERCARD");
+    //(service);
     return (
       <div key={index} className="card">
         {this._renderModalUpdate()}
@@ -262,6 +266,7 @@ class ServicesProC extends Component {
             }}
             onClick={() => {
               this.props.updateAllStateOneService(0);
+              this.props.desactivateAllServices();
             }}
           >
             Rendre tout les service inactif
@@ -274,6 +279,7 @@ class ServicesProC extends Component {
             }}
             onClick={() => {
               this.props.updateAllStateOneService(1);
+              this.props.activateAllServices();
             }}
           >
             Rendre tout les service actif

@@ -100,8 +100,8 @@ class ListClient extends Component {
       <div className="content">
         {(this.state.clients != undefined && this.state.clients.length) > 0 &&
           this.state.clients.map((client, index) => {
-            console.log(client);
-            console.log("service");
+            //(client);
+            //("service");
             return this._renderCard(client, index);
           })}
       </div>
