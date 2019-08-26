@@ -13,6 +13,8 @@ import Typography from '../views/Help/Help';
 import { isConnected } from "../functions/p2peFunction";
 import ListClient from '../views/Pro/ListClient';
 import ServicesPro from '../views/Pro/ServicesPro';
+import PresentationPro from 'views/User/PresentationPro';
+import PresentationProPage from 'views/User/PresentationProPage';
 
 export const getRoutes = (connected) => {
   let menuRoute = {};
@@ -56,7 +58,18 @@ export const dashboardRoutesUser = [
     icon: "pe-7s-note2",
     component: Panier
   },
- 
+  {
+    path: "/prespro/",
+    name: "PresentationPro",
+    icon: "pe-7s-note2",
+    component: PresentationPro
+  },
+  {
+    path: "/prespropage/",
+    name: "PresentationProPage",
+    icon: "pe-7s-note2",
+    component: PresentationProPage
+  },
   {
     path: "/help",
     name: "Page help",
