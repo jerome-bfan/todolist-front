@@ -107,7 +107,8 @@ class PresentationProPage extends Component {
                   userName="Mickaël24"
                   description={
                     <span>
-                      {this.state.companyName}
+                      Siret : {this.state.siret}
+                      <br/>{this.state.companyName}
                       <br/>{this.state.nbEmployes} employés
                       <br/>{this.state.description}
                     </span>

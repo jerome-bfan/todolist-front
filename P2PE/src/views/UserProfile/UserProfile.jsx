@@ -56,9 +56,6 @@ class UserProfile extends Component {
       userName: '',
       phone: '',
       address: '',
-      town: '',
-      country: '',
-      postalCode: '',
       role: '',
       profession: '',
       gender: ''
@@ -78,9 +75,6 @@ class UserProfile extends Component {
     this.handleChangeUserName = this.handleChangeUserName.bind(this);
     this.handleChangePhone = this.handleChangePhone.bind(this);
     this.handleChangeAddress = this.handleChangeAddress.bind(this);
-    this.handleChangeTown = this.handleChangeTown.bind(this);
-    this.handleChangeCountry = this.handleChangeCountry.bind(this);
-    this.handleChangePostalCode = this.handleChangePostalCode.bind(this);
     this.handleSubmitProfil = this.handleSubmitProfil.bind(this);
   }
 
@@ -147,41 +141,8 @@ class UserProfile extends Component {
     this.setState({address: event.target.value});
   }
 
-  handleChangeTown(event) {
-    this.setState({town: event.target.value});
-  }
-
-  handleChangeCountry(event) {
-    this.setState({country: event.target.value});
-  }
-
-  handleChangePostalCode(event) {
-    this.setState({postalCode: event.target.value});
-  }
-
   handleSubmitProfil(event) {
     alert('Utilisateur modifié');
-
-    // alert('Name: ' + this.state.name +
-    //       '\n\nSiret: ' + this.state.siret +
-    //       '\n\nNombre d\'employés: ' + this.state.nbEmployes +
-    //       '\n\nDescription: ' + this.state.description +
-    //       '\n\nImg url: ' + this.state.img +
-    //       '\n\nFirstname: ' + this.state.firstName +
-    //       '\n\nLastname: ' + this.state.lastName +
-    //       '\n\nEmail: ' + this.state.email +
-    //       '\n\nSurnom: ' + this.state.userName +
-    //       '\n\nTéléphone: ' + this.state.phone +
-    //       '\n\nAdresse postale: ' + this.state.address +
-    //       '\n\nVille: ' + this.state.town +
-    //       '\n\nPays: ' + this.state.country +
-    //       '\n\nCode postal: ' + this.state.postalCode);
-
-    // alert('Firstname: ' + this.state.firstName +
-    //       '\n\nEmail: ' + this.state.email +
-    //       '\n\nAddress: ' + this.state.address +
-    //       '\n\nid: ' + this.state.id);
-
 
     fetch('http://localhost:3001/users/' + this.state.id,
       putHeader(
@@ -198,6 +159,7 @@ class UserProfile extends Component {
           nbEmployes: this.state.nbEmployes,
           siret: this.state.siret,
           profession: this.state.profession,
+          image_screen: this.state.img,
           id: this.state.id
         })
       )
@@ -224,6 +186,7 @@ class UserProfile extends Component {
           phone: user[0].phone_number,
           address: user[0].address,
           role: user[0].role,
+          img: user[0].image_screen,
           profession: user[0].profession,
       }));
   }
@@ -354,28 +317,8 @@ class UserProfile extends Component {
                       <Row>
                         <Col md={12}>
                           <FormGroup controlId="formAddress">
-                            <ControlLabel>Adresse postale</ControlLabel>
+                            <ControlLabel>Adresse postale (rue, ville, pays, code postal)</ControlLabel>
                             <FormControl type="text" value={this.state.address} onChange={this.handleChangeAddress} placeholder="Adresse postale" />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md={4}>
-                          <FormGroup controlId="formTown">
-                            <ControlLabel>Ville</ControlLabel>
-                            <FormControl type="text" value={this.state.town} onChange={this.handleChangeTown} placeholder="Ville" />
-                          </FormGroup>
-                        </Col>
-                        <Col md={4}>
-                          <FormGroup controlId="formCountry">
-                            <ControlLabel>Pays</ControlLabel>
-                            <FormControl type="text" value={this.state.country} onChange={this.handleChangeCountry} placeholder="Pays" />
-                          </FormGroup>
-                        </Col>
-                        <Col md={4}>
-                          <FormGroup controlId="formPostalCode">
-                            <ControlLabel>Code postal</ControlLabel>
-                            <FormControl type="text" value={this.state.postalCode} onChange={this.handleChangePostalCode} placeholder="Code postal" />
                           </FormGroup>
                         </Col>
                       </Row>
@@ -440,28 +383,8 @@ class UserProfile extends Component {
                       <Row>
                         <Col md={12}>
                           <FormGroup controlId="formAddress">
-                            <ControlLabel>Adresse postale</ControlLabel>
+                            <ControlLabel>Adresse postale (rue, ville, pays, code postal)</ControlLabel>
                             <FormControl type="text" value={this.state.address} onChange={this.handleChangeAddress} placeholder="Adresse postale" />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md={4}>
-                          <FormGroup controlId="formTown">
-                            <ControlLabel>Ville</ControlLabel>
-                            <FormControl type="text" value={this.state.town} onChange={this.handleChangeTown} placeholder="Ville" />
-                          </FormGroup>
-                        </Col>
-                        <Col md={4}>
-                          <FormGroup controlId="formCountry">
-                            <ControlLabel>Pays</ControlLabel>
-                            <FormControl type="text" value={this.state.country} onChange={this.handleChangeCountry} placeholder="Pays" />
-                          </FormGroup>
-                        </Col>
-                        <Col md={4}>
-                          <FormGroup controlId="formPostalCode">
-                            <ControlLabel>Code postal</ControlLabel>
-                            <FormControl type="text" value={this.state.postalCode} onChange={this.handleChangePostalCode} placeholder="Code postal" />
                           </FormGroup>
                         </Col>
                       </Row>
