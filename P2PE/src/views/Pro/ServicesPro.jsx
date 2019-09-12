@@ -93,7 +93,7 @@ export default class ServicesPro extends Component {
   componentDidMount() {
       //(localStorage);
       //
-     fetch(url + "pro/" + localStorage.pro_id/*"1"*/ + "/proposed_services", getHeaders()).then(res => res.json())
+     fetch(url + "pro/" + /*localStorage.pro_id*/"1" + "/proposed_services", getHeaders()).then(res => res.json())
      .then(
        (result) => {
 
@@ -145,7 +145,7 @@ export default class ServicesPro extends Component {
     this.setState({
       services: array
     });
-    fetch(url + "proposed_services/" + id, putHeader("{\"name\":\"" + service.title + "\", \"description\":\"" + service.description + "\", \"price\":\"" + service.prix + "\", \"id\":\"" + service.id_service + "\"}")).then(result=>{
+    fetch(url + "proposed_services/" + id, putHeader("{\"name\":\"" + service.title + "\", \"description\":\"" + service.description + "\", \"price\":\"" + service.prix + "\", \"location\":\"" + service.location + "\", \"id\":\"" + service.id_service + "\"}")).then(result=>{
       console.log("Updated service");
       console.log(result);
       this.componentDidMount();
