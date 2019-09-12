@@ -93,7 +93,7 @@ export default class ServicesPro extends Component {
   componentDidMount() {
       //(localStorage);
       //
-     fetch(url + "pro/" + /*localStorage.pro_id*/"1" + "/proposed_services", getHeaders()).then(res => res.json())
+     fetch(url + "pro/" + localStorage.pro_id/*"1"*/ + "/proposed_services", getHeaders()).then(res => res.json())
      .then(
        (result) => {
 
@@ -460,6 +460,7 @@ export default class ServicesPro extends Component {
   }
 
   addService() {
+    console.log("HERE\n");
     const service = {
       description: this.state.addDescription,
       category: this.state.addCategory,
@@ -475,6 +476,10 @@ export default class ServicesPro extends Component {
     this.setState({
       services: this.state.services
     });
+    fetch(url + "proposed_services/", postHeader("{\"name\":\"" + service.title + "\", \"description\":\"" + service.description + "\", \"price\":\"" + service.prix + "\", \"location\":\"" + service.location + "\", \"option\":\"" + service.options+ "\", \"id_pro\":\"" + localStorage.pro_id + "\"  }")).then(result=>{
+      console.log(result);
+      this.componentDidMount();
+    })
   }
 
   //componentWillMount() {}
