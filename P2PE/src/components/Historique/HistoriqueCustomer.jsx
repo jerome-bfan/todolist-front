@@ -3,82 +3,82 @@ import { Grid, Row, Col, Panel, PanelGroup } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import { Card } from "components/Card/Card.jsx";
 import NotificationSystem from "react-notification-system";
-import ChartistGraph from "react-chartist";
 import { style } from "variables/Variables.jsx";
+import StripeCheckout from "react-stripe-checkout";
 
 const services = [
   {
     accept: true,
-    service_name: 'Informatique',
+    service_name: "Informatique",
     price: 29,
-    name_customer: 'Salvador Dali',
-    description: 'Réparer l\'ordi',
-    emplacement: 'rue de l\'informatique',
-    options: 'Réinstaller windows',
-    date: '2019-07-24'
+    name_customer: "Salvador Dali",
+    description: "Réparer l'ordi",
+    emplacement: "rue de l'informatique",
+    options: "Réinstaller windows",
+    date: "2019-07-24"
   },
   {
     accept: false,
-    service_name: 'Jardinage',
+    service_name: "Jardinage",
     price: 48,
-    name_customer: 'Pablo Picasso',
-    description: 'Arroser les plantes',
-    emplacement: 'rue du clochet',
-    options: 'Amener un arrosoir',
-    date: '2019-06-19'
+    name_customer: "Pablo Picasso",
+    description: "Arroser les plantes",
+    emplacement: "rue du clochet",
+    options: "Amener un arrosoir",
+    date: "2019-06-19"
   },
   {
     accept: true,
-    service_name: 'Bricolage',
+    service_name: "Bricolage",
     price: 35,
-    name_customer: 'Lee Ufan',
-    description: 'Réparer la douche',
-    emplacement: 'rue de l\'hiver',
-    date: '2019-05-02'
+    name_customer: "Lee Ufan",
+    description: "Réparer la douche",
+    emplacement: "rue de l'hiver",
+    date: "2019-05-02"
   }
 ];
 
 const myStyle = {
   notifTrue: {
-    padding: '10px 20px',
-    backgroundColor: '#28a745',
-    textAlign: 'center'
+    padding: "10px 20px",
+    backgroundColor: "#28a745",
+    textAlign: "center"
   },
   notifFalse: {
-    padding: '10px 20px',
-    backgroundColor: '#dc3545',
-    textAlign: 'center'
+    padding: "10px 20px",
+    backgroundColor: "#dc3545",
+    textAlign: "center"
   },
   top: {
-    borderBottom: '1px solid #808080',
-    marginBottom: '20px'
+    borderBottom: "1px solid #808080",
+    marginBottom: "20px"
   },
   title: {
-    margin: '5px',
-    fontWeight: 'bold',
-    fontSize: '30px'
+    margin: "5px",
+    fontWeight: "bold",
+    fontSize: "30px"
   },
   rang1: {
     padding: 0,
-    marginLeft: '60px',
-    listStyleType: 'none',
+    marginLeft: "60px",
+    listStyleType: "none"
   },
   rang2: {
-    marginLeft: '2px',
-    float: 'left'
+    marginLeft: "2px",
+    float: "left"
   },
   rang3: {
-    display: 'block',
-    float: 'left',
-    width: '100px',
-    color: '#000000',
-    textDecoration: 'none',
-    textAlign: 'center',
-    marginBottom: '20px',
+    display: "block",
+    float: "left",
+    width: "100px",
+    color: "#000000",
+    textDecoration: "none",
+    textAlign: "center",
+    marginBottom: "20px",
     padding: 0,
     border: 0
   }
-}
+};
 
 export class HistoriqueCustomer extends Component {
   constructor(props, context) {
@@ -87,24 +87,28 @@ export class HistoriqueCustomer extends Component {
 
   _acceptOrNot(accept) {
     if (accept === true) {
-      return (
-        <p style={myStyle.notifTrue}>Accepté</p>
-      );
+      return <p style={myStyle.notifTrue}>Accepté</p>;
     } else {
-      return (
-        <p style={myStyle.notifFalse}>Refusé</p>
-      );
+      return <p style={myStyle.notifFalse}>Refusé</p>;
     }
   }
+  onToken = token => {
+    fetch("/save-stripe-token", {
+      method: "POST",
+      body: JSON.stringify(token)
+    }).then(response => {
+      response.json().then(data => {
+        alert(`We are in business, ${data.email}`);
+      });
+    });
+  };
 
   _cardHeader(item) {
     return (
       <div className="App-header" style={myStyle.top}>
         <Grid fluid>
           <Row>
-            <Col md={2}>
-              {this._acceptOrNot(item.accept)}
-            </Col>
+            <Col md={2}>{this._acceptOrNot(item.accept)}</Col>
             <Col md={8}>
               <h2 style={myStyle.title}>{item.service_name}</h2>
             </Col>
@@ -118,6 +122,7 @@ export class HistoriqueCustomer extends Component {
   }
 
   _cardContent(item) {
+    if(item.price)
     return (
       <div>
         <Grid fluid>
@@ -135,6 +140,18 @@ export class HistoriqueCustomer extends Component {
             <Col md={2}>
               <p>{item.date}</p>
             </Col>
+            <Col md={10}>
+              <p>{item.date}</p>
+            </Col>
+            <Col md={2}>
+              <StripeCheckout
+                token={this.onToken}
+                amount={item.price*100}
+                currency="EUR"
+                label="Payer votre service"
+                stripeKey="pk_test_C8jsC3lEIZZPycuPuMWylitC004IfDTB7e"
+              />{" "}
+            </Col>
           </Row>
         </Grid>
       </div>
@@ -142,43 +159,38 @@ export class HistoriqueCustomer extends Component {
   }
 
   _renderList() {
-    return (
-      services.map(item =>
-        <Grid fluid>
-          <Row>
-            <Col md={12}>
-              <Card
-                content={
-                  <div style={{ flexDirection: "column" }}>
-                    {this._cardHeader(item)}
-                    {this._cardContent(item)}
-                  </div>
-                }
-              />
-            </Col>
-          </Row>
-        </Grid>
-      )
-    );
+    return services.map(item => (
+      <Grid fluid>
+        <Row>
+          <Col md={12}>
+            <Card
+              content={
+                <div style={{ flexDirection: "column" }}>
+                  {this._cardHeader(item)}
+                  {this._cardContent(item)}
+                </div>
+              }
+            />
+          </Col>
+        </Row>
+      </Grid>
+    ));
   }
 
   render() {
-    function triDate(a,b)
-    {
-    	if (a.date < b.date) return -1;
-    	else if (a.date == b.date) return 0;
-    	else return 1;
+    function triDate(a, b) {
+      if (a.date < b.date) return -1;
+      else if (a.date == b.date) return 0;
+      else return 1;
     }
 
-    function triService(a,b)
-    {
-    	if (a.service < b.service) return -1;
-    	else if (a.service == b.service) return 0;
-    	else return 1;
+    function triService(a, b) {
+      if (a.service < b.service) return -1;
+      else if (a.service == b.service) return 0;
+      else return 1;
     }
 
-    function triPrice(a,b)
-    {
+    function triPrice(a, b) {
       if (a.price < b.price) return -1;
       else if (a.price == b.price) return 0;
       else return 1;
@@ -188,21 +200,28 @@ export class HistoriqueCustomer extends Component {
       <div className="content">
         <NotificationSystem ref="notificationSystem" style={style} />
         <ul style={myStyle.rang1}>
+          <li style={myStyle.rang2}>Classer les services par</li>
           <li style={myStyle.rang2}>
-            Classer les services par
-          </li>
-          <li style={myStyle.rang2}>
-            <Button onClick={services.sort(triDate)} style={Object.assign(myStyle.rang3)}>
+            <Button
+              onClick={services.sort(triDate)}
+              style={Object.assign(myStyle.rang3)}
+            >
               Date
             </Button>
           </li>
           <li style={myStyle.rang2}>
-            <Button onClick={services.sort(triService)} style={Object.assign(myStyle.rang3)}>
+            <Button
+              onClick={services.sort(triService)}
+              style={Object.assign(myStyle.rang3)}
+            >
               Service
             </Button>
           </li>
           <li style={myStyle.rang2}>
-            <Button onClick={services.sort(triPrice)} style={Object.assign(myStyle.rang3)}>
+            <Button
+              onClick={services.sort(triPrice)}
+              style={Object.assign(myStyle.rang3)}
+            >
               Prix
             </Button>
           </li>

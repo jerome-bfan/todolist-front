@@ -4,6 +4,7 @@ import { Grid, Row, Col, FormControl, ControlLabel } from "react-bootstrap";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import RequestServices from "../../components/ServicesUser/RequestServices";
 import { getServices } from "../../Provider/ServicesProvider";
+import StripeCheckout from 'react-stripe-checkout';
 
 export default class ServicesUser extends Component {
   constructor(props) {
@@ -14,11 +15,22 @@ export default class ServicesUser extends Component {
     this.handleChangeSelectCategorie = this.handleChangeSelectCategorie.bind(
       this
     );
+    
     this.formControl = this.formControl.bind(this);
     this.state = {
       services: [],
       searchType: "title"
     };
+  }
+  onToken = (token) => {
+    fetch('/save-stripe-token', {
+      method: 'POST',
+      body: JSON.stringify(token),
+    }).then(response => {
+      response.json().then(data => {
+        alert(`We are in business, ${data.email}`);
+      });
+    });
   }
   componentDidMount() {
     getServices().then(services => {
@@ -126,6 +138,10 @@ export default class ServicesUser extends Component {
   _renderPage() {
     return (
       <div className="content">
+       <StripeCheckout
+        token={this.onToken}
+        stripeKey="pk_test_C8jsC3lEIZZPycuPuMWylitC004IfDTB7e"
+      />
         <Row
           style={{ display: "flex", alignItems: " center", marginBottom: 20 }}
         >
