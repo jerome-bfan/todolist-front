@@ -226,8 +226,6 @@ class DashboardPro extends Component {
       this.setState({
         isLoaded:true
       })
-      this.render_services_attente();
-      this.render_services_prochain();
     })
   }
   
