@@ -3,6 +3,8 @@ import { Grid, Row, Col, Panel, PanelGroup } from "react-bootstrap";
 import { style } from "variables/Variables.jsx";
 import { Card } from "components/Card/Card.jsx";
 import { StateService } from "../ServicesUser/RequestServicesCard";
+import { url, getHeaders, putHeader } from "../../Provider/Api";
+import Button from 'components/CustomButton/CustomButton';
 
 const myStyle = {
   title : {
@@ -49,9 +51,9 @@ const myStyle = {
 class DashboardPro extends Component {
   constructor(props, context) {
     super(props, context);
-
+    
     this.state = {
-      services: {
+      /*services: {
         service1 : {
           title: 'Jardinage',
           description: 'Tondre la pelouse',
@@ -79,9 +81,44 @@ class DashboardPro extends Component {
           date: '2024-09-19',
           validate: false
         }
-      },
+      },*/
+      services : [],
       notification: 0
     };
+  }
+
+  componentDidMount() {
+    fetch(url + "pro/"+ localStorage.pro_id +"/requested_services/extend", getHeaders())
+    .then(res => res.json()).then(
+      (result) => {
+        const requested_services = result.map(function(requested_service) {
+          return {
+            s_id: requested_service.proposed_id,
+            s_id_pro: requested_service.proposed_id_pro,
+            s_name: requested_service.proposed_name,
+            s_description: requested_service.proposed_description,
+            s_price: requested_service.proposed_price,
+            s_options: requested_service.proposed_option,
+            r_id: requested_service.requested_id,
+            r_id_user: requested_service.requested_id_user,
+            r_address: requested_service.requested_address,
+            r_date: new Date(requested_service.requested_creation_date),
+            r_date_expiration: new Date(requested_service.requested_expiration_date),
+            r_state: requested_service.requested_state,
+            r_paid: requested_service.requested_paid,
+          };
+        })
+        this.setState({
+          services: requested_services
+        })
+      },
+      (error) => {
+        this.setState({
+          isLoaded: true,
+          error: "ERROR"
+        });
+      }
+    )
   }
 
   todayString() {
@@ -104,12 +141,12 @@ class DashboardPro extends Component {
       <div>
         <Col md={12}>
           <h2 style={myStyle.title}>
-            Services en attente
+            Demandes en attente
           </h2>
           {Object
             .keys(this.state.services)
             .map(key =>
-              this.state.services[key].validate === false ?
+              this.state.services[key].r_state === "Pending" ?
                 <Card
                   key = {key}
                   content={
@@ -118,12 +155,12 @@ class DashboardPro extends Component {
                         <ul style={myStyle.ul}>
                           <li style={myStyle.ul.li}>
                             <h2 style={myStyle.ul.title}>
-                              { this.state.services[key].title }
+                              { this.state.services[key].s_name }
                             </h2>
                           </li>
                           <li style={myStyle.ul.liBis}>
                             <h2 style={myStyle.ul.title}>
-                              { this.state.services[key].price }
+                              { this.state.services[key].s_price + "€" }
                             </h2>
                           </li>
                         </ul>
@@ -133,7 +170,7 @@ class DashboardPro extends Component {
                         <ul style={myStyle.ul}>
                           <li style={myStyle.ul.li}>
                             <div style={myStyle.ul.text}>
-                              { this.state.services[key].description }
+                              { this.state.services[key].s_description }
                             </div>
                           </li>
                         </ul>
@@ -142,24 +179,33 @@ class DashboardPro extends Component {
                         <ul style={myStyle.ul}>
                           <li style={myStyle.ul.li}>
                             <div style={myStyle.ul.text}>
-                              { this.state.services[key].emplacement }
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                      <div>
-                        <ul style={myStyle.ul}>
-                          <li style={myStyle.ul.li}>
-                            <div style={myStyle.ul.text}>
-                              { this.state.services[key].options }
-                            </div>
+                                <b>Demande au : </b>
+                                { this.state.services[key].r_address }
+                              </div>
                           </li>
                           <li style={myStyle.ul.liBis}>
                             <div style={myStyle.ul.text}>
-                              { this.state.services[key].date }
+                              <b>Le : </b>
+                              { this.state.services[key].r_date.toLocaleDateString("fr-FR") }
                             </div>
                           </li>
                         </ul>
+                      </div>
+                      <div style={{
+                        float: "right",
+                        marginRight: 90
+                      }}>  
+                        <Button bsStyle="success"
+                          onClick={e=>{
+                            this.acceptRequest(key)
+                          }}
+                        >Accepter</Button>
+                        <b> </b>
+                        <Button bsStyle="danger"
+                          onClick={e=>{
+                            this.refuseRequest(key)
+                          }}
+                        >Refuser</Button>
                       </div>
                     </div>
                   }
@@ -169,6 +215,32 @@ class DashboardPro extends Component {
         </Col>
       </div>
     );
+  }
+
+  acceptRequest(key) {
+    fetch(url + "requested_services/" + this.state.services[key].r_id + "/state", putHeader(
+      "{\"state\":\"Accepted\"}"
+    )).then(result => {
+      console.log(result);
+      this.state.services[key].r_state = "Accepted";
+      this.setState({
+        isLoaded:true
+      })
+      this.render_services_attente();
+      this.render_services_prochain();
+    })
+  }
+  
+  refuseRequest(key) {
+    fetch(url + "requested_services/" + this.state.services[key].r_id + "/state", putHeader(
+      "{\"state\":\"Refused\"}"
+    )).then(result => {
+      console.log(result);
+      this.state.services[key].r_state = "Refused";
+      this.setState({
+        isLoaded:true
+      })
+    })
   }
 
   render_services_prochain() {
@@ -183,7 +255,7 @@ class DashboardPro extends Component {
           {Object
             .keys(this.state.services)
             .map(key =>
-              this.state.services[key].validate === true && Date.parse(now) < Date.parse(this.state.services[key].date) ?
+              this.state.services[key].r_state === "Accepted" ?
                 <Card
                   key = {key}
                   content={
@@ -192,12 +264,12 @@ class DashboardPro extends Component {
                         <ul style={myStyle.ul}>
                           <li style={myStyle.ul.li}>
                             <h2 style={myStyle.ul.title}>
-                              { this.state.services[key].title }
+                              { this.state.services[key].s_name }
                             </h2>
                           </li>
                           <li style={myStyle.ul.liBis}>
                             <h2 style={myStyle.ul.title}>
-                              { this.state.services[key].price }
+                              { this.state.services[key].s_price + "€" }
                             </h2>
                           </li>
                         </ul>
@@ -207,7 +279,7 @@ class DashboardPro extends Component {
                         <ul style={myStyle.ul}>
                           <li style={myStyle.ul.li}>
                             <div style={myStyle.ul.text}>
-                              { this.state.services[key].description }
+                              { this.state.services[key].s_description }
                             </div>
                           </li>
                         </ul>
@@ -216,21 +288,14 @@ class DashboardPro extends Component {
                         <ul style={myStyle.ul}>
                           <li style={myStyle.ul.li}>
                             <div style={myStyle.ul.text}>
-                              { this.state.services[key].emplacement }
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                      <div>
-                        <ul style={myStyle.ul}>
-                          <li style={myStyle.ul.li}>
-                            <div style={myStyle.ul.text}>
-                              { this.state.services[key].options }
-                            </div>
+                                <b>Demande au : </b>
+                                { this.state.services[key].r_address }
+                              </div>
                           </li>
                           <li style={myStyle.ul.liBis}>
                             <div style={myStyle.ul.text}>
-                              { this.state.services[key].date }
+                              <b>Le : </b>
+                              { this.state.services[key].r_date.toLocaleDateString("fr-FR") }
                             </div>
                           </li>
                         </ul>
