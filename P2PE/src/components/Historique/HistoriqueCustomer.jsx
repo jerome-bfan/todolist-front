@@ -6,6 +6,7 @@ import { Card } from "components/Card/Card.jsx";
 import NotificationSystem from "react-notification-system";
 import ChartistGraph from "react-chartist";
 import { style } from "variables/Variables.jsx";
+import { getHeaders, postHeader, putHeader } from '../../Provider/Api';
 
 const myStyle = {
  notifTrue: {
@@ -54,45 +55,32 @@ export class HistoriqueCustomer extends Component {
    super(props, context);
 
    this.state = {
-     services: [
-       {
-         accept: true,
-         service_name: 'Informatique',
-         price: 29,
-         name_customer: 'Salvador Dali',
-         description: 'Réparer l\'ordi',
-         emplacement: 'rue de l\'informatique',
-         options: 'Réinstaller windows',
-         date: '2019-07-24'
-       },
-       {
-         accept: false,
-         service_name: 'Jardinage',
-         price: 48,
-         name_customer: 'Pablo Picasso',
-         description: 'Arroser les plantes',
-         emplacement: 'rue du clochet',
-         options: 'Amener un arrosoir',
-         date: '2019-06-19'
-       },
-       {
-         accept: true,
-         service_name: 'Bricolage',
-         price: 35,
-         name_customer: 'Lee Ufan',
-         description: 'Réparer la douche',
-         emplacement: 'rue de l\'hiver',
-         date: '2019-05-02'
-       }
-     ],
+     list_services: [],
      orderDate: 'asc',
      orderService: 'asc',
      orderPrice: 'asc'
    };
  }
 
+ componentDidMount() {
+    // fetch('http://localhost:3001/users/' + localStorage.getItem('pro_id') + '/requested_services/extend', getHeaders())
+
+    console.log('Parent did mount.');
+
+    fetch('http://localhost:3001/users/' + localStorage.getItem('pro_id') + '/requested_services/extend', getHeaders())
+      .then(response => response.json())
+      .then(services => {
+          console.log(services);
+
+          this.setState({
+            list_services: services
+          });
+        }
+      );
+  }
+
  _acceptOrNot(accept) {
-   if (accept === true) {
+   if (accept === "accepté") {
      return (
        <p style={myStyle.notifTrue}>Accepté</p>
      );
@@ -109,13 +97,13 @@ export class HistoriqueCustomer extends Component {
        <Grid fluid>
          <Row>
            <Col md={2}>
-             {this._acceptOrNot(item.accept)}
+             {this._acceptOrNot(item.proposed_state)}
            </Col>
            <Col md={8}>
-             <h2 style={myStyle.title}>{item.service_name}</h2>
+             <h2 style={myStyle.title}>{item.proposed_name}</h2>
            </Col>
            <Col md={2}>
-             <h2 style={myStyle.title}>{item.price}€</h2>
+             <h2 style={myStyle.title}>{item.proposed_price}€</h2>
            </Col>
          </Row>
        </Grid>
@@ -129,17 +117,16 @@ export class HistoriqueCustomer extends Component {
        <Grid fluid>
          <Row>
            <Col md={12}>
-             <p>{item.name_customer}</p>
-             <p>{item.description}</p>
-             <p>{item.emplacement}</p>
+              <p>Description : {item.proposed_description}</p>
+              <p>Adresse : {item.proposed_location}</p>
            </Col>
          </Row>
          <Row>
            <Col md={10}>
-             <p>{item.options}</p>
+             <p>{item.proposed_options}</p>
            </Col>
            <Col md={2}>
-             <p>{item.date}</p>
+             <p>{item.proposed_creation_date}</p>
            </Col>
          </Row>
        </Grid>
@@ -148,16 +135,16 @@ export class HistoriqueCustomer extends Component {
  }
 
  _renderList() {
-   return (
-     this.state.services.map((item, i) =>
+   let ret_services = this.state.list_services.map((service, i) => {
+     return(
        <Grid fluid key={i}>
          <Row>
            <Col md={12}>
              <Card
                content={
                  <div style={{ flexDirection: "column" }}>
-                   {this._cardHeader(item)}
-                   {this._cardContent(item)}
+                   {this._cardHeader(service)}
+                   {this._cardContent(service)}
                  </div>
                }
              />
@@ -165,30 +152,32 @@ export class HistoriqueCustomer extends Component {
          </Row>
        </Grid>
      )
-   );
+   });
+
+   return(ret_services);
  }
 
  tri(type) {
      if (type == 'date' && this.state.orderDate == 'asc') {
-         var myServices =  this.state.services.sort((a, b) => {
-             if (a.date < b.date) return -1;
-             else if (a.date == b.date) return 0;
+         var myServices =  this.state.list_services.sort((a, b) => {
+             if (a.proposed_creation_date < b.proposed_creation_date) return -1;
+             else if (a.proposed_creation_date == b.proposed_creation_date) return 0;
              else return 1;
          });
          this.setState({
-             services: myServices,
+             list_services: myServices,
              orderDate: 'desc',
              orderService: 'asc',
              orderPrice: 'asc'
          });
      } else if (type == 'date' && this.state.orderDate == 'desc') {
-         var myServices =  this.state.services.sort((a, b) => {
-             if (a.date > b.date) return -1;
-             else if (a.date == b.date) return 0;
+         var myServices =  this.state.list_services.sort((a, b) => {
+             if (a.proposed_creation_date > b.proposed_creation_date) return -1;
+             else if (a.proposed_creation_date == b.proposed_creation_date) return 0;
              else return 1;
          });
          this.setState({
-             services: myServices,
+             list_services: myServices,
              orderDate: 'asc',
              orderService: 'asc',
              orderPrice: 'asc'
@@ -196,25 +185,25 @@ export class HistoriqueCustomer extends Component {
      }
 
      if (type == 'service' && this.state.orderService == 'asc') {
-         var myServices =  this.state.services.sort((a, b) => {
-             if (a.service_name < b.service_name) return -1;
-             else if (a.service_name == b.service_name) return 0;
+         var myServices =  this.state.list_services.sort((a, b) => {
+             if (a.proposed_name < b.proposed_name) return -1;
+             else if (a.proposed_name == b.proposed_name) return 0;
              else return 1;
          });
          this.setState({
-             services: myServices,
+             list_services: myServices,
              orderDate: 'asc',
              orderService: 'desc',
              orderPrice: 'asc'
          });
      } else if (type == 'service' && this.state.orderService == 'desc') {
-         var myServices =  this.state.services.sort((a, b) => {
-             if (a.service_name > b.service_name) return -1;
-             else if (a.service_name == b.service_name) return 0;
+         var myServices =  this.state.list_services.sort((a, b) => {
+             if (a.proposed_name > b.proposed_name) return -1;
+             else if (a.proposed_name == b.proposed_name) return 0;
              else return 1;
          });
          this.setState({
-             services: myServices,
+             list_services: myServices,
              orderDate: 'asc',
              orderService: 'asc',
              orderPrice: 'asc'
@@ -222,25 +211,25 @@ export class HistoriqueCustomer extends Component {
      }
 
      if (type == 'price' && this.state.orderPrice == 'asc') {
-         var myServices =  this.state.services.sort((a, b) => {
-             if (a.price < b.price) return -1;
-             else if (a.price == b.price) return 0;
+         var myServices =  this.state.list_services.sort((a, b) => {
+             if (a.proposed_price < b.proposed_price) return -1;
+             else if (a.proposed_price == b.proposed_price) return 0;
              else return 1;
          });
          this.setState({
-             services: myServices,
+             list_services: myServices,
              orderDate: 'asc',
              orderService: 'asc',
              orderPrice: 'desc'
          });
      } else if (type == 'price' && this.state.orderPrice == 'desc') {
-         var myServices =  this.state.services.sort((a, b) => {
-             if (a.price > b.price) return -1;
-             else if (a.price == b.price) return 0;
+         var myServices =  this.state.list_services.sort((a, b) => {
+             if (a.proposed_price > b.proposed_price) return -1;
+             else if (a.proposed_price == b.proposed_price) return 0;
              else return 1;
          });
          this.setState({
-             services: myServices,
+             list_services: myServices,
              orderDate: 'asc',
              orderService: 'asc',
              orderPrice: 'asc'
@@ -272,7 +261,9 @@ export class HistoriqueCustomer extends Component {
            </Button>
          </li>
        </ul>
-       {this._renderList()}
+        <div>
+          {this._renderList()}
+        </div>
      </div>
    );
  }
