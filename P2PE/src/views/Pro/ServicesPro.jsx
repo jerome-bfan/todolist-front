@@ -31,7 +31,7 @@ export default class ServicesPro extends Component {
     this.renderAddOptions = this.renderAddOptions.bind(this);
     this.formControl = this.formControl.bind(this);
     this.state =  {
-        service:[],
+        services:[],
         addTitle: "",
         addCategory: "",
         addDescription: "",

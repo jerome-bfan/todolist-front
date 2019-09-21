@@ -14,6 +14,8 @@ import NotificationSystem from "react-notification-system";
 import DashboardCustomer from "components/Dashboard/DashboardCustomer";
 import DashboardPro from "components/Dashboard/DashboardPro";
 
+import { url, getHeaders } from "../../Provider/Api";
+
 import {
   authentification,
   register,
@@ -99,6 +101,46 @@ class Dashboard extends Component {
     }
     return legend;
   }
+
+    componentDidMount() {
+      //(localStorage);
+      ///pro/:id/requested_services/extend
+     fetch(url + "pro/" + localStorage.pro_id/*"1"*/ + "/requested_services/extend", getHeaders()).then(res => res.json())
+     .then(
+       (result) => {
+
+         var obj = {
+           service:[],
+           isLoaded: true
+         };
+
+         console.log(result);
+         //("Service in didMount");
+         //(result);
+         /*const newServices = result.map(function(service) {
+           return {
+             title: service.name,
+             id_service: service.id,
+             location: service.location,
+             category: "cat",
+             description: service.description,
+             enable: service.state,
+             prix: service.price
+           };
+         })
+         this.setState({
+           services: newServices,
+           isLoaded: true
+         });
+      },
+      (error) => {
+        this.setState({
+          isLoaded: true,
+          error: "ERROR"
+        }); */
+      }
+     )
+   }
 
   handleChange(event) {
     this.setState({ [event.target.id]: event.target.value });
