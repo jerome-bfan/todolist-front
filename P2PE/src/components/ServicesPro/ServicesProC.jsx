@@ -201,7 +201,7 @@ class ServicesProC extends Component {
             <div>
               <div> Localisation : {service.location}</div>
               <div> Description : {service.description}</div>
-              {service.options &&
+              {/* {service.options &&
                 service.options.length > 0 &&
                 service.options.map((option, index) => {
                   return (
@@ -219,7 +219,7 @@ class ServicesProC extends Component {
                         )}
                     </div>
                   );
-                })}{" "}
+                })}{" "} */}
               <div> Prix : {service.prix} €</div>
             </div>
             <div>

@@ -13,6 +13,7 @@ import {
   postHeader,
   putHeader
 } from "../../Provider/Api";
+import { postProposedService } from "../../Provider/ServicesProvider";
 
 export default class ServicesPro extends Component {
   constructor(props) {
@@ -467,19 +468,24 @@ export default class ServicesPro extends Component {
       location: this.state.addLocation,
       prix: this.state.addPrix,
       title: this.state.addTitle,
-      options: this.state.options,
-      state: 1
+      options: JSON.stringify(this.state.options),
+      state: 1,
+      id_pro:localStorage.pro_id,
     };
     //("One servide added")
     //(service);
-    this.state.services.unshift(service);
+    if(this.state.services)
+      this.state.services.unshift(service);
     this.setState({
       services: this.state.services
     });
-    fetch(url + "proposed_services/", postHeader("{\"name\":\"" + service.title + "\", \"description\":\"" + service.description + "\", \"price\":\"" + service.prix + "\", \"location\":\"" + service.location + "\", \"option\":\"" + service.options+ "\", \"id_pro\":\"" + localStorage.pro_id + "\"  }")).then(result=>{
-      console.log(result);
-      this.componentDidMount();
-    })
+    
+    // fetch(url + "proposed_services/", postHeader("{\"name\":\"" + service.title + "\", \"description\":\"" + service.description + "\", \"price\":\"" + service.prix + "\", \"location\":\"" + service.location + "\", \"option\":\"" +       '{ "customer": "John Doe", "items": {"product": "Beer","qty": 6}}'
+    // + "\", \"id_pro\":\"" + localStorage.pro_id + "\"  }")).then(result=>{
+    //   console.log(result);
+    //   this.componentDidMount();
+    // })
+    postProposedService(service).then(e => {})
   }
 
   //componentWillMount() {}
