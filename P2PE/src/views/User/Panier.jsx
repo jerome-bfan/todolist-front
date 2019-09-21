@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Grid, Row, Col, FormControl, ControlLabel } from "react-bootstrap";
 import Button from "components/CustomButton/CustomButton.jsx";
 import UpdatePanier from "../../components/Panier/UpdatePanier";
+import { postRequestedService } from "../../Provider/ServicesProvider";
 
 class Panier extends Component {
   constructor(props) {
@@ -42,12 +43,25 @@ class Panier extends Component {
     return (
       <div>
         <Button
+          onClick={e => {
+            this.state.panier.map((itemPanier, index) => {
+              console.log(itemPanier);
+              console.log(itemPanier);
+              itemPanier.id_user = Number(localStorage.pro_id);
+              itemPanier.id_proposed = itemPanier.id_service;
+              postRequestedService(itemPanier).then(e => {
+                // this.setState(prevState => ({
+                //   panier: []
+                // }));
+              });
+            });
+          }}
           style={{
             borderColor: "blue",
             color: "blue"
           }}
         >
-         Valider votre Panier
+          Valider votre Panier
         </Button>
       </div>
     );
