@@ -169,6 +169,8 @@ class ServicesProC extends Component {
   _renderCard(service, index) {
     //("RENDERCARD");
     //(service);
+      console.log("RENDERCARD");
+    console.log(JSON.parse(service.options));
     return (
       <div key={index} className="card">
         {this._renderModalUpdate()}
@@ -201,9 +203,9 @@ class ServicesProC extends Component {
             <div>
               <div> Localisation : {service.location}</div>
               <div> Description : {service.description}</div>
-              {/* {service.options &&
+               {service.options &&
                 service.options.length > 0 &&
-                service.options.map((option, index) => {
+                JSON.parse(service.options).map((option, index) => {
                   return (
                     <div>
                       {option.title} :
@@ -219,7 +221,7 @@ class ServicesProC extends Component {
                         )}
                     </div>
                   );
-                })}{" "} */}
+                })}{" "} 
               <div> Prix : {service.prix} €</div>
             </div>
             <div>
