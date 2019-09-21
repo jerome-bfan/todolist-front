@@ -42,3 +42,19 @@ export async function postProposedService(form) {
     resolve(rawResponse);
   });
 }
+export async function postRequestedService(form) {
+
+ 
+
+  const rawResponse = await fetch(url + "requested_services", postHeader(JSON.stringify(form)));
+  //("rawResponse");
+  //(form.registerSiret);
+ 
+  return new Promise((resolve, reject) => {
+    if (!rawResponse.ok) {
+      reject(rawResponse);
+    }
+
+    resolve(rawResponse);
+  });
+}
