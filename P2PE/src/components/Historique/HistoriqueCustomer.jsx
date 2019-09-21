@@ -63,15 +63,9 @@ export class HistoriqueCustomer extends Component {
  }
 
  componentDidMount() {
-    // fetch('http://localhost:3001/users/' + localStorage.getItem('pro_id') + '/requested_services/extend', getHeaders())
-
-    console.log('Parent did mount.');
-
     fetch('http://localhost:3001/users/' + localStorage.getItem('pro_id') + '/requested_services/extend', getHeaders())
       .then(response => response.json())
       .then(services => {
-          console.log(services);
-
           this.setState({
             list_services: services
           });
