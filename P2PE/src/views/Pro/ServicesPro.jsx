@@ -38,7 +38,7 @@ export default class ServicesPro extends Component {
         addLocation: "",
         options: [
           {
-            title: "aa",
+            title: "",
             value: [""]
           }
         ],
@@ -112,6 +112,7 @@ export default class ServicesPro extends Component {
              category: "cat",
              description: service.description,
              enable: service.state,
+             options:service.option,
              prix: service.price
            };
          })
