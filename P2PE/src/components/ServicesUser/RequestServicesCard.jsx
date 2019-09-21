@@ -129,7 +129,7 @@ export class RequestServicesCard extends Component {
   }
 
   handleValidate() {
-    /*let service = Object.assign(this.state.service);
+    let service = Object.assign(this.state.service);
     
     this.inputOptions.map(optionValue => {
       service.options.map(stateOption => {
@@ -155,22 +155,8 @@ export class RequestServicesCard extends Component {
       }
       panier.push(service);
       localStorage.setItem("panier", JSON.stringify(panier));
-    }*/
-
-    const request_service = {
-      id_user: localStorage.pro_id,
-      id_proposed: this.state.service.id_service,
-      address: this.inputAddress.value
     }
 
-    fetch(url + "requested_services/", postHeader(
-      "{\"address\":\"" + request_service.address +
-      "\", \"id_user\":\"" + request_service.id_user +
-      "\", \"id_proposed\":\"" + request_service.id_proposed + 
-      "\"  }"
-    )).then(result => {
-      console.log(result);
-    })
     
     this.handleClose();
   }
