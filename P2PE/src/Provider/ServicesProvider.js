@@ -58,3 +58,15 @@ export async function postRequestedService(form) {
     resolve(rawResponse);
   });
 }
+
+export async function getRequestServiceU() {
+  const rawResponse = await fetch(url + "users/"+ localStorage.pro_id +"/requested_services/extend", getHeaders());
+  const responseJson = await rawResponse.json();
+
+  return new Promise((resolve, reject) => {
+    if (!rawResponse.ok) {
+      reject(responseJson.message);
+    }
+    resolve(responseJson);
+  });
+}
