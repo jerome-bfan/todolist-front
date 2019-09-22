@@ -5,8 +5,9 @@ import { Card } from "components/Card/Card.jsx";
 import NotificationSystem from "react-notification-system";
 import { style } from "variables/Variables.jsx";
 import StripeCheckout from "react-stripe-checkout";
+import { getRequestServiceU } from "../../Provider/ServicesProvider";
 
-const services = [
+/*const services = [
   {
     accept: true,
     service_name: "Informatique",
@@ -36,7 +37,7 @@ const services = [
     emplacement: "rue de l'hiver",
     date: "2019-05-02"
   }
-];
+];*/
 
 const myStyle = {
   notifTrue: {
@@ -83,13 +84,57 @@ const myStyle = {
 export class HistoriqueCustomer extends Component {
   constructor(props, context) {
     super(props, context);
+    this.state = {
+      requests : []
+    }
   }
 
-  _acceptOrNot(accept) {
-    if (accept === true) {
+  todayString() {
+    var year = new Date().getFullYear();
+    var month = new Date().getMonth() + 1; //Current Month
+    var day = new Date().getDate();
+
+    if (month < 10) {
+      month = "0" + month;
+    }
+    if (day < 10) {
+      day = "0" + day;
+    }
+
+    return year + "-" + month + "-" + day;
+  }
+
+  componentDidMount() {
+    getRequestServiceU().then(results=> {
+      const getrequests = results.map(function(request) {
+        return {
+          s_id: request.proposed_id,
+          s_id_pro: request.proposed_id_pro,
+          s_name: request.proposed_name,
+          s_description: request.proposed_description,
+          s_options: request.proposed_options,
+          s_price: request.proposed_price,
+          r_state: request.requested_state,
+          r_address: request.requested_address,
+          r_date: new Date(request.requested_creation_date),
+          r_date_expiration: new Date(request.requested_expiration_date),
+          r_paid: request.requested_paid
+        };
+      })
+      this.setState({ requests : getrequests });
+    })
+    
+  }
+
+  _acceptOrNot(state) {
+    if (state === "Accepted") {
       return <p style={myStyle.notifTrue}>Accepté</p>;
-    } else {
+    } 
+    if (state === "Refused") {
       return <p style={myStyle.notifFalse}>Refusé</p>;
+    }
+    if (state === "Pending") {
+      return <p>En attente</p>
     }
   }
   onToken = token => {
@@ -108,12 +153,12 @@ export class HistoriqueCustomer extends Component {
       <div className="App-header" style={myStyle.top}>
         <Grid fluid>
           <Row>
-            <Col md={2}>{this._acceptOrNot(item.accept)}</Col>
+            <Col md={2}>{this._acceptOrNot(item.r_state)}</Col>
             <Col md={8}>
-              <h2 style={myStyle.title}>{item.service_name}</h2>
+              <h2 style={myStyle.title}>{item.s_name}</h2>
             </Col>
             <Col md={2}>
-              <h2 style={myStyle.title}>{item.price}€</h2>
+              <h2 style={myStyle.title}>{item.s_price}€</h2>
             </Col>
           </Row>
         </Grid>
@@ -122,31 +167,31 @@ export class HistoriqueCustomer extends Component {
   }
 
   _cardContent(item) {
-    if(item.price)
+    var today = this.todayString();
+    if(item.s_price && item.r_state === "Accepted")
     return (
       <div>
         <Grid fluid>
           <Row>
             <Col md={12}>
-              <p>{item.name_customer}</p>
-              <p>{item.description}</p>
-              <p>{item.emplacement}</p>
+              <p>{item.s_description}</p>
+              <p>{item.r_address}</p>
             </Col>
           </Row>
           <Row>
             <Col md={10}>
-              <p>{item.options}</p>
+              <p>{item.proposed_options}</p>
             </Col>
             <Col md={2}>
-              <p>{item.date}</p>
+              <p>{item.r_date.toLocaleDateString("fr-FR")}</p>
             </Col>
             <Col md={10}>
-              <p>{item.date}</p>
+              <p>{today}</p>
             </Col>
             <Col md={2}>
               <StripeCheckout
                 token={this.onToken}
-                amount={item.price*100}
+                amount={item.s_price*100}
                 currency="EUR"
                 label="Payer votre service"
                 stripeKey="pk_test_C8jsC3lEIZZPycuPuMWylitC004IfDTB7e"
@@ -159,7 +204,7 @@ export class HistoriqueCustomer extends Component {
   }
 
   _renderList() {
-    return services.map(item => (
+    return this.state.requests.map(item => (
       <Grid fluid>
         <Row>
           <Col md={12}>
@@ -203,7 +248,7 @@ export class HistoriqueCustomer extends Component {
           <li style={myStyle.rang2}>Classer les services par</li>
           <li style={myStyle.rang2}>
             <Button
-              onClick={services.sort(triDate)}
+              onClick={this.state.requests.sort(triDate)}
               style={Object.assign(myStyle.rang3)}
             >
               Date
@@ -211,7 +256,7 @@ export class HistoriqueCustomer extends Component {
           </li>
           <li style={myStyle.rang2}>
             <Button
-              onClick={services.sort(triService)}
+              onClick={this.state.requests.sort(triService)}
               style={Object.assign(myStyle.rang3)}
             >
               Service
@@ -219,7 +264,7 @@ export class HistoriqueCustomer extends Component {
           </li>
           <li style={myStyle.rang2}>
             <Button
-              onClick={services.sort(triPrice)}
+              onClick={this.state.requests.sort(triPrice)}
               style={Object.assign(myStyle.rang3)}
             >
               Prix
