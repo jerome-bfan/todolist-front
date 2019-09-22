@@ -13,7 +13,6 @@ import {
   postHeader,
   putHeader
 } from "../../Provider/Api";
-import { postProposedService } from "../../Provider/ServicesProvider";
 
 export default class ServicesPro extends Component {
   constructor(props) {
@@ -31,14 +30,14 @@ export default class ServicesPro extends Component {
     this.renderAddOptions = this.renderAddOptions.bind(this);
     this.formControl = this.formControl.bind(this);
     this.state =  {
-        services:[],
+        service:[],
         addTitle: "",
         addCategory: "",
         addDescription: "",
         addLocation: "",
         options: [
           {
-            title: "",
+            title: "aa",
             value: [""]
           }
         ],
@@ -57,7 +56,6 @@ export default class ServicesPro extends Component {
           description: "Nouvelle coupe",
           state: 0,
           prix: 10,
-
         },
         {
           title: "Pas d'eau chaude ?",
@@ -112,7 +110,6 @@ export default class ServicesPro extends Component {
              category: "cat",
              description: service.description,
              enable: service.state,
-             options:service.option,
              prix: service.price
            };
          })
@@ -469,24 +466,19 @@ export default class ServicesPro extends Component {
       location: this.state.addLocation,
       prix: this.state.addPrix,
       title: this.state.addTitle,
-      options: JSON.stringify(this.state.options),
-      state: 1,
-      id_pro:localStorage.pro_id,
+      options: this.state.options,
+      state: 1
     };
     //("One servide added")
     //(service);
-    if(this.state.services)
-      this.state.services.unshift(service);
+    this.state.service.unshift(service);
     this.setState({
-      services: this.state.services
+      service: this.state.service
     });
-    
-    // fetch(url + "proposed_services/", postHeader("{\"name\":\"" + service.title + "\", \"description\":\"" + service.description + "\", \"price\":\"" + service.prix + "\", \"location\":\"" + service.location + "\", \"option\":\"" +       '{ "customer": "John Doe", "items": {"product": "Beer","qty": 6}}'
-    // + "\", \"id_pro\":\"" + localStorage.pro_id + "\"  }")).then(result=>{
-    //   console.log(result);
-    //   this.componentDidMount();
-    // })
-    postProposedService(service).then(e => {})
+    fetch(url + "proposed_services/", postHeader("{\"name\":\"" + service.title + "\", \"description\":\"" + service.description + "\", \"price\":\"" + service.prix + "\", \"location\":\"" + service.location + "\", \"option\":\"" + service.options+ "\", \"id_pro\":\"" + localStorage.pro_id + "\"  }")).then(result=>{
+      console.log(result);
+      this.componentDidMount();
+    })
   }
 
   //componentWillMount() {}
