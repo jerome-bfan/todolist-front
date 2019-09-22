@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
+import {
+  optionsUnConnected,
+  url,
+  getHeaders,
+  postHeader,
+  putHeader
+} from "../../Provider/Api";
+
 const style = {
   width: '100%',
   height: '100%',
@@ -17,7 +25,62 @@ export class MapContainer extends Component {
     showingInfoWindow: false,
     activeMarker: {},
     selectedPlace: {},
+    services:[],
   };
+  componentDidMount() {
+    //if (localStorage) user;
+    //localStorage.pro_id
+   fetch(url + "users/" + localStorage.getItem('pro_id') +  "/requested_services/extend", getHeaders()).then(res => res.json())
+   .then(
+     (result) => {
+
+       var obj = {
+         service:[],
+         isLoaded: true
+       };
+       //("Service in didMount");
+       //(result);
+       const newServices = result.map(function(service) {
+
+         return {
+          geos: service.geos,
+          proposed_creation_date: service.proposed_creation_date,
+          proposed_description: service.proposed_description,
+          proposed_id: service.proposed_id,
+          proposed_id_pro: service.proposed_id_pro,
+          proposed_location: service.proposed_location,
+          proposed_name: service.proposed_name,
+          proposed_option: service.proposed_option,
+          proposed_price: service.proposed_price,
+          proposed_rate: service.proposed_rate,
+          proposed_state: service.proposed_rate,
+          requested_address: service.requested_address,
+          requested_creation_date: service.requested_creation_date,
+          requested_expiration_date: service.requested_expiration_date,
+          requested_id: service.requested_id,
+          requested_id_proposed: service.requested_id_proposed,
+          requested_id_user: service.requested_id_user,
+          requested_paid: service.requested_paid,
+          requested_state: service.requested_state,
+         };
+       })
+       console.log(newServices)
+
+       this.setState({
+         services: newServices,
+         isLoaded: true
+       });
+       
+      },
+    (error) => {
+      this.setState({
+        isLoaded: true,
+        error: "ERROR"
+      });
+    }
+   )
+ }
+
 
   onMarkerClick = (props, marker, e) =>
     this.setState({
@@ -45,29 +108,6 @@ export class MapContainer extends Component {
       }
     ]
 
-    var services = [
-      {
-        title: 'Title as tooltip 1',
-        nom_pro: 'Jay Jay',
-        service_name: 'jardinage',
-        description: 'Nettoyer votre jardin',
-        prix: '20€',
-        adresse: 'rue du commerce',
-        emplacement: { lat: 48.814819, lng: 2.373283 }
-      },
-      {
-        title: 'Title as tooltip 2',
-        nom_pro: 'YO YO',
-        service_name: 'Informatique',
-        description: 'Nettoyer votre ordinateur',
-        prix: '35€',
-        adresse: 'rue du maréchal',
-        emplacement: { lat: 48.815619, lng: 2.373283 }
-      }
-    ]
-
-    //(currentLocation.emplacement);
-
     return (
         <Map google={this.props.google}
             style={style}
@@ -79,19 +119,17 @@ export class MapContainer extends Component {
 
           <Marker
             onClick={this.onMarkerClick}
-            title={'Current location'}
-            service_name={'My location'}
-            description={'test'} />
+            title={'Position actuelle'}
+            description={'Vous êtes ici !'} />
 
-          {services.map(item => <Marker
+          {this.state.services.map(item => <Marker
                                 onClick={this.onMarkerClick}
-                                title={item.title}
-                                service_name={item.service_name}
-                                nom_pro={item.nom_pro}
-                                description={item.description}
-                                prix={item.prix}
-                                adresse={item.adresse}
-                                position={item.emplacement} />
+                                title={"Titre:"+item.requested_address}
+                                service_name={item.proposed_name}
+                                description={"Description"+item.proposed_description}
+                                prix={"prix: " + item.proposed_price + " euros"}
+                                adresse={"Addresse d'intervention: "+item.requested_address}
+                                position={{lat: item.geos.lat, lng: item.geos.lng}} />
           )}
 
           <InfoWindow
