@@ -12,7 +12,7 @@ class Panier extends Component {
     this._updatePanier = this._updatePanier.bind(this);
     this.renderButtonPayment = this.renderButtonPayment.bind(this);
     this._closePanier = this._closePanier.bind(this);
-
+  
     this._deleteItemPanier = this._deleteItemPanier.bind(this);
     //("panier");
     //(localStorage.getItem("panier"));
@@ -49,6 +49,7 @@ class Panier extends Component {
               console.log(itemPanier);
               itemPanier.id_user = Number(localStorage.pro_id);
               itemPanier.id_proposed = itemPanier.id_service;
+              itemPanier.code = Math.floor(1000 + Math.random() * 9000).toString();
               postRequestedService(itemPanier).then(e => {
                 // this.setState(prevState => ({
                 //   panier: []
