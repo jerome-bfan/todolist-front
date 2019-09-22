@@ -51,7 +51,8 @@ const myStyle = {
 class DashboardPro extends Component {
   constructor(props, context) {
     super(props, context);
-    
+    this.acceptRequest = this.acceptRequest.bind(this);
+
     this.state = {
       /*services: {
         service1 : {
@@ -218,6 +219,9 @@ class DashboardPro extends Component {
   }
 
   acceptRequest(key) {
+    this.setState({
+      isLoaded:true
+    })
     fetch(url + "requested_services/" + this.state.services[key].r_id + "/state", putHeader(
       "{\"state\":\"Accepted\"}"
     )).then(result => {
