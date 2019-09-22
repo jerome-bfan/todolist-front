@@ -19,18 +19,18 @@ export async function getServices() {
 
 
 export async function postProposedService(form) {
-  const user = {
-    description: form.title,
-    category: form.addCategory,
-    location: form.addLocation,
-    prix:  form.addPrix,
-    options:  form.options,
-    title: form.addTitle,
-    state: 1
+  const service = {
+    description: form.description,
+    category: form.category,
+    location: form.location,
+    price:  form.prix,
+    option:  form.options,
+    name: form.title,
+    id_pro: form.id_pro
   };
  
 
-  const rawResponse = await fetch(url + "proposed_services", postHeader(JSON.stringify(form)));
+  const rawResponse = await fetch(url + "proposed_services", postHeader(JSON.stringify(service)));
   //("rawResponse");
   //(form.registerSiret);
  
