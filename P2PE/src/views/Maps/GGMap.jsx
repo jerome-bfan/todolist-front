@@ -70,7 +70,7 @@ export class MapContainer extends Component {
          services: newServices,
          isLoaded: true
        });
-       
+
       },
     (error) => {
       this.setState({
@@ -128,8 +128,8 @@ export class MapContainer extends Component {
                                 service_name={item.proposed_name}
                                 description={"Description"+item.proposed_description}
                                 prix={"prix: " + item.proposed_price + " euros"}
-                                adresse={"Addresse d'intervention: "+item.requested_address}
-                                position={{lat: item.geos.lat, lng: item.geos.lng}} />
+                                adresse={"Addresse d'intervention: "+item.requested_address} />
+                                //position={{lat: item.geos.lat, lng: item.geos.lng}} />
           )}
 
           <InfoWindow

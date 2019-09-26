@@ -18,6 +18,11 @@ const myStyle = {
    backgroundColor: '#dc3545',
    textAlign: 'center'
  },
+ notifPending: {
+   padding: '10px 20px',
+   backgroundColor: '#f2f2f2',
+   textAlign: 'center'
+ },
  top: {
    borderBottom: '1px solid #808080',
    marginBottom: '20px'
@@ -65,6 +70,7 @@ export class HistoriquePro extends Component {
     fetch('http://localhost:3001/pro/' + localStorage.getItem('pro_id') + '/requested_services/extend', getHeaders())
       .then(response => response.json())
       .then(services => {
+          console.log(services);
           this.setState({
             list_services: services
           });
@@ -73,9 +79,13 @@ export class HistoriquePro extends Component {
   }
 
  _acceptOrNot(accept) {
-   if (accept === "accepté") {
+   if (accept == "Accepted") {
      return (
        <p style={myStyle.notifTrue}>Accepté</p>
+     );
+   } else if (accept == "Pending") {
+     return (
+       <p style={myStyle.notifPending}>En attente</p>
      );
    } else {
      return (
@@ -90,7 +100,7 @@ export class HistoriquePro extends Component {
        <Grid fluid>
          <Row>
            <Col md={2}>
-             {this._acceptOrNot(item.proposed_state)}
+             {this._acceptOrNot(item.requested_state)}
            </Col>
            <Col md={8}>
              <h2 style={myStyle.title}>{item.proposed_name}</h2>
