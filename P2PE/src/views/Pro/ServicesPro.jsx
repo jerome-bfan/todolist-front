@@ -475,7 +475,7 @@ export default class ServicesPro extends Component {
     this.setState({
       service: this.state.service
     });
-    fetch(url + "proposed_services/", postHeader("{\"name\":\"" + service.title + "\", \"description\":\"" + service.description + "\", \"price\":\"" + service.prix + "\", \"location\":\"" + service.location + "\", \"option\":\"" + service.options+ "\", \"id_pro\":\"" + localStorage.pro_id + "\"  }")).then(result=>{
+    fetch(url + "proposed_services/", postHeader("{\"title\":\"" + service.title + "\", \"description\":\"" + service.description + "\", \"prix\":\"" + service.prix + "\", \"location\":\"" + service.location + "\", \"options\":\"" + service.options+ "\", \"id_pro\":\"" + localStorage.pro_id + "\"  }")).then(result=>{
       console.log(result);
       this.componentDidMount();
     })
